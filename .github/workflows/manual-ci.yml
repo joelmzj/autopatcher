@@ -1,0 +1,23 @@
+name: Manual & Scheduled Build
+
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Se ejecuta opcionalmente cada domingo (puedes quitarlo si prefieres 100% manual)
+  workflow_dispatch:
+    inputs:
+      config_file:
+        description: "Archivo de configuración a usar"
+        required: false
+        type: string
+        default: "config.toml"
+
+concurrency:
+  group: manual-ci
+  cancel-in-progress: false
+
+jobs:
+  trigger_build:
+    uses: ./.github/workflows/build.yml
+    with:
+      config_file: ${{ inputs.config_file || 'config.toml' }}
+    secrets: inherit
