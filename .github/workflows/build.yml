@@ -1,0 +1,85 @@
+name: Build
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Se ejecuta automáticamente cada hora en el minuto 0
+  workflow_call:
+    inputs:
+      config_file:
+        required: false
+        type: string
+        default: "config.toml"
+    outputs:
+      success:
+        value: ${{ steps.build_step.outputs.success }}
+  workflow_dispatch:
+    inputs:
+      config_file:
+        description: "Archivo de configuración a utilizar"
+        required: false
+        type: string
+        default: "config.toml"
+
+concurrency:
+  group: build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies (jq, zip, python)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq zip
+          pip install requests toml
+
+      - name: Install signing keystore
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+          KEYSTORE_P12_B64: ${{ secrets.KEYSTORE_P12_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: bash scripts/install_keystore.sh
+
+      - name: Run Build and Patch Process
+        id: build_step
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RELEASE_TAG: "stable"
+        run: |
+          chmod +x scripts/*.sh
+          CONFIG="${{ inputs.config_file }}"
+          # Si se dispara por cron, inputs.config_file estará vacío, usamos config.toml por defecto
+          if [ -z "$CONFIG" ]; then
+            CONFIG="config.toml"
+          fi
+          bash scripts/build.sh "$CONFIG"
+          echo "success=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push versions log if updated
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add versions_log.json
+          git diff --staged --quiet || (git commit -m "chore: update versions_log.json [skip ci]" && git push)
