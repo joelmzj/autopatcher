@@ -11,7 +11,7 @@ on:
         default: "config.toml"
     outputs:
       success:
-        value: ${{ steps.build_step.outputs.success }}
+        value: ${{ jobs.build.outputs.success }}  # <-- Corregido: apunta al job, no al step
   workflow_dispatch:
     inputs:
       config_file:
@@ -26,6 +26,8 @@ concurrency:
 
 jobs:
   build:
+    outputs:
+      success: ${{ steps.build_step.outputs.success }}  # <-- Agregado: expone la salida del paso a nivel de job
     permissions:
       contents: write
     runs-on: ubuntu-latest
