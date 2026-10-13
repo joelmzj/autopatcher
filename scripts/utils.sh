@@ -83,11 +83,46 @@ load_module "${CWD}/scripts/morphe_cli.sh"
 
 toml_file_to_json() {
     local f="$1"
+    
+    # === BLOQUE DE DIAGNÓSTICO (DEBUG) ===
+    echo "==================================================" >&2
+    echo "=== [DEBUG] AUDITORÍA DE ENTORNO PARA TOML ===" >&2
+    echo "==================================================" >&2
+    echo "[*] Archivo a parsear: $f (Existe: $([ -f "$f" ] && echo "SÍ" || echo "NO"))" >&2
+    echo "[*] Directorio actual (CWD): $(pwd)" >&2
+    echo "[*] Binario nativo path: ${CWD}/bin/toml/tq-x86_64" >&2
+    echo "[*] Permisos y existencia en bin/toml/:" >&2
+    ls -la "${CWD}/bin/toml/" >&2 || echo "[-] No se pudo listar bin/toml/" >&2
+    echo "[*] Variable TOML global: ${TOML:-<No definida>}" >&2
+    echo "[*] Intérprete Python: $(command -v python3 || echo "No encontrado")" >&2
+    
+    python3 -c "
+import sys
+print(f'[*] Python Version: {sys.version.split()[0]}')
+for mod in ['toml', 'tomli', 'tomllib']:
+    try:
+        __import__(mod)
+        print(f'    -> Módulo Python \"{mod}\": DISPONIBLE')
+    except ImportError:
+        print(f'    -> Módulo Python \"{mod}\": NO disponible')
+" >&2
+    echo "==================================================" >&2
+    # ====================================================
+
     if [ ! -f "$f" ]; then return 1; fi
     if [[ "$f" == *.toml ]]; then
         local res=""
         
-        # Fallback universal a Python (soporta tomllib, tomli y toml)
+        # 1. Intentar con el binario nativo si es ejecutable
+        local native_toml="${CWD}/bin/toml/tq-x86_64"
+        if [ -x "$native_toml" ]; then
+            if res=$("$native_toml" --output json --file "$f" . 2>/dev/null) && [ -n "$res" ]; then
+                echo "$res"
+                return 0
+            fi
+        fi
+
+        # 2. Fallback a Python con detección robusta de librerías
         if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
             local py_bin="python3"
             command -v python3 >/dev/null 2>&1 || py_bin="python"
@@ -122,7 +157,7 @@ EOF
             fi
         fi
         
-        abort "Failed to parse $f using Python (toml/tomli/tomllib)"
+        abort "Failed to parse $f using Python or native binary"
     elif [[ "$f" == *.json ]]; then
         cat "$f"
     else
