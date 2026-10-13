@@ -11,7 +11,7 @@ BUILD_JSON_FILE="build.json"
 PATCH_OUTPUT=""
 
 if [ -z "${GITHUB_TOKEN-}" ] && command -v gh >/dev/null 2>&1; then
-	GITHUB_TOKEN=$(gh auth token 2>/dev/null || true)
+    GITHUB_TOKEN=$(gh auth token 2>/dev/null || true)
 fi
 if [ "${GITHUB_TOKEN-}" ]; then GH_HEADER="Authorization: token ${GITHUB_TOKEN}"; else GH_HEADER=; fi
 NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d')}
@@ -24,25 +24,25 @@ RVB_KEYSTORE_PASS="${RVB_KEYSTORE_PASS-}"
 RVB_KEY_ALIAS="${RVB_KEY_ALIAS-}"
 
 require_signing_identity() {
-	local bad=0 v
-	for v in RVB_KEYSTORE RVB_KEYSTORE_P12 RVB_KEYSTORE_PASS RVB_KEY_ALIAS; do
-		if [ -z "${!v-}" ]; then epr "$v is not set"; bad=1; fi
-	done
-	if [ -n "${RVB_KEYSTORE-}" ] && [ ! -f "$RVB_KEYSTORE" ]; then epr "keystore not found: $RVB_KEYSTORE"; bad=1; fi
-	if [ -n "${RVB_KEYSTORE_P12-}" ] && [ ! -f "$RVB_KEYSTORE_P12" ]; then epr "keystore not found: $RVB_KEYSTORE_P12"; bad=1; fi
-	if [ -n "${RVB_KEYSTORE_PASS-}" ] && [[ "$RVB_KEYSTORE_PASS" =~ [^0-9A-Za-z] ]]; then
-		epr "RVB_KEYSTORE_PASS must be alphanumeric"
-		bad=1
-	fi
-	if [ -n "${RVB_KEY_ALIAS-}" ] && [[ "$RVB_KEY_ALIAS" =~ [^0-9A-Za-z_.-] ]]; then
-		epr "RVB_KEY_ALIAS contains invalid characters"
-		bad=1
-	fi
-	if [ "$bad" -ne 0 ]; then
-		epr "no usable signing identity"
-		return 1
-	fi
-	return 0
+    local bad=0 v
+    for v in RVB_KEYSTORE RVB_KEYSTORE_P12 RVB_KEYSTORE_PASS RVB_KEY_ALIAS; do
+        if [ -z "${!v-}" ]; then epr "$v is not set"; bad=1; fi
+    done
+    if [ -n "${RVB_KEYSTORE-}" ] && [ ! -f "$RVB_KEYSTORE" ]; then epr "keystore not found: $RVB_KEYSTORE"; bad=1; fi
+    if [ -n "${RVB_KEYSTORE_P12-}" ] && [ ! -f "$RVB_KEYSTORE_P12" ]; then epr "keystore not found: $RVB_KEYSTORE_P12"; bad=1; fi
+    if [ -n "${RVB_KEYSTORE_PASS-}" ] && [[ "$RVB_KEYSTORE_PASS" =~ [^0-9A-Za-z] ]]; then
+        epr "RVB_KEYSTORE_PASS must be alphanumeric"
+        bad=1
+    fi
+    if [ -n "${RVB_KEY_ALIAS-}" ] && [[ "$RVB_KEY_ALIAS" =~ [^0-9A-Za-z_.-] ]]; then
+        epr "RVB_KEY_ALIAS contains invalid characters"
+        bad=1
+    fi
+    if [ "$bad" -ne 0 ]; then
+        epr "no usable signing identity"
+        return 1
+    fi
+    return 0
 }
 
 RVB_INSTAFEL_FALLBACK_COMMIT="${RVB_INSTAFEL_FALLBACK_COMMIT:-8e4756f}"
@@ -55,19 +55,22 @@ declare -gA __PATCHES_LIST_CACHE__
 declare -gA __PATCH_VER_CACHE__
 declare -gA __PKG_VERS_CACHE__
 declare -gA __DL_RESP_CACHE__
+declare -g __APKMIRROR_RESP__=""
+declare -g __APKMIRROR_CAT__=""
+declare -g __APKMIRROR_EXAMPLE_URL__=""
 
 # ==============================================================================
 # CARGADOR MODULAR DE SUBSCRIPTS
 # ==============================================================================
 
 load_module() {
-	local module_path="$1"
-	if [ -f "$module_path" ]; then
-		source "$module_path"
-	else
-		echo "FATAL: Módulo requerido no encontrado en $module_path" >&2
-		exit 1
-	fi
+    local module_path="$1"
+    if [ -f "$module_path" ]; then
+        source "$module_path"
+    else
+        echo "FATAL: Módulo requerido no encontrado en $module_path" >&2
+        exit 1
+    fi
 }
 
 # 1. Cargar gestor de parches y estado
@@ -91,7 +94,6 @@ toml_file_to_json() {
             local py_bin="python3"
             command -v python3 >/dev/null 2>&1 || py_bin="python"
             
-            # Capturamos la salida estándar y de error para depurar
             res=$("$py_bin" - << 'EOF' "$f" 2>&1
 import json, sys, traceback
 filename = sys.argv[1]
@@ -131,24 +133,24 @@ EOF
 }
 
 toml_prep() {
-	if [ ! -f "$1" ]; then return 1; fi
-	__TOML__=$(toml_file_to_json "$1") || abort "failed to parse config file: $1"
+    if [ ! -f "$1" ]; then return 1; fi
+    __TOML__=$(toml_file_to_json "$1") || abort "failed to parse config file: $1"
 }
 toml_get_table_names() { jq -r -e 'to_entries[] | select(.value | type == "object") | .key' <<<"$__TOML__" | tr -d '\r'; }
 toml_get_table_main() { jq -r -e 'to_entries | map(select(.value | type != "object")) | from_entries' <<<"$__TOML__"; }
 toml_get_table() { jq -r -e ".\"${1}\"" <<<"$__TOML__"; }
 toml_get() {
-	local op quote_placeholder=$'\001'
-	op=$(jq -r ".\"${2}\" | values" <<<"$1")
-	if [ "$op" ]; then
-		op="${op#"${op%%[![:space:]]*}"}"
-		op="${op%"${op##*[![:space:]]}"}"
-		op=${op//\\\'/$quote_placeholder}
-		op=${op//"''"/$quote_placeholder}
-		op=${op//"'"/'"'}
-		op=${op//$quote_placeholder/$'\''}
-		echo "$op"
-	else return 1; fi
+    local op quote_placeholder=$'\001'
+    op=$(jq -r ".\"${2}\" | values" <<<"$1")
+    if [ "$op" ]; then
+        op="${op#"${op%%[![:space:]]*}"}"
+        op="${op%"${op##*[![:space:]]}"}"
+        op=${op//\\\'/$quote_placeholder}
+        op=${op//"''"/$quote_placeholder}
+        op=${op//"'"/'"'}
+        op=${op//$quote_placeholder/$'\''}
+        echo "$op"
+    else return 1; fi
 }
 
 
@@ -158,46 +160,46 @@ toml_get() {
 
 pr() { echo >&2 -e "\033[0;32m[+] ${1}\033[0m"; }
 epr() {
-	echo >&2 -e "\033[0;31m[-] ${1}\033[0m"
-	if [ "${GITHUB_REPOSITORY-}" ]; then echo >&2 -e "::error::utils.sh [-] ${1}\n"; fi
+    echo >&2 -e "\033[0;31m[-] ${1}\033[0m"
+    if [ "${GITHUB_REPOSITORY-}" ]; then echo >&2 -e "::error::utils.sh [-] ${1}\n"; fi
 }
 wpr() {
-	echo >&2 -e "\033[0;33m[!] ${1}\033[0m"
-	if [ "${GITHUB_REPOSITORY-}" ]; then echo >&2 -e "::warning::utils.sh [!] ${1}\n"; fi
+    echo >&2 -e "\033[0;33m[!] ${1}\033[0m"
+    if [ "${GITHUB_REPOSITORY-}" ]; then echo >&2 -e "::warning::utils.sh [!] ${1}\n"; fi
 }
 abort() {
-	epr "ABORT: ${1-}"
-	if [ "${RVB_CHILD-}" = 1 ]; then
-		trap - SIGTERM SIGINT EXIT
-		exit 1
-	fi
-	rm -rf ./${TEMP_DIR}/*tmp.* ./${TEMP_DIR}/*/*tmp.* ./${TEMP_DIR}/*-temporary-files ./${TEMP_DIR}/*.apk-temporary-files ./*-temporary-files
-	trap - SIGTERM SIGINT EXIT
-	exit 1
+    epr "ABORT: ${1-}"
+    if [ "${RVB_CHILD-}" = 1 ]; then
+        trap - SIGTERM SIGINT EXIT
+        exit 1
+    fi
+    rm -rf ./${TEMP_DIR}/*tmp.* ./${TEMP_DIR}/*/*tmp.* ./${TEMP_DIR}/*-temporary-files ./${TEMP_DIR}/*.apk-temporary-files ./*-temporary-files
+    trap - SIGTERM SIGINT EXIT
+    exit 1
 }
 
 failure_slug() {
-	printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/^-//; s/-$//'
+    printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/^-//; s/-$//'
 }
 
 write_build_failure_descriptor() {
-	[ -n "${TEMP_DIR:-}" ] || return 0
-	local dir="$TEMP_DIR/failures"
-	mkdir -p "$dir" 2> /dev/null || return 0
-	jq -n --arg type "build_failed" --arg app "$2" --arg version "$3" \
-		--arg vc "$4" --arg arch "$5" --arg patches_src "$6" \
-		'{type:$type, app:$app, version:$version, vc:$vc, arch:$arch, patches_src:$patches_src}' \
-		> "$dir/$1.json" 2> /dev/null || true
+    [ -n "${TEMP_DIR:-}" ] || return 0
+    local dir="$TEMP_DIR/failures"
+    mkdir -p "$dir" 2> /dev/null || return 0
+    jq -n --arg type "build_failed" --arg app "$2" --arg version "$3" \
+        --arg vc "$4" --arg arch "$5" --arg patches_src "$6" \
+        '{type:$type, app:$app, version:$version, vc:$vc, arch:$arch, patches_src:$patches_src}' \
+        > "$dir/$1.json" 2> /dev/null || true
 }
 
 write_dl_failure_descriptor() {
-	[ -n "${TEMP_DIR:-}" ] || return 0
-	local dir="$TEMP_DIR/failures"
-	mkdir -p "$dir" 2> /dev/null || return 0
-	jq -n --arg type "dl_exhausted" --arg app "$2" --arg version "$3" \
-		--arg vc "$4" --arg arch "$5" --arg pkg "$6" \
-		'{type:$type, app:$app, version:$version, vc:$vc, arch:$arch, pkg:$pkg}' \
-		> "$dir/$1_dl.json" 2> /dev/null || true
+    [ -n "${TEMP_DIR:-}" ] || return 0
+    local dir="$TEMP_DIR/failures"
+    mkdir -p "$dir" 2> /dev/null || return 0
+    jq -n --arg type "dl_exhausted" --arg app "$2" --arg version "$3" \
+        --arg vc "$4" --arg arch "$5" --arg pkg "$6" \
+        '{type:$type, app:$app, version:$version, vc:$vc, arch:$arch, pkg:$pkg}' \
+        > "$dir/$1_dl.json" 2> /dev/null || true
 }
 
 
@@ -206,166 +208,166 @@ write_dl_failure_descriptor() {
 # ==============================================================================
 
 java() {
-	local -a java_env=(PATH="$PATH" HOME="$HOME" LANG="${LANG:-en_US.UTF-8}")
-	[ -n "${XDG_DATA_HOME:-}" ] && java_env+=(XDG_DATA_HOME="$XDG_DATA_HOME")
-	env -i "${java_env[@]}" java --enable-native-access=ALL-UNNAMED "$@";
+    local -a java_env=(PATH="$PATH" HOME="$HOME" LANG="${LANG:-en_US.UTF-8}")
+    [ -n "${XDG_DATA_HOME:-}" ] && java_env+=(XDG_DATA_HOME="$XDG_DATA_HOME")
+    env -i "${java_env[@]}" java --enable-native-access=ALL-UNNAMED "$@";
 }
 
 source_release_api_base() {
-	local host=${1,,} src=$2 encoded
-	case "$host" in
-		github) echo "https://api.github.com/repos/${src}/releases" ;;
-		codeberg) echo "https://codeberg.org/api/v1/repos/${src}/releases" ;;
-		gitlab)
-			encoded=$(jq -nr --arg v "$src" '$v | @uri')
-			echo "https://gitlab.com/api/v4/projects/${encoded}/releases"
-			;;
-		*) return 1 ;;
-	esac
+    local host=${1,,} src=$2 encoded
+    case "$host" in
+        github) echo "https://api.github.com/repos/${src}/releases" ;;
+        codeberg) echo "https://codeberg.org/api/v1/repos/${src}/releases" ;;
+        gitlab)
+            encoded=$(jq -nr --arg v "$src" '$v | @uri')
+            echo "https://gitlab.com/api/v4/projects/${encoded}/releases"
+            ;;
+        *) return 1 ;;
+    esac
 }
 
 source_release_list_url() {
-	local host=${1,,} src=$2 base
-	base=$(source_release_api_base "$host" "$src") || return 1
-	case "$host" in
-	codeberg) echo "${base}?limit=50" ;;
-	*) echo "${base}?per_page=100" ;;
-	esac
+    local host=${1,,} src=$2 base
+    base=$(source_release_api_base "$host" "$src") || return 1
+    case "$host" in
+    codeberg) echo "${base}?limit=50" ;;
+    *) echo "${base}?per_page=100" ;;
+    esac
 }
 
 source_release_web_url() {
-	local host=${1,,} src=$2 tag=$3
-	case "$host" in
-		github) echo "https://github.com/${src}/releases/tag/${tag}" ;;
-		codeberg) echo "https://codeberg.org/${src}/releases/tag/${tag}" ;;
-		gitlab) echo "https://gitlab.com/${src}/-/releases/${tag}" ;;
-		*) return 1 ;;
-	esac
+    local host=${1,,} src=$2 tag=$3
+    case "$host" in
+        github) echo "https://github.com/${src}/releases/tag/${tag}" ;;
+        codeberg) echo "https://codeberg.org/${src}/releases/tag/${tag}" ;;
+        gitlab) echo "https://gitlab.com/${src}/-/releases/${tag}" ;;
+        *) return 1 ;;
+    esac
 }
 
 source_release_tag_api() {
-	local host=${1,,} src=$2 tag=$3 base
-	base=$(source_release_api_base "$host" "$src") || return 1
-	case "$host" in
-		github | codeberg) echo "${base}/tags/${tag}" ;;
-		gitlab) echo "${base}/${tag}" ;;
-		*) return 1 ;;
-	esac
+    local host=${1,,} src=$2 tag=$3 base
+    base=$(source_release_api_base "$host" "$src") || return 1
+    case "$host" in
+        github | codeberg) echo "${base}/tags/${tag}" ;;
+        gitlab) echo "${base}/${tag}" ;;
+        *) return 1 ;;
+    esac
 }
 
 source_release_assets_json() {
-	local host=${1,,}
-	case "$host" in
-		github | codeberg) jq -e '[.assets[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
-		gitlab) jq -e '[.assets.links[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
-		*) return 1 ;;
-	esac
+    local host=${1,,}
+    case "$host" in
+        github | codeberg) jq -e '[.assets[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
+        gitlab) jq -e '[.assets.links[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
+        *) return 1 ;;
+    esac
 }
 
 source_release_asset_url() {
-	local host=${1,,}
-	case "$host" in
-		github) jq -r '.url' ;;
-		codeberg) jq -r '.browser_download_url // .url' ;;
-		gitlab) jq -r '.direct_asset_url // .url' ;;
-		*) return 1 ;;
-	esac
+    local host=${1,,}
+    case "$host" in
+        github) jq -r '.url' ;;
+        codeberg) jq -r '.browser_download_url // .url' ;;
+        gitlab) jq -r '.direct_asset_url // .url' ;;
+        *) return 1 ;;
+    esac
 }
 
 source_release_pick_from_list() {
-	local host=${1,,} mode=$2
-	case "$host" in
-		github | codeberg)
-			if [ "$mode" = beta ]; then
-				jq -e -c 'map(select(.prerelease == true and .draft != true and .tag_name != null and .tag_name != "")) | sort_by(.published_at // .created_at // "") | reverse | .[0] // empty'
-			else
-				jq -e -c 'map(select(.prerelease != true and .draft != true and .tag_name != null and .tag_name != "")) | sort_by(.published_at // .created_at // "") | reverse | .[0] // empty'
-			fi
-			;;
-		gitlab)
-			if [ "$mode" = beta ]; then
-				jq -e -c 'map(select(.tag_name != null and .tag_name != "" and (.tag_name | test("(?i)(dev|alpha|beta|rc)")))) | sort_by(.released_at // .created_at // "") | reverse | .[0] // empty'
-			else
-				jq -e -c 'map(select(.tag_name != null and .tag_name != "" and (.tag_name | test("(?i)(dev|alpha|beta|rc)") | not))) | sort_by(.released_at // .created_at // "") | reverse | .[0] // empty'
-			fi
-			;;
-		*) return 1 ;;
-	esac
+    local host=${1,,} mode=$2
+    case "$host" in
+        github | codeberg)
+            if [ "$mode" = beta ]; then
+                jq -e -c 'map(select(.prerelease == true and .draft != true and .tag_name != null and .tag_name != "")) | sort_by(.published_at // .created_at // "") | reverse | .[0] // empty'
+            else
+                jq -e -c 'map(select(.prerelease != true and .draft != true and .tag_name != null and .tag_name != "")) | sort_by(.published_at // .created_at // "") | reverse | .[0] // empty'
+            fi
+            ;;
+        gitlab)
+            if [ "$mode" = beta ]; then
+                jq -e -c 'map(select(.tag_name != null and .tag_name != "" and (.tag_name | test("(?i)(dev|alpha|beta|rc)")))) | sort_by(.released_at // .created_at // "") | reverse | .[0] // empty'
+            else
+                jq -e -c 'map(select(.tag_name != null and .tag_name != "" and (.tag_name | test("(?i)(dev|alpha|beta|rc)") | not))) | sort_by(.released_at // .created_at // "") | reverse | .[0] // empty'
+            fi
+            ;;
+        *) return 1 ;;
+    esac
 }
 
 get_apkeditor() {
-	if [ -f "$TEMP_DIR/apkeditor.jar" ]; then return 0; fi
-	local api_resp dl_url
-	api_resp=$(gh_req "https://api.github.com/repos/REAndroid/APKEditor/releases/latest" -) || true
-	dl_url=$(echo "$api_resp" | jq -r '.assets[]? | select(.name | endswith(".jar")) | .browser_download_url' | head -1) || true
-	if [ -z "$dl_url" ] || [ "$dl_url" = "null" ]; then
-		dl_url="https://github.com/REAndroid/APKEditor/releases/download/V1.4.9/APKEditor-1.4.9.jar"
-	fi
-	gh_dl "$TEMP_DIR/apkeditor.jar" "$dl_url" >/dev/null || return 1
+    if [ -f "$TEMP_DIR/apkeditor.jar" ]; then return 0; fi
+    local api_resp dl_url
+    api_resp=$(gh_req "https://api.github.com/repos/REAndroid/APKEditor/releases/latest" -) || true
+    dl_url=$(echo "$api_resp" | jq -r '.assets[]? | select(.name | endswith(".jar")) | .browser_download_url' | head -1) || true
+    if [ -z "$dl_url" ] || [ "$dl_url" = "null" ]; then
+        dl_url="https://github.com/REAndroid/APKEditor/releases/download/V1.4.9/APKEditor-1.4.9.jar"
+    fi
+    gh_dl "$TEMP_DIR/apkeditor.jar" "$dl_url" >/dev/null || return 1
 }
 
 set_prebuilts() {
-	APKSIGNER="${BIN_DIR}/apksigner.jar"
-	local arch
-	arch=$(uname -m)
-	if [ "$arch" = aarch64 ]; then arch=arm64; elif [ "${arch:0:5}" = "armv7" ]; then arch=arm; fi
-	HTMLQ="${BIN_DIR}/htmlq/htmlq-${arch}"
-	if [ ! -x "$HTMLQ" ] && command -v htmlq >/dev/null 2>&1; then HTMLQ="htmlq"; fi
-	AAPT2="${BIN_DIR}/aapt2/aapt2-${arch}"
-	if [ ! -x "$AAPT2" ] && command -v aapt2 >/dev/null 2>&1; then AAPT2="aapt2"; fi
-	TOML="${BIN_DIR}/toml/tq-${arch}"
-	if [ ! -x "$TOML" ] && command -v tq >/dev/null 2>&1; then TOML="tq"; fi
+    APKSIGNER="${BIN_DIR}/apksigner.jar"
+    local arch
+    arch=$(uname -m)
+    if [ "$arch" = aarch64 ]; then arch=arm64; elif [ "${arch:0:5}" = "armv7" ]; then arch=arm; fi
+    HTMLQ="${BIN_DIR}/htmlq/htmlq-${arch}"
+    if [ ! -x "$HTMLQ" ] && command -v htmlq >/dev/null 2>&1; then HTMLQ="htmlq"; fi
+    AAPT2="${BIN_DIR}/aapt2/aapt2-${arch}"
+    if [ ! -x "$AAPT2" ] && command -v aapt2 >/dev/null 2>&1; then AAPT2="aapt2"; fi
+    TOML="${BIN_DIR}/toml/tq-${arch}"
+    if [ ! -x "$TOML" ] && command -v tq >/dev/null 2>&1; then TOML="tq"; fi
 
-	local sdk_root="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
-	if [ -n "$sdk_root" ] && [ -d "$sdk_root/build-tools" ]; then
-		local latest_bt
-		latest_bt=$(ls -1d "$sdk_root"/build-tools/* 2>/dev/null | sort -V | tail -1)
-		if [ -n "$latest_bt" ] && [ -f "$latest_bt/lib/apksigner.jar" ]; then
-			APKSIGNER="$latest_bt/lib/apksigner.jar"
-		fi
-		if [ ! -x "$AAPT2" ] && [ -n "$latest_bt" ] && [ -x "$latest_bt/aapt2" ]; then
-			AAPT2="$latest_bt/aapt2"
-		fi
-	fi
+    local sdk_root="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
+    if [ -n "$sdk_root" ] && [ -d "$sdk_root/build-tools" ]; then
+        local latest_bt
+        latest_bt=$(ls -1d "$sdk_root"/build-tools/* 2>/dev/null | sort -V | tail -1)
+        if [ -n "$latest_bt" ] && [ -f "$latest_bt/lib/apksigner.jar" ]; then
+            APKSIGNER="$latest_bt/lib/apksigner.jar"
+        fi
+        if [ ! -x "$AAPT2" ] && [ -n "$latest_bt" ] && [ -x "$latest_bt/aapt2" ]; then
+            AAPT2="$latest_bt/aapt2"
+        fi
+    fi
 }
 
 _req() {
-	local ip="$1" op="$2"
-	shift 2
-	local dlp="$op"
-	local _req_lock=""
-	if [ "$op" != - ]; then
-		if [ -f "$op" ]; then return; fi
-		if command -v flock >/dev/null 2>&1; then
-			mkdir -p "${TEMP_DIR}/dllocks"
-			exec 204>"${TEMP_DIR}/dllocks/$(tr -cs 'a-zA-Z0-9._-' '_' <<<"$op").lock"
-			flock -x 204
-			_req_lock=1
-			if [ -f "$op" ]; then exec 204>&-; return 0; fi
-		fi
-		dlp="$(dirname "$op")/tmp.$(basename "$op")"
-		if [ -f "$dlp" ]; then
-			local wait_c=0
-			while [ -f "$dlp" ] && [ $wait_c -lt 300 ]; do 
-				sleep 1
-				wait_c=$((wait_c+1))
-			done
-			if [ -f "$op" ]; then return 0; fi
-		fi
-	fi
-	if ! curl -L -c "$TEMP_DIR/cookie.txt" -b "$TEMP_DIR/cookie.txt" \
-		--connect-timeout 10 --retry 1 --max-time "${RVB_DL_MAX_TIME:-1800}" \
-		--speed-limit 1024 --speed-time 120 \
-		--fail -s -S "$@" "$ip" -o "$dlp"; then
-		epr "Request failed: $ip"
-		if [ "$dlp" != - ]; then rm -f "$dlp"; fi
-		if [ -n "$_req_lock" ]; then exec 204>&-; fi
-		return 1
-	fi
-	if [ "$dlp" != - ]; then
-		mv -f "$dlp" "$op"
-	fi
-	if [ -n "$_req_lock" ]; then exec 204>&-; fi
+    local ip="$1" op="$2"
+    shift 2
+    local dlp="$op"
+    local _req_lock=""
+    if [ "$op" != - ]; then
+        if [ -f "$op" ]; then return; fi
+        if command -v flock >/dev/null 2>&1; then
+            mkdir -p "${TEMP_DIR}/dllocks"
+            exec 204>"${TEMP_DIR}/dllocks/$(tr -cs 'a-zA-Z0-9._-' '_' <<<"$op").lock"
+            flock -x 204
+            _req_lock=1
+            if [ -f "$op" ]; then exec 204>&-; return 0; fi
+        fi
+        dlp="$(dirname "$op")/tmp.$(basename "$op")"
+        if [ -f "$dlp" ]; then
+            local wait_c=0
+            while [ -f "$dlp" ] && [ $wait_c -lt 300 ]; do 
+                sleep 1
+                wait_c=$((wait_c+1))
+            done
+            if [ -f "$op" ]; then return 0; fi
+        fi
+    fi
+    if ! curl -L -c "$TEMP_DIR/cookie.txt" -b "$TEMP_DIR/cookie.txt" \
+        --connect-timeout 10 --retry 1 --max-time "${RVB_DL_MAX_TIME:-1800}" \
+        --speed-limit 1024 --speed-time 120 \
+        --fail -s -S "$@" "$ip" -o "$dlp"; then
+        epr "Request failed: $ip"
+        if [ "$dlp" != - ]; then rm -f "$dlp"; fi
+        if [ -n "$_req_lock" ]; then exec 204>&-; fi
+        return 1
+    fi
+    if [ "$dlp" != - ]; then
+        mv -f "$dlp" "$op"
+    fi
+    if [ -n "$_req_lock" ]; then exec 204>&-; fi
 }
 req() { _req "$1" "$2" -H "User-Agent: ${DEFAULT_UA}"; }
 gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
@@ -392,116 +394,235 @@ _cf_get() {
 }
 
 get_apkmirror_resp() {
-	local url="${1}"
-	if [ -n "${__DL_RESP_CACHE__["apkmirror_resp_$url"]:-}" ]; then
-		__APKMIRROR_RESP__="${__DL_RESP_CACHE__["apkmirror_resp_$url"]}"
-		__APKMIRROR_CAT__="${__DL_RESP_CACHE__["apkmirror_cat_$url"]}"
-		return 0
-	fi
-	local html=""
-	_cf_get "${url}" || return 1
-	__APKMIRROR_RESP__="$html"
-	local clean_url="${url%/}"
-	__APKMIRROR_CAT__="${clean_url##*/}"
-	__DL_RESP_CACHE__["apkmirror_resp_$url"]="$__APKMIRROR_RESP__"
-	__DL_RESP_CACHE__["apkmirror_cat_$url"]="$__APKMIRROR_CAT__"
-	set +u
-	__APKMIRROR_EXAMPLE_URL__="${args[apkmirror_example_url]:-}" 
-	set -u
+    local url="${1}"
+    if [ -n "${__DL_RESP_CACHE__["apkmirror_resp_$url"]:-}" ]; then
+        __APKMIRROR_RESP__="${__DL_RESP_CACHE__["apkmirror_resp_$url"]}"
+        __APKMIRROR_CAT__="${__DL_RESP_CACHE__["apkmirror_cat_$url"]}"
+        return 0
+    fi
+    local html=""
+    _cf_get "${url}" || return 1
+    __APKMIRROR_RESP__="$html"
+    local clean_url="${url%/}"
+    __APKMIRROR_CAT__="${clean_url##*/}"
+    __DL_RESP_CACHE__["apkmirror_resp_$url"]="$__APKMIRROR_RESP__"
+    __DL_RESP_CACHE__["apkmirror_cat_$url"]="$__APKMIRROR_CAT__"
+    set +u
+    __APKMIRROR_EXAMPLE_URL__="${args[apkmirror_example_url]:-}" 
+    set -u
 }
 
 get_apkmirror_vers() {
-	local vers apkm_resp html=""
-	_cf_get "https://www.apkmirror.com/uploads/?appcategory=${__APKMIRROR_CAT__}" || return 1
-	apkm_resp="$html"
+    local vers apkm_resp html=""
+    _cf_get "https://www.apkmirror.com/uploads/?appcategory=${__APKMIRROR_CAT__}" || return 1
+    apkm_resp="$html"
 
-	local py_cmd=""
-	if command -v python3 >/dev/null 2>&1; then
-		py_cmd="python3"
-	elif command -v python >/dev/null 2>&1; then
-		py_cmd="python"
-	fi
+    local py_cmd=""
+    if command -v python3 >/dev/null 2>&1; then
+        py_cmd="python3"
+    elif command -v python >/dev/null 2>&1; then
+        py_cmd="python"
+    fi
 
-	local py_script="${CWD}/scripts/apkmirror_search.py"
-	[ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ] && py_script="$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py"
+    local py_script="${CWD}/scripts/apkmirror_search.py"
+    [ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ] && py_script="$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py"
 
-	local allow_all="${__AAV__:-false}"
-	if [ -n "$py_cmd" ] && [ -f "$py_script" ]; then
-		local py_vers
-		if py_vers=$("$py_cmd" "$py_script" vers "$allow_all" <<<"$apkm_resp") && [ -n "$py_vers" ]; then
-			echo "$py_vers"
-			return 0
-		fi
-	fi
-	echo ""
+    local allow_all="${__AAV__:-false}"
+    if [ -n "$py_cmd" ] && [ -f "$py_script" ]; then
+        local py_vers
+        if py_vers=$("$py_cmd" "$py_script" vers "$allow_all" <<<"$apkm_resp") && [ -n "$py_vers" ]; then
+            echo "$py_vers"
+            return 0
+        fi
+    fi
+    echo ""
 }
 
 _apkmirror_html_pkg_name() {
-	local resp="$1"
-	local py_cmd=""
-	if command -v python3 >/dev/null 2>&1; then
-		py_cmd="python3"
-	elif command -v python >/dev/null 2>&1; then
-		py_cmd="python"
-	fi
-	local py_script="${CWD}/scripts/apkmirror_search.py"
-	[ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ] && py_script="$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py"
-	if [ -n "$py_cmd" ] && [ -f "$py_script" ]; then
-		local py_pkg
-		if py_pkg=$("$py_cmd" "$py_script" pkg <<<"$resp") && [ -n "$py_pkg" ]; then
-			echo "$py_pkg"
-			return 0
-		fi
-	fi
-	echo ""
+    local resp="$1"
+    local py_cmd=""
+    if command -v python3 >/dev/null 2>&1; then
+        py_cmd="python3"
+    elif command -v python >/dev/null 2>&1; then
+        py_cmd="python"
+    fi
+    local py_script="${CWD}/scripts/apkmirror_search.py"
+    [ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ] && py_script="$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py"
+    if [ -n "$py_cmd" ] && [ -f "$py_script" ]; then
+        local py_pkg
+        if py_pkg=$("$py_cmd" "$py_script" pkg <<<"$resp") && [ -n "$py_pkg" ]; then
+            echo "$py_pkg"
+            return 0
+        fi
+    fi
+    echo ""
 }
 
 get_apkmirror_pkg_name() {
-	_apkmirror_html_pkg_name "$__APKMIRROR_RESP__"
+    _apkmirror_html_pkg_name "$__APKMIRROR_RESP__"
 }
 
 dl_apkmirror() {
-	local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-}
-	local base_url="https://www.apkmirror.com"
-	local html=""
+    local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-}
+    local base_url="https://www.apkmirror.com"
+    local html=""
 
-	if [ -f "${output%.apk}.apkm" ]; then
-		_bundle_to_apk "${output%.apk}.apkm" "${output}"
-		return 0
-	fi
+    if [ -f "${output%.apk}.apkm" ]; then
+        _bundle_to_apk "${output%.apk}.apkm" "${output}"
+        return 0
+    fi
 
-	if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
-	local clean_version="${version//[^0-9.]/}"
-	local clean_search_version="${clean_version//./-}"
-	local search_version="${version//./-}"
+    if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
+    local clean_version="${version//[^0-9.]/}"
+    local clean_search_version="${clean_version//./-}"
+    local search_version="${version//./-}"
 
-	local release_url=""
-	local apkmname
-	apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__")
-	apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
-	release_url="${url%/}/${apkmname}-${search_version}-release/"
-	__SILENT_CF_GET__=true _cf_get "$release_url" || true
-	local resp="$html"
+    local release_url=""
+    local apkmname
+    apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__")
+    apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
+    release_url="${url%/}/${apkmname}-${search_version}-release/"
+    __SILENT_CF_GET__=true _cf_get "$release_url" || true
+    local resp="$html"
 
-	if [ -z "$resp" ] || [[ "$resp" == *"Page Not Found"* ]]; then
-		epr "Could not find version $version on APKMirror"
-		return 1
-	fi
+    if [ -z "$resp" ] || [[ "$resp" == *"Page Not Found"* ]]; then
+        epr "Could not find version $version on APKMirror"
+        return 1
+    fi
 
-	local final_url="https://www.apkmirror.com/..."
-	pr "Downloading APK from APKMirror"
-	_cf_cffi_download "$final_url" "$output" "$release_url" || return 1
+    pr "Descargando APK desde APKMirror para la arquitectura $arch..."
+    
+    python3 - "$release_url" "$output" "$arch" << 'EOF'
+import urllib.request
+import urllib.parse
+import re
+import sys
+
+release_url = sys.argv[1]
+output_path = sys.argv[2]
+target_arch = sys.argv[3]
+
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+
+def get_html(u):
+    req = urllib.request.Request(u, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return resp.read().decode('utf-8', errors='ignore')
+    except Exception:
+        return ""
+
+html = get_html(release_url)
+if not html:
+    sys.exit(1)
+
+from html.parser import HTMLParser
+
+class VariantParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+        self.current_href = None
+        self.current_text = ""
+        self.in_a = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'a':
+            self.in_a = True
+            for k, v in attrs:
+                if k == 'href':
+                    self.current_href = v
+
+    def handle_endtag(self, tag):
+        if tag == 'a':
+            self.in_a = False
+            if self.current_href and ('/apk/' in self.current_href):
+                self.links.append((self.current_href, self.current_text))
+            self.current_href = None
+            self.current_text = ""
+
+    def handle_data(self, data):
+        if self.in_a:
+            self.current_text += data
+
+parser = VariantParser()
+parser.feed(html)
+
+variant_url = None
+base_site = "https://www.apkmirror.com"
+
+for href, text in parser.links:
+    text_lower = text.lower()
+    if target_arch.lower() in text_lower or 'universal' in text_lower or 'noarch' in text_lower:
+        variant_url = urllib.parse.urljoin(base_site, href)
+        break
+
+if not variant_url and parser.links:
+    for href, text in parser.links:
+        if '-release/' not in href and ('apk/' in href or 'download' in href):
+            variant_url = urllib.parse.urljoin(base_site, href)
+            break
+
+if not variant_url:
+    sys.exit(1)
+
+var_html = get_html(variant_url)
+if not var_html:
+    sys.exit(1)
+
+download_page_url = None
+match = re.search(r'href="([^"]+/download/\?id=\d+)"', var_html)
+if match:
+    download_page_url = urllib.parse.urljoin(base_site, match.group(1))
+else:
+    match2 = re.search(r'href="([^"]+download[^"]*)"', var_html)
+    if match2:
+        download_page_url = urllib.parse.urljoin(base_site, match2.group(1))
+
+if not download_page_url:
+    sys.exit(1)
+
+dl_page_html = get_html(download_page_url)
+if not dl_page_html:
+    sys.exit(1)
+
+final_dl_link = None
+match3 = re.search(r'href="([^"]+wp-content/uploads/[^"]+)"', dl_page_html)
+if match3:
+    final_dl_link = match3.group(1)
+else:
+    match4 = re.search(r'href="([^"]+key=[^"]+)"', dl_page_html)
+    if match4:
+        final_dl_link = match4.group(1)
+    else:
+        match5 = re.search(r'href="(https://www\.apkmirror\.com/wp-content/[^"]+)"', dl_page_html)
+        if match5:
+            final_dl_link = match5.group(1)
+
+if not final_dl_link:
+    sys.exit(1)
+
+final_url = urllib.parse.urljoin(base_site, final_dl_link)
+
+req_dl = urllib.request.Request(final_url, headers=headers)
+with urllib.request.urlopen(req_dl, timeout=300) as response, open(output_path, 'wb') as out_file:
+    while True:
+        chunk = response.read(1048576)
+        if not chunk:
+            break
+        out_file.write(chunk)
+EOF
 }
 
 _bundle_to_apk() {
-	local bundle=$1 output=$2
-	if [ "${MORPHE_PASSTHROUGH_ACTIVE:-false}" = true ]; then
-		if ! _bundle_extract_base "$bundle" "$output"; then
-			return 1
-		fi
-		return 0
-	fi
-	merge_splits "$bundle" "$output"
+    local bundle=$1 output=$2
+    if [ "${MORPHE_PASSTHROUGH_ACTIVE:-false}" = true ]; then
+        if ! _bundle_extract_base "$bundle" "$output"; then
+            return 1
+        fi
+        return 0
+    fi
+    merge_splits "$bundle" "$output"
 }
 
 # ==============================================================================
