@@ -61,7 +61,10 @@ jobs:
           KEYSTORE_P12_B64: ${{ secrets.KEYSTORE_P12_B64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        run: bash scripts/install_keystore.sh
+        run: |
+          # Limpia los finales de línea de Windows (CRLF -> LF) en todos los scripts
+          find scripts/ -type f -exec sed -i 's/\r$//' {} +
+          bash scripts/install_keystore.sh
 
       - name: Run Build and Patch Process
         id: build_step
