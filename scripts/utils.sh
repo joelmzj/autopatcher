@@ -470,25 +470,75 @@ dl_apkmirror() {
         return 0
     fi
 
+    if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
+    local clean_version="${version//[^0-9.]/}"
+    local search_version="${version//./-}"
+    local apk_bundle="APK"
+    if [ "$is_bundle" = true ]; then
+        apk_bundle="BUNDLE"
+    fi
+
+    # Construir la URL de la página de release siguiendo la lógica de apkmirror_search.py
+    local apkmname
+    apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__" 2>/dev/null || echo "")
+    [ -z "$apkmname" ] && apkmname=$(basename "${url%/}")
+    apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
+    local release_url="${url%/}/${apkmname}-${search_version}-release/"
+    
+    pr "Consultando página de release en APKMirror: $release_url"
+    if ! _cf_get "$release_url"; then
+        epr "No se pudo conectar con APKMirror para la versión $version"
+        return 1
+    }
+    
+    local release_html="$html"
     local search_py="${CWD}/scripts/apkmirror_search.py"
     local cf_py="${CWD}/scripts/cf_get.py"
 
-    pr "Buscando versión $version para ${url}..."
-    local direct_dl_link
-    direct_dl_link=$(python3 "$search_py" "$url" "$version" "$arch" 2>/dev/null | grep -oE 'https?://[^\s]+' | tail -n 1)
+    pr "Ejecutando apkmirror_search.py para extraer variante..."
+    local variant_page_url
+    variant_page_url=$(echo "$release_html" | python3 "$search_py" "$dpi" "$arch" "$apk_bundle" "$clean_version" "$search_version" "$version_code" 2>/dev/null)
 
-    if [ -z "$direct_dl_link" ]; then
-        epr "No se pudo obtener el enlace de descarga mediante apkmirror_search.py"
+    if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
+        epr "apkmirror_search.py no encontró un enlace válido de variante"
         return 1
     fi
 
-    pr "Enlace obtenido: $direct_dl_link"
-    pr "Descargando APK con cf_get.py..."
+    pr "Variante seleccionada: $variant_page_url"
+    pr "Obteniendo página de descarga final de la variante..."
+    
+    if ! _cf_get "$variant_page_url"; then
+        epr "No se pudo acceder a la página de la variante"
+        return 1
+    fi
+    local var_html="$html"
 
+    # Extraer el enlace directo de descarga desde la página de la variante
+    local final_dl_link
+    final_dl_link=$(python3 - "$var_html" << 'PYEOF'
+import sys, re, urllib.parse
+html = sys.argv[1]
+base_site = "https://www.apkmirror.com"
+m = re.search(r'href="([^"]+/download/\?id=\d+)"', html)
+if m:
+print(urllib.parse.urljoin(base_site, m.group(1)))
+else:
+m2 = re.search(r'href="([^"]+/key/[^"]+)"', html)
+if m2:
+    print(urllib.parse.urljoin(base_site, m2.group(1)))
+PYEOF
+    )
+
+    if [ -z "$final_dl_link" ]; then
+        epr "No se pudo extraer el enlace de descarga directa"
+        return 1
+    fi
+
+    pr "Descargando archivo con cf_get.py..."
     mkdir -p "$(dirname "$output")"
-    if python3 "$cf_py" download "$direct_dl_link" "$output" "" "$TEMP_DIR/cookie.txt"; then
+    if python3 "$cf_py" download "$final_dl_link" "$output" "$variant_page_url" "$TEMP_DIR/cookie.txt"; then
         if [ -f "$output" ] && [ -s "$output" ]; then
-            pr "APK descargada con éxito: $output"
+            pr "APK descargada y verificada con éxito: $output"
             return 0
         fi
     fi
