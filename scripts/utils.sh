@@ -489,7 +489,7 @@ dl_apkmirror() {
     if [ -z "$release_html" ]; then
         epr "No se pudo obtener el HTML de la versión $version con cf_get.py"
         return 1
-    }
+    fi
 
     local search_py="${CWD}/scripts/apkmirror_search.py"
     local cf_py="${CWD}/scripts/cf_get.py"
