@@ -73,30 +73,36 @@ for table_name in $(toml_get_table_names); do
     mkdir -p "$TEMP_DIR/$table_name"
     raw_apk="$TEMP_DIR/$table_name/raw.apk"
     
-    # 2. Resolver la versión objetivo según el parámetro del TOML (auto, experimental o fija)
+	# 2. Resolver la versión objetivo según el parámetro del TOML (auto, experimental o fija)
     if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
         pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
-        resolved_ver=$(resolve_target_version_from_bundle "$patch_repo" "${app_args[pkg_name]}" "$target_apk_ver" 2>/dev/null || true)
+        resolved_ver=$(resolve_target_version_from_bundle "$patch_repo" "${app_args[pkg_name]}" "$target_apk_ver")
         if [ -n "$resolved_ver" ]; then
             target_apk_ver="$resolved_ver"
-            pr "Versión resuelta exitosamente desde el bundle: $target_apk_ver"
+            pr "Versión resuelta exitosamente desde patches-list.json: $target_apk_ver"
         else
-            wpr "No se pudo resolver la versión desde el bundle para $table_name. Usando 'latest' como fallback."
-            target_apk_ver="latest"
-        fi
-    fi
-
-    # Si aún quedó en 'latest' (fallback extremo), consultamos la última de APKMirror
-    if [ "$target_apk_ver" = "latest" ]; then
-        if [ -n "${app_args[apkmirror_dlurl]}" ]; then
-            get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || true
-            versions_list=$(get_apkmirror_vers)
-            target_apk_ver=$(head -n 1 <<< "$versions_list")
-            [ -z "$target_apk_ver" ] && target_apk_ver="latest"
+            abort "No se pudo resolver la versión desde patches-list.json para $table_name (paquete: ${app_args[pkg_name]})."
         fi
     fi
 
     patched_apk="$BUILD_DIR/${table_name}-${target_apk_ver}.apk"
+
+    # 3. Descargar la APK limpia desde APKMirror usando la versión exacta resuelta
+    if [ -n "${app_args[apkmirror_dlurl]}" ]; then
+        get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
+            wpr "No se pudo conectar a APKMirror para $table_name"
+            continue
+        }
+
+        pr "Descargando versión $target_apk_ver para $table_name..."
+        dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "" || {
+            wpr "Fallo al descargar la APK para $table_name"
+            continue
+        }
+    else
+        wpr "La aplicación $table_name no tiene definida una URL de APKMirror válida."
+        continue
+    fi
 
     # 3. Descargar la APK limpia desde APKMirror usando la versión exacta resuelta
 
