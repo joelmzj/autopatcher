@@ -497,35 +497,30 @@ resolve_target_version_from_bundle() {
     local pkg_name="$2"
     local mode="$3" # "auto" o "experimental"
     
-    local api_url="https://api.github.com/repos/${repo}/releases/latest"
-    local resp
-    resp=$(gh_req "$api_url" - 2>/dev/null) || {
-        echo ""
-        return 1
-    }
-    
-    local patches_json_url
-    patches_json_url=$(jq -r '.assets[]? | select(.name == "patches.json") | .browser_download_url // empty' <<<"$resp")
-    
-    if [ -z "$patches_json_url" ] || [ "$patches_json_url" = "null" ]; then
-        echo ""
-        return 1
-    fi   # <--- Aquí estaba el error (tenía una llave } en lugar de fi)
-    
-    # Procesar el patches.json mediante un script en Python embebido y seguro con heredoc
-    python3 - "$patches_json_url" "$pkg_name" "$mode" << 'EOF'
+    python3 - "$repo" "$pkg_name" "$mode" << 'EOF'
 import urllib.request
 import json
 import sys
 
-url = sys.argv[1]
+repo = sys.argv[1]
 target_pkg = sys.argv[2]
 mode = sys.argv[3]
 
-try:
-    req = urllib.request.urlopen(url)
-    data = json.loads(req.read().decode('utf-8'))
-except Exception as e:
+urls = [
+    f"https://raw.githubusercontent.com/{repo}/main/patches-list.json",
+    f"https://raw.githubusercontent.com/{repo}/master/patches-list.json"
+]
+
+data = None
+for url in urls:
+    try:
+        req = urllib.request.urlopen(url)
+        data = json.loads(req.read().decode('utf-8'))
+        break
+    except Exception:
+        continue
+
+if not data:
     sys.exit(1)
 
 patches = data.get('patches', [])
@@ -536,15 +531,15 @@ for patch in patches:
     compat_pkgs = patch.get('compatiblePackages', {})
     compatibility = patch.get('compatibility', [])
     
-    # 1. Formato anddea (Diccionario: packageName -> lista de versiones)
-    if isinstance(compat_pkgs, dict) and not compatibility:
+    # 1. Formato diccionario o lista simple de versiones (ej. anddea, hush)
+    if isinstance(compat_pkgs, dict):
         for p, v_list in compat_pkgs.items():
             if p == target_pkg and isinstance(v_list, list):
                 for v in v_list:
                     if v not in stable_versions:
                         stable_versions.append(v)
                         
-    # 2. Formatos Morphe y sysadmindoc (Targets con flags experimentales)
+    # 2. Formato estructurado con objetos y targets (ej. Morphe)
     targets_pool = []
     for comp in compatibility:
         targets_pool.extend(comp.get('targets', []))
@@ -556,7 +551,7 @@ for patch in patches:
     for t in targets_pool:
         ver = t.get('version')
         if ver:
-            is_exp = t.get('experimental', t.get('isExperimental', False))
+            is_exp = t.get('isExperimental', t.get('experimental', False))
             if is_exp and ver not in exp_versions:
                 exp_versions.append(ver)
             elif not is_exp and ver not in stable_versions:
