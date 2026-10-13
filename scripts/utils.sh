@@ -377,7 +377,8 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 # INTEGRACIÓN EXCLUSIVA DE APKMIRROR
 # ==============================================================================
 
-HTMLQ="${HTMLQ:-htmlq}"
+# Apuntamos directamente al binario x86_64 que está en bin/htmlq/
+    HTMLQ="${HTMLQ:-./bin/htmlq/htmlq-x86_64}"
     resp="${resp:-${html:-}}"
     
     all_dl_btns=""
