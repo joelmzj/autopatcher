@@ -492,7 +492,7 @@ resolve_target_version_from_bundle() {
     
     local api_url="https://api.github.com/repos/${repo}/releases/latest"
     local resp
-    resp=$(source_release_req "github" "$api_url" - 2>/dev/null) || {
+    resp=$(gh_req "$api_url" - 2>/dev/null) || {
         echo ""
         return 1
     }
@@ -505,7 +505,7 @@ resolve_target_version_from_bundle() {
         return 1
     }
     
-    # Procesar el patches.json mediante un script en Python embebido y seguro
+    # Procesar el patches.json mediante un script en Python embebido y seguro con heredoc
     python3 - "$patches_json_url" "$pkg_name" "$mode" << 'EOF'
 import urllib.request
 import json
