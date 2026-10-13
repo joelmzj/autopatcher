@@ -474,9 +474,7 @@ dl_apkmirror() {
     local clean_version="${version//[^0-9.]/}"
     local search_version="${version//./-}"
     local apk_bundle="APK"
-    if [ "$is_bundle" = true ]; then
-        apk_bundle="BUNDLE"
-    fi
+    [ "$is_bundle" = true ] && apk_bundle="BUNDLE"
 
     local apkmname
     apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__" 2>/dev/null || echo "")
@@ -484,31 +482,37 @@ dl_apkmirror() {
     apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
     local release_url="${url%/}/${apkmname}-${search_version}-release/"
     
-    pr "Consultando página de release en APKMirror: $release_url"
-    if ! _cf_get "$release_url"; then
-        epr "No se pudo conectar con APKMirror para la versión $version"
-        return 1
-    fi
+    pr "Obteniendo página de release con cf_get.py: $release_url"
+    local release_html
+    release_html=$(python3 "${CWD}/scripts/cf_get.py" "$release_url" 2>/dev/null)
     
-    local release_html="$html"
+    if [ -z "$release_html" ]; then
+        epr "No se pudo obtener el HTML de la versión $version con cf_get.py"
+        return 1
+    }
+
     local search_py="${CWD}/scripts/apkmirror_search.py"
     local cf_py="${CWD}/scripts/cf_get.py"
 
-    pr "Ejecutando apkmirror_search.py para extraer variante..."
+    pr "Buscando variante con apkmirror_search.py..."
     local variant_page_url
     variant_page_url=$(echo "$release_html" | python3 "$search_py" "$dpi" "$arch" "$apk_bundle" "$clean_version" "$search_version" "$version_code" 2>/dev/null)
 
     if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
-        epr "apkmirror_search.py no encontró un enlace válido de variante"
+        epr "apkmirror_search.py no retornó un enlace de variante válido"
         return 1
     fi
 
-    pr "Variante seleccionada: $variant_page_url"
-    if ! _cf_get "$variant_page_url"; then
-        epr "No se pudo acceder a la página de la variante"
+    pr "Variante encontrada: $variant_page_url"
+    pr "Obteniendo página de descarga de la variante..."
+    
+    local var_html
+    var_html=$(python3 "$cf_py" "$variant_page_url" 2>/dev/null)
+    
+    if [ -z "$var_html" ]; then
+        epr "No se pudo obtener el HTML de la variante"
         return 1
-    }
-    local var_html="$html"
+    fi
 
     local final_dl_link
     final_dl_link=$(python3 - "$var_html" << 'PYEOF'
@@ -526,15 +530,15 @@ PYEOF
     )
 
     if [ -z "$final_dl_link" ]; then
-        epr "No se pudo extraer el enlace de descarga directa"
+        epr "No se pudo extraer el enlace directo de descarga"
         return 1
     fi
 
-    pr "Descargando archivo con cf_get.py..."
+    pr "Descargando APK final con cf_get.py..."
     mkdir -p "$(dirname "$output")"
     if python3 "$cf_py" download "$final_dl_link" "$output" "$variant_page_url" "$TEMP_DIR/cookie.txt"; then
         if [ -f "$output" ] && [ -s "$output" ]; then
-            pr "APK descargada y verificada con éxito: $output"
+            pr "APK descargada y verificada: $output"
             return 0
         fi
     fi
