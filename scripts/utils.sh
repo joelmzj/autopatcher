@@ -375,6 +375,22 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 # INTEGRACIÓN EXCLUSIVA DE APKMIRROR
 # ==============================================================================
 
+_cf_get() {
+    local target_url="$1"
+    html=""
+    local py_script="${CWD}/scripts/cf_get.py"
+    if [ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ]; then
+        py_script="$(dirname "${BASH_SOURCE[0]}")/cf_get.py"
+    fi
+    if command -v python3 >/dev/null 2>&1 && [ -f "$py_script" ]; then
+        html=$(python3 "$py_script" "$target_url" "$TEMP_DIR/cookie.txt" 2>/dev/null) || true
+    fi
+    if [ -z "$html" ]; then
+        html=$(curl -s -L -b "$TEMP_DIR/cookie.txt" -c "$TEMP_DIR/cookie.txt" -H "User-Agent: ${DEFAULT_UA}" "$target_url" 2>/dev/null) || true
+    fi
+    [ -n "$html" ]
+}
+
 get_apkmirror_resp() {
 	local url="${1}"
 	if [ -n "${__DL_RESP_CACHE__["apkmirror_resp_$url"]:-}" ]; then
