@@ -87,40 +87,33 @@ toml_file_to_json() {
     if [[ "$f" == *.toml ]]; then
         local res=""
         
-        # 1. Intentar forzar el binario nativo usando la ruta absoluta desde $CWD
-        local native_toml="${CWD}/bin/toml/tq-x86_64"
-        if [ -x "$native_toml" ]; then
-            if res=$("$native_toml" --output json --file "$f" . 2>/dev/null) && [ -n "$res" ]; then
-                echo "$res"
-                return 0
-            fi
-        fi
-
-        # 2. Intentar con la variable global $TOML si fue definida previamente
-        if [ -n "${TOML-}" ] && [ -x "$TOML" ] 2>/dev/null; then
-            if res=$("$TOML" --output json --file "$f" . 2>/dev/null) && [ -n "$res" ]; then
-                echo "$res"
-                return 0
-            fi
-        fi
-
-        # 3. Fallback a Python por seguridad si el binario fallara
+        # Fallback universal a Python (soporta tomllib, tomli y toml)
         if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
             local py_bin="python3"
             command -v python3 >/dev/null 2>&1 || py_bin="python"
             if res=$("$py_bin" - << 'EOF' "$f" 2>/dev/null
 import json, sys
+filename = sys.argv[1]
+data = None
 try:
     import tomllib
-except ImportError:
+    with open(filename, 'rb') as f_in:
+        data = tomllib.load(f_in)
+except Exception:
     try:
         import tomli as tomllib
-    except ImportError:
-        sys.exit(1)
-try:
-    with open(sys.argv[1], 'rb') as f_in:
-        print(json.dumps(tomllib.load(f_in)))
-except Exception:
+        with open(filename, 'rb') as f_in:
+            data = tomllib.load(f_in)
+    except Exception:
+        try:
+            import toml
+            data = toml.load(filename)
+        except Exception:
+            sys.exit(1)
+
+if data is not None:
+    print(json.dumps(data))
+else:
     sys.exit(1)
 EOF
             ) && [ -n "$res" ]; then
@@ -129,7 +122,7 @@ EOF
             fi
         fi
         
-        abort "Neither the native tq binary (${native_toml}) nor python (tomllib/tomli) is available to parse $f"
+        abort "Failed to parse $f using Python (toml/tomli/tomllib)"
     elif [[ "$f" == *.json ]]; then
         cat "$f"
     else
