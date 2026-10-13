@@ -76,7 +76,7 @@ for table_name in $(toml_get_table_names); do
     # 2. Resolver la versión objetivo según el parámetro del TOML (auto, experimental o fija)
     if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
         pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
-        resolved_ver=$(resolve_target_version_from_bundle "$patch_repo" "${app_args[pkg_name]}" "$target_apk_ver")
+        resolved_ver=$(resolve_target_version_from_bundle "$patch_repo" "${app_args[pkg_name]}" "$target_apk_ver" 2>/dev/null || true)
         if [ -n "$resolved_ver" ]; then
             target_apk_ver="$resolved_ver"
             pr "Versión resuelta exitosamente desde el bundle: $target_apk_ver"
@@ -120,6 +120,7 @@ for table_name in $(toml_get_table_names); do
     java -jar "$MORPHE_CLI_JAR" patch \
         --apk "$raw_apk" \
         --out "$patched_apk" \
+        --patches "$patch_repo" \
         || {
             wpr "Error durante el proceso de parcheo de $table_name"
             continue
