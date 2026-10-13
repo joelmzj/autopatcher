@@ -80,13 +80,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           RELEASE_TAG: "stable"
-          # Agrega estas cuatro líneas aquí también:
           KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
           KEYSTORE_P12_B64: ${{ secrets.KEYSTORE_P12_B64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: |
           chmod +x scripts/*.sh
+          chmod +x bin/toml/*   # <-- Permite que el runner ejecute tq-x86_64 sin problemas
           CONFIG="${{ inputs.config_file }}"
           # Si se dispara por cron, inputs.config_file estará vacío, usamos config.toml por defecto
           if [ -z "$CONFIG" ]; then
