@@ -464,9 +464,7 @@ get_apkmirror_pkg_name() {
 
 dl_apkmirror() {
     local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-}
-    local base_url="https://www.apkmirror.com"
-    local html=""
-
+    
     if [ -f "${output%.apk}.apkm" ]; then
         _bundle_to_apk "${output%.apk}.apkm" "${output}"
         return 0
@@ -474,144 +472,104 @@ dl_apkmirror() {
 
     if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
     local clean_version="${version//[^0-9.]/}"
-    local clean_search_version="${clean_version//./-}"
     local search_version="${version//./-}"
 
-    local release_url=""
     local apkmname
-    apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__")
+    apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__" 2>/dev/null || echo "")
+    [ -z "$apkmname" ] && apkmname=$(basename "${url%/}")
     apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
-    release_url="${url%/}/${apkmname}-${search_version}-release/"
-    __SILENT_CF_GET__=true _cf_get "$release_url" || true
-    local resp="$html"
-
-    if [ -z "$resp" ] || [[ "$resp" == *"Page Not Found"* ]]; then
-        epr "Could not find version $version on APKMirror"
-        return 1
-    fi
-
-    pr "Descargando APK desde APKMirror para la arquitectura $arch..."
+    local release_url="${url%/}/${apkmname}-${search_version}-release/"
     
-    python3 - "$release_url" "$output" "$arch" << 'EOF'
+    pr "Consultando APKMirror para la versión $version..."
+    
+    python3 - "$release_url" "$output" "$arch" << 'PYEOF'
 import urllib.request
 import urllib.parse
 import re
 import sys
+import os
 
 release_url = sys.argv[1]
 output_path = sys.argv[2]
-target_arch = sys.argv[3]
+target_arch = sys.argv[3].lower()
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
 
 def get_html(u):
-    req = urllib.request.Request(u, headers=headers)
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            return resp.read().decode('utf-8', errors='ignore')
-    except Exception:
-        return ""
+req = urllib.request.Request(u, headers=headers)
+try:
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return resp.read().decode('utf-8', errors='ignore')
+except Exception as e:
+    print(f"Error al conectar con {u}: {e}", file=sys.stderr)
+    return ""
 
 html = get_html(release_url)
 if not html:
-    sys.exit(1)
+sys.exit(1)
 
-from html.parser import HTMLParser
-
-class VariantParser(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.links = []
-        self.current_href = None
-        self.current_text = ""
-        self.in_a = False
-
-    def handle_starttag(self, tag, attrs):
-        if tag == 'a':
-            self.in_a = True
-            for k, v in attrs:
-                if k == 'href':
-                    self.current_href = v
-
-    def handle_endtag(self, tag):
-        if tag == 'a':
-            self.in_a = False
-            if self.current_href and ('/apk/' in self.current_href):
-                self.links.append((self.current_href, self.current_text))
-            self.current_href = None
-            self.current_text = ""
-
-    def handle_data(self, data):
-        if self.in_a:
-            self.current_text += data
-
-parser = VariantParser()
-parser.feed(html)
-
-variant_url = None
+matches = re.findall(r'href="([^"]+/apk/[^"]+)"', html)
 base_site = "https://www.apkmirror.com"
+variant_url = ""
 
-for href, text in parser.links:
-    text_lower = text.lower()
-    if target_arch.lower() in text_lower or 'universal' in text_lower or 'noarch' in text_lower:
-        variant_url = urllib.parse.urljoin(base_site, href)
-        break
+for href in matches:
+if target_arch in href.lower() or 'universal' in href.lower() or 'noarch' in href.lower():
+    variant_url = urllib.parse.urljoin(base_site, href)
+    break
 
-if not variant_url and parser.links:
-    for href, text in parser.links:
-        if '-release/' not in href and ('apk/' in href or 'download' in href):
-            variant_url = urllib.parse.urljoin(base_site, href)
-            break
+if not variant_url and matches:
+variant_url = urllib.parse.urljoin(base_site, matches[0])
 
 if not variant_url:
-    sys.exit(1)
+print("Aviso: No se encontró la variante de arquitectura compatible.", file=sys.stderr)
+sys.exit(1)
 
 var_html = get_html(variant_url)
 if not var_html:
-    sys.exit(1)
+sys.exit(1)
 
 download_page_url = None
-match = re.search(r'href="([^"]+/download/\?id=\d+)"', var_html)
-if match:
-    download_page_url = urllib.parse.urljoin(base_site, match.group(1))
-else:
-    match2 = re.search(r'href="([^"]+download[^"]*)"', var_html)
-    if match2:
-        download_page_url = urllib.parse.urljoin(base_site, match2.group(1))
+m = re.search(r'href="([^"]+/download/\?id=\d+)"', var_html)
+if m:
+download_page_url = urllib.parse.urljoin(base_site, m.group(1))
 
 if not download_page_url:
-    sys.exit(1)
+print("Aviso: No se encontró la página de descarga.", file=sys.stderr)
+sys.exit(1)
 
 dl_page_html = get_html(download_page_url)
 if not dl_page_html:
-    sys.exit(1)
+sys.exit(1)
 
 final_dl_link = None
-match3 = re.search(r'href="([^"]+wp-content/uploads/[^"]+)"', dl_page_html)
-if match3:
-    final_dl_link = match3.group(1)
-else:
-    match4 = re.search(r'href="([^"]+key=[^"]+)"', dl_page_html)
-    if match4:
-        final_dl_link = match4.group(1)
-    else:
-        match5 = re.search(r'href="(https://www\.apkmirror\.com/wp-content/[^"]+)"', dl_page_html)
-        if match5:
-            final_dl_link = match5.group(1)
+for pat in [r'href="([^"]+wp-content/uploads/[^"]+)"', r'href="([^"]+key=[^"]+)"', r'href="(https://www\.apkmirror\.com/wp-content/[^"]+)"']:
+m = re.search(pat, dl_page_html)
+if m:
+    final_dl_link = m.group(1)
+    break
 
 if not final_dl_link:
-    sys.exit(1)
+print("Aviso: No se pudo extraer el enlace directo del archivo.", file=sys.stderr)
+sys.exit(1)
 
 final_url = urllib.parse.urljoin(base_site, final_dl_link)
+os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
 
 req_dl = urllib.request.Request(final_url, headers=headers)
 with urllib.request.urlopen(req_dl, timeout=300) as response, open(output_path, 'wb') as out_file:
-    while True:
-        chunk = response.read(1048576)
-        if not chunk:
-            break
-        out_file.write(chunk)
-EOF
+while True:
+    chunk = response.read(1048576)
+    if not chunk:
+        break
+    out_file.write(chunk)
+print("Descarga completada con éxito.")
+PYEOF
+
+    if [ -f "$output" ] && [ -s "$output" ]; then
+        pr "APK descargada y verificada correctamente."
+        return 0
+    fi
+    return 1
 }
 
 _bundle_to_apk() {
