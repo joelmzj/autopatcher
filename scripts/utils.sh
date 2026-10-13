@@ -377,7 +377,8 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 # INTEGRACIÓN EXCLUSIVA DE APKMIRROR
 # ==============================================================================
 
-local all_dl_btns btn_url=""
+all_dl_btns=""
+	btn_url=""
 	all_dl_btns=$(echo "$resp" | $HTMLQ "a.downloadButton" --attribute href)
 	if [ "$is_bundle" = true ]; then
 		btn_url=$(echo "$all_dl_btns" | grep -v 'forcebaseapk' | head -1)
@@ -391,7 +392,8 @@ local all_dl_btns btn_url=""
 
 	base_url="${base_url:-https://www.apkmirror.com}"
 	_cf_get "$base_url$btn_url" || return 1
-	local final_url=""
+	
+	final_url=""
 	final_url=$($HTMLQ "a#download-link" --attribute href <<<"$html" 2>/dev/null | head -1) || true
 	[ -z "$final_url" ] && final_url=$(echo "$html" | grep -oP 'id="download-link"[^>]*href="\K[^"]+' | head -1) || true
 	if [ -z "$final_url" ]; then epr "Could not find final download link on APKMirror"; return 1; fi
