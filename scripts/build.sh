@@ -58,7 +58,7 @@ for table_name in $(toml_get_table_names); do
 	app_args[app_name]=$(toml_get "$t" app-name) || app_args[app_name]=$table_name
 	app_args[arch]=$(toml_get "$t" arch) || app_args[arch]="arm64-v8a"
 	
-	patch_repo=$(toml_get "$t" "patches-source") || patch_repo="revanced/revanced-patches"
+	patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 	target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
 
 	# Validación inteligente: Omitir si no hay cambios
