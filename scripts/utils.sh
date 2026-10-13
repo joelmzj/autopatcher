@@ -82,65 +82,45 @@ load_module "${CWD}/scripts/morphe_cli.sh"
 # ==============================================================================
 
 toml_file_to_json() {
-	local f="$1"
-	if [ ! -f "$f" ]; then return 1; fi
-	if [[ "$f" == *.toml ]]; then
-		local res=""
-		if [ -n "${TOML-}" ] && [ -x "$TOML" ] 2>/dev/null; then
-			if res=$("$TOML" --output json --file "$f" . 2>/dev/null) && [ -n "$res" ]; then
-				echo "$res"
-				return 0
-			fi
-		fi
-		if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
-			local py_bin="python3"
-			command -v python3 >/dev/null 2>&1 || py_bin="python"
-			if res=$("$py_bin" -c "
+    local f="$1"
+    if [ ! -f "$f" ]; then return 1; fi
+    if [[ "$f" == *.toml ]]; then
+        local res=""
+        if [ -n "${TOML-}" ] && [ -x "$TOML" ] 2>/dev/null; then
+            if res=$("$TOML" --output json --file "$f" . 2>/dev/null) && [ -n "$res" ]; then
+                echo "$res"
+                return 0
+            fi
+        fi
+        if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
+            local py_bin="python3"
+            command -v python3 >/dev/null 2>&1 || py_bin="python"
+            if res=$("$py_bin" - << 'EOF' "$f" 2>/dev/null
+import json, sys
 try:
     import tomllib
 except ImportError:
     try:
         import tomli as tomllib
     except ImportError:
-        import sys; sys.exit(1)
-import json, sys
-print(json.dumps(tomllib.load(open(sys.argv[1], 'rb'))))
-" "$f" 2>/dev/null) && [ -n "$res" ]; then
-				echo "$res"
-				return 0
-			fi
-		fi
-		abort "Neither python (tomllib/tomli) nor yq is available to parse $f"
-	elif [[ "$f" == *.json ]]; then
-		cat "$f"
-	else
-		abort "config extension not supported: $f"
-	fi
-}
-
-toml_merge_configs() {
-	local files=("$@")
-	local jsons=()
-	for f in "${files[@]}"; do
-		[ -f "$f" ] || continue
-		local file_json
-		file_json=$(toml_file_to_json "$f") || continue
-		local propagated
-		propagated=$(jq '
-			(to_entries | map(select(.value | type != "object")) | from_entries) as $defaults |
-			map_values(
-				if type == "object" then
-					($defaults + .)
-				else . end
-			)
-		' <<<"$file_json")
-		jsons+=("$propagated")
-	done
-	if [ ${#jsons[@]} -eq 0 ]; then
-		echo "{}"
-	else
-		printf '%s\n' "${jsons[@]}" | jq -s 'add // {}'
-	fi
+        sys.exit(1)
+try:
+    with open(sys.argv[1], 'rb') as f_in:
+        print(json.dumps(tomllib.load(f_in)))
+except Exception:
+    sys.exit(1)
+EOF
+            ) && [ -n "$res" ]; then
+                echo "$res"
+                return 0
+            fi
+        fi
+        abort "Neither python (tomllib/tomli) nor yq is available to parse $f"
+    elif [[ "$f" == *.json ]]; then
+        cat "$f"
+    else
+        abort "config extension not supported: $f"
+    fi
 }
 
 toml_prep() {
@@ -525,8 +505,8 @@ resolve_target_version_from_bundle() {
         return 1
     }
     
-    # Procesar el patches.json mediante un script en Python embebido para extraer la versión
-    python3 -c "
+    # Procesar el patches.json mediante un script en Python embebido y seguro
+    python3 - "$patches_json_url" "$pkg_name" "$mode" << 'EOF'
 import urllib.request
 import json
 import sys
@@ -583,5 +563,5 @@ elif exp_versions:
     print(exp_versions[0])
 else:
     sys.exit(1)
-" "$patches_json_url" "$pkg_name" "$mode"
+EOF
 }
