@@ -1,5 +1,6 @@
 [Morphe-Desktop]
 morphe_desktop_channel = "stable"  # Opciones: "stable" o "dev"
+patches-source = "MorpheApp/morphe-desktop"
 
 [Instagram]
 enabled = true
