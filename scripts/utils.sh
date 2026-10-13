@@ -470,27 +470,41 @@ dl_apkmirror() {
         return 0
     fi
 
-    pr "Buscando versión $version con apkmirror_search.py..."
     local search_py="${CWD}/scripts/apkmirror_search.py"
     local cf_py="${CWD}/scripts/cf_get.py"
 
-    local direct_dl_link
-    direct_dl_link=$(python3 "$search_py" "$url" "$version" "$arch" 2>/dev/null)
+    pr "Ejecutando apkmirror_search.py para: $url (Versión: $version, Arch: $arch)"
+    local search_output
+    search_output=$(python3 "$search_py" "$url" "$version" "$arch" 2>&1)
+    local exit_code=$?
+    
+    pr "Salida de búsqueda:\n$search_output"
 
-    if [ -z "$direct_dl_link" ]; then
-        epr "No se pudo obtener el enlace de descarga mediante apkmirror_search.py"
+    if [ $exit_code -ne 0 ]; then
+        epr "apkmirror_search.py retornó el código de error $exit_code"
         return 1
     fi
 
-    pr "Descargando APK con cf_get.py..."
+    local direct_dl_link
+    direct_dl_link=$(echo "$search_output" | grep -oE 'https?://[^\s]+' | tail -n 1)
+
+    if [ -z "$direct_dl_link" ]; then
+        epr "No se pudo extraer un enlace de descarga válido de la salida"
+        return 1
+    fi
+
+    pr "Enlace directo detectado: $direct_dl_link"
+    pr "Iniciando descarga con cf_get.py..."
+
     mkdir -p "$(dirname "$output")"
     if python3 "$cf_py" download "$direct_dl_link" "$output" "" "$TEMP_DIR/cookie.txt"; then
         if [ -f "$output" ] && [ -s "$output" ]; then
-            pr "APK descargada correctamente: $output"
+            pr "APK descargada y verificada: $output"
             return 0
         fi
     fi
     
+    epr "Fallo en la descarga mediante cf_get.py"
     return 1
 }
 
