@@ -53,7 +53,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq zip python3-pip
-          python3 -m pip install --no-cache-dir tomli requests
+          python3 -m pip install --no-cache-dir toml requests
 
       - name: Install signing keystore
         env:
