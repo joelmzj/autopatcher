@@ -32,6 +32,12 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    # Añadido: Contenedor local para resolver los retos de Cloudflare automáticamente
+    services:
+      cf_solver:
+        image: ghcr.io/sarperavci/cloudflarebypassforscraping:latest
+        ports:
+          - 8000:8000
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,7 +59,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq zip python3-pip
-          python3 -m pip install --no-cache-dir toml requests
+          python3 -m pip install --no-cache-dir toml requests curl_cffi
 
       - name: Install signing keystore
         env:
@@ -85,6 +91,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           TOML: "./bin/toml/tq-x86_64"   # <--- Forzamos la ruta exacta del binario nativo aquí
+          CF_SOLVER_URL: "http://localhost:8000" # <--- Conecta con el servicio de bypass de Cloudflare
         run: |
           chmod +x scripts/*.sh
           chmod +x bin/toml/*
