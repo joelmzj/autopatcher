@@ -470,113 +470,27 @@ dl_apkmirror() {
         return 0
     fi
 
-    if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
-    local clean_version="${version//[^0-9.]/}"
-    local search_version="${version//./-}"
-
-    local apkmname
-    apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__" 2>/dev/null || echo "")
-    [ -z "$apkmname" ] && apkmname=$(basename "${url%/}")
-    apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
-    local release_url="${url%/}/${apkmname}-${search_version}-release/"
-    
-    pr "Consultando APKMirror: $release_url"
-    
-    if ! _cf_get "$release_url"; then
-        epr "Fallo al conectar con la página de versión de APKMirror"
-        return 1
-    fi
-    local release_html="$html"
-
-    local variant_url
-    variant_url=$(python3 - "$release_html" "$arch" << 'PYEOF'
-import sys, re, urllib.parse
-html = sys.argv[1]
-target_arch = sys.argv[2].lower()
-base_site = "https://www.apkmirror.com"
-links = re.findall(r'href="([^"]+/apk/[^"]+)"', html)
-if not links:
-links = re.findall(r'href="([^"]+/download/[^"]+)"', html)
-variant_url = ""
-for href in links:
-h = href.lower()
-if target_arch in h or 'universal' in h or 'noarch' in h:
-    variant_url = urllib.parse.urljoin(base_site, href)
-    break
-if not variant_url and links:
-variant_url = urllib.parse.urljoin(base_site, links[0])
-print(variant_url)
-PYEOF
-    )
-
-    if [ -z "$variant_url" ]; then
-        epr "No se encontró ningún enlace de variante válido en la página"
-        return 1
-    fi
-
-    pr "Consultando variante: $variant_url"
-    if ! _cf_get "$variant_url"; then
-        epr "Fallo al conectar con la página de la variante"
-        return 1
-    fi
-    local var_html="$html"
-
-    local download_page_url
-    download_page_url=$(python3 - "$var_html" << 'PYEOF'
-import sys, re, urllib.parse
-html = sys.argv[1]
-base_site = "https://www.apkmirror.com"
-m = re.search(r'href="([^"]+/download/\?id=\d+)"', html)
-if m:
-print(urllib.parse.urljoin(base_site, m.group(1)))
-else:
-m2 = re.search(r'href="([^"]+/key/[^"]+)"', html)
-if m2:
-    print(urllib.parse.urljoin(base_site, m2.group(1)))
-PYEOF
-    )
-
-    if [ -z "$download_page_url" ]; then
-        epr "No se encontró la página de descarga"
-        return 1
-    fi
-
-    pr "Obteniendo página final de descarga: $download_page_url"
-    if ! _cf_get "$download_page_url"; then
-        epr "Fallo al conectar con la página de descarga final"
-        return 1
-    fi
-    local dl_page_html="$html"
-
-    local final_dl_link
-    final_dl_link=$(python3 - "$dl_page_html" << 'PYEOF'
-import sys, re, urllib.parse
-html = sys.argv[1]
-base_site = "https://www.apkmirror.com"
-for pat in [r'href="([^"]+wp-content/uploads/[^"]+)"', r'href="([^"]+key=[^"]+)"', r'href="(https://www\.apkmirror\.com/wp-content/[^"]+)"']:
-m = re.search(pat, html)
-if m:
-    print(urllib.parse.urljoin(base_site, m.group(1)))
-    break
-PYEOF
-    )
-
-    if [ -z "$final_dl_link" ]; then
-        epr "No se pudo extraer el enlace directo de descarga"
-        return 1
-    fi
-
-    pr "Descargando APK mediante cf_get.py..."
+    pr "Buscando versión $version con apkmirror_search.py..."
+    local search_py="${CWD}/scripts/apkmirror_search.py"
     local cf_py="${CWD}/scripts/cf_get.py"
+
+    local direct_dl_link
+    direct_dl_link=$(python3 "$search_py" "$url" "$version" "$arch" 2>/dev/null)
+
+    if [ -z "$direct_dl_link" ]; then
+        epr "No se pudo obtener el enlace de descarga mediante apkmirror_search.py"
+        return 1
+    fi
+
+    pr "Descargando APK con cf_get.py..."
     mkdir -p "$(dirname "$output")"
-    if python3 "$cf_py" download "$final_dl_link" "$output" "$download_page_url" "$TEMP_DIR/cookie.txt"; then
+    if python3 "$cf_py" download "$direct_dl_link" "$output" "" "$TEMP_DIR/cookie.txt"; then
         if [ -f "$output" ] && [ -s "$output" ]; then
-            pr "APK descargada con éxito: $output"
+            pr "APK descargada correctamente: $output"
             return 0
         fi
     fi
     
-    epr "Fallo en la descarga final con cf_get.py"
     return 1
 }
 
