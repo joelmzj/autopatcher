@@ -39,13 +39,13 @@ DEDUP_MODE=$(toml_get "$main_config_t" dedup-mode) || DEDUP_MODE="log"
 RVB_DEDUP_MODE="$DEDUP_MODE"
 
 # Leer el canal global de Morphe Desktop configurado en el TOML
-morphe_channel=$(jq -r '."Morphe Desktop".morphe_desktop_channel // "stable"' <<<"$__TOML__")
+morphe_channel=$(jq -r '."Morphe-Desktop".morphe_desktop_channel // "stable"' <<<"$__TOML__")
 pr "Obteniendo CLI de Morphe Desktop (Canal: $morphe_channel)..."
 MORPHE_CLI_JAR=$(get_morphe_desktop_cli "$morphe_channel") || abort "No se pudo obtener la CLI de Morphe Desktop"
 
 for table_name in $(toml_get_table_names); do
 	# Omitir la tabla de configuración global
-	if [ "$table_name" = "Morphe Desktop" ]; then continue; fi
+	if [ "$table_name" = "Morphe-Desktop" ]; then continue; fi
 	if [ -z "$table_name" ]; then continue; fi
 	
 	t=$(toml_get_table "$table_name")
