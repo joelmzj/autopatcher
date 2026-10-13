@@ -494,26 +494,18 @@ import sys, re, urllib.parse
 html = sys.argv[1]
 target_arch = sys.argv[2].lower()
 base_site = "https://www.apkmirror.com"
-
-links = re.findall(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', html, re.DOTALL)
-variant_href = ""
-
-for href, text in links:
-if '/apk/' in href:
-    h_low = href.lower()
-    t_low = text.lower()
-    if target_arch in h_low or target_arch in t_low or 'universal' in h_low or 'noarch' in h_low:
-        variant_href = href
-        break
-
-if not variant_href:
-for href, text in links:
-    if '/apk/' in href:
-        variant_href = href
-        break
-
-if variant_href:
-print(urllib.parse.urljoin(base_site, variant_href))
+links = re.findall(r'href="([^"]+/apk/[^"]+)"', html)
+if not links:
+links = re.findall(r'href="([^"]+/download/[^"]+)"', html)
+variant_url = ""
+for href in links:
+h = href.lower()
+if target_arch in h or 'universal' in h or 'noarch' in h:
+    variant_url = urllib.parse.urljoin(base_site, href)
+    break
+if not variant_url and links:
+variant_url = urllib.parse.urljoin(base_site, links[0])
+print(variant_url)
 PYEOF
     )
 
