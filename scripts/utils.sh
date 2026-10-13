@@ -377,9 +377,21 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 # INTEGRACIÓN EXCLUSIVA DE APKMIRROR
 # ==============================================================================
 
-base_url="${base_url:-https://www.apkmirror.com}"
+local all_dl_btns btn_url=""
+	all_dl_btns=$(echo "$resp" | $HTMLQ "a.downloadButton" --attribute href)
+	if [ "$is_bundle" = true ]; then
+		btn_url=$(echo "$all_dl_btns" | grep -v 'forcebaseapk' | head -1)
+		[ -z "$btn_url" ] && btn_url=$(echo "$all_dl_btns" | head -1)
+	else
+		btn_url=$(echo "$all_dl_btns" | grep 'forcebaseapk' | head -1)
+		[ -z "$btn_url" ] && btn_url=$(echo "$all_dl_btns" | head -1)
+	fi
+	if [ -z "$btn_url" ]; then epr "Could not find download button on APKMirror"; return 1; fi
+	btn_url=$(echo "$btn_url" | sed 's/&amp;/\&/g')
+
+	base_url="${base_url:-https://www.apkmirror.com}"
 	_cf_get "$base_url$btn_url" || return 1
-	local final_url
+	local final_url=""
 	final_url=$($HTMLQ "a#download-link" --attribute href <<<"$html" 2>/dev/null | head -1) || true
 	[ -z "$final_url" ] && final_url=$(echo "$html" | grep -oP 'id="download-link"[^>]*href="\K[^"]+' | head -1) || true
 	if [ -z "$final_url" ]; then epr "Could not find final download link on APKMirror"; return 1; fi
