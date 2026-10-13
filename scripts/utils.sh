@@ -86,12 +86,25 @@ toml_file_to_json() {
     if [ ! -f "$f" ]; then return 1; fi
     if [[ "$f" == *.toml ]]; then
         local res=""
+        
+        # 1. Intentar forzar el binario nativo usando la ruta absoluta desde $CWD
+        local native_toml="${CWD}/bin/toml/tq-x86_64"
+        if [ -x "$native_toml" ]; then
+            if res=$("$native_toml" --output json --file "$f" . 2>/dev/null) && [ -n "$res" ]; then
+                echo "$res"
+                return 0
+            fi
+        fi
+
+        # 2. Intentar con la variable global $TOML si fue definida previamente
         if [ -n "${TOML-}" ] && [ -x "$TOML" ] 2>/dev/null; then
             if res=$("$TOML" --output json --file "$f" . 2>/dev/null) && [ -n "$res" ]; then
                 echo "$res"
                 return 0
             fi
         fi
+
+        # 3. Fallback a Python por seguridad si el binario fallara
         if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
             local py_bin="python3"
             command -v python3 >/dev/null 2>&1 || py_bin="python"
@@ -115,7 +128,8 @@ EOF
                 return 0
             fi
         fi
-        abort "Neither python (tomllib/tomli) nor yq is available to parse $f"
+        
+        abort "Neither the native tq binary (${native_toml}) nor python (tomllib/tomli) is available to parse $f"
     elif [[ "$f" == *.json ]]; then
         cat "$f"
     else
