@@ -377,8 +377,7 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 # INTEGRACIÓN EXCLUSIVA DE APKMIRROR
 # ==============================================================================
 
-local base_url="https://www.apkmirror.com"
-	_cf_get "$base_url$btn_url" || return 1
+_cf_get "$base_url$btn_url" || return 1
 	local final_url
 	final_url=$($HTMLQ "a#download-link" --attribute href <<<"$html" 2>/dev/null | head -1) || true
 	[ -z "$final_url" ] && final_url=$(echo "$html" | grep -oP 'id="download-link"[^>]*href="\K[^"]+' | head -1) || true
