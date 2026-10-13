@@ -503,7 +503,7 @@ resolve_target_version_from_bundle() {
     if [ -z "$patches_json_url" ] || [ "$patches_json_url" = "null" ]; then
         echo ""
         return 1
-    }
+    fi   # <--- Aquí estaba el error (tenía una llave } en lugar de fi)
     
     # Procesar el patches.json mediante un script en Python embebido y seguro con heredoc
     python3 - "$patches_json_url" "$pkg_name" "$mode" << 'EOF'
