@@ -480,7 +480,7 @@ dl_apkmirror() {
     apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
     local release_url="${url%/}/${apkmname}-${search_version}-release/"
     
-    pr "Consultando APKMirror (vía Cloudflare bypass): $release_url"
+    pr "Consultando APKMirror: $release_url"
     
     if ! _cf_get "$release_url"; then
         epr "Fallo al conectar con la página de versión de APKMirror"
@@ -493,21 +493,32 @@ dl_apkmirror() {
 import sys, re, urllib.parse
 html = sys.argv[1]
 target_arch = sys.argv[2].lower()
-matches = re.findall(r'href="([^"]+/apk/[^"]+)"', html)
 base_site = "https://www.apkmirror.com"
-variant_url = ""
-for href in matches:
-if target_arch in href.lower() or 'universal' in href.lower() or 'noarch' in href.lower():
-    variant_url = urllib.parse.urljoin(base_site, href)
-    break
-if not variant_url and matches:
-variant_url = urllib.parse.urljoin(base_site, matches[0])
-print(variant_url)
+
+links = re.findall(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', html, re.DOTALL)
+variant_href = ""
+
+for href, text in links:
+if '/apk/' in href:
+    h_low = href.lower()
+    t_low = text.lower()
+    if target_arch in h_low or target_arch in t_low or 'universal' in h_low or 'noarch' in h_low:
+        variant_href = href
+        break
+
+if not variant_href:
+for href, text in links:
+    if '/apk/' in href:
+        variant_href = href
+        break
+
+if variant_href:
+print(urllib.parse.urljoin(base_site, variant_href))
 PYEOF
     )
 
     if [ -z "$variant_url" ]; then
-        epr "No se encontró la variante de arquitectura compatible"
+        epr "No se encontró ningún enlace de variante válido en la página"
         return 1
     fi
 
@@ -526,6 +537,10 @@ base_site = "https://www.apkmirror.com"
 m = re.search(r'href="([^"]+/download/\?id=\d+)"', html)
 if m:
 print(urllib.parse.urljoin(base_site, m.group(1)))
+else:
+m2 = re.search(r'href="([^"]+/key/[^"]+)"', html)
+if m2:
+    print(urllib.parse.urljoin(base_site, m2.group(1)))
 PYEOF
     )
 
