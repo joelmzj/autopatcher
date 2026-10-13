@@ -377,21 +377,13 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 # INTEGRACIÓN EXCLUSIVA DE APKMIRROR
 # ==============================================================================
 
-_cf_get() {
-    local target_url="$1"
-    html=""
-    local py_script="${CWD}/scripts/cf_get.py"
-    if [ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ]; then
-        py_script="$(dirname "${BASH_SOURCE[0]}")/cf_get.py"
-    fi
-    if command -v python3 >/dev/null 2>&1 && [ -f "$py_script" ]; then
-        html=$(python3 "$py_script" "$target_url" "$TEMP_DIR/cookie.txt" 2>/dev/null) || true
-    fi
-    if [ -z "$html" ]; then
-        html=$(curl -s -L -b "$TEMP_DIR/cookie.txt" -c "$TEMP_DIR/cookie.txt" -H "User-Agent: ${DEFAULT_UA}" "$target_url" 2>/dev/null) || true
-    fi
-    [ -n "$html" ]
-}
+_cf_get "$base_url$btn_url" || return 1
+	local final_url
+	final_url=$($HTMLQ "a#download-link" --attribute href <<<"$html" 2>/dev/null | head -1) || true
+	[ -z "$final_url" ] && final_url=$(echo "$html" | grep -oP 'id="download-link"[^>]*href="\K[^"]+' | head -1) || true
+	if [ -z "$final_url" ]; then epr "Could not find final download link on APKMirror"; return 1; fi
+	final_url=$(echo "$final_url" | sed 's/&amp;/\&/g')
+	[[ "$final_url" != http* ]] && final_url="${base_url}${final_url}"
 
 get_apkmirror_resp() {
     local url="${1}"
