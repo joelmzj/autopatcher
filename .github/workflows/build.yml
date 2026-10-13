@@ -84,9 +84,10 @@ jobs:
           KEYSTORE_P12_B64: ${{ secrets.KEYSTORE_P12_B64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          TOML: "./bin/toml/tq-x86_64"   # <--- Forzamos la ruta exacta del binario nativo aquí
         run: |
           chmod +x scripts/*.sh
-          chmod +x bin/toml/*   # <-- Permite que el runner ejecute tq-x86_64 sin problemas
+          chmod +x bin/toml/*
           CONFIG="${{ inputs.config_file }}"
           # Si se dispara por cron, inputs.config_file estará vacío, usamos config.toml por defecto
           if [ -z "$CONFIG" ]; then
