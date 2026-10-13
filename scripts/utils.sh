@@ -515,17 +515,17 @@ dl_apkmirror() {
     fi
 
     local final_dl_link
-    final_dl_link=$(python3 - "$var_html" << 'PYEOF'
-import sys, re, urllib.parse
-html = sys.argv[1]
+    final_dl_link=$(VAR_HTML="$var_html" python3 - << 'PYEOF'
+import sys, re, urllib.parse, os
+html = os.environ.get("VAR_HTML", "")
 base_site = "https://www.apkmirror.com"
 m = re.search(r'href="([^"]+/download/\?id=\d+)"', html)
 if m:
-print(urllib.parse.urljoin(base_site, m.group(1)))
+    print(urllib.parse.urljoin(base_site, m.group(1)))
 else:
-m2 = re.search(r'href="([^"]+/key/[^"]+)"', html)
-if m2:
-    print(urllib.parse.urljoin(base_site, m2.group(1)))
+    m2 = re.search(r'href="([^"]+/key/[^"]+)"', html)
+    if m2:
+        print(urllib.parse.urljoin(base_site, m2.group(1)))
 PYEOF
     )
 
