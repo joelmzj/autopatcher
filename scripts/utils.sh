@@ -480,95 +480,96 @@ dl_apkmirror() {
     apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
     local release_url="${url%/}/${apkmname}-${search_version}-release/"
     
-    pr "Consultando APKMirror para la versión $version..."
+    pr "Consultando APKMirror (vía Cloudflare bypass): $release_url"
     
-    python3 - "$release_url" "$output" "$arch" << 'PYEOF'
-import urllib.request
-import urllib.parse
-import re
-import sys
-import os
+    if ! _cf_get "$release_url"; then
+        epr "Fallo al conectar con la página de versión de APKMirror"
+        return 1
+    fi
+    local release_html="$html"
 
-release_url = sys.argv[1]
-output_path = sys.argv[2]
-target_arch = sys.argv[3].lower()
-
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
-
-def get_html(u):
-req = urllib.request.Request(u, headers=headers)
-try:
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read().decode('utf-8', errors='ignore')
-except Exception as e:
-    print(f"Error al conectar con {u}: {e}", file=sys.stderr)
-    return ""
-
-html = get_html(release_url)
-if not html:
-sys.exit(1)
-
+    local variant_url
+    variant_url=$(python3 - "$release_html" "$arch" << 'PYEOF'
+import sys, re, urllib.parse
+html = sys.argv[1]
+target_arch = sys.argv[2].lower()
 matches = re.findall(r'href="([^"]+/apk/[^"]+)"', html)
 base_site = "https://www.apkmirror.com"
 variant_url = ""
-
 for href in matches:
 if target_arch in href.lower() or 'universal' in href.lower() or 'noarch' in href.lower():
     variant_url = urllib.parse.urljoin(base_site, href)
     break
-
 if not variant_url and matches:
 variant_url = urllib.parse.urljoin(base_site, matches[0])
-
-if not variant_url:
-print("Aviso: No se encontró la variante de arquitectura compatible.", file=sys.stderr)
-sys.exit(1)
-
-var_html = get_html(variant_url)
-if not var_html:
-sys.exit(1)
-
-download_page_url = None
-m = re.search(r'href="([^"]+/download/\?id=\d+)"', var_html)
-if m:
-download_page_url = urllib.parse.urljoin(base_site, m.group(1))
-
-if not download_page_url:
-print("Aviso: No se encontró la página de descarga.", file=sys.stderr)
-sys.exit(1)
-
-dl_page_html = get_html(download_page_url)
-if not dl_page_html:
-sys.exit(1)
-
-final_dl_link = None
-for pat in [r'href="([^"]+wp-content/uploads/[^"]+)"', r'href="([^"]+key=[^"]+)"', r'href="(https://www\.apkmirror\.com/wp-content/[^"]+)"']:
-m = re.search(pat, dl_page_html)
-if m:
-    final_dl_link = m.group(1)
-    break
-
-if not final_dl_link:
-print("Aviso: No se pudo extraer el enlace directo del archivo.", file=sys.stderr)
-sys.exit(1)
-
-final_url = urllib.parse.urljoin(base_site, final_dl_link)
-os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
-
-req_dl = urllib.request.Request(final_url, headers=headers)
-with urllib.request.urlopen(req_dl, timeout=300) as response, open(output_path, 'wb') as out_file:
-while True:
-    chunk = response.read(1048576)
-    if not chunk:
-        break
-    out_file.write(chunk)
-print("Descarga completada con éxito.")
+print(variant_url)
 PYEOF
+    )
 
-    if [ -f "$output" ] && [ -s "$output" ]; then
-        pr "APK descargada y verificada correctamente."
-        return 0
+    if [ -z "$variant_url" ]; then
+        epr "No se encontró la variante de arquitectura compatible"
+        return 1
     fi
+
+    pr "Consultando variante: $variant_url"
+    if ! _cf_get "$variant_url"; then
+        epr "Fallo al conectar con la página de la variante"
+        return 1
+    fi
+    local var_html="$html"
+
+    local download_page_url
+    download_page_url=$(python3 - "$var_html" << 'PYEOF'
+import sys, re, urllib.parse
+html = sys.argv[1]
+base_site = "https://www.apkmirror.com"
+m = re.search(r'href="([^"]+/download/\?id=\d+)"', html)
+if m:
+print(urllib.parse.urljoin(base_site, m.group(1)))
+PYEOF
+    )
+
+    if [ -z "$download_page_url" ]; then
+        epr "No se encontró la página de descarga"
+        return 1
+    fi
+
+    pr "Obteniendo página final de descarga: $download_page_url"
+    if ! _cf_get "$download_page_url"; then
+        epr "Fallo al conectar con la página de descarga final"
+        return 1
+    fi
+    local dl_page_html="$html"
+
+    local final_dl_link
+    final_dl_link=$(python3 - "$dl_page_html" << 'PYEOF'
+import sys, re, urllib.parse
+html = sys.argv[1]
+base_site = "https://www.apkmirror.com"
+for pat in [r'href="([^"]+wp-content/uploads/[^"]+)"', r'href="([^"]+key=[^"]+)"', r'href="(https://www\.apkmirror\.com/wp-content/[^"]+)"']:
+m = re.search(pat, html)
+if m:
+    print(urllib.parse.urljoin(base_site, m.group(1)))
+    break
+PYEOF
+    )
+
+    if [ -z "$final_dl_link" ]; then
+        epr "No se pudo extraer el enlace directo de descarga"
+        return 1
+    fi
+
+    pr "Descargando APK mediante cf_get.py..."
+    local cf_py="${CWD}/scripts/cf_get.py"
+    mkdir -p "$(dirname "$output")"
+    if python3 "$cf_py" download "$final_dl_link" "$output" "$download_page_url" "$TEMP_DIR/cookie.txt"; then
+        if [ -f "$output" ] && [ -s "$output" ]; then
+            pr "APK descargada con éxito: $output"
+            return 0
+        fi
+    fi
+    
+    epr "Fallo en la descarga final con cf_get.py"
     return 1
 }
 
