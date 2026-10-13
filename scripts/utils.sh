@@ -87,39 +87,38 @@ toml_file_to_json() {
     if [[ "$f" == *.toml ]]; then
         local res=""
         
-        # Fallback a Python con la llamada correcta a 'toml.load' usando open()
         if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
             local py_bin="python3"
             command -v python3 >/dev/null 2>&1 || py_bin="python"
-            if res=$("$py_bin" - << 'EOF' "$f" 2>/dev/null
-import json, sys
+            
+            # Capturamos la salida estándar y de error para depurar
+            res=$("$py_bin" - << 'EOF' "$f" 2>&1
+import json, sys, traceback
 filename = sys.argv[1]
 data = None
 try:
-    import tomllib
-    with open(filename, 'rb') as f_in:
-        data = tomllib.load(f_in)
-except Exception:
-    try:
-        import tomli as tomllib
-        with open(filename, 'rb') as f_in:
-            data = tomllib.load(f_in)
-    except Exception:
-        try:
-            import toml
-            with open(filename, 'r') as f_in:
-                data = toml.load(f_in)
-        except Exception:
-            sys.exit(1)
+    import toml
+    with open(filename, 'r', encoding='utf-8') as f_in:
+        data = toml.load(f_in)
+except Exception as e:
+    sys.stderr.write(f"PYTHON_TOML_ERROR: {e}\n")
+    traceback.print_exc(file=sys.stderr)
+    sys.exit(1)
 
 if data is not None:
     print(json.dumps(data))
 else:
     sys.exit(1)
 EOF
-            ) && [ -n "$res" ]; then
+            )
+            local py_exit=$?
+            
+            if [ $py_exit -eq 0 ] && [ -n "$res" ]; then
                 echo "$res"
                 return 0
+            else
+                echo "[-] Salida de error de Python:" >&2
+                echo "$res" >&2
             fi
         fi
         
