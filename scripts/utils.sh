@@ -508,7 +508,7 @@ mode = sys.argv[3]
 
 urls = [
     f"https://raw.githubusercontent.com/{repo}/main/patches-list.json",
-    f"https://raw.githubusercontent.com/{repo}/master/patches-list.json"
+    f"https://raw.githubusercontent.com/{repo}/dev/patches-list.json"
 ]
 
 data = None
