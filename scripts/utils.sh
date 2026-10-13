@@ -478,7 +478,6 @@ dl_apkmirror() {
         apk_bundle="BUNDLE"
     fi
 
-    # Construir la URL de la página de release siguiendo la lógica de apkmirror_search.py
     local apkmname
     apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__" 2>/dev/null || echo "")
     [ -z "$apkmname" ] && apkmname=$(basename "${url%/}")
@@ -489,7 +488,7 @@ dl_apkmirror() {
     if ! _cf_get "$release_url"; then
         epr "No se pudo conectar con APKMirror para la versión $version"
         return 1
-    }
+    fi
     
     local release_html="$html"
     local search_py="${CWD}/scripts/apkmirror_search.py"
@@ -505,15 +504,12 @@ dl_apkmirror() {
     fi
 
     pr "Variante seleccionada: $variant_page_url"
-    pr "Obteniendo página de descarga final de la variante..."
-    
     if ! _cf_get "$variant_page_url"; then
         epr "No se pudo acceder a la página de la variante"
         return 1
-    fi
+    }
     local var_html="$html"
 
-    # Extraer el enlace directo de descarga desde la página de la variante
     local final_dl_link
     final_dl_link=$(python3 - "$var_html" << 'PYEOF'
 import sys, re, urllib.parse
