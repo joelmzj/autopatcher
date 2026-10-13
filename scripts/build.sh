@@ -99,6 +99,27 @@ for table_name in $(toml_get_table_names); do
     patched_apk="$BUILD_DIR/${table_name}-${target_apk_ver}.apk"
 
     # 3. Descargar la APK limpia desde APKMirror usando la versión exacta resuelta
+
+	# ==============================================================================
+	# SOPORTE CLOUDFLARE Y PETICIONES WEB
+	# ==============================================================================
+	
+	_cf_get() {
+	    local target_url="$1"
+	    html=""
+	    local py_script="${CWD}/scripts/cf_get.py"
+	    if [ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ]; then
+	        py_script="$(dirname "${BASH_SOURCE[0]}")/cf_get.py"
+	    fi
+	    if command -v python3 >/dev/null 2>&1 && [ -f "$py_script" ]; then
+	        html=$(python3 "$py_script" "$target_url" "$TEMP_DIR/cookie.txt" 2>/dev/null) || true
+	    fi
+	    if [ -z "$html" ]; then
+	        html=$(curl -s -L -b "$TEMP_DIR/cookie.txt" -c "$TEMP_DIR/cookie.txt" -H "User-Agent: ${DEFAULT_UA}" "$target_url" 2>/dev/null) || true
+	    fi
+	    [ -n "$html" ]
+	}
+	
     if [ -n "${app_args[apkmirror_dlurl]}" ]; then
         get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
             wpr "No se pudo conectar a APKMirror para $table_name"
