@@ -63,10 +63,6 @@ declare -g __APKMIRROR_EXAMPLE_URL__=""
 # CARGADOR MODULAR DE SUBSCRIPTS
 # ==============================================================================
 
-# ==============================================================================
-# CARGADOR MODULAR DE SUBSCRIPTS
-# ==============================================================================
-
 load_module() {
     local module_path="$1"
     if [ -f "$module_path" ]; then
@@ -285,14 +281,14 @@ source_release_pick_from_list() {
     local host=${1,,} mode=$2
     case "$host" in
         github | codeberg)
-            if [ "$mode" = beta ]; then
+            if [ "$mode" = beta ] || [ "$mode" = dev ]; then
                 jq -e -c 'map(select(.prerelease == true and .draft != true and .tag_name != null and .tag_name != "")) | sort_by(.published_at // .created_at // "") | reverse | .[0] // empty'
             else
                 jq -e -c 'map(select(.prerelease != true and .draft != true and .tag_name != null and .tag_name != "")) | sort_by(.published_at // .created_at // "") | reverse | .[0] // empty'
             fi
             ;;
         gitlab)
-            if [ "$mode" = beta ]; then
+            if [ "$mode" = beta ] || [ "$mode" = dev ]; then
                 jq -e -c 'map(select(.tag_name != null and .tag_name != "" and (.tag_name | test("(?i)(dev|alpha|beta|rc)")))) | sort_by(.released_at // .created_at // "") | reverse | .[0] // empty'
             else
                 jq -e -c 'map(select(.tag_name != null and .tag_name != "" and (.tag_name | test("(?i)(dev|alpha|beta|rc)") | not))) | sort_by(.released_at // .created_at // "") | reverse | .[0] // empty'
@@ -464,7 +460,7 @@ get_apkmirror_pkg_name() {
 
 dl_apkmirror() {
     local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-}
-    
+
     if [ -f "${output%.apk}.apkm" ]; then
         _bundle_to_apk "${output%.apk}.apkm" "${output}"
         return 0
@@ -479,91 +475,88 @@ dl_apkmirror() {
     local log_stderr="${TEMP_DIR}/search_stderr_$(basename "${output%.apk}").log"
 
     # ------------------------------------------------------------------
-    # Paso 0a: HTML de la página base de la app (la del config.toml)
-    # ------------------------------------------------------------------
-    pr "Obteniendo página base de la app: $url"
-    local base_html
-    base_html=$(python3 "$cf_py" "$url" 2>/dev/null) || {
-        epr "No se pudo obtener el HTML de la página base"
-        return 1
-    }
-    if [ -z "$base_html" ]; then
-        epr "HTML vacío de la página base"
-        return 1
-    fi
-
-    # ------------------------------------------------------------------
-    # Paso 0b: extraer la URL real de uploads
-    # ------------------------------------------------------------------
-    local uploads_url
-    uploads_url=$(echo "$base_html" | python3 "$search_py" uploads 2>"$log_stderr")
-    if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
-    if [ -z "$uploads_url" ] || [[ "$uploads_url" != http* ]]; then
-        epr "No se pudo obtener la URL de uploads desde la página base"
-        return 1
-    fi
-    pr "URL de uploads: $uploads_url"
-
-    # ------------------------------------------------------------------
-    # Paso 0c: iterar páginas siguiendo el enlace real de "next"
+    # Detectar si la URL del config apunta directamente a un release
+    # (formato: .../app-name-version-release/). Si sí, saltarse el lookup
+    # y usar esa URL como release_url directamente.
     # ------------------------------------------------------------------
     local release_url=""
-    local current_url="$uploads_url"
-    local page=1
-    local max_pages=8
-    while [ "$page" -le "$max_pages" ] && [ -n "$current_url" ]; do
-        pr "  → Buscando en página $page: $current_url"
+    if [[ "$url" =~ -release/?$ ]]; then
+        pr "URL de release directa detectada en config: $url"
+        release_url="$url"
+    fi
 
-        local uploads_html
-        uploads_html=$(python3 "$cf_py" "$current_url" 2>/dev/null) || {
-            wpr "No se pudo obtener el HTML de uploads (página $page)"
-            break
+    if [ -z "$release_url" ]; then
+        # --------------------------------------------------------------
+        # Paso 0a: HTML de la página base de la app (la del config.toml)
+        # --------------------------------------------------------------
+        pr "Obteniendo página base de la app: $url"
+        local base_html
+        base_html=$(python3 "$cf_py" "$url" 2>/dev/null) || {
+            epr "No se pudo obtener el HTML de la página base"
+            return 1
         }
+        if [ -z "$base_html" ]; then
+            epr "HTML vacío de la página base"
+            return 1
+        fi
 
-        local vers_output
-        vers_output=$(echo "$uploads_html" | python3 "$search_py" list true 2>"$log_stderr")
+        # --------------------------------------------------------------
+        # Paso 0b: extraer la URL real de uploads
+        # --------------------------------------------------------------
+        local uploads_url
+        uploads_url=$(echo "$base_html" | python3 "$search_py" uploads 2>"$log_stderr")
         if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
+        if [ -z "$uploads_url" ] || [[ "$uploads_url" != http* ]]; then
+            epr "No se pudo obtener la URL de uploads desde la página base"
+            return 1
+        fi
+        pr "URL de uploads: $uploads_url"
 
-        release_url=$(echo "$vers_output" | awk -v v="$clean_version" -F'\t' '$1 == v { print $2; exit }')
+        # --------------------------------------------------------------
+        # Paso 0c: iterar páginas siguiendo el enlace real de "next"
+        # --------------------------------------------------------------
+        local current_url="$uploads_url"
+        local page=1
+        local max_pages=8
+        while [ "$page" -le "$max_pages" ] && [ -n "$current_url" ]; do
+            pr "  → Buscando en página $page: $current_url"
+
+            local uploads_html
+            uploads_html=$(python3 "$cf_py" "$current_url" 2>/dev/null) || {
+                wpr "No se pudo obtener el HTML de uploads (página $page)"
+                break
+            }
+
+            local vers_output
+            vers_output=$(echo "$uploads_html" | python3 "$search_py" list true 2>"$log_stderr")
+            if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
+
+            release_url=$(echo "$vers_output" | awk -v v="$clean_version" -F'\t' '$1 == v { print $2; exit }')
+            if [ -z "$release_url" ]; then
+                release_url=$(echo "$vers_output" | awk -v v="$search_version" -F'\t' '$1 == v { print $2; exit }')
+            fi
+
+            if [ -n "$release_url" ]; then
+                pr "  → Encontrada en página $page"
+                break
+            fi
+
+            local next_url
+            next_url=$(echo "$uploads_html" | python3 "$search_py" next 2>/dev/null)
+            if [ -z "$next_url" ] || [[ "$next_url" != http* ]] || [ "$next_url" = "$current_url" ]; then
+                pr "  → No hay más páginas disponibles"
+                break
+            fi
+            current_url="$next_url"
+            page=$((page + 1))
+        done
+
         if [ -z "$release_url" ]; then
-            release_url=$(echo "$vers_output" | awk -v v="$search_version" -F'\t' '$1 == v { print $2; exit }')
+            epr "No se encontró la versión '$clean_version' en las primeras $page páginas"
+            return 1
         fi
-
-        if [ -n "$release_url" ]; then
-            pr "  → Encontrada en página $page"
-            break
-        fi
-
-        local next_url
-        next_url=$(echo "$uploads_html" | python3 "$search_py" next 2>/dev/null)
-        if [ -z "$next_url" ] || [[ "$next_url" != http* ]] || [ "$next_url" = "$current_url" ]; then
-            pr "  → No hay más páginas disponibles"
-            break
-        fi
-        current_url="$next_url"
-        page=$((page + 1))
-    done
-
-    if [ -z "$release_url" ]; then
-        epr "No se encontró la versión '$clean_version' en las primeras $page páginas"
-        return 1
     fi
-    pr "URL de release: $release_url"
 
-    # ------------------------------------------------------------------
-    # Paso 0d: elegir la versión de patches-list.json
-    # ------------------------------------------------------------------
-    local release_url
-    release_url=$(echo "$vers_output" | awk -v v="$clean_version" -F'\t' '$1 == v { print $2; exit }')
-    if [ -z "$release_url" ]; then
-        release_url=$(echo "$vers_output" | awk -v v="$search_version" -F'\t' '$1 == v { print $2; exit }')
-    fi
-    if [ -z "$release_url" ]; then
-        epr "No se encontró la versión '$clean_version' en la lista de uploads"
-        pr "Primeras 10 versiones disponibles:"
-        echo "$vers_output" | head -10 | awk -F'\t' '{print "  - " $1}' >&2
-        return 1
-    fi
     pr "URL de release: $release_url"
 
     # ------------------------------------------------------------------
@@ -588,65 +581,63 @@ dl_apkmirror() {
     fi
     pr "Variante elegida: $variant_page_url"
 
-    # ... aquí sigue el paso 2 (botón) y paso 3 (final) sin cambios
-
-        # ------------------------------------------------------------------
-        # Paso 2: variante HTML → URL del botón de descarga
-        # ------------------------------------------------------------------
-        pr "Obteniendo HTML de la variante..."
-        local variant_html
-        variant_html=$(python3 "$cf_py" "$variant_page_url" 2>/dev/null) || {
-            epr "No se pudo obtener el HTML de la variante"
-            return 1
-        }
-
-        local download_url
-        download_url=$(echo "$variant_html" | python3 "$search_py" download 2>"$log_stderr")
-        if [ -s "$log_stderr" ]; then
-            cat "$log_stderr" >&2
-        fi
-
-        if [ -z "$download_url" ] || [[ "$download_url" != http* ]]; then
-            epr "Paso 2 falló: no se encontró el botón de descarga"
-            return 1
-        fi
-        pr "Botón de descarga: $download_url"
-
-        # ------------------------------------------------------------------
-        # Paso 3: página intermedia → URL final del APK
-        # ------------------------------------------------------------------
-        pr "Obteniendo HTML intermedio..."
-        local step2_html
-        step2_html=$(python3 "$cf_py" "$download_url" 2>/dev/null) || {
-            epr "No se pudo obtener el HTML intermedio"
-            return 1
-        }
-
-        local final_url
-        final_url=$(echo "$step2_html" | python3 "$search_py" final 2>"$log_stderr")
-        if [ -s "$log_stderr" ]; then
-            cat "$log_stderr" >&2
-        fi
-
-        if [ -z "$final_url" ] || [[ "$final_url" != http* ]]; then
-            epr "Paso 3 falló: no se encontró el enlace final"
-            return 1
-        fi
-        pr "Enlace final: $final_url"
-
-        # ------------------------------------------------------------------
-        # Descarga final del archivo
-        # ------------------------------------------------------------------
-        pr "Descargando APK final con cf_get.py..."
-        mkdir -p "$(dirname "$output")"
-        if python3 "$cf_py" download "$final_url" "$output" "$variant_page_url" "$TEMP_DIR/cookie.txt"; then
-            if [ -f "$output" ] && [ -s "$output" ]; then
-                pr "APK descargada y verificada: $output"
-                return 0
-            fi
-        fi
+    # ------------------------------------------------------------------
+    # Paso 2: variante HTML → URL del botón de descarga
+    # ------------------------------------------------------------------
+    pr "Obteniendo HTML de la variante..."
+    local variant_html
+    variant_html=$(python3 "$cf_py" "$variant_page_url" 2>/dev/null) || {
+        epr "No se pudo obtener el HTML de la variante"
         return 1
     }
+
+    local download_url
+    download_url=$(echo "$variant_html" | python3 "$search_py" download 2>"$log_stderr")
+    if [ -s "$log_stderr" ]; then
+        cat "$log_stderr" >&2
+    fi
+
+    if [ -z "$download_url" ] || [[ "$download_url" != http* ]]; then
+        epr "Paso 2 falló: no se encontró el botón de descarga"
+        return 1
+    fi
+    pr "Botón de descarga: $download_url"
+
+    # ------------------------------------------------------------------
+    # Paso 3: página intermedia → URL final del APK
+    # ------------------------------------------------------------------
+    pr "Obteniendo HTML intermedio..."
+    local step2_html
+    step2_html=$(python3 "$cf_py" "$download_url" 2>/dev/null) || {
+        epr "No se pudo obtener el HTML intermedio"
+        return 1
+    }
+
+    local final_url
+    final_url=$(echo "$step2_html" | python3 "$search_py" final 2>"$log_stderr")
+    if [ -s "$log_stderr" ]; then
+        cat "$log_stderr" >&2
+    fi
+
+    if [ -z "$final_url" ] || [[ "$final_url" != http* ]]; then
+        epr "Paso 3 falló: no se encontró el enlace final"
+        return 1
+    fi
+    pr "Enlace final: $final_url"
+
+    # ------------------------------------------------------------------
+    # Descarga final del archivo
+    # ------------------------------------------------------------------
+    pr "Descargando APK final con cf_get.py..."
+    mkdir -p "$(dirname "$output")"
+    if python3 "$cf_py" download "$final_url" "$output" "$variant_page_url" "$TEMP_DIR/cookie.txt"; then
+        if [ -f "$output" ] && [ -s "$output" ]; then
+            pr "APK descargada y verificada: $output"
+            return 0
+        fi
+    fi
+    return 1
+}
 
 _bundle_to_apk() {
     local bundle=$1 output=$2
@@ -666,21 +657,30 @@ _bundle_to_apk() {
 resolve_target_version_from_bundle() {
     local repo="$1"
     local pkg_name="$2"
-    local mode="$3" # "auto" o "experimental"
-    
-    python3 - "$repo" "$pkg_name" "$mode" << 'EOF'
+    local mode="$3"                     # "auto" o "experimental"
+    local channel="${4:-stable}"        # "stable" o "dev"
+
+    python3 - "$repo" "$pkg_name" "$mode" "$channel" << 'EOF'
 import urllib.request
 import json
 import sys
 
-repo = sys.argv[1]
+repo       = sys.argv[1]
 target_pkg = sys.argv[2]
-mode = sys.argv[3]
+mode       = sys.argv[3]
+channel    = sys.argv[4].lower()
 
-urls = [
-    f"https://raw.githubusercontent.com/{repo}/main/patches-list.json",
-    f"https://raw.githubusercontent.com/{repo}/dev/patches-list.json"
-]
+# Elegir rama preferida según el canal
+if channel == "dev":
+    urls = [
+        f"https://raw.githubusercontent.com/{repo}/dev/patches-list.json",
+        f"https://raw.githubusercontent.com/{repo}/main/patches-list.json",
+    ]
+else:
+    urls = [
+        f"https://raw.githubusercontent.com/{repo}/main/patches-list.json",
+        f"https://raw.githubusercontent.com/{repo}/dev/patches-list.json",
+    ]
 
 data = None
 for url in urls:
@@ -701,14 +701,14 @@ exp_versions = []
 for patch in patches:
     compat_pkgs = patch.get('compatiblePackages', {})
     compatibility = patch.get('compatibility', [])
-    
+
     if isinstance(compat_pkgs, dict):
         for p, v_list in compat_pkgs.items():
             if p == target_pkg and isinstance(v_list, list):
                 for v in v_list:
                     if v not in stable_versions:
                         stable_versions.append(v)
-                        
+
     targets_pool = []
     for comp in compatibility:
         targets_pool.extend(comp.get('targets', []))
@@ -716,7 +716,7 @@ for patch in patches:
         for pkg in compat_pkgs:
             if pkg.get('packageName') == target_pkg or pkg.get('name') == target_pkg:
                 targets_pool.extend(pkg.get('targets', []))
-                
+
     for t in targets_pool:
         ver = t.get('version')
         if ver:

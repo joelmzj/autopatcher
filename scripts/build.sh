@@ -49,13 +49,11 @@ if [ ! -f "$APKEDITOR_JAR" ]; then
     pr "Consultando la última versión de APKEditor..."
     APKEDITOR_API="https://api.github.com/repos/REAndroid/APKEditor/releases/latest"
 
-    # Obtener tag (ej. V1.4.9)
     APKEDITOR_TAG=$(curl -fsSL "$APKEDITOR_API" | jq -r '.tag_name // empty')
     if [ -z "$APKEDITOR_TAG" ]; then
         abort "No se pudo obtener el tag de APKEditor desde la API"
     fi
 
-    # Obtener el nombre del asset .jar (ej. APKEditor-1.4.9.jar)
     APKEDITOR_ASSET=$(curl -fsSL "$APKEDITOR_API" \
         | jq -r '.assets[] | select(.name | test("\\.jar$")) | .name' \
         | head -n1)
@@ -77,7 +75,7 @@ for table_name in $(toml_get_table_names); do
 	# Omitir la tabla de configuración global
 	if [ "$table_name" = "Morphe-Desktop" ]; then continue; fi
 	if [ -z "$table_name" ]; then continue; fi
-	
+
 	t=$(toml_get_table "$table_name")
 	enabled=$(toml_get "$t" enabled) || enabled=true
 	if [ "$enabled" = false ]; then continue; fi
@@ -87,98 +85,151 @@ for table_name in $(toml_get_table_names); do
 	app_args[pkg_name]=$(toml_get "$t" pkg-name) || app_args[pkg_name]=""
 	app_args[app_name]=$(toml_get "$t" app-name) || app_args[app_name]=$table_name
 	app_args[arch]=$(toml_get "$t" arch) || app_args[arch]="arm64-v8a"
-    app_args[brand]=$(toml_get "$t" brand) || app_args[brand]="Patched"
-	
+	app_args[brand]=$(toml_get "$t" brand) || app_args[brand]="Patched"
+	app_args[channel]=$(toml_get "$t" channel) || app_args[channel]="stable"
+	app_args[inclusive_patches]=$(toml_get "$t" inclusive-patches) || app_args[inclusive_patches]="false"
+
 	patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 	target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
 
+	# Leer array exclude-patches (vacío si no existe)
+	mapfile -t exclude_patches < <(
+		jq -r --arg t "$table_name" \
+			'.[$t]["exclude-patches"] // [] | .[]' <<<"$__TOML__"
+	)
+	if [ "${#exclude_patches[@]}" -gt 0 ]; then
+		pr "Parches a excluir para $table_name: ${exclude_patches[*]}"
+	fi
+
 	# Validación inteligente: Omitir si no hay cambios
-	if ! should_build_app "$patch_repo" "github" "stable" "$target_apk_ver"; then
+	if ! should_build_app "$patch_repo" "github" "${app_args[channel]}" "$target_apk_ver"; then
 		pr "Omitiendo app '$table_name' por falta de cambios."
 		continue
 	fi
 
 	pr "Procesando aplicación: $table_name (Fuente: $patch_repo)"
-	
+
 	# 1. Preparar directorios temporales para la app
-    mkdir -p "$TEMP_DIR/$table_name"
-    raw_apk="$TEMP_DIR/$table_name/raw.apk"
-    
+	mkdir -p "$TEMP_DIR/$table_name"
+	raw_apk="$TEMP_DIR/$table_name/raw.apk"
+
 	# 2. Resolver la versión objetivo según el parámetro del TOML (auto, experimental o fija)
-    if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
-        pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
-        resolved_ver=$(resolve_target_version_from_bundle "$patch_repo" "${app_args[pkg_name]}" "$target_apk_ver")
-        if [ -n "$resolved_ver" ]; then
-            target_apk_ver="$resolved_ver"
-            pr "Versión resuelta exitosamente desde patches-list.json: $target_apk_ver"
-        else
-            abort "No se pudo resolver la versión desde patches-list.json para $table_name (paquete: ${app_args[pkg_name]})."
-        fi
-    fi
+	if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
+		pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
+		resolved_ver=$(resolve_target_version_from_bundle "$patch_repo" "${app_args[pkg_name]}" "$target_apk_ver" "${app_args[channel]}")
+		if [ -n "$resolved_ver" ]; then
+			target_apk_ver="$resolved_ver"
+			pr "Versión resuelta exitosamente desde patches-list.json: $target_apk_ver"
+		else
+			abort "No se pudo resolver la versión desde patches-list.json para $table_name (paquete: ${app_args[pkg_name]})."
+		fi
+	fi
 
-    # 2b. Obtener la versión actual de parches (para el nombre del archivo)
-    latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "stable")
+	# 2b. Obtener el tag actual de parches (para el nombre del APK)
+	latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "${app_args[channel]}")
+	if [ -z "$latest_applied_tag" ]; then
+		latest_applied_tag="unknown"
+	fi
 
-    # 2c. Generar el nombre del APK final usando naming.py
-    apk_filename=$(python3 "$(dirname "${BASH_SOURCE[0]}")/naming.py" \
-        "$table_name" \
-        "$target_apk_ver" \
-        "${app_args[brand]}" \
-        "$latest_applied_tag" \
-        "${app_args[arch]}")
+	# 2c. Generar el nombre del APK final usando naming.py
+	apk_filename=$(python3 "$(dirname "${BASH_SOURCE[0]}")/naming.py" \
+		"$table_name" \
+		"$target_apk_ver" \
+		"${app_args[brand]}" \
+		"$latest_applied_tag" \
+		"${app_args[arch]}")
 
-    patched_apk="$BUILD_DIR/$apk_filename"
-    pr "Nombre del APK: $apk_filename"
+	patched_apk="$BUILD_DIR/$apk_filename"
+	pr "Nombre del APK: $apk_filename"
 
-    # 3. Descargar la APK limpia desde APKMirror usando la versión exacta resuelta
-    if [ -n "${app_args[apkmirror_dlurl]}" ]; then
-        get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
-            wpr "No se pudo conectar a APKMirror para $table_name"
-            continue
-        }
+	# 3. Descargar la APK limpia desde APKMirror usando la versión exacta resuelta
+	if [ -n "${app_args[apkmirror_dlurl]}" ]; then
+		get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
+			wpr "No se pudo conectar a APKMirror para $table_name"
+			continue
+		}
 
-        pr "Descargando versión $target_apk_ver para $table_name..."
-        dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "" || {
-            wpr "Fallo al descargar la APK para $table_name"
-            continue
-        }
-    else
-        wpr "La aplicación $table_name no tiene definida una URL de APKMirror válida."
-        continue
-    fi
+		pr "Descargando versión $target_apk_ver para $table_name..."
+		dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "" || {
+			wpr "Fallo al descargar la APK para $table_name"
+			continue
+		}
+	else
+		wpr "La aplicación $table_name no tiene definida una URL de APKMirror válida."
+		continue
+	fi
 
-    # 3b. Mergear bundle a APK monolítico si es necesario
-    if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
-        pr "Detectado bundle, mergeando con APKEditor..."
-        local apkm_file="${raw_apk%.apk}.apkm"
-        mv "$raw_apk" "$apkm_file"
-        if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk" -clean; then
-            wpr "Fallo el merge del bundle para $table_name"
-            continue
-        fi
-        pr "Bundle mergeado: $raw_apk"
-    fi
+	# 3b. Mergear bundle a APK monolítico si es necesario
+	if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
+		pr "Detectado bundle, mergeando con APKEditor..."
+		apkm_file="${raw_apk%.apk}.apkm"
+		mv "$raw_apk" "$apkm_file"
+		if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk" -clean; then
+			wpr "Fallo el merge del bundle para $table_name"
+			continue
+		fi
+		pr "Bundle mergeado: $raw_apk"
+	fi
 
-    # 4. Ejecutar el parcheo con la CLI de Morphe Desktop
-    pr "Aplicando parches con Morphe CLI..."
-    java -jar "$MORPHE_CLI_JAR" patch \
-        -p="https://github.com/$patch_repo" \
-        -o="$patched_apk" \
-        --keystore="$RVB_KEYSTORE" \
-        --keystore-password="$RVB_KEYSTORE_PASS" \
-        --keystore-entry-alias="$RVB_KEY_ALIAS" \
-        --keystore-entry-password="$RVB_KEYSTORE_PASS" \
-        --signer="Morphe" \
-        --striplibs="${app_args[arch]}" \
-        "$raw_apk" \
-        || {
-            wpr "Error durante el proceso de parcheo de $table_name"
-            continue
-        }
+	# ------------------------------------------------------------------
+	# 3c. Construir argumentos -d / -e para morphe
+	# ------------------------------------------------------------------
+	declare -a morphe_patch_args=()
+
+	# (a) exclude-patches → -d= para cada uno
+	for pname in "${exclude_patches[@]}"; do
+		[ -z "$pname" ] && continue
+		morphe_patch_args+=( "-d=$pname" )
+	done
+
+	# (b) inclusive-patches=true → -e= para cada patch disabled-by-default del MPP
+	if [ "${app_args[inclusive_patches]}" = "true" ]; then
+		mpp_glob="$TEMP_DIR/morphe/morphe-data/patches/${patch_repo/\//-}/*.mpp"
+		mpp_file=$(ls -1 $mpp_glob 2>/dev/null | head -n1)
+		if [ -n "$mpp_file" ] && [ -f "$mpp_file" ]; then
+			pr "  Leyendo parches desde: $mpp_file"
+			declare -a disabled_patches=()
+			mapfile -t disabled_patches < <(
+				unzip -p "$mpp_file" "patches.json" 2>/dev/null \
+					| jq -r '.[] | select(.use == false) | .name' 2>/dev/null
+			)
+			if [ "${#disabled_patches[@]}" -gt 0 ]; then
+				pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default"
+				for pname in "${disabled_patches[@]}"; do
+					[ -z "$pname" ] && continue
+					morphe_patch_args+=( "-e=$pname" )
+				done
+			fi
+		else
+			wpr "  No se encontró el MPP en: $mpp_glob"
+		fi
+	fi
+
+	if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
+		pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
+	fi
+
+	# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
+	pr "Aplicando parches con Morphe CLI..."
+	java -jar "$MORPHE_CLI_JAR" patch \
+		-p="https://github.com/$patch_repo" \
+		-o="$patched_apk" \
+		--keystore="$RVB_KEYSTORE" \
+		--keystore-password="$RVB_KEYSTORE_PASS" \
+		--keystore-entry-alias="$RVB_KEY_ALIAS" \
+		--keystore-entry-password="$RVB_KEYSTORE_PASS" \
+		--signer="Morphe" \
+		--striplibs="${app_args[arch]}" \
+		"${morphe_patch_args[@]}" \
+		"$raw_apk" \
+		|| {
+			wpr "Error durante el proceso de parcheo de $table_name"
+			continue
+		}
 
 	# 5. Actualizar el registro de estado tras el éxito
-	update_build_state "$patch_repo" "stable" "$latest_applied_tag" "$target_apk_ver"
-    pr "¡Aplicación '$table_name' procesada y guardada en $patched_apk!"
+	update_build_state "$patch_repo" "${app_args[channel]}" "$latest_applied_tag" "$target_apk_ver"
+	pr "¡Aplicación '$table_name' procesada y guardada en $patched_apk!"
 done
 
 pr "Compilación finalizada con éxito."

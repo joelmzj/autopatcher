@@ -9,6 +9,7 @@
 #   variant <arch>     → URL de la variante óptima (página de release)
 #   download           → URL del botón de descarga (página de variante)
 #   final              → URL del archivo .apk (página intermedia)
+#   next               → URL de la página siguiente de uploads (paginación)
 #   pkg                → nombre de paquete (página base)
 #   vers <allow_all>   → (legacy) lista de versiones sin href
 #
@@ -18,6 +19,7 @@
 #   cat release.html  | python3 apkmirror_search.py variant arm64-v8a
 #   cat variant.html  | python3 apkmirror_search.py download
 #   cat step2.html    | python3 apkmirror_search.py final
+#   cat uploads.html  | python3 apkmirror_search.py next
 #   cat base.html     | python3 apkmirror_search.py pkg
 
 import sys
@@ -408,6 +410,7 @@ def cmd_vers():
         sys.exit(0)
     sys.exit(1)
 
+
 # ---------------------------------------------------------------------------
 # Modo: next (página uploads → URL de la página siguiente)
 # ---------------------------------------------------------------------------
@@ -416,6 +419,10 @@ def cmd_next():
     """
     Busca en el HTML de uploads el enlace real a la página siguiente.
     Devuelve la URL absoluta, o falla si no hay más páginas.
+
+    APKMirror usa WP-PageNavi con URLs tipo:
+      /uploads/page/2/?appcategory=youtube
+    y el enlace de "Next" tiene class="nextpostslink" y rel="next".
     """
     html = sys.stdin.read()
     if not html:
@@ -423,10 +430,18 @@ def cmd_next():
         sys.exit(1)
 
     patterns = [
+        # 1) Formato WordPress real: /uploads/page/N/?appcategory=X
+        r'href="([^"]*uploads/page/\d+/\?appcategory=[^"]*)"',
+        # 2) rel="next" (con atributos entre rel y href, o al revés)
+        r'rel="next"[^>]*href="([^"]+)"',
+        r'href="([^"]+)"[^>]*rel="next"',
+        # 3) Clase "nextpostslink" (WordPress wp-pagenavi)
+        r'class="[^"]*nextpostslink[^"]*"[^>]*href="([^"]+)"',
+        # 4) Cualquier href a /uploads/page/N/
+        r'href="([^"]*uploads/page/\d+/[^"]*)"',
+        # 5) Fallbacks antiguos por si APKMirror cambia de formato
         r'href="([^"]*uploads/\?appcategory=[^"]*(?:page|paged)=\d+[^"]*)"',
         r'class="[^"]*(?:next|pagination-next|page-numbers next)[^"]*"[^>]*href="([^"]+)"',
-        r'href="([^"]*uploads/[^"]*(?:page|paged)=\d+[^"]*)"',
-        r'rel="next"[^>]*href="([^"]+)"',
     ]
 
     for pat in patterns:
@@ -439,6 +454,7 @@ def cmd_next():
 
     print("INFO: no hay más páginas", file=sys.stderr)
     sys.exit(1)
+
 
 # ---------------------------------------------------------------------------
 # Modo: pkg (página base)
