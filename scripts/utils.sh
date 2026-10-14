@@ -63,6 +63,10 @@ declare -g __APKMIRROR_EXAMPLE_URL__=""
 # CARGADOR MODULAR DE SUBSCRIPTS
 # ==============================================================================
 
+# ==============================================================================
+# CARGADOR MODULAR DE SUBSCRIPTS
+# ==============================================================================
+
 load_module() {
     local module_path="$1"
     if [ -f "$module_path" ]; then
@@ -78,6 +82,9 @@ load_module "${CWD}/scripts/patch_manager.sh"
 
 # 2. Cargar gestor de la CLI de Morphe Desktop (modularizado)
 load_module "${CWD}/scripts/morphe_cli.sh"
+
+# 3. Cargar la función _cf_get para resolver Cloudflare en APKMirror
+load_module "${CWD}/scripts/cf_get.sh"
 
 
 # ==============================================================================
@@ -384,22 +391,31 @@ get_apkmirror_resp() {
         __APKMIRROR_CAT__="${__DL_RESP_CACHE__["apkmirror_cat_$url"]}"
         return 0
     fi
-    local html=""
-    _cf_get "${url}" || return 1
+
+    local html
+    html=$(_cf_get "${url}") || return 1
+    if [ -z "$html" ]; then
+        epr "Respuesta vacía de APKMirror para: $url"
+        return 1
+    fi
+
     __APKMIRROR_RESP__="$html"
     local clean_url="${url%/}"
     __APKMIRROR_CAT__="${clean_url##*/}"
     __DL_RESP_CACHE__["apkmirror_resp_$url"]="$__APKMIRROR_RESP__"
     __DL_RESP_CACHE__["apkmirror_cat_$url"]="$__APKMIRROR_CAT__"
     set +u
-    __APKMIRROR_EXAMPLE_URL__="${args[apkmirror_example_url]:-}" 
+    __APKMIRROR_EXAMPLE_URL__="${args[apkmirror_example_url]:-}"
     set -u
 }
 
 get_apkmirror_vers() {
-    local vers apkm_resp html=""
-    _cf_get "https://www.apkmirror.com/uploads/?appcategory=${__APKMIRROR_CAT__}" || return 1
-    apkm_resp="$html"
+    local vers apkm_resp
+    apkm_resp=$(_cf_get "https://www.apkmirror.com/uploads/?appcategory=${__APKMIRROR_CAT__}") || return 1
+    if [ -z "$apkm_resp" ]; then
+        epr "Respuesta vacía de APKMirror para categoría: ${__APKMIRROR_CAT__}"
+        return 1
+    fi
 
     local py_cmd=""
     if command -v python3 >/dev/null 2>&1; then
