@@ -87,6 +87,7 @@ for table_name in $(toml_get_table_names); do
 	app_args[pkg_name]=$(toml_get "$t" pkg-name) || app_args[pkg_name]=""
 	app_args[app_name]=$(toml_get "$t" app-name) || app_args[app_name]=$table_name
 	app_args[arch]=$(toml_get "$t" arch) || app_args[arch]="arm64-v8a"
+    app_args[brand]=$(toml_get "$t" brand) || app_args[brand]="Patched"
 	
 	patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 	target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
@@ -115,7 +116,19 @@ for table_name in $(toml_get_table_names); do
         fi
     fi
 
-    patched_apk="$BUILD_DIR/${table_name}-${target_apk_ver}.apk"
+    # 2b. Obtener la versión actual de parches (para el nombre del archivo)
+    latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "stable")
+
+    # 2c. Generar el nombre del APK final usando naming.py
+    apk_filename=$(python3 "$(dirname "${BASH_SOURCE[0]}")/naming.py" \
+        "$table_name" \
+        "$target_apk_ver" \
+        "${app_args[brand]}" \
+        "$latest_applied_tag" \
+        "${app_args[arch]}")
+
+    patched_apk="$BUILD_DIR/$apk_filename"
+    pr "Nombre del APK: $apk_filename"
 
     # 3. Descargar la APK limpia desde APKMirror usando la versión exacta resuelta
     if [ -n "${app_args[apkmirror_dlurl]}" ]; then
@@ -164,7 +177,6 @@ for table_name in $(toml_get_table_names); do
         }
 
 	# 5. Actualizar el registro de estado tras el éxito
-	latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "stable")
 	update_build_state "$patch_repo" "stable" "$latest_applied_tag" "$target_apk_ver"
     pr "¡Aplicación '$table_name' procesada y guardada en $patched_apk!"
 done
