@@ -272,6 +272,71 @@ def cmd_final():
 # Modo: vers (página de uploads)
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Modo: uploads (página base → URL de uploads)
+# ---------------------------------------------------------------------------
+
+def cmd_uploads():
+    html = sys.stdin.read()
+    if not html:
+        print("ERROR: HTML vacío en stdin", file=sys.stderr)
+        sys.exit(1)
+
+    m = re.search(r'href="([^"]*uploads/\?appcategory=[^"]+)"', html)
+    if not m:
+        print("ERROR: no se encontró 'uploads/?appcategory=' en el HTML", file=sys.stderr)
+        sys.exit(1)
+
+    url = _abs_url(_unescape(m.group(1)))
+    print(f"INFO: URL de uploads: {url}", file=sys.stderr)
+    print(url)
+
+
+# ---------------------------------------------------------------------------
+# Modo: list (página uploads → versiones con sus hrefs)
+# ---------------------------------------------------------------------------
+
+def cmd_list():
+    """
+    Devuelve líneas con formato: version<TAB>href_absoluto
+    """
+    allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
+    html = sys.stdin.read()
+    if not html:
+        print("ERROR: HTML vacío en stdin", file=sys.stderr)
+        sys.exit(1)
+
+    content = html
+    m = re.search(r'(?:id="primary"|class="[^"]*listWidget[^"]*")(.*)', html, re.DOTALL)
+    if m:
+        content = m.group(1)
+
+    links = re.findall(
+        r'<a[^>]*href="([^"]*-release/)"[^>]*class="[^"]*fontBlack[^"]*"[^>]*>(.*?)</a>',
+        content, re.DOTALL,
+    )
+
+    seen = set()
+    out = []
+    for href, text in links:
+        clean = _clean_text(text)
+        if not clean:
+            continue
+        low = clean.lower()
+        if not allow_all and any(k in low for k in ("beta", "alpha", "secondary")):
+            continue
+        m2 = re.search(r'(\d+\.\d+.*)$', clean)
+        ver = m2.group(1).strip() if m2 else clean.split()[-1]
+        if ver and ver not in seen:
+            seen.add(ver)
+            full_url = _abs_url(_unescape(href))
+            out.append(f"{ver}\t{full_url}")
+
+    if out:
+        print("\n".join(out))
+        sys.exit(0)
+    sys.exit(1)
+
 def cmd_vers():
     allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
     html = sys.stdin.read()
@@ -341,6 +406,10 @@ def main():
         cmd_download()
     elif modo == "final":
         cmd_final()
+    elif modo == "uploads":
+        cmd_uploads()
+    elif modo == "list":
+        cmd_list()
     elif modo == "vers":
         cmd_vers()
     elif modo == "pkg":

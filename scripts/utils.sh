@@ -473,46 +473,93 @@ dl_apkmirror() {
     if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
     local clean_version="${version//[^0-9.]/}"
     local search_version="${version//./-}"
-    local apk_bundle="APK"
-    [ "$is_bundle" = true ] && apk_bundle="BUNDLE"
 
-    local apkmname
-    apkmname=$($HTMLQ "h1.marginZero" --text <<<"$__APKMIRROR_RESP__" 2>/dev/null || echo "")
-    [ -z "$apkmname" ] && apkmname=$(basename "${url%/}")
-    apkmname="${apkmname,,}" apkmname="${apkmname// /-}" apkmname="${apkmname//[^a-z0-9-]/}"
-    local release_url="${url%/}/${apkmname}-${search_version}-release/"
-    
-    pr "Obteniendo página de release con cf_get.py: $release_url"
-    local release_html
-    release_html=$(python3 "${CWD}/scripts/cf_get.py" "$release_url" 2>/dev/null)
-    
-    if [ -z "$release_html" ]; then
-        epr "No se pudo obtener el HTML de la versión $version con cf_get.py"
+    local search_py="${CWD}/scripts/apkmirror_search.py"
+    local cf_py="${CWD}/scripts/cf_get.py"
+    local log_stderr="${TEMP_DIR}/search_stderr_$(basename "${output%.apk}").log"
+
+    # ------------------------------------------------------------------
+    # Paso 0a: HTML de la página base de la app (la del config.toml)
+    # ------------------------------------------------------------------
+    pr "Obteniendo página base de la app: $url"
+    local base_html
+    base_html=$(python3 "$cf_py" "$url" 2>/dev/null) || {
+        epr "No se pudo obtener el HTML de la página base"
+        return 1
+    }
+    if [ -z "$base_html" ]; then
+        epr "HTML vacío de la página base"
         return 1
     fi
 
-        local search_py="${CWD}/scripts/apkmirror_search.py"
-        local cf_py="${CWD}/scripts/cf_get.py"
-        local log_stderr="${TEMP_DIR}/search_stderr_$(basename "${output%.apk}").log"
+    # ------------------------------------------------------------------
+    # Paso 0b: extraer la URL real de uploads
+    # ------------------------------------------------------------------
+    local uploads_url
+    uploads_url=$(echo "$base_html" | python3 "$search_py" uploads 2>"$log_stderr")
+    if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
+    if [ -z "$uploads_url" ] || [[ "$uploads_url" != http* ]]; then
+        epr "No se pudo obtener la URL de uploads desde la página base"
+        return 1
+    fi
+    pr "URL de uploads: $uploads_url"
 
-        # ------------------------------------------------------------------
-        # Paso 1: release HTML → URL de la variante
-        # ------------------------------------------------------------------
-        pr "Buscando variante (arch='$arch')..."
-        local variant_page_url
-        variant_page_url=$(echo "$release_html" | python3 "$search_py" variant "$arch" 2>"$log_stderr")
+    # ------------------------------------------------------------------
+    # Paso 0c: HTML de uploads + lista de versiones con sus hrefs
+    # ------------------------------------------------------------------
+    local uploads_html
+    uploads_html=$(python3 "$cf_py" "$uploads_url" 2>/dev/null) || {
+        epr "No se pudo obtener el HTML de uploads"
+        return 1
+    }
 
-        if [ -s "$log_stderr" ]; then
-            pr "--- diagnóstico paso 1 ---"
-            cat "$log_stderr" >&2
-            pr "--- fin diagnóstico ---"
-        fi
+    local vers_output
+    vers_output=$(echo "$uploads_html" | python3 "$search_py" list true 2>"$log_stderr")
+    if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
+    if [ -z "$vers_output" ]; then
+        epr "No se pudieron extraer versiones de uploads"
+        return 1
+    fi
 
-        if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
-            epr "Paso 1 falló: no se encontró variante para arch='$arch'"
-            return 1
-        fi
-        pr "Variante elegida: $variant_page_url"
+    # ------------------------------------------------------------------
+    # Paso 0d: elegir la versión de patches-list.json
+    # ------------------------------------------------------------------
+    local release_url
+    release_url=$(echo "$vers_output" | awk -v v="$clean_version" -F'\t' '$1 == v { print $2; exit }')
+    if [ -z "$release_url" ]; then
+        release_url=$(echo "$vers_output" | awk -v v="$search_version" -F'\t' '$1 == v { print $2; exit }')
+    fi
+    if [ -z "$release_url" ]; then
+        epr "No se encontró la versión '$clean_version' en la lista de uploads"
+        pr "Primeras 10 versiones disponibles:"
+        echo "$vers_output" | head -10 | awk -F'\t' '{print "  - " $1}' >&2
+        return 1
+    fi
+    pr "URL de release: $release_url"
+
+    # ------------------------------------------------------------------
+    # Paso 1: HTML del release + búsqueda de variante
+    # ------------------------------------------------------------------
+    pr "Obteniendo página de release..."
+    local release_html
+    release_html=$(python3 "$cf_py" "$release_url" 2>/dev/null) || {
+        epr "No se pudo obtener el HTML del release"
+        return 1
+    }
+
+    pr "Buscando variante (arch='$arch')..."
+    local variant_page_url
+    variant_page_url=$(echo "$release_html" | python3 "$search_py" variant "$arch" 2>"$log_stderr")
+    if [ -s "$log_stderr" ]; then
+        pr "--- diagnóstico paso 1 ---"; cat "$log_stderr" >&2; pr "--- fin diagnóstico ---"
+    fi
+    if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
+        epr "Paso 1 falló: no se encontró variante para arch='$arch'"
+        return 1
+    fi
+    pr "Variante elegida: $variant_page_url"
+
+    # ... aquí sigue el paso 2 (botón) y paso 3 (final) sin cambios
 
         # ------------------------------------------------------------------
         # Paso 2: variante HTML → URL del botón de descarga
