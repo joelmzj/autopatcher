@@ -505,21 +505,48 @@ dl_apkmirror() {
     pr "URL de uploads: $uploads_url"
 
     # ------------------------------------------------------------------
-    # Paso 0c: HTML de uploads + lista de versiones con sus hrefs
+    # Paso 0c: iterar páginas de uploads hasta encontrar la versión pedida
     # ------------------------------------------------------------------
-    local uploads_html
-    uploads_html=$(python3 "$cf_py" "$uploads_url" 2>/dev/null) || {
-        epr "No se pudo obtener el HTML de uploads"
-        return 1
-    }
+    local release_url=""
+    local page=1
+    local max_pages=6
+    while [ "$page" -le "$max_pages" ]; do
+        local url_page
+        if [ "$page" -eq 1 ]; then
+            url_page="$uploads_url"
+        else
+            url_page="${uploads_url}&page=${page}"
+        fi
 
-    local vers_output
-    vers_output=$(echo "$uploads_html" | python3 "$search_py" list true 2>"$log_stderr")
-    if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
-    if [ -z "$vers_output" ]; then
-        epr "No se pudieron extraer versiones de uploads"
+        pr "  → Buscando en página $page: $url_page"
+        local uploads_html
+        uploads_html=$(python3 "$cf_py" "$url_page" 2>/dev/null) || {
+            wpr "No se pudo obtener el HTML de uploads (página $page)"
+            break
+        }
+
+        local vers_output
+        vers_output=$(echo "$uploads_html" | python3 "$search_py" list true 2>"$log_stderr")
+        if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
+
+        release_url=$(echo "$vers_output" | awk -v v="$clean_version" -F'\t' '$1 == v { print $2; exit }')
+        if [ -z "$release_url" ]; then
+            release_url=$(echo "$vers_output" | awk -v v="$search_version" -F'\t' '$1 == v { print $2; exit }')
+        fi
+
+        if [ -n "$release_url" ]; then
+            pr "  → Encontrada en página $page"
+            break
+        fi
+
+        page=$((page + 1))
+    done
+
+    if [ -z "$release_url" ]; then
+        epr "No se encontró la versión '$clean_version' en ninguna de las $max_pages páginas"
         return 1
     fi
+    pr "URL de release: $release_url"
 
     # ------------------------------------------------------------------
     # Paso 0d: elegir la versión de patches-list.json

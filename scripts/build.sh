@@ -107,7 +107,7 @@ for table_name in $(toml_get_table_names); do
     # 4. Ejecutar el parcheo con la CLI de Morphe Desktop
     pr "Aplicando parches con Morphe CLI..."
     java -jar "$MORPHE_CLI_JAR" patch \
-        -p="$patch_repo" \
+        -p="https://github.com/$patch_repo" \
         -o="$patched_apk" \
         --keystore="$RVB_KEYSTORE" \
         --keystore-password="$RVB_KEYSTORE_PASS" \
