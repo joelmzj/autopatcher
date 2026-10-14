@@ -1,175 +1,354 @@
 #!/usr/bin/env python3
+# apkmirror_search.py
+#
+# Extrae enlaces de APKMirror a partir del HTML recibido por stdin.
+#
+# Modos:
+#   vers <allow_all>   → lista de versiones (página "uploads")
+#   pkg                → nombre de paquete (página base de la app)
+#   variant <arch>     → URL de la variante óptima (página de release)
+#   download           → URL del botón de descarga (página de variante)
+#   final              → URL del archivo .apk (página intermedia)
+#
+# Uso:
+#   cat uploads.html  | python3 apkmirror_search.py vers true
+#   cat base.html     | python3 apkmirror_search.py pkg
+#   cat release.html  | python3 apkmirror_search.py variant arm64-v8a
+#   cat variant.html  | python3 apkmirror_search.py download
+#   cat step2.html    | python3 apkmirror_search.py final
+
 import sys
 import re
+import html as html_module
+import urllib.parse
 
-def extract_versions(html_content: str, allow_all: bool = False) -> list[str]:
-    content_to_search = html_content
-    m_primary = re.search(r'(?:id="primary"|class="[^"]*listWidget[^"]*")(.*)', html_content, re.DOTALL)
-    if m_primary:
-        content_to_search = m_primary.group(1)
+BASE_SITE = "https://www.apkmirror.com"
+WINDOW_BYTES = 2500
 
-    m_secondary = re.search(r'(?:id="secondary"|<aside\b|class="[^"]*sidebar[^"]*")', content_to_search, re.IGNORECASE)
-    if m_secondary:
-        content_to_search = content_to_search[:m_secondary.start()]
 
-    links = re.findall(r'<a\s+[^>]*class="[^"]*fontBlack[^"]*"[^>]*href="([^"]*-release/)"[^>]*>(.*?)</a>', content_to_search, re.DOTALL)
-    if not links:
-        links = re.findall(r'<a\s+[^>]*href="([^"]*-release/)"[^>]*class="[^"]*fontBlack[^"]*"[^>]*>(.*?)</a>', content_to_search, re.DOTALL)
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
-    versions = []
+def _abs_url(url: str) -> str:
+    if url.startswith("http"):
+        return url
+    return urllib.parse.urljoin(BASE_SITE, url)
+
+
+def _unescape(s: str) -> str:
+    return html_module.unescape(s)
+
+
+def _clean_text(s: str) -> str:
+    return re.sub(r'<[^>]+>', '', s).strip()
+
+
+def _es_universal(c: dict) -> bool:
+    a = c["arch"].lower()
+    return "universal" in a or "noarch" in a
+
+
+# ---------------------------------------------------------------------------
+# Paso 1: parsear una variante desde la página de release
+# ---------------------------------------------------------------------------
+
+def _parse_variant(html: str, match) -> dict:
+    url = _abs_url(match.group(1))
+    window = html[match.end():match.end() + WINDOW_BYTES]
+
+    # Tipo: primer badge con texto BUNDLE o APK
+    tipo = "APK"
+    m = re.search(r'class="apkm-badge[^"]*"[^>]*>\s*(BUNDLE|APK)\s*<', window)
+    if m:
+        tipo = m.group(1)
+    elif re.search(r'class="apkm-badge[^"]*"[^>]*>\s*\d+\s*S\s*<', window):
+        tipo = "BUNDLE"
+
+    # Splits
+    splits = 0
+    m = re.search(r'class="apkm-badge[^"]*"[^>]*>\s*(\d+)\s*S\s*<', window)
+    if m:
+        splits = int(m.group(1))
+
+    # Celdas dowrap": arch, minAndroid, dpi
+    celdas = re.findall(r'class="[^"]*dowrap"[^>]*>([^<]+)</div>', window)
+    arch        = celdas[0].strip() if len(celdas) > 0 else ""
+    min_android = celdas[1].strip() if len(celdas) > 1 else ""
+    dpi         = celdas[2].strip() if len(celdas) > 2 else ""
+
+    # Version code
+    vc = ""
+    m = re.search(r'<span class="colorLightBlack">(\d{5,})</span>', window)
+    if m:
+        vc = m.group(1)
+
+    return {
+        "url":         url,
+        "tipo":        tipo,
+        "splits":      splits,
+        "arch":        arch,
+        "min_android": min_android,
+        "dpi":         dpi,
+        "vc":          vc,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Filtro por arquitectura
+# ---------------------------------------------------------------------------
+
+def _arch_pasa(variant_arch: str, target_arch: str) -> bool:
+    if not target_arch:
+        return True
+    va = variant_arch.lower()
+    ta = target_arch.lower()
+    if "universal" in va or "noarch" in va:
+        return True
+    return ta in va
+
+
+# ---------------------------------------------------------------------------
+# Selección de la mejor variante
+# ---------------------------------------------------------------------------
+
+def _elegir_mejor(candidatos: list):
+    if not candidatos:
+        return None
+
+    grupo = [c for c in candidatos if c["tipo"] == "APK"      and _es_universal(c)]
+    if not grupo:
+        grupo = [c for c in candidatos if c["tipo"] == "BUNDLE" and _es_universal(c)]
+    if not grupo:
+        grupo = [c for c in candidatos if c["tipo"] == "APK"]
+    if not grupo:
+        grupo = [c for c in candidatos if c["tipo"] == "BUNDLE"]
+    if not grupo:
+        return None
+
+    # Desempate por DPI
+    nodpi = [c for c in grupo if c["dpi"].lower() == "nodpi"]
+    if nodpi:
+        grupo = nodpi
+    else:
+        dpi480 = [c for c in grupo if c["dpi"].lower() == "480dpi"]
+        if dpi480:
+            grupo = dpi480
+        else:
+            con480 = [c for c in grupo if "480" in c["dpi"]]
+            if con480:
+                grupo = con480
+
+    # Desempate por splits
+    grupo.sort(key=lambda c: c["splits"])
+    min_splits = grupo[0]["splits"]
+    grupo = [c for c in grupo if c["splits"] == min_splits]
+
+    # Desempate por VC
+    grupo.sort(key=lambda c: int(c["vc"] or 0), reverse=True)
+    return grupo[0]
+
+
+# ---------------------------------------------------------------------------
+# Modo: variant
+# ---------------------------------------------------------------------------
+
+def cmd_variant():
+    arch = sys.argv[2] if len(sys.argv) > 2 else ""
+
+    html = sys.stdin.read()
+    if not html:
+        print("ERROR: HTML vacío en stdin", file=sys.stderr)
+        sys.exit(1)
+
+    matches = list(re.finditer(r'href="([^"]*-android-apk-download/)"', html))
+    if not matches:
+        print("ERROR: no se encontraron variantes en el HTML", file=sys.stderr)
+        sys.exit(1)
+
+    variantes = [_parse_variant(html, m) for m in matches]
+
+    print(f"INFO: {len(variantes)} variantes encontradas", file=sys.stderr)
+    for v in variantes:
+        print(
+            f"  - {v['tipo']:6} arch={v['arch']:22} "
+            f"dpi={v['dpi']:14} splits={v['splits']:2} "
+            f"vc={v['vc']:12} {v['url']}",
+            file=sys.stderr,
+        )
+
+    pasan = [v for v in variantes if _arch_pasa(v["arch"], arch)]
+    print(f"INFO: {len(pasan)} variantes pasan filtro arch='{arch}'", file=sys.stderr)
+
+    if not pasan:
+        print(f"ERROR: ninguna variante sirve para arch='{arch}'", file=sys.stderr)
+        sys.exit(1)
+
+    mejor = _elegir_mejor(pasan)
+    if not mejor:
+        print("ERROR: no se pudo elegir variante", file=sys.stderr)
+        sys.exit(1)
+
+    print(
+        f"INFO: elegida {mejor['tipo']} arch={mejor['arch']} "
+        f"dpi={mejor['dpi']} splits={mejor['splits']} vc={mejor['vc']}",
+        file=sys.stderr,
+    )
+
+    print(mejor["url"])
+
+
+# ---------------------------------------------------------------------------
+# Modo: download
+# ---------------------------------------------------------------------------
+
+def _extract_download_url(html: str):
+    # Nivel 1: botón de descarga
+    m = re.search(r'class="[^"]*downloadButton[^"]*"[^>]*href="([^"]+)"', html)
+    if m:
+        return _abs_url(_unescape(m.group(1)))
+    # Nivel 2: cualquier href a /download/?key=
+    m = re.search(r'href="([^"]*/download/\?key=[^"]+)"', html)
+    if m:
+        return _abs_url(_unescape(m.group(1)))
+    # Nivel 3: cualquier href con ?key=
+    m = re.search(r'href="([^"]*\?key=[^"]+)"', html)
+    if m:
+        return _abs_url(_unescape(m.group(1)))
+    return None
+
+
+def cmd_download():
+    html = sys.stdin.read()
+    if not html:
+        print("ERROR: HTML vacío en stdin", file=sys.stderr)
+        sys.exit(1)
+
+    url = _extract_download_url(html)
+    if not url:
+        print("ERROR: no se encontró el botón de descarga", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"INFO: botón de descarga: {url}", file=sys.stderr)
+    print(url)
+
+
+# ---------------------------------------------------------------------------
+# Modo: final
+# ---------------------------------------------------------------------------
+
+def _extract_final_url(html: str):
+    # Nivel 1: id="download-link"
+    m = re.search(r'id="download-link"[^>]*href="([^"]+)"', html)
+    if m:
+        return _abs_url(_unescape(m.group(1)))
+    # Nivel 2: cualquier href a download.php?id=
+    m = re.search(r'href="([^"]*download\.php\?id=[^"]+)"', html)
+    if m:
+        return _abs_url(_unescape(m.group(1)))
+    # Nivel 3: cualquier href a /wp-content/themes/APKMirror/
+    m = re.search(r'href="([^"]*/wp-content/themes/APKMirror/[^"]+)"', html)
+    if m:
+        return _abs_url(_unescape(m.group(1)))
+    return None
+
+
+def cmd_final():
+    html = sys.stdin.read()
+    if not html:
+        print("ERROR: HTML vacío en stdin", file=sys.stderr)
+        sys.exit(1)
+
+    url = _extract_final_url(html)
+    if not url:
+        print("ERROR: no se encontró el enlace final", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"INFO: enlace final: {url}", file=sys.stderr)
+    print(url)
+
+
+# ---------------------------------------------------------------------------
+# Modo: vers (página de uploads)
+# ---------------------------------------------------------------------------
+
+def cmd_vers():
+    allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
+    html = sys.stdin.read()
+
+    content = html
+    m = re.search(r'(?:id="primary"|class="[^"]*listWidget[^"]*")(.*)', html, re.DOTALL)
+    if m:
+        content = m.group(1)
+
+    links = re.findall(
+        r'<a[^>]*href="([^"]*-release/)"[^>]*class="[^"]*fontBlack[^"]*"[^>]*>(.*?)</a>',
+        content, re.DOTALL,
+    )
+
     seen = set()
-    for href, text in links:
-        clean_text = re.sub(r'<[^>]+>', '', text).strip()
-        if not clean_text:
+    versions = []
+    for _href, text in links:
+        clean = _clean_text(text)
+        if not clean:
             continue
-        lower = clean_text.lower()
-        if not allow_all and any(kw in lower for kw in ("beta", "alpha", "secondary")):
+        low = clean.lower()
+        if not allow_all and any(k in low for k in ("beta", "alpha", "secondary")):
             continue
-
-        m_ver = re.search(r'(\d+\.\d+.*)$', clean_text)
-        ver = m_ver.group(1).strip() if m_ver else clean_text.split()[-1]
+        m2 = re.search(r'(\d+\.\d+.*)$', clean)
+        ver = m2.group(1).strip() if m2 else clean.split()[-1]
         if ver and ver not in seen:
             seen.add(ver)
             versions.append(ver)
 
-    return versions
+    if versions:
+        print("\n".join(versions))
+        sys.exit(0)
+    sys.exit(1)
 
-def extract_package_name(html_content: str) -> str | None:
-    m = re.search(r'play\.google\.com/store/apps/details\?id=([a-zA-Z0-9_.]+)', html_content)
+
+# ---------------------------------------------------------------------------
+# Modo: pkg (página base)
+# ---------------------------------------------------------------------------
+
+def cmd_pkg():
+    html = sys.stdin.read()
+    m = re.search(r'play\.google\.com/store/apps/details\?id=([a-zA-Z0-9_.]+)', html)
     if m:
-        return m.group(1)
-    m2 = re.search(r'id=([a-zA-Z0-9_.]+)"\s+class="[^"]*accent_color', html_content)
-    if m2:
-        return m2.group(1)
-    return None
+        print(m.group(1))
+        sys.exit(0)
+    m = re.search(r'id=([a-zA-Z0-9_.]+)"\s+class="[^"]*accent_color', html)
+    if m:
+        print(m.group(1))
+        sys.exit(0)
+    sys.exit(1)
 
-def apkmirror_search(html_content, dpi, arch, apk_bundle, clean_search_version, search_version, target_vc):
-    dpi_str = dpi if dpi else "nodpi anydpi auto"
-    appdpi = ["nodpi", "anydpi"]
-    match_any_dpi = False
-    if dpi_str:
-        appdpi.extend(dpi_str.split())
-        if "auto" in appdpi:
-            match_any_dpi = True
 
-    best_fallback_url = ""
-    specific_arch_url = ""
-    specific_arch_fallback_url = ""
-
-    parts = re.split(r'<div class="[^"]*table-row[^"]*headerFont[^"]*"[^>]*>', html_content)
-    if len(parts) <= 1:
-        return None
-    rows = parts[1:]
-
-    reversed_rows = list(reversed(rows))
-
-    for r in reversed_rows:
-        href_m = re.search(r'href="((?:https://www\.apkmirror\.com)?/apk/[^"]+)"', r)
-        if not href_m:
-            continue
-        dlurl = href_m.group(1)
-        if not dlurl.startswith("http"):
-            dlurl = "https://www.apkmirror.com" + dlurl
-
-        badge_m = re.search(r'class="[^"]*apkm-badge[^"]*"[^>]*>([^<]+)</span>', r)
-        node_apk_bundle = badge_m.group(1).strip() if badge_m else "APK"
-
-        cells = re.findall(r'<div class="table-cell[^"]*"[^>]*>(.*?)</div>', r, re.DOTALL)
-        node_arch = re.sub(r'<[^>]+>', '', cells[1]).strip() if len(cells) > 1 else ""
-        node_dpi = re.sub(r'<[^>]+>', '', cells[3]).strip() if len(cells) > 3 else ""
-
-        node_vc = ""
-        if len(cells) > 0:
-            spans = re.findall(r'<span\s+class="([^"]*colorLightBlack[^"]*)"[^>]*>(.*?)</span>', cells[0], re.DOTALL)
-            for cls, content in spans:
-                if "dateyear_utc" in cls or "wrapText" in cls or "dateyear_utc" in content:
-                    continue
-                clean_txt = re.sub(r'<[^>]+>', '', content).strip()
-                if clean_txt.isdigit():
-                    node_vc = clean_txt
-                    break
-        if not node_vc:
-            vc_m = re.search(r'class="colorLightBlack"[^>]*>([0-9]+)</span>', r)
-            if not vc_m:
-                vc_m = re.search(r'span class="[^"]*colorLightBlack[^"]*"[^>]*>.*?([0-9]+).*?</span>', r, re.DOTALL)
-            node_vc = vc_m.group(1).strip() if vc_m else ""
-
-        if node_apk_bundle != apk_bundle:
-            continue
-
-        if clean_search_version:
-            if clean_search_version not in dlurl and search_version not in dlurl:
-                continue
-
-        if target_vc:
-            if node_vc and node_vc == target_vc:
-                return dlurl
-            else:
-                continue
-
-        if node_arch in ['universal', 'noarch', 'arm64-v8a + x86_64', 'arm64-v8a + armeabi-v7a']:
-            if node_dpi in appdpi:
-                return dlurl
-            elif match_any_dpi and not best_fallback_url:
-                best_fallback_url = dlurl
-        elif node_arch == arch:
-            if node_dpi in appdpi:
-                if not specific_arch_url:
-                    specific_arch_url = dlurl
-            elif match_any_dpi and not specific_arch_fallback_url:
-                specific_arch_fallback_url = dlurl
-
-    if best_fallback_url:
-        return best_fallback_url
-    if specific_arch_url:
-        return specific_arch_url
-    if specific_arch_fallback_url:
-        return specific_arch_fallback_url
-    return None
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 
 def main():
     if len(sys.argv) < 2:
+        print("Uso: apkmirror_search.py <modo> [args...]", file=sys.stderr)
         sys.exit(1)
 
-    subcmd = sys.argv[1]
+    modo = sys.argv[1]
 
-    if subcmd == "vers":
-        allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
-        html_content = sys.stdin.read()
-        vers = extract_versions(html_content, allow_all=allow_all)
-        if vers:
-            print("\n".join(vers))
-            sys.exit(0)
-        sys.exit(1)
-
-    if subcmd == "pkg":
-        html_content = sys.stdin.read()
-        pkg = extract_package_name(html_content)
-        if pkg:
-            print(pkg)
-            sys.exit(0)
-        sys.exit(1)
-
-    if len(sys.argv) < 7:
-        sys.exit(1)
-
-    dpi = sys.argv[1]
-    arch = sys.argv[2]
-    apk_bundle = sys.argv[3]
-    clean_search_version = sys.argv[4]
-    search_version = sys.argv[5]
-    target_vc = sys.argv[6] if len(sys.argv) > 6 else ""
-
-    html_content = sys.stdin.read()
-    if not html_content:
-        sys.exit(1)
-
-    url = apkmirror_search(html_content, dpi, arch, apk_bundle, clean_search_version, search_version, target_vc)
-    if url:
-        print(url)
-        sys.exit(0)
+    if modo == "variant":
+        cmd_variant()
+    elif modo == "download":
+        cmd_download()
+    elif modo == "final":
+        cmd_final()
+    elif modo == "vers":
+        cmd_vers()
+    elif modo == "pkg":
+        cmd_pkg()
     else:
+        print(f"ERROR: modo desconocido '{modo}'", file=sys.stderr)
         sys.exit(1)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
