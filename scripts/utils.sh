@@ -379,12 +379,11 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 
     HTMLQ="${HTMLQ:-./bin/htmlq/htmlq-x86_64}"
     chmod +x "$HTMLQ" 2>/dev/null || true
-    resp="${resp:-${html:-}}"
     is_bundle="${is_bundle:-false}"
     
     all_dl_btns=""
     btn_url=""
-    all_dl_btns=$(echo "$resp" | "$HTMLQ" "a.downloadButton" --attribute href)
+    all_dl_btns=$(echo "$html" | "$HTMLQ" "a.downloadButton" --attribute href)
     if [ "$is_bundle" = true ]; then
         btn_url=$(echo "$all_dl_btns" | grep -v 'forcebaseapk' | head -1)
         [ -z "$btn_url" ] && btn_url=$(echo "$all_dl_btns" | head -1)
@@ -404,6 +403,7 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
     if [ -z "$final_url" ]; then epr "Could not find final download link on APKMirror"; return 1; fi
     final_url=$(echo "$final_url" | sed 's/&amp;/\&/g')
     [[ "$final_url" != http* ]] && final_url="${base_url}${final_url}"
+
 
 
 get_apkmirror_resp() {
