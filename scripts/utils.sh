@@ -377,9 +377,10 @@ gh_req() { _req "$1" "$2" -H "$GH_HEADER"; }
 # INTEGRACIÓN EXCLUSIVA DE APKMIRROR
 # ==============================================================================
 
-HTMLQ="${HTMLQ:-./bin/htmlq/htmlq-x86_64}"
+    HTMLQ="${HTMLQ:-./bin/htmlq/htmlq-x86_64}"
     chmod +x "$HTMLQ" 2>/dev/null || true
     resp="${resp:-${html:-}}"
+    is_bundle="${is_bundle:-false}"
     
     all_dl_btns=""
     btn_url=""
@@ -403,6 +404,7 @@ HTMLQ="${HTMLQ:-./bin/htmlq/htmlq-x86_64}"
     if [ -z "$final_url" ]; then epr "Could not find final download link on APKMirror"; return 1; fi
     final_url=$(echo "$final_url" | sed 's/&amp;/\&/g')
     [[ "$final_url" != http* ]] && final_url="${base_url}${final_url}"
+
 
 get_apkmirror_resp() {
     local url="${1}"
