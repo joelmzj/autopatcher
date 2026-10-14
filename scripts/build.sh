@@ -104,30 +104,18 @@ for table_name in $(toml_get_table_names); do
         continue
     fi
 
-    # 3. Descargar la APK limpia desde APKMirror usando la versión exacta resuelta
-	
-    if [ -n "${app_args[apkmirror_dlurl]}" ]; then
-        get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
-            wpr "No se pudo conectar a APKMirror para $table_name"
-            continue
-        }
-
-        pr "Descargando versión $target_apk_ver para $table_name..."
-        dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "" || {
-            wpr "Fallo al descargar la APK para $table_name"
-            continue
-        }
-    else
-        wpr "La aplicación $table_name no tiene definida una URL de APKMirror válida."
-        continue
-    fi
-
-    # 4. Ejecutar el parcheo utilizando la CLI de Morphe Desktop en Java
+    # 4. Ejecutar el parcheo con la CLI de Morphe Desktop
     pr "Aplicando parches con Morphe CLI..."
     java -jar "$MORPHE_CLI_JAR" patch \
-        --apk "$raw_apk" \
-        --out "$patched_apk" \
-        --patches "$patch_repo" \
+        -p="$patch_repo" \
+        -o="$patched_apk" \
+        --keystore="$RVB_KEYSTORE" \
+        --keystore-password="$RVB_KEYSTORE_PASS" \
+        --keystore-entry-alias="$RVB_KEY_ALIAS" \
+        --keystore-entry-password="$RVB_KEYSTORE_PASS" \
+        --signer="Morphe" \
+        --striplibs="${app_args[arch]}" \
+        "$raw_apk" \
         || {
             wpr "Error durante el proceso de parcheo de $table_name"
             continue
