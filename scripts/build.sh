@@ -43,6 +43,36 @@ morphe_channel=$(jq -r '."Morphe-Desktop".morphe_desktop_channel // "stable"' <<
 pr "Obteniendo CLI de Morphe Desktop (Canal: $morphe_channel)..."
 MORPHE_CLI_JAR=$(get_morphe_desktop_cli "$morphe_channel") || abort "No se pudo obtener la CLI de Morphe Desktop"
 
+# Obtener APKEditor (última versión disponible)
+APKEDITOR_JAR="$TEMP_DIR/APKEditor.jar"
+if [ ! -f "$APKEDITOR_JAR" ]; then
+    pr "Consultando la última versión de APKEditor..."
+    APKEDITOR_API="https://api.github.com/repos/REAndroid/APKEditor/releases/latest"
+
+    # Obtener tag (ej. V1.4.9)
+    APKEDITOR_TAG=$(curl -fsSL "$APKEDITOR_API" | jq -r '.tag_name // empty')
+    if [ -z "$APKEDITOR_TAG" ]; then
+        abort "No se pudo obtener el tag de APKEditor desde la API"
+    fi
+
+    # Obtener el nombre del asset .jar (ej. APKEditor-1.4.9.jar)
+    APKEDITOR_ASSET=$(curl -fsSL "$APKEDITOR_API" \
+        | jq -r '.assets[] | select(.name | test("\\.jar$")) | .name' \
+        | head -n1)
+    if [ -z "$APKEDITOR_ASSET" ]; then
+        abort "No se encontró un asset .jar en el release $APKEDITOR_TAG"
+    fi
+
+    APKEDITOR_URL="https://github.com/REAndroid/APKEditor/releases/download/${APKEDITOR_TAG}/${APKEDITOR_ASSET}"
+    pr "Descargando APKEditor $APKEDITOR_TAG desde: $APKEDITOR_URL"
+
+    mkdir -p "$TEMP_DIR"
+    if ! curl -fsSL "$APKEDITOR_URL" -o "$APKEDITOR_JAR"; then
+        abort "No se pudo descargar APKEditor desde $APKEDITOR_URL"
+    fi
+    pr "APKEditor descargado: $APKEDITOR_JAR"
+fi
+
 for table_name in $(toml_get_table_names); do
 	# Omitir la tabla de configuración global
 	if [ "$table_name" = "Morphe-Desktop" ]; then continue; fi
@@ -102,6 +132,18 @@ for table_name in $(toml_get_table_names); do
     else
         wpr "La aplicación $table_name no tiene definida una URL de APKMirror válida."
         continue
+    fi
+
+    # 3b. Mergear bundle a APK monolítico si es necesario
+    if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
+        pr "Detectado bundle, mergeando con APKEditor..."
+        local apkm_file="${raw_apk%.apk}.apkm"
+        mv "$raw_apk" "$apkm_file"
+        if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk" -clean; then
+            wpr "Fallo el merge del bundle para $table_name"
+            continue
+        fi
+        pr "Bundle mergeado: $raw_apk"
     fi
 
     # 4. Ejecutar el parcheo con la CLI de Morphe Desktop

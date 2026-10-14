@@ -505,22 +505,17 @@ dl_apkmirror() {
     pr "URL de uploads: $uploads_url"
 
     # ------------------------------------------------------------------
-    # Paso 0c: iterar páginas de uploads hasta encontrar la versión pedida
+    # Paso 0c: iterar páginas siguiendo el enlace real de "next"
     # ------------------------------------------------------------------
     local release_url=""
+    local current_url="$uploads_url"
     local page=1
-    local max_pages=6
-    while [ "$page" -le "$max_pages" ]; do
-        local url_page
-        if [ "$page" -eq 1 ]; then
-            url_page="$uploads_url"
-        else
-            url_page="${uploads_url}&page=${page}"
-        fi
+    local max_pages=8
+    while [ "$page" -le "$max_pages" ] && [ -n "$current_url" ]; do
+        pr "  → Buscando en página $page: $current_url"
 
-        pr "  → Buscando en página $page: $url_page"
         local uploads_html
-        uploads_html=$(python3 "$cf_py" "$url_page" 2>/dev/null) || {
+        uploads_html=$(python3 "$cf_py" "$current_url" 2>/dev/null) || {
             wpr "No se pudo obtener el HTML de uploads (página $page)"
             break
         }
@@ -539,11 +534,18 @@ dl_apkmirror() {
             break
         fi
 
+        local next_url
+        next_url=$(echo "$uploads_html" | python3 "$search_py" next 2>/dev/null)
+        if [ -z "$next_url" ] || [[ "$next_url" != http* ]] || [ "$next_url" = "$current_url" ]; then
+            pr "  → No hay más páginas disponibles"
+            break
+        fi
+        current_url="$next_url"
         page=$((page + 1))
     done
 
     if [ -z "$release_url" ]; then
-        epr "No se encontró la versión '$clean_version' en ninguna de las $max_pages páginas"
+        epr "No se encontró la versión '$clean_version' en las primeras $page páginas"
         return 1
     fi
     pr "URL de release: $release_url"

@@ -408,6 +408,37 @@ def cmd_vers():
         sys.exit(0)
     sys.exit(1)
 
+# ---------------------------------------------------------------------------
+# Modo: next (página uploads → URL de la página siguiente)
+# ---------------------------------------------------------------------------
+
+def cmd_next():
+    """
+    Busca en el HTML de uploads el enlace real a la página siguiente.
+    Devuelve la URL absoluta, o falla si no hay más páginas.
+    """
+    html = sys.stdin.read()
+    if not html:
+        print("ERROR: HTML vacío en stdin", file=sys.stderr)
+        sys.exit(1)
+
+    patterns = [
+        r'href="([^"]*uploads/\?appcategory=[^"]*(?:page|paged)=\d+[^"]*)"',
+        r'class="[^"]*(?:next|pagination-next|page-numbers next)[^"]*"[^>]*href="([^"]+)"',
+        r'href="([^"]*uploads/[^"]*(?:page|paged)=\d+[^"]*)"',
+        r'rel="next"[^>]*href="([^"]+)"',
+    ]
+
+    for pat in patterns:
+        m = re.search(pat, html)
+        if m:
+            url = _abs_url(_unescape(m.group(1)))
+            print(f"INFO: siguiente página: {url}", file=sys.stderr)
+            print(url)
+            sys.exit(0)
+
+    print("INFO: no hay más páginas", file=sys.stderr)
+    sys.exit(1)
 
 # ---------------------------------------------------------------------------
 # Modo: pkg (página base)
@@ -449,6 +480,8 @@ def main():
         cmd_list()
     elif modo == "vers":
         cmd_vers()
+    elif modo == "next":
+        cmd_next()
     elif modo == "pkg":
         cmd_pkg()
     else:
