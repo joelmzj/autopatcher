@@ -4,18 +4,21 @@
 # Extrae enlaces de APKMirror a partir del HTML recibido por stdin.
 #
 # Modos:
-#   vers <allow_all>   → lista de versiones (página "uploads")
-#   pkg                → nombre de paquete (página base de la app)
+#   uploads            → URL de uploads (página base → href con ?appcategory=)
+#   list <allow_all>   → versiones + hrefs de release (página uploads)
 #   variant <arch>     → URL de la variante óptima (página de release)
 #   download           → URL del botón de descarga (página de variante)
 #   final              → URL del archivo .apk (página intermedia)
+#   pkg                → nombre de paquete (página base)
+#   vers <allow_all>   → (legacy) lista de versiones sin href
 #
 # Uso:
-#   cat uploads.html  | python3 apkmirror_search.py vers true
-#   cat base.html     | python3 apkmirror_search.py pkg
+#   cat base.html     | python3 apkmirror_search.py uploads
+#   cat uploads.html  | python3 apkmirror_search.py list true
 #   cat release.html  | python3 apkmirror_search.py variant arm64-v8a
 #   cat variant.html  | python3 apkmirror_search.py download
 #   cat step2.html    | python3 apkmirror_search.py final
+#   cat base.html     | python3 apkmirror_search.py pkg
 
 import sys
 import re
@@ -203,18 +206,24 @@ def cmd_variant():
 # ---------------------------------------------------------------------------
 
 def _extract_download_url(html: str):
-    # Nivel 1: botón de descarga
-    m = re.search(r'class="[^"]*downloadButton[^"]*"[^>]*href="([^"]+)"', html)
-    if m:
-        return _abs_url(_unescape(m.group(1)))
+    # Nivel 1: cualquier <a> con "downloadButton" en class y href (sin importar orden)
+    for attrs in re.findall(r'<a\b([^>]*)>', html):
+        if "downloadButton" not in attrs:
+            continue
+        m = re.search(r'href="([^"]+)"', attrs)
+        if m:
+            return _abs_url(_unescape(m.group(1)))
+
     # Nivel 2: cualquier href a /download/?key=
     m = re.search(r'href="([^"]*/download/\?key=[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
+
     # Nivel 3: cualquier href con ?key=
     m = re.search(r'href="([^"]*\?key=[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
+
     return None
 
 
@@ -238,18 +247,24 @@ def cmd_download():
 # ---------------------------------------------------------------------------
 
 def _extract_final_url(html: str):
-    # Nivel 1: id="download-link"
-    m = re.search(r'id="download-link"[^>]*href="([^"]+)"', html)
-    if m:
-        return _abs_url(_unescape(m.group(1)))
+    # Nivel 1: cualquier <a> con id="download-link" y href (sin importar orden)
+    for attrs in re.findall(r'<a\b([^>]*)>', html):
+        if 'id="download-link"' not in attrs:
+            continue
+        m = re.search(r'href="([^"]+)"', attrs)
+        if m:
+            return _abs_url(_unescape(m.group(1)))
+
     # Nivel 2: cualquier href a download.php?id=
     m = re.search(r'href="([^"]*download\.php\?id=[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
+
     # Nivel 3: cualquier href a /wp-content/themes/APKMirror/
     m = re.search(r'href="([^"]*/wp-content/themes/APKMirror/[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
+
     return None
 
 
@@ -267,10 +282,6 @@ def cmd_final():
     print(f"INFO: enlace final: {url}", file=sys.stderr)
     print(url)
 
-
-# ---------------------------------------------------------------------------
-# Modo: vers (página de uploads)
-# ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
 # Modo: uploads (página base → URL de uploads)
@@ -299,6 +310,7 @@ def cmd_uploads():
 def cmd_list():
     """
     Devuelve líneas con formato: version<TAB>href_absoluto
+    Enfoque de dos pasadas: no depende del orden de atributos en el <a>.
     """
     allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
     html = sys.stdin.read()
@@ -306,19 +318,30 @@ def cmd_list():
         print("ERROR: HTML vacío en stdin", file=sys.stderr)
         sys.exit(1)
 
+    print(f"DEBUG: HTML de uploads = {len(html)} bytes", file=sys.stderr)
+
     content = html
     m = re.search(r'(?:id="primary"|class="[^"]*listWidget[^"]*")(.*)', html, re.DOTALL)
     if m:
         content = m.group(1)
+    print(f"DEBUG: content tras filtro primary = {len(content)} bytes", file=sys.stderr)
 
-    links = re.findall(
-        r'<a[^>]*href="([^"]*-release/)"[^>]*class="[^"]*fontBlack[^"]*"[^>]*>(.*?)</a>',
-        content, re.DOTALL,
-    )
+    # Pasada 1: capturar TODOS los <a>...</a> con sus atributos y texto
+    all_anchors = re.findall(r'<a\b([^>]*)>(.*?)</a>', content, re.DOTALL)
+    print(f"DEBUG: {len(all_anchors)} anchors totales", file=sys.stderr)
 
     seen = set()
     out = []
-    for href, text in links:
+    for attrs, text in all_anchors:
+        # Pasada 2a: filtrar por class="fontBlack" (en cualquier posición)
+        if "fontBlack" not in attrs:
+            continue
+        # Pasada 2b: extraer href que termine en -release/
+        href_m = re.search(r'href="([^"]*-release/)"', attrs)
+        if not href_m:
+            continue
+        href = href_m.group(1)
+
         clean = _clean_text(text)
         if not clean:
             continue
@@ -332,28 +355,42 @@ def cmd_list():
             full_url = _abs_url(_unescape(href))
             out.append(f"{ver}\t{full_url}")
 
+    print(f"DEBUG: versiones únicas = {len(out)}", file=sys.stderr)
+    for line in out[:5]:
+        print(f"DEBUG   {line}", file=sys.stderr)
+
     if out:
         print("\n".join(out))
         sys.exit(0)
     sys.exit(1)
 
+
+# ---------------------------------------------------------------------------
+# Modo: vers (legacy, sin hrefs)
+# ---------------------------------------------------------------------------
+
 def cmd_vers():
     allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
     html = sys.stdin.read()
+    if not html:
+        print("ERROR: HTML vacío en stdin", file=sys.stderr)
+        sys.exit(1)
 
     content = html
     m = re.search(r'(?:id="primary"|class="[^"]*listWidget[^"]*")(.*)', html, re.DOTALL)
     if m:
         content = m.group(1)
 
-    links = re.findall(
-        r'<a[^>]*href="([^"]*-release/)"[^>]*class="[^"]*fontBlack[^"]*"[^>]*>(.*?)</a>',
-        content, re.DOTALL,
-    )
+    all_anchors = re.findall(r'<a\b([^>]*)>(.*?)</a>', content, re.DOTALL)
 
     seen = set()
     versions = []
-    for _href, text in links:
+    for attrs, text in all_anchors:
+        if "fontBlack" not in attrs:
+            continue
+        if not re.search(r'href="[^"]*-release/"', attrs):
+            continue
+
         clean = _clean_text(text)
         if not clean:
             continue
