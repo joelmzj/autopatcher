@@ -495,8 +495,10 @@ dl_apkmirror() {
     local cf_py="${CWD}/scripts/cf_get.py"
 
     pr "Buscando variante con apkmirror_search.py..."
+    pr "Debug args: dpi='$dpi' arch='$arch' apk_bundle='$apk_bundle' clean_version='$clean_version' search_version='$search_version' version_code='$version_code'"
+pr "Debug: longitud del HTML de release: $(echo -n "$release_html" | wc -c) bytes"
     local variant_page_url
-    variant_page_url=$(echo "$release_html" | python3 "$search_py" "$dpi" "$arch" "$apk_bundle" "$clean_version" "$search_version" "$version_code" 2>/dev/null)
+    variant_page_url=$(echo "$release_html" | python3 "$search_py" "$dpi" "$arch" "$apk_bundle" "$clean_version" "$search_version" "$version_code")
 
     if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
         epr "apkmirror_search.py no retornó un enlace de variante válido"
@@ -515,9 +517,14 @@ dl_apkmirror() {
     fi
 
     local final_dl_link
-    final_dl_link=$(VAR_HTML="$var_html" python3 - << 'PYEOF'
-import sys, re, urllib.parse, os
-html = os.environ.get("VAR_HTML", "")
+    local _tmp_var_html
+    _tmp_var_html=$(mktemp)
+    printf '%s' "$var_html" > "$_tmp_var_html"
+
+    final_dl_link=$(python3 - "$_tmp_var_html" << 'PYEOF'
+import sys, re, urllib.parse
+with open(sys.argv[1], 'r', encoding='utf-8', errors='replace') as f:
+    html = f.read()
 base_site = "https://www.apkmirror.com"
 m = re.search(r'href="([^"]+/download/\?id=\d+)"', html)
 if m:
@@ -528,6 +535,7 @@ else:
         print(urllib.parse.urljoin(base_site, m2.group(1)))
 PYEOF
     )
+    rm -f "$_tmp_var_html"
 
     if [ -z "$final_dl_link" ]; then
         epr "No se pudo extraer el enlace directo de descarga"
