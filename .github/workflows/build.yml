@@ -100,7 +100,7 @@ jobs:
           if [ -z "$CONFIG" ]; then
             CONFIG="config.toml"
           fi
-          bash scripts/build.sh "$CONFIG"
+          bash -x scripts/build.sh "$CONFIG"
           echo "success=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push versions log if updated
