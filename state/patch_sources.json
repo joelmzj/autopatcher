@@ -26,13 +26,13 @@
   },
   "MorpheApp/morphe-patches": {
     "dev": "v1.48.0-dev.8",
-    "last_built_apk_version": "20.21.37",
-    "last_build_timestamp": 1792102001
+    "last_built_apk_version": "9.20.53",
+    "last_build_timestamp": 1792103649
   },
   "anddea/revanced-patches": {
     "dev": "v4.4.0-dev.1",
-    "last_built_apk_version": "20.21.37",
-    "last_build_timestamp": 1792101958
+    "last_built_apk_version": "9.15.51",
+    "last_build_timestamp": 1792103700
   },
   "SysAdminDoc/HushMessenger": {
     "stable": "v0.24.0",
