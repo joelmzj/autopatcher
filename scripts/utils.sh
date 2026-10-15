@@ -277,7 +277,7 @@ get_apkeditor() {
     if [ -z "$dl_url" ] || [ "$dl_url" = "null" ]; then
         dl_url="https://github.com/REAndroid/APKEditor/releases/download/V1.4.9/APKEditor-1.4.9.jar"
     fi
-    gh_dl "$TEMP_DIR/apkeditor.jar" "$dl_url" >/dev/null || return 1
+    gh_req "$dl_url" "$TEMP_DIR/apkeditor.jar" >/dev/null || return 1
 }
 
 set_prebuilts() {
