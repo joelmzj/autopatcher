@@ -76,8 +76,13 @@ def _parse_variant(html: str, match) -> dict:
     dpi         = celdas[2].strip() if len(celdas) > 2 else ""
 
     # Version code
+    # El HTML real de APKMirror tiene saltos de línea entre <span y class="...",
+    # y el valor aparece como <span class="colorLightBlack">1561301413</span>
+    # con posibles espacios/saltos de línea antes del número.
+    # Se exige que el contenido sea SOLO dígitos (5+), lo que descarta el
+    # span hermano que contiene la fecha ("October 15, 2026").
     vc = ""
-    m = re.search(r'<span class="colorLightBlack">(\d{5,})</span>', window)
+    m = re.search(r'class="colorLightBlack"[^>]*>\s*(\d{5,})\s*<', window)
     if m:
         vc = m.group(1)
 
@@ -201,10 +206,12 @@ def cmd_variant():
                 f"WARN: whitelist de {len(priority_vcs)} codes no coincide con ninguna variante",
                 file=sys.stderr,
             )
+            # Diagnóstico: ver exactamente qué vcs hay vs. qué whitelist se buscaba
+            vcs_presentes = sorted(set(v["vc"] or "?" for v in pasan))
+            print(f"WARN: vcs presentes en el HTML: {', '.join(vcs_presentes)}", file=sys.stderr)
+            print(f"WARN: whitelist buscada: {', '.join(sorted(priority_vcs))}", file=sys.stderr)
     else:
         print("INFO: sin whitelist, sin filtro por versionCode", file=sys.stderr)
-
-    print(f"INFO: {len(pasan)} variantes pasan filtros", file=sys.stderr)
 
     if not pasan:
         print(f"ERROR: ninguna variante sirve para arch='{arch}'", file=sys.stderr)
