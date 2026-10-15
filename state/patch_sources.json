@@ -1,0 +1,37 @@
+{
+  "SysAdminDoc/HushGram": {
+    "stable": "v0.0.11",
+    "last_built_apk_version": "451.0.0.53.80",
+    "last_build_timestamp": 1792090616
+  },
+  "SysAdminDoc/HushTelegram": {
+    "stable": "v0.0.17",
+    "last_built_apk_version": "13.0.2",
+    "last_build_timestamp": 1792090672
+  },
+  "SysAdminDoc/HushPinterest": {
+    "stable": "v0.0.11",
+    "last_built_apk_version": "14.40.0",
+    "last_build_timestamp": 1792090708
+  },
+  "SysAdminDoc/Hushfacebook": {
+    "stable": "v0.13.0",
+    "last_built_apk_version": "582.0.0.50.54",
+    "last_build_timestamp": 1792090845
+  },
+  "SysAdminDoc/hushfeed": {
+    "stable": "v0.74.0",
+    "last_built_apk_version": "47.1.4",
+    "last_build_timestamp": 1792090980
+  },
+  "MorpheApp/morphe-patches": {
+    "dev": "v1.48.0-dev.8",
+    "last_built_apk_version": "20.21.37",
+    "last_build_timestamp": 1792091241
+  },
+  "anddea/revanced-patches": {
+    "dev": "v4.4.0-dev.1",
+    "last_built_apk_version": "20.21.37",
+    "last_build_timestamp": 1792091203
+  }
+}
