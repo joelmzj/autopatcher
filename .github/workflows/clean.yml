@@ -47,7 +47,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-          token: ${{ secrets.WORKFLOW_UPDATE_GITHUB_PAT }}
 
       # ======================================================================
       # 1. Resetear state/patch_sources.json
