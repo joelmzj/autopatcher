@@ -517,7 +517,7 @@ dl_apkmirror() {
         # --------------------------------------------------------------
         local current_url="$uploads_url"
         local page=1
-        local max_pages=8
+        local max_pages=15
         while [ "$page" -le "$max_pages" ] && [ -n "$current_url" ]; do
             pr "  → Buscando en página $page: $current_url"
 
@@ -551,9 +551,29 @@ dl_apkmirror() {
             page=$((page + 1))
         done
 
+        # --------------------------------------------------------------
+        # FALLBACK: construir URL de release directamente si no se halló
+        # en uploads. Formato: {base_url}/{slug}-{version_dashed}-release/
+        # --------------------------------------------------------------
         if [ -z "$release_url" ]; then
-            epr "No se encontró la versión '$clean_version' en las primeras $page páginas"
-            return 1
+            local base_slug="${url%/}"
+            base_slug="${base_slug##*/}"
+            local dashed_version="${clean_version//./-}"
+            local fallback_url="${url%/}/${base_slug}-${dashed_version}-release/"
+
+            pr "  → Versión no encontrada en uploads. Probando URL directa:"
+            pr "    $fallback_url"
+
+            local test_html
+            test_html=$(python3 "$cf_py" "$fallback_url" 2>/dev/null) || true
+            if [ -n "$test_html" ] && \
+               ! echo "$test_html" | grep -qiE 'page not found|404 not found|sorry, the page you were looking for'; then
+                release_url="$fallback_url"
+                pr "  → URL directa válida"
+            else
+                epr "No se encontró la versión '$clean_version' (ni en uploads ni por URL directa)"
+                return 1
+            fi
         fi
     fi
 

@@ -424,19 +424,32 @@ def cmd_vers():
 # ---------------------------------------------------------------------------
 
 def cmd_next():
+    """
+    Extrae la URL de la página siguiente de uploads.
+
+    IMPORTANTE: el orden de los patrones importa. Los patrones específicos
+    de "siguiente" (rel="next", class="nextpostslink") deben ir ANTES del
+    patrón genérico de /uploads/page/N/, que también matchea enlaces "prev"
+    y números de página (causando ping-pong entre páginas).
+    """
     html = sys.stdin.read()
     if not html:
         print("ERROR: HTML vacío en stdin", file=sys.stderr)
         sys.exit(1)
 
     patterns = [
-        r'href="([^"]*uploads/page/\d+/\?appcategory=[^"]*)"',
+        # 1) WordPress wp-pagenavi: <a class="nextpostslink" rel="next" href="...">
+        r'<a[^>]*class="[^"]*nextpostslink[^"]*"[^>]*rel="next"[^>]*href="([^"]+)"',
+        r'<a[^>]*rel="next"[^>]*class="[^"]*nextpostslink[^"]*"[^>]*href="([^"]+)"',
+        # 2) rel="next" en cualquier orden
         r'rel="next"[^>]*href="([^"]+)"',
         r'href="([^"]+)"[^>]*rel="next"',
+        # 3) class="nextpostslink" sin rel
         r'class="[^"]*nextpostslink[^"]*"[^>]*href="([^"]+)"',
-        r'href="([^"]*uploads/page/\d+/[^"]*)"',
-        r'href="([^"]*uploads/\?appcategory=[^"]*(?:page|paged)=\d+[^"]*)"',
-        r'class="[^"]*(?:next|pagination-next|page-numbers next)[^"]*"[^>]*href="([^"]+)"',
+        # 4) Clases "next" o "pagination-next" (otros themes)
+        r'class="[^"]*(?:next|pagination-next)[^"]*"[^>]*href="([^"]+)"',
+        # 5) Fallback final: cualquier href a /uploads/page/N/
+        r'href="([^"]*uploads/page/\d+/\?appcategory=[^"]*)"',
     ]
 
     for pat in patterns:

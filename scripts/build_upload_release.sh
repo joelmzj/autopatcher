@@ -3,7 +3,7 @@
 #
 # Sube los artefactos compilados a GitHub Releases con la estrategia:
 #   1. Crear un release "snapshot" (prerelease) con el set completo del run
-#   2. Limpiar los assets del release "stable" (URL limpia para descargas)
+#   2. Sincronizar assets del release "stable" (borrar solo obsoletos)
 #   3. Subir el set completo al release "stable"
 #   4. Aplicar retención: borrar snapshots de más de N días
 #
@@ -13,7 +13,6 @@
 #   UPLOAD_FILES              (default: ./build/*.apk ./build/*.zip)
 #   GITHUB_REPOSITORY         (requerido)             owner/repo
 #   SNAPSHOT_RETENTION_DAYS   (default: 30)           Días de retención
-#   VERSIONS_LOG              (default: versions_log.json)
 
 set -euo pipefail
 shopt -s nullglob
@@ -23,7 +22,6 @@ SNAPSHOT_TAG="${SNAPSHOT_TAG:-}"
 UPLOAD_FILES="${UPLOAD_FILES:-./build/*.apk ./build/*.zip}"
 REPO="${GITHUB_REPOSITORY:-}"
 SNAPSHOT_RETENTION_DAYS="${SNAPSHOT_RETENTION_DAYS:-30}"
-VERSIONS_LOG="${VERSIONS_LOG:-versions_log.json}"
 
 pr()  { echo -e "\033[0;32m[+] $1\033[0m"; }
 wpr() { echo -e "\033[0;33m[!] $1\033[0m"; }
@@ -38,6 +36,7 @@ command -v gh >/dev/null 2>&1 || { epr "gh CLI no encontrado"; exit 1; }
 
 # ==============================================================================
 # Recolectar archivos a subir (excluyendo raw_stock_*)
+# NOTA: versions_log.json NO se sube al release — se commitea a git aparte.
 # ==============================================================================
 
 declare -a files=()
@@ -50,11 +49,6 @@ for pattern in $UPLOAD_FILES; do
     done
 done
 
-# Añadir versions_log.json si existe
-if [ -f "$VERSIONS_LOG" ]; then
-    files+=("$VERSIONS_LOG")
-fi
-
 if [ "${#files[@]}" -eq 0 ]; then
     epr "No se encontraron archivos para subir (patrón: $UPLOAD_FILES)"
     exit 1
@@ -64,6 +58,15 @@ pr "Archivos a subir: ${#files[@]}"
 for f in "${files[@]}"; do
     size=$(du -h "$f" 2>/dev/null | cut -f1 || echo "?")
     pr "  - $f ($size)"
+done
+
+# ==============================================================================
+# Construir mapa de nombres que vamos a subir (para el diff de assets)
+# ==============================================================================
+
+declare -A new_names=()
+for f in "${files[@]}"; do
+    new_names["$(basename "$f")"]=1
 done
 
 # ==============================================================================
@@ -106,24 +109,36 @@ if ! gh release view "$RELEASE_TAG" -R "$REPO" >/dev/null 2>&1; then
 fi
 
 # ==============================================================================
-# 3. Limpiar assets viejos del release stable
+# 3. Sincronizar assets del release stable (borrar solo OBSOLETOS)
+#     Los assets que existen en el release pero NO se van a subir en este run
+#     se eliminan. Los que SÍ se van a subir se reemplazan con --clobber.
+#     Esto preserva las apps que se omitieron por "sin cambios" (sus APKs
+#     previos siguen en $BUILD_DIR y en files[]).
 # ==============================================================================
 
-pr "Limpiando assets antiguos del release $RELEASE_TAG..."
+pr "Sincronizando assets del release $RELEASE_TAG..."
 
 existing_assets=$(gh release view "$RELEASE_TAG" -R "$REPO" --json assets --jq '.assets[].name' 2>/dev/null || echo "")
 
 if [ -n "$existing_assets" ]; then
     removed=0
+    preserved=0
     while IFS= read -r asset; do
         [ -z "$asset" ] && continue
-        if gh release delete-asset "$RELEASE_TAG" "$asset" -R "$REPO" -y >/dev/null 2>&1; then
-            removed=$((removed + 1))
+        if [ -z "${new_names[$asset]:-}" ]; then
+            # Asset obsoleto: no está en el nuevo set → borrar
+            if gh release delete-asset "$RELEASE_TAG" "$asset" -R "$REPO" -y >/dev/null 2>&1; then
+                pr "  ✗ Eliminado (obsoleto): $asset"
+                removed=$((removed + 1))
+            fi
+        else
+            # Asset que se va a resubir → se preservará/reemplazará
+            preserved=$((preserved + 1))
         fi
     done <<< "$existing_assets"
-    pr "  Eliminados $removed assets antiguos"
+    pr "  Eliminados $removed assets obsoletos, $preserved assets a actualizar"
 else
-    pr "  No había assets que eliminar"
+    pr "  No había assets previos en el release"
 fi
 
 # ==============================================================================
@@ -141,8 +156,6 @@ pr "Release $RELEASE_TAG actualizado"
 if [ "$SNAPSHOT_RETENTION_DAYS" -gt 0 ]; then
     pr "=== Aplicando retención de snapshots (${SNAPSHOT_RETENTION_DAYS} días) ==="
 
-    # jq filtra in-situ: tags que empiezan por "snapshot-" y son más antiguos
-    # que el cutoff calculado como (now - N * 86400)
     old_snapshots=$(gh release list -R "$REPO" --limit 200 \
         --json tagName,createdAt --jq \
         ".[] | select(.tagName | startswith(\"snapshot-\")) | select((.createdAt | fromdateiso8601) < (now - ${SNAPSHOT_RETENTION_DAYS} * 86400)) | .tagName" \
