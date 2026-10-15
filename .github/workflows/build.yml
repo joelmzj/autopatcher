@@ -103,9 +103,21 @@ jobs:
           bash scripts/build.sh "$CONFIG"
           echo "success=true" >> $GITHUB_OUTPUT
 
-      - name: Commit and push versions log if updated
+      - name: Commit and push state files if updated
+        if: always()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add versions_log.json
-          git diff --staged --quiet || (git commit -m "chore: update versions_log.json [skip ci]" && git push)
+
+          # Añadir todos los archivos de estado que build.sh modifica
+          git add versions_log.json 2>/dev/null || true
+          git add state/patch_sources.json 2>/dev/null || true
+
+          # Commit solo si hay cambios
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update versions_log.json + state [skip ci]"
+            git push
+            echo "[+] Estado commiteado exitosamente"
+          else
+            echo "[i] Sin cambios en el estado, omitiendo commit"
+          fi

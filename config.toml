@@ -1,3 +1,14 @@
+# ============================================================
+# Valores válidos de build-mode:
+#   "apk"    → genera solo el APK parcheado (default si se omite)
+#   "module" → genera solo el ZIP del módulo Magisk/KernelSU
+#   "both"   → genera ambos: APK + ZIP
+#
+# Valores válidos de channel:
+#   "stable" → usa la rama main del repo de parches
+#   "dev"    → usa la rama dev del repo de parches
+# ============================================================
+
 [Morphe-Desktop]
 morphe_desktop_channel = "stable"  # Opciones: "stable" o "dev"
 patches-source = "MorpheApp/morphe-desktop"
@@ -11,6 +22,7 @@ brand = "HushGram"
 arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
+build-mode = "apk"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/instagram/instagram-instagram"
 
 [Telegram]
@@ -22,6 +34,7 @@ brand = "HushTelegram"
 arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
+build-mode = "apk"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/telegram-fz-llc/telegram-web-version/"
 
 [Pinterest]
@@ -33,6 +46,7 @@ brand = "HushPinterest"
 arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
+build-mode = "apk"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/pinterest/pinterest-one-destination-for-a-world-of-inspiration"
 
 [Messenger]
@@ -44,6 +58,7 @@ brand = "HushMessenger"
 arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
+build-mode = "apk"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/facebook-2/messenger"
 
 [Facebook]
@@ -55,6 +70,7 @@ brand = "HushFacebook"
 arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
+build-mode = "apk"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/facebook-2/facebook"
 
 [TikTok]
@@ -66,6 +82,7 @@ brand = "HushFeed"
 arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
+build-mode = "apk"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly"
 
 [YouTubeMusic-Morphe]
@@ -75,9 +92,9 @@ app-name = "YouTube Music"
 patches-source = "MorpheApp/morphe-patches"
 brand = "Morphe"
 arch = "arm64-v8a"
-build-mode = "both"
 channel = "dev"
 inclusive-patches = true
+build-mode = "both"
 patch-folder = "music"
 version = "auto"
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube-music"
@@ -89,9 +106,9 @@ app-name = "YouTube Music"
 patches-source = "anddea/revanced-patches"
 brand = "anddea"
 arch = "arm64-v8a"
+channel = "dev"
 inclusive-patches = true
 build-mode = "both"
-channel = "dev"
 patch-folder = "music"
 version = "auto"
 patcher-args = "-e 'Dark theme' -OdarkThemeBackgroundColor=@android:color/black"
@@ -104,9 +121,9 @@ app-name = "YouTube"
 patches-source = "MorpheApp/morphe-patches"
 brand = "Morphe"
 arch = "arm64-v8a"
+channel = "dev"
 inclusive-patches = true
 build-mode = "both"
-channel = "dev"
 patch-folder = "youtube"
 version = "auto"
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube"
@@ -118,9 +135,9 @@ app-name = "YouTube"
 patches-source = "anddea/revanced-patches"
 brand = "anddea"
 arch = "arm64-v8a"
+channel = "dev"
 inclusive-patches = true
 build-mode = "both"
-channel = "dev"
 patch-folder = "youtube"
 version = "auto"
 patcher-args = "-e 'Theme' -OdarkThemeBackgroundColor=@android:color/black"
@@ -135,6 +152,7 @@ brand = "anddea"
 arch = "arm64-v8a"
 channel = "dev"
 inclusive-patches = true
+build-mode = "apk"
 patch-folder = "youtube"
 version = "20.21.37"
 patcher-args = "-e 'MicroG support'"
@@ -149,6 +167,7 @@ brand = "Morphe"
 arch = "arm64-v8a"
 channel = "dev"
 inclusive-patches = true
+build-mode = "apk"
 patch-folder = "youtube"
 version = "20.21.37"
 patcher-args = "-e 'MicroG support'"

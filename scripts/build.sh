@@ -18,9 +18,6 @@ jq --version >/dev/null || abort "jq is not installed."
 java --version >/dev/null || abort "java is not installed."
 zip --version >/dev/null || abort "zip is not installed."
 
-BUILD_DIR="${BUILD_DIR:-build}"
-mkdir -p "$BUILD_DIR"
-
 # 1. Materializar la identidad de firma antes de validar
 pr "Configurando keystore de firma..."
 if [ -f "$(dirname "${BASH_SOURCE[0]}")/install_keystore.sh" ]; then
@@ -74,6 +71,26 @@ if [ ! -f "$APKEDITOR_JAR" ]; then
     pr "APKEditor descargado: $APKEDITOR_JAR"
 fi
 
+# ==============================================================================
+# FIX C3: Limpiar el directorio de build al inicio para evitar artefactos viejos
+# ==============================================================================
+pr "Limpiando directorio de build..."
+rm -rf "$BUILD_DIR"
+mkdir -p "$BUILD_DIR"
+
+# ==============================================================================
+# FIX C5: Generar tag de snapshot único para este run
+# ==============================================================================
+export SNAPSHOT_TAG="snapshot-$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA:0:7}"
+pr "Tag de snapshot para este run: $SNAPSHOT_TAG"
+
+# ==============================================================================
+# FIX C4: Inicializar versions_log.json si no existe
+# ==============================================================================
+if [ ! -f "versions_log.json" ]; then
+    echo '{}' > versions_log.json
+fi
+
 for table_name in $(toml_get_table_names); do
 	# Omitir la tabla de configuración global
 	if [ "$table_name" = "Morphe-Desktop" ]; then continue; fi
@@ -91,8 +108,7 @@ for table_name in $(toml_get_table_names); do
 	app_args[brand]=$(toml_get "$t" brand) || app_args[brand]="Patched"
 	app_args[channel]=$(toml_get "$t" channel) || app_args[channel]="stable"
 	app_args[inclusive_patches]=$(toml_get "$t" inclusive-patches) || app_args[inclusive_patches]="false"
-	app_args[build_mode]=$(toml_get "$t" "build-mode") || app_args[build_mode]="apk"
-	app_args[patch_folder]=$(toml_get "$t" "patch-folder") || app_args[patch_folder]=""
+	app_args[build_mode]=$(toml_get "$t" build-mode) || app_args[build_mode]="apk"
 
 	patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 	target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
@@ -104,12 +120,6 @@ for table_name in $(toml_get_table_names); do
 	)
 	if [ "${#exclude_patches[@]}" -gt 0 ]; then
 		pr "Parches a excluir para $table_name: ${exclude_patches[*]}"
-	fi
-
-	# Validación inteligente: Omitir si no hay cambios
-	if ! should_build_app "$patch_repo" "github" "${app_args[channel]}" "$target_apk_ver"; then
-		pr "Omitiendo app '$table_name' por falta de cambios."
-		continue
 	fi
 
 	pr "Procesando aplicación: $table_name (Fuente: $patch_repo)"
@@ -128,6 +138,14 @@ for table_name in $(toml_get_table_names); do
 		else
 			abort "No se pudo resolver la versión desde patches-list.json para $table_name (paquete: ${app_args[pkg_name]})."
 		fi
+	fi
+
+	# ==================================================================
+	# FIX: should_build_app AHORA recibe la versión REAL resuelta
+	# ==================================================================
+	if ! should_build_app "$patch_repo" "github" "${app_args[channel]}" "$target_apk_ver"; then
+		pr "Omitiendo app '$table_name' por falta de cambios."
+		continue
 	fi
 
 	# 2b. Obtener el tag actual de parches (para el nombre del APK)
@@ -164,75 +182,68 @@ for table_name in $(toml_get_table_names); do
 		continue
 	fi
 
-	mkdir -p "$BUILD_DIR"
-	raw_stock_apk="$BUILD_DIR/raw_stock_${table_name}.apk"
-	cp "$raw_apk" "$raw_stock_apk"
-	pr "APK stock preservado en: $raw_stock_apk"
-
-	# 3b. Mergear bundle a APK monolítico si es necesario
+	# 3b. Mergear bundle a APK monolítico si es necesario.
+	#     was_merged indica si el stock perdió su firma original (necesario
+	#     para decidir si se puede generar un módulo Magisk/KernelSU).
+	was_merged=false
 	if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
+		was_merged=true
 		pr "Detectado bundle, mergeando con APKEditor..."
 		apkm_file="${raw_apk%.apk}.apkm"
 		mv "$raw_apk" "$apkm_file"
-		if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk"; then
+		if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk" -clean; then
 			wpr "Fallo el merge del bundle para $table_name"
 			continue
 		fi
 		pr "Bundle mergeado: $raw_apk"
+	else
+		pr "APK con firma original (válido como stock para módulo)"
 	fi
 
-	# ------------------------------------------------------------------
-    # 3c. Construir argumentos -d / -e para morphe (Versión Directa Remota)
-    # ------------------------------------------------------------------
-    declare -a morphe_patch_args=()
+	# 3c. Construir argumentos -d / -e para morphe
+	declare -a morphe_patch_args=()
 
-    # (a) exclude-patches → -d= para cada uno
-    for pname in "${exclude_patches[@]}"; do
-        [ -z "$pname" ] && continue
-        morphe_patch_args+=( "-d=$pname" )
-    done
+	# (a) exclude-patches → -d= para cada uno
+	for pname in "${exclude_patches[@]}"; do
+		[ -z "$pname" ] && continue
+		morphe_patch_args+=( "-d=$pname" )
+	done
 
-    # (b) inclusive-patches=true → Forzar parches disabled-by-default desde patches-list.json remoto
-    if [ "${app_args[inclusive_patches]}" = "true" ]; then
-        pr "  Analizando parches deshabilitados por defecto para inclusive-patches..."
-        
-        branch="${app_args[channel]}"
-        [ "$branch" = "dev" ] && branch="dev" || branch="main"
-        
-        patches_json_url="https://raw.githubusercontent.com/$patch_repo/$branch/patches-list.json"
-        patches_json_content=$(curl -fsSL "$patches_json_url" 2>/dev/null || true)
-        
-        declare -a disabled_patches=()
+	# (b) inclusive-patches=true → -e= para cada patch disabled-by-default
+	if [ "${app_args[inclusive_patches]}" = "true" ]; then
+		patches_list_url="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
+		if [ "${app_args[channel]}" = "stable" ]; then
+			patches_list_url="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+		fi
+		pr "  Leyendo lista de parches desde: $patches_list_url"
 
-        if [ -n "$patches_json_content" ]; then
-            # Filtro jq universal para .default == false o .use == false
-            mapfile -t disabled_patches < <(
-                echo "$patches_json_content" | jq -r '
-                    (.patches // .)[]? | 
-                    select(
-                        (has("default") and .default == false) or 
-                        (has("use") and .use == false)
-                    ) | .name
-                ' 2>/dev/null
-            )
-        else
-            wpr "  No se pudo descargar patches-list.json desde: $patches_json_url"
-        fi
+		declare -a disabled_patches=()
+		mapfile -t disabled_patches < <(
+			curl -fsSL "$patches_list_url" 2>/dev/null | \
+			jq -r '
+				(.patches // .)[]? |
+				select(
+					(has("default") and .default == false) or
+					(has("use") and .use == false)
+				) |
+				.name // empty
+			' 2>/dev/null
+		)
 
-        if [ "${#disabled_patches[@]}" -gt 0 ]; then
-            pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default"
-            for pname in "${disabled_patches[@]}"; do
-                [ -z "$pname" ] && continue
-                morphe_patch_args+=( "-e=$pname" )
-            done
-        else
-            pr "  Aviso: No se detectaron parches deshabilitados por defecto."
-        fi
-    fi
+		if [ "${#disabled_patches[@]}" -gt 0 ]; then
+			pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default"
+			for pname in "${disabled_patches[@]}"; do
+				[ -z "$pname" ] && continue
+				morphe_patch_args+=( "-e=$pname" )
+			done
+		else
+			wpr "  No se encontraron parches disabled-by-default"
+		fi
+	fi
 
-    if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
-        pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
-    fi
+	if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
+		pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
+	fi
 
 	# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
 	pr "Aplicando parches con Morphe CLI..."
@@ -252,8 +263,71 @@ for table_name in $(toml_get_table_names); do
 			continue
 		}
 
+	if [ ! -f "$patched_apk" ]; then
+		wpr "Morphe no generó el APK parcheado para $table_name"
+		continue
+	fi
+
+	# 4b. Generar módulo Magisk/KernelSU si build-mode lo requiere.
+	#     Se omite si el stock fue mergeado (firma perdida → módulo roto).
+	if [ "${app_args[build_mode]}" = "both" ] || [ "${app_args[build_mode]}" = "module" ]; then
+		if [ "$was_merged" = true ]; then
+			wpr "Saltando módulo para $table_name: el stock fue mergeado desde un bundle."
+			wpr "  Motivo: la firma original se perdió y customize.sh no podría"
+			wpr "          instalar stock/base.apk sobre la app existente."
+			wpr "  Solución: usar una versión con APK disponible, o cambiar"
+			wpr "          build-mode a 'apk' en config.toml."
+		else
+			pr "Generando módulo Magisk/KernelSU para $table_name..."
+
+			module_id=$(echo "$table_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '_' | sed 's/_$//')
+			module_zip="$BUILD_DIR/${apk_filename%.apk}.zip"
+			pkg_version_code="${NEXT_VER_CODE}"
+
+			if python3 "$(dirname "${BASH_SOURCE[0]}")/module_builder.py" \
+				"module" \
+				"$raw_apk" \
+				"$patched_apk" \
+				"$module_zip" \
+				"$module_id" \
+				"$table_name (${app_args[brand]})" \
+				"${app_args[pkg_name]}" \
+				"$target_apk_ver" \
+				"$pkg_version_code" \
+				"${app_args[brand]}" \
+				"${app_args[arch]}"; then
+				pr "Módulo generado: $module_zip"
+			else
+				wpr "Fallo al generar el módulo para $table_name"
+			fi
+		fi
+	fi
+
 	# 5. Actualizar el registro de estado tras el éxito
 	update_build_state "$patch_repo" "${app_args[channel]}" "$latest_applied_tag" "$target_apk_ver"
+
+	# 5b. FIX C4: Actualizar versions_log.json
+	if [ -f "versions_log.json" ]; then
+		tmp_vlog=$(mktemp)
+		jq --arg app "$table_name" \
+		   --arg apk_ver "$target_apk_ver" \
+		   --arg patch_tag "$latest_applied_tag" \
+		   --arg apk_file "$apk_filename" \
+		   --arg brand "${app_args[brand]}" \
+		   --arg arch "${app_args[arch]}" \
+		   --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+		   '.[$app] = {
+				apk_version: $apk_ver,
+				patches_version: $patch_tag,
+				brand: $brand,
+				arch: $arch,
+				file: $apk_file,
+				timestamp: $ts
+			}' \
+			versions_log.json > "$tmp_vlog" && mv "$tmp_vlog" versions_log.json
+		pr "versions_log.json actualizado para $table_name"
+	fi
+
 	pr "¡Aplicación '$table_name' procesada y guardada en $patched_apk!"
 done
 
