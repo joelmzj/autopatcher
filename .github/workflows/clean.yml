@@ -1,0 +1,176 @@
+name: Clean & Reset
+
+on:
+  workflow_dispatch:
+    inputs:
+      reset_state:
+        description: "Resetear state/patch_sources.json (fuerza recompilar todo en el próximo run)"
+        required: false
+        type: boolean
+        default: true
+      reset_versions_log:
+        description: "Resetear versions_log.json (vacía el log de versiones)"
+        required: false
+        type: boolean
+        default: true
+      delete_snapshots:
+        description: "Borrar TODOS los snapshots históricos del release"
+        required: false
+        type: boolean
+        default: false
+      delete_stable:
+        description: "Borrar el release 'stable' (se recreará en el próximo run)"
+        required: false
+        type: boolean
+        default: false
+      delete_workflow_cache:
+        description: "Borrar la caché de GitHub Actions (pip, etc.)"
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: clean
+  cancel-in-progress: false
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ======================================================================
+      # 1. Resetear state/patch_sources.json
+      # ======================================================================
+      - name: Reset state/patch_sources.json
+        if: ${{ inputs.reset_state }}
+        run: |
+          mkdir -p state
+          echo '{}' > state/patch_sources.json
+          echo "[+] state/patch_sources.json reseteado"
+
+      # ======================================================================
+      # 2. Resetear versions_log.json
+      # ======================================================================
+      - name: Reset versions_log.json
+        if: ${{ inputs.reset_versions_log }}
+        run: |
+          echo '{}' > versions_log.json
+          echo "[+] versions_log.json reseteado"
+
+      # ======================================================================
+      # 3. Commit de los archivos de estado reseteados
+      # ======================================================================
+      - name: Commit state changes
+        if: ${{ inputs.reset_state || inputs.reset_versions_log }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add versions_log.json 2>/dev/null || true
+          git add state/patch_sources.json 2>/dev/null || true
+
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: reset state + versions log [skip ci]"
+            git push
+            echo "[+] Estado reseteado y pusheado"
+          else
+            echo "[i] Sin cambios que commitear"
+          fi
+
+      # ======================================================================
+      # 4. Borrar snapshots históricos
+      # ======================================================================
+      - name: Delete all snapshots
+        if: ${{ inputs.delete_snapshots }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.repository }}"
+          echo "[i] Buscando snapshots..."
+
+          tags=$(gh release list -R "$REPO" --limit 500 --json tagName --jq \
+            '.[] | select(.tagName | startswith("snapshot-")) | .tagName' 2>/dev/null || echo "")
+
+          if [ -z "$tags" ]; then
+            echo "[i] No hay snapshots que borrar"
+            exit 0
+          fi
+
+          count=0
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            echo "  → Borrando: $tag"
+            if gh release delete "$tag" -R "$REPO" -y --cleanup-tag 2>/dev/null; then
+              count=$((count + 1))
+            fi
+          done <<< "$tags"
+          echo "[+] $count snapshots borrados"
+
+      # ======================================================================
+      # 5. Borrar release stable
+      # ======================================================================
+      - name: Delete stable release
+        if: ${{ inputs.delete_stable }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.repository }}"
+
+          if gh release view stable -R "$REPO" >/dev/null 2>&1; then
+            echo "  → Borrando release stable..."
+            gh release delete stable -R "$REPO" -y --cleanup-tag
+            echo "[+] Release stable borrado (se recreará en el próximo build)"
+          else
+            echo "[i] No existe el release stable"
+          fi
+
+      # ======================================================================
+      # 6. Borrar caché de GitHub Actions
+      # ======================================================================
+      - name: Delete workflow caches
+        if: ${{ inputs.delete_workflow_cache }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.repository }}"
+
+          # Listar todas las cachés del repo
+          cache_keys=$(gh cache list -R "$REPO" --limit 100 --json key --jq '.[].key' 2>/dev/null || echo "")
+
+          if [ -z "$cache_keys" ]; then
+            echo "[i] No hay cachés que borrar"
+            exit 0
+          fi
+
+          count=0
+          while IFS= read -r key; do
+            [ -z "$key" ] && continue
+            echo "  → Borrando caché: $key"
+            if gh cache delete "$key" -R "$REPO" 2>/dev/null; then
+              count=$((count + 1))
+            fi
+          done <<< "$cache_keys"
+          echo "[+] $count cachés borradas"
+
+      # ======================================================================
+      # 7. Resumen final
+      # ======================================================================
+      - name: Summary
+        run: |
+          echo "=== Clean & Reset completado ==="
+          echo ""
+          echo "  Reset state:           ${{ inputs.reset_state }}"
+          echo "  Reset versions log:    ${{ inputs.reset_versions_log }}"
+          echo "  Delete snapshots:      ${{ inputs.delete_snapshots }}"
+          echo "  Delete stable release: ${{ inputs.delete_stable }}"
+          echo "  Delete GH caches:      ${{ inputs.delete_workflow_cache }}"
+          echo ""
+          echo "Próximo run de Build: recompilará todo desde cero."
