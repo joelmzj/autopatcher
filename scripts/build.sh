@@ -174,7 +174,7 @@ for table_name in $(toml_get_table_names); do
 		pr "Detectado bundle, mergeando con APKEditor..."
 		apkm_file="${raw_apk%.apk}.apkm"
 		mv "$raw_apk" "$apkm_file"
-		if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk" -clean; then
+		if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk"; then
 			wpr "Fallo el merge del bundle para $table_name"
 			continue
 		fi
