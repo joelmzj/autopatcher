@@ -33,43 +33,16 @@ require_signing_identity || abort "cannot build without a signing identity"
 set_prebuilts
 
 toml_prep "${1:-config.toml}" || abort "could not find config file"
-main_config_t=$(toml_get_table_main)
-COMPRESSION_LEVEL=$(toml_get "$main_config_t" compression-level) || COMPRESSION_LEVEL="9"
-DEDUP_MODE=$(toml_get "$main_config_t" dedup-mode) || DEDUP_MODE="log"
-RVB_DEDUP_MODE="$DEDUP_MODE"
 
 # Leer el canal global de Morphe Desktop configurado en el TOML
 morphe_channel=$(jq -r '."Morphe-Desktop".morphe_desktop_channel // "stable"' <<<"$__TOML__")
 pr "Obteniendo CLI de Morphe Desktop (Canal: $morphe_channel)..."
 MORPHE_CLI_JAR=$(get_morphe_desktop_cli "$morphe_channel") || abort "No se pudo obtener la CLI de Morphe Desktop"
 
-# Obtener APKEditor (última versión disponible)
-APKEDITOR_JAR="$TEMP_DIR/APKEditor.jar"
-if [ ! -f "$APKEDITOR_JAR" ]; then
-    pr "Consultando la última versión de APKEditor..."
-    APKEDITOR_API="https://api.github.com/repos/REAndroid/APKEditor/releases/latest"
-
-    APKEDITOR_TAG=$(curl -fsSL "$APKEDITOR_API" | jq -r '.tag_name // empty')
-    if [ -z "$APKEDITOR_TAG" ]; then
-        abort "No se pudo obtener el tag de APKEditor desde la API"
-    fi
-
-    APKEDITOR_ASSET=$(curl -fsSL "$APKEDITOR_API" \
-        | jq -r '.assets[] | select(.name | test("\\.jar$")) | .name' \
-        | head -n1)
-    if [ -z "$APKEDITOR_ASSET" ]; then
-        abort "No se encontró un asset .jar en el release $APKEDITOR_TAG"
-    fi
-
-    APKEDITOR_URL="https://github.com/REAndroid/APKEditor/releases/download/${APKEDITOR_TAG}/${APKEDITOR_ASSET}"
-    pr "Descargando APKEditor $APKEDITOR_TAG desde: $APKEDITOR_URL"
-
-    mkdir -p "$TEMP_DIR"
-    if ! curl -fsSL "$APKEDITOR_URL" -o "$APKEDITOR_JAR"; then
-        abort "No se pudo descargar APKEditor desde $APKEDITOR_URL"
-    fi
-    pr "APKEditor descargado: $APKEDITOR_JAR"
-fi
+# Obtener APKEditor (usa el helper de utils.sh)
+pr "Obteniendo APKEditor..."
+get_apkeditor || abort "No se pudo obtener APKEditor"
+APKEDITOR_JAR="$TEMP_DIR/apkeditor.jar"
 
 # ==============================================================================
 # FIX C3: Limpiar el directorio de build al inicio para evitar artefactos viejos
