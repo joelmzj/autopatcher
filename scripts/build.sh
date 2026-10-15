@@ -88,6 +88,8 @@ for table_name in $(toml_get_table_names); do
 	app_args[brand]=$(toml_get "$t" brand) || app_args[brand]="Patched"
 	app_args[channel]=$(toml_get "$t" channel) || app_args[channel]="stable"
 	app_args[inclusive_patches]=$(toml_get "$t" inclusive-patches) || app_args[inclusive_patches]="false"
+	app_args[build_mode]=$(toml_get "$t" "build-mode") || app_args[build_mode]="apk"
+	app_args[patch_folder]=$(toml_get "$t" "patch-folder") || app_args[patch_folder]=""
 
 	patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 	target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
@@ -159,6 +161,10 @@ for table_name in $(toml_get_table_names); do
 		continue
 	fi
 
+	raw_stock_apk="$BUILD_DIR/raw_stock_${table_name}.apk"
+	cp "$raw_apk" "$raw_stock_apk"
+	pr "APK stock preservado en: $raw_stock_apk"
+
 	# 3b. Mergear bundle a APK monolítico si es necesario
 	if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
 		pr "Detectado bundle, mergeando con APKEditor..."
@@ -172,42 +178,57 @@ for table_name in $(toml_get_table_names); do
 	fi
 
 	# ------------------------------------------------------------------
-	# 3c. Construir argumentos -d / -e para morphe
-	# ------------------------------------------------------------------
-	declare -a morphe_patch_args=()
+    # 3c. Construir argumentos -d / -e para morphe (Versión Directa Remota)
+    # ------------------------------------------------------------------
+    declare -a morphe_patch_args=()
 
-	# (a) exclude-patches → -d= para cada uno
-	for pname in "${exclude_patches[@]}"; do
-		[ -z "$pname" ] && continue
-		morphe_patch_args+=( "-d=$pname" )
-	done
+    # (a) exclude-patches → -d= para cada uno
+    for pname in "${exclude_patches[@]}"; do
+        [ -z "$pname" ] && continue
+        morphe_patch_args+=( "-d=$pname" )
+    done
 
-	# (b) inclusive-patches=true → -e= para cada patch disabled-by-default del MPP
-	if [ "${app_args[inclusive_patches]}" = "true" ]; then
-		mpp_glob="$TEMP_DIR/morphe/morphe-data/patches/${patch_repo/\//-}/*.mpp"
-		mpp_file=$(ls -1 $mpp_glob 2>/dev/null | head -n1)
-		if [ -n "$mpp_file" ] && [ -f "$mpp_file" ]; then
-			pr "  Leyendo parches desde: $mpp_file"
-			declare -a disabled_patches=()
-			mapfile -t disabled_patches < <(
-				unzip -p "$mpp_file" "patches.json" 2>/dev/null \
-					| jq -r '.[] | select(.use == false) | .name' 2>/dev/null
-			)
-			if [ "${#disabled_patches[@]}" -gt 0 ]; then
-				pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default"
-				for pname in "${disabled_patches[@]}"; do
-					[ -z "$pname" ] && continue
-					morphe_patch_args+=( "-e=$pname" )
-				done
-			fi
-		else
-			wpr "  No se encontró el MPP en: $mpp_glob"
-		fi
-	fi
+    # (b) inclusive-patches=true → Forzar parches disabled-by-default desde patches-list.json remoto
+    if [ "${app_args[inclusive_patches]}" = "true" ]; then
+        pr "  Analizando parches deshabilitados por defecto para inclusive-patches..."
+        
+        branch="${app_args[channel]}"
+        [ "$branch" = "dev" ] && branch="dev" || branch="main"
+        
+        patches_json_url="https://raw.githubusercontent.com/$patch_repo/$branch/patches-list.json"
+        patches_json_content=$(curl -fsSL "$patches_json_url" 2>/dev/null || true)
+        
+        declare -a disabled_patches=()
 
-	if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
-		pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
-	fi
+        if [ -n "$patches_json_content" ]; then
+            # Filtro jq universal para .default == false o .use == false
+            mapfile -t disabled_patches < <(
+                echo "$patches_json_content" | jq -r '
+                    (.patches // .)[]? | 
+                    select(
+                        (has("default") and .default == false) or 
+                        (has("use") and .use == false)
+                    ) | .name
+                ' 2>/dev/null
+            )
+        else
+            wpr "  No se pudo descargar patches-list.json desde: $patches_json_url"
+        fi
+
+        if [ "${#disabled_patches[@]}" -gt 0 ]; then
+            pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default"
+            for pname in "${disabled_patches[@]}"; do
+                [ -z "$pname" ] && continue
+                morphe_patch_args+=( "-e=$pname" )
+            done
+        else
+            pr "  Aviso: No se detectaron parches deshabilitados por defecto."
+        fi
+    fi
+
+    if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
+        pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
+    fi
 
 	# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
 	pr "Aplicando parches con Morphe CLI..."

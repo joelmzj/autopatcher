@@ -14,13 +14,13 @@
 #   vers <allow_all>   → (legacy) lista de versiones sin href
 #
 # Uso:
-#   cat base.html     | python3 apkmirror_search.py uploads
-#   cat uploads.html  | python3 apkmirror_search.py list true
-#   cat release.html  | python3 apkmirror_search.py variant arm64-v8a
-#   cat variant.html  | python3 apkmirror_search.py download
-#   cat step2.html    | python3 apkmirror_search.py final
-#   cat uploads.html  | python3 apkmirror_search.py next
-#   cat base.html     | python3 apkmirror_search.py pkg
+#   cat base.html    | python3 apkmirror_search.py uploads
+#   cat uploads.html | python3 apkmirror_search.py list true
+#   cat release.html | python3 apkmirror_search.py variant arm64-v8a
+#   cat variant.html | python3 apkmirror_search.py download
+#   cat step2.html   | python3 apkmirror_search.py final
+#   cat uploads.html | python3 apkmirror_search.py next
+#   cat base.html    | python3 apkmirror_search.py pkg
 
 import sys
 import re
@@ -208,7 +208,6 @@ def cmd_variant():
 # ---------------------------------------------------------------------------
 
 def _extract_download_url(html: str):
-    # Nivel 1: cualquier <a> con "downloadButton" en class y href (sin importar orden)
     for attrs in re.findall(r'<a\b([^>]*)>', html):
         if "downloadButton" not in attrs:
             continue
@@ -216,12 +215,10 @@ def _extract_download_url(html: str):
         if m:
             return _abs_url(_unescape(m.group(1)))
 
-    # Nivel 2: cualquier href a /download/?key=
     m = re.search(r'href="([^"]*/download/\?key=[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
 
-    # Nivel 3: cualquier href con ?key=
     m = re.search(r'href="([^"]*\?key=[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
@@ -249,7 +246,6 @@ def cmd_download():
 # ---------------------------------------------------------------------------
 
 def _extract_final_url(html: str):
-    # Nivel 1: cualquier <a> con id="download-link" y href (sin importar orden)
     for attrs in re.findall(r'<a\b([^>]*)>', html):
         if 'id="download-link"' not in attrs:
             continue
@@ -257,12 +253,10 @@ def _extract_final_url(html: str):
         if m:
             return _abs_url(_unescape(m.group(1)))
 
-    # Nivel 2: cualquier href a download.php?id=
     m = re.search(r'href="([^"]*download\.php\?id=[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
 
-    # Nivel 3: cualquier href a /wp-content/themes/APKMirror/
     m = re.search(r'href="([^"]*/wp-content/themes/APKMirror/[^"]+)"', html)
     if m:
         return _abs_url(_unescape(m.group(1)))
@@ -310,10 +304,6 @@ def cmd_uploads():
 # ---------------------------------------------------------------------------
 
 def cmd_list():
-    """
-    Devuelve líneas con formato: version<TAB>href_absoluto
-    Enfoque de dos pasadas: no depende del orden de atributos en el <a>.
-    """
     allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
     html = sys.stdin.read()
     if not html:
@@ -328,17 +318,14 @@ def cmd_list():
         content = m.group(1)
     print(f"DEBUG: content tras filtro primary = {len(content)} bytes", file=sys.stderr)
 
-    # Pasada 1: capturar TODOS los <a>...</a> con sus atributos y texto
     all_anchors = re.findall(r'<a\b([^>]*)>(.*?)</a>', content, re.DOTALL)
     print(f"DEBUG: {len(all_anchors)} anchors totales", file=sys.stderr)
 
     seen = set()
     out = []
     for attrs, text in all_anchors:
-        # Pasada 2a: filtrar por class="fontBlack" (en cualquier posición)
         if "fontBlack" not in attrs:
             continue
-        # Pasada 2b: extraer href que termine en -release/
         href_m = re.search(r'href="([^"]*-release/)"', attrs)
         if not href_m:
             continue
@@ -418,39 +405,31 @@ def cmd_vers():
 def cmd_next():
     """
     Busca en el HTML de uploads el enlace real a la página siguiente.
-    Devuelve la URL absoluta, o falla si no hay más páginas.
-
-    APKMirror usa WP-PageNavi con URLs tipo:
-      /uploads/page/2/?appcategory=youtube
-    y el enlace de "Next" tiene class="nextpostslink" y rel="next".
+    Usa un enfoque robusto iterando sobre los atributos de las etiquetas <a>,
+    evitando problemas con el orden de clases o atributos (como rel="next" o nextpostslink).
     """
     html = sys.stdin.read()
     if not html:
         print("ERROR: HTML vacío en stdin", file=sys.stderr)
         sys.exit(1)
 
-    patterns = [
-        # 1) Formato WordPress real: /uploads/page/N/?appcategory=X
-        r'href="([^"]*uploads/page/\d+/\?appcategory=[^"]*)"',
-        # 2) rel="next" (con atributos entre rel y href, o al revés)
-        r'rel="next"[^>]*href="([^"]+)"',
-        r'href="([^"]+)"[^>]*rel="next"',
-        # 3) Clase "nextpostslink" (WordPress wp-pagenavi)
-        r'class="[^"]*nextpostslink[^"]*"[^>]*href="([^"]+)"',
-        # 4) Cualquier href a /uploads/page/N/
-        r'href="([^"]*uploads/page/\d+/[^"]*)"',
-        # 5) Fallbacks antiguos por si APKMirror cambia de formato
-        r'href="([^"]*uploads/\?appcategory=[^"]*(?:page|paged)=\d+[^"]*)"',
-        r'class="[^"]*(?:next|pagination-next|page-numbers next)[^"]*"[^>]*href="([^"]+)"',
-    ]
+    # Inspeccionar todos los tags <a> buscando el indicador de siguiente página de forma independiente al orden de atributos
+    for attrs in re.findall(r'<a\b([^>]*)>', html, re.DOTALL):
+        if "nextpostslink" in attrs or 'rel="next"' in attrs or "pagination-next" in attrs:
+            m = re.search(r'href="([^"]+)"', attrs)
+            if m:
+                url = _abs_url(_unescape(m.group(1)))
+                print(f"INFO: siguiente página: {url}", file=sys.stderr)
+                print(url)
+                sys.exit(0)
 
-    for pat in patterns:
-        m = re.search(pat, html)
-        if m:
-            url = _abs_url(_unescape(m.group(1)))
-            print(f"INFO: siguiente página: {url}", file=sys.stderr)
-            print(url)
-            sys.exit(0)
+    # Fallback por si la estructura cambia a un patrón directo de paginación de WordPress
+    m = re.search(r'href="([^"]*uploads/page/\d+/\?appcategory=[^"]*)"', html)
+    if m:
+        url = _abs_url(_unescape(m.group(1)))
+        print(f"INFO: siguiente página (fallback): {url}", file=sys.stderr)
+        print(url)
+        sys.exit(0)
 
     print("INFO: no hay más páginas", file=sys.stderr)
     sys.exit(1)
@@ -501,7 +480,7 @@ def main():
     elif modo == "pkg":
         cmd_pkg()
     else:
-        print(f"ERROR: modo desconocido '{modo}'", file=sys.stderr)
+        print(f"ERROR: desconocido '{modo}'", file=sys.stderr)
         sys.exit(1)
 
 
