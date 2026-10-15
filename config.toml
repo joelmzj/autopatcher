@@ -99,7 +99,7 @@ patch-folder = "music"
 version = "auto"
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube-music"
 
-[youtube-music-anddea]
+[YouTube-Music-anddea]
 enabled = true
 pkg-name = "com.google.android.apps.youtube.music"
 app-name = "YouTube Music"
@@ -128,7 +128,7 @@ patch-folder = "youtube"
 version = "auto"
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube"
 
-[youtube-anddea]
+[YouTube-anddea]
 enabled = true
 pkg-name = "com.google.android.youtube"
 app-name = "YouTube"
@@ -143,7 +143,7 @@ version = "auto"
 patcher-args = "-e 'Theme' -OdarkThemeBackgroundColor=@android:color/black"
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube"
 
-[YouTube-Tablet-Android8-anddea]
+[YouTube-Tablet-anddea]
 enabled = true
 pkg-name = "com.google.android.youtube"
 app-name = "YouTube"
@@ -158,7 +158,7 @@ version = "20.21.37"
 patcher-args = "-e 'MicroG support'"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube/youtube-20-21-37-release/"
 
-[YouTube-Tablet-Android8-Morphe]
+[YouTube-Tablet-Morphe]
 enabled = true
 pkg-name = "com.google.android.youtube"
 app-name = "YouTube"

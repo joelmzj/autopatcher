@@ -141,17 +141,30 @@ for table_name in $(toml_get_table_names); do
 	fi
 
 	# ==================================================================
-	# FIX: should_build_app AHORA recibe la versión REAL resuelta
+	# Validación inteligente de cambios.
+	# REBUILD_APPS permite forzar recompilación selectiva para debug:
+	#   ""                              → solo apps con cambios
+	#   "Messenger"                     → fuerza solo Messenger
+	#   "Messenger,Instagram,Telegram"  → fuerza esas 3
+	#   "*"                             → fuerza todas
 	# ==================================================================
-	if ! should_build_app "$patch_repo" "github" "${app_args[channel]}" "$target_apk_ver"; then
-		pr "Omitiendo app '$table_name' por falta de cambios."
-		continue
+	_force_this=false
+	if [ -n "${REBUILD_APPS:-}" ]; then
+		_rebuild_lower=$(echo "${REBUILD_APPS}" | tr '[:upper:]' '[:lower:]')
+		_table_lower=$(echo "${table_name}" | tr '[:upper:]' '[:lower:]')
+
+		if [ "${_rebuild_lower}" = "*" ]; then
+			_force_this=true
+		elif echo ",${_rebuild_lower}," | grep -qF ",${_table_lower},"; then
+			_force_this=true
+		fi
 	fi
 
-	# 2b. Obtener el tag actual de parches (para el nombre del APK)
-	latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "${app_args[channel]}")
-	if [ -z "$latest_applied_tag" ]; then
-		latest_applied_tag="unknown"
+	if [ "$_force_this" = "true" ]; then
+		pr "  REBUILD_APPS activo: forzando recompilación de $table_name"
+	elif ! should_build_app "$patch_repo" "github" "${app_args[channel]}" "$target_apk_ver"; then
+		pr "Omitiendo app '$table_name' por falta de cambios."
+		continue
 	fi
 
 	# 2c. Generar el nombre del APK final usando naming.py
