@@ -91,10 +91,39 @@ if [ ! -f "versions_log.json" ]; then
     echo '{}' > versions_log.json
 fi
 
+# ==============================================================================
+# FIX D1: Preservar APKs del release actual en build/ para no perder las apps
+#         que se omitirán por "sin cambios" durante este run.
+# ==============================================================================
+if [ -n "${GITHUB_REPOSITORY:-}" ] && [ -n "${RELEASE_TAG:-stable}" ]; then
+    pr "Preservando APKs previos del release '$RELEASE_TAG'..."
+
+    prev_assets=$(gh release view "$RELEASE_TAG" -R "$GITHUB_REPOSITORY" \
+        --json assets --jq '.assets[] | select(.name | test("\\.(apk|zip)$")) | .name' \
+        2>/dev/null || echo "")
+
+    if [ -n "$prev_assets" ]; then
+        prev_count=0
+        while IFS= read -r asset; do
+            [ -z "$asset" ] && continue
+            if gh release download "$RELEASE_TAG" -R "$GITHUB_REPOSITORY" \
+                --pattern "$asset" --dir "$BUILD_DIR" --clobber 2>/dev/null; then
+                prev_count=$((prev_count + 1))
+            fi
+        done <<< "$prev_assets"
+        pr "  $prev_count archivos previos preservados en $BUILD_DIR"
+    else
+        pr "  No había APKs/ZIPs previos en el release"
+    fi
+fi
+
 for table_name in $(toml_get_table_names); do
 	# Omitir la tabla de configuración global
 	if [ "$table_name" = "Morphe-Desktop" ]; then continue; fi
 	if [ -z "$table_name" ]; then continue; fi
+
+	# Inicializar variables del bucle (evita 'unbound variable' con set -u)
+	latest_applied_tag="unknown"
 
 	t=$(toml_get_table "$table_name")
 	enabled=$(toml_get "$t" enabled) || enabled=true
@@ -165,6 +194,14 @@ for table_name in $(toml_get_table_names); do
 	elif ! should_build_app "$patch_repo" "github" "${app_args[channel]}" "$target_apk_ver"; then
 		pr "Omitiendo app '$table_name' por falta de cambios."
 		continue
+	fi
+
+	# ==================================================================
+	# 2b. Obtener el tag actual de parches (para el nombre del APK)
+	# ==================================================================
+	latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "${app_args[channel]}")
+	if [ -z "$latest_applied_tag" ]; then
+		latest_applied_tag="unknown"
 	fi
 
 	# 2c. Generar el nombre del APK final usando naming.py
@@ -303,24 +340,61 @@ for table_name in $(toml_get_table_names); do
 
 	# 4b. Generar módulo Magisk/KernelSU si build-mode lo requiere.
 	#     Se omite si el stock fue mergeado (firma perdida → módulo roto).
+	#     Si el bundle publica el parche "GmsCore support", se hace un segundo
+	#     build excluyéndolo para el módulo (que monta sobre GmsCore ya instalado).
 	if [ "${app_args[build_mode]}" = "both" ] || [ "${app_args[build_mode]}" = "module" ]; then
 		if [ "$was_merged" = true ]; then
 			wpr "Saltando módulo para $table_name: el stock fue mergeado desde un bundle."
-			wpr "  Motivo: la firma original se perdió y customize.sh no podría"
-			wpr "          instalar stock/base.apk sobre la app existente."
-			wpr "  Solución: usar una versión con APK disponible, o cambiar"
-			wpr "          build-mode a 'apk' en config.toml."
 		else
-			pr "Generando módulo Magisk/KernelSU para $table_name..."
+			# ------------------------------------------------------------
+			# Detectar si el MPP tiene el parche "GmsCore support"
+			# ------------------------------------------------------------
+			gmscore_present=false
+			patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
+			if [ "${app_args[channel]}" = "stable" ]; then
+				patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+			fi
+			if curl -fsSL "$patches_list_url_4b" 2>/dev/null | \
+			   jq -e '(.patches // .)[]? | select(.name == "GmsCore support")' >/dev/null 2>&1; then
+				gmscore_present=true
+				pr "  Parche 'GmsCore support' detectado en el bundle"
+			fi
 
 			module_id=$(echo "$table_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '_' | sed 's/_$//')
 			module_zip="$BUILD_DIR/${apk_filename%.apk}.zip"
 			pkg_version_code="${NEXT_VER_CODE}"
+			module_apk_src="$patched_apk"
 
+			if [ "$gmscore_present" = true ]; then
+				pr "  Compilando variante para módulo (sin 'GmsCore support')..."
+				module_apk_tmp="$TEMP_DIR/$table_name/module.apk"
+				java -jar "$MORPHE_CLI_JAR" patch \
+					-p="https://github.com/$patch_repo" \
+					-o="$module_apk_tmp" \
+					--keystore="$RVB_KEYSTORE" \
+					--keystore-password="$RVB_KEYSTORE_PASS" \
+					--keystore-entry-alias="$RVB_KEY_ALIAS" \
+					--keystore-entry-password="$RVB_KEYSTORE_PASS" \
+					--signer="Morphe" \
+					--striplibs="${app_args[arch]}" \
+					"${morphe_patch_args[@]}" \
+					-d="GmsCore support" \
+					"$raw_apk" \
+					|| {
+						wpr "Error al compilar la variante para módulo de $table_name"
+						continue
+					}
+				if [ -f "$module_apk_tmp" ]; then
+					module_apk_src="$module_apk_tmp"
+					pr "  Variante para módulo generada: $module_apk_tmp"
+				fi
+			fi
+
+			pr "Generando módulo Magisk/KernelSU para $table_name..."
 			if python3 "$(dirname "${BASH_SOURCE[0]}")/module_builder.py" \
 				"module" \
 				"$raw_apk" \
-				"$patched_apk" \
+				"$module_apk_src" \
 				"$module_zip" \
 				"$module_id" \
 				"$table_name (${app_args[brand]})" \
