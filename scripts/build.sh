@@ -18,6 +18,9 @@ jq --version >/dev/null || abort "jq is not installed."
 java --version >/dev/null || abort "java is not installed."
 zip --version >/dev/null || abort "zip is not installed."
 
+BUILD_DIR="${BUILD_DIR:-build}"
+mkdir -p "$BUILD_DIR"
+
 # 1. Materializar la identidad de firma antes de validar
 pr "Configurando keystore de firma..."
 if [ -f "$(dirname "${BASH_SOURCE[0]}")/install_keystore.sh" ]; then
@@ -161,6 +164,7 @@ for table_name in $(toml_get_table_names); do
 		continue
 	fi
 
+	mkdir -p "$BUILD_DIR"
 	raw_stock_apk="$BUILD_DIR/raw_stock_${table_name}.apk"
 	cp "$raw_apk" "$raw_stock_apk"
 	pr "APK stock preservado en: $raw_stock_apk"
