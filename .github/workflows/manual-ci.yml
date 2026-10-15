@@ -10,6 +10,33 @@ on:
         required: false
         type: string
         default: "config.toml"
+      rebuild_preset:
+        description: "Preset rápido de apps a forzar (dropdown)"
+        required: false
+        type: choice
+        default: ""
+        options:
+          # BEGIN: AUTO-GENERATED-APPS
+          - ""
+          - "*"
+          - "Instagram"
+          - "Telegram"
+          - "Pinterest"
+          - "Messenger"
+          - "Facebook"
+          - "TikTok"
+          - "YouTubeMusic-Morphe"
+          - "youtube-music-anddea"
+          - "YouTube-Morphe"
+          - "youtube-anddea"
+          - "YouTube-Tablet-Android8-anddea"
+          - "YouTube-Tablet-Android8-Morphe"
+          # END: AUTO-GENERATED-APPS
+      rebuild_custom:
+        description: "Apps adicionales (coma-separadas). Se combina con el preset."
+        required: false
+        type: string
+        default: ""
 
 concurrency:
   group: manual-ci
@@ -20,4 +47,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       config_file: ${{ inputs.config_file || 'config.toml' }}
+      rebuild_preset: ${{ inputs.rebuild_preset }}
+      rebuild_custom: ${{ inputs.rebuild_custom }}
     secrets: inherit

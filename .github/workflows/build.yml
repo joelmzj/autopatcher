@@ -2,16 +2,24 @@ name: Build
 
 on:
   schedule:
-    - cron: '0 * * * *' # Se ejecuta automáticamente cada hora en el minuto 0
+    - cron: '0 * * * *'
   workflow_call:
     inputs:
       config_file:
         required: false
         type: string
         default: "config.toml"
+      rebuild_preset:
+        required: false
+        type: string
+        default: ""
+      rebuild_custom:
+        required: false
+        type: string
+        default: ""
     outputs:
       success:
-        value: ${{ jobs.build.outputs.success }}  # <-- Corregido: apunta al job, no al step
+        value: ${{ jobs.build.outputs.success }}
   workflow_dispatch:
     inputs:
       config_file:
@@ -19,6 +27,33 @@ on:
         required: false
         type: string
         default: "config.toml"
+      rebuild_preset:
+        description: "Preset rápido de apps a forzar (dropdown)"
+        required: false
+        type: choice
+        default: ""
+        options:
+          # BEGIN: AUTO-GENERATED-APPS
+          - ""
+          - "*"
+          - "Instagram"
+          - "Telegram"
+          - "Pinterest"
+          - "Messenger"
+          - "Facebook"
+          - "TikTok"
+          - "YouTubeMusic-Morphe"
+          - "youtube-music-anddea"
+          - "YouTube-Morphe"
+          - "youtube-anddea"
+          - "YouTube-Tablet-Android8-anddea"
+          - "YouTube-Tablet-Android8-Morphe"
+          # END: AUTO-GENERATED-APPS
+      rebuild_custom:
+        description: "Apps adicionales (coma-separadas). Se combina con el preset. '*' = todas."
+        required: false
+        type: string
+        default: ""
 
 concurrency:
   group: build
@@ -93,10 +128,27 @@ jobs:
           TOML: "./bin/toml/tq-x86_64"   # <--- Forzamos la ruta exacta del binario nativo aquí
           CF_SOLVER_URL: "http://localhost:8000" # <--- Conecta con el servicio de bypass de Cloudflare
         run: |
+          # Combinar preset + custom en REBUILD_APPS
+          PRESET="${{ inputs.rebuild_preset }}"
+          CUSTOM="${{ inputs.rebuild_custom }}"
+
+          if [ -n "$PRESET" ] && [ -n "$CUSTOM" ]; then
+            REBUILD_APPS="${PRESET},${CUSTOM}"
+          elif [ -n "$PRESET" ]; then
+            REBUILD_APPS="${PRESET}"
+          else
+            REBUILD_APPS="${CUSTOM}"
+          fi
+          export REBUILD_APPS
+          if [ -n "$REBUILD_APPS" ]; then
+            echo "[i] REBUILD_APPS=$REBUILD_APPS"
+          else
+            echo "[i] REBUILD_APPS vacío (modo normal, solo cambios)"
+          fi
+
           chmod +x scripts/*.sh
           chmod +x bin/toml/*
           CONFIG="${{ inputs.config_file }}"
-          # Si se dispara por cron, inputs.config_file estará vacío, usamos config.toml por defecto
           if [ -z "$CONFIG" ]; then
             CONFIG="config.toml"
           fi
