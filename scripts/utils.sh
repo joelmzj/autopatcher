@@ -8,7 +8,6 @@ BIN_DIR="bin"
 BUILD_DIR="build"
 DL_SRCS=("cache_repo" "direct" "github" "archive" "apkmirror")
 BUILD_JSON_FILE="build.json"
-PATCH_OUTPUT=""
 
 if [ -z "${GITHUB_TOKEN-}" ] && command -v gh >/dev/null 2>&1; then
     GITHUB_TOKEN=$(gh auth token 2>/dev/null || true)
@@ -44,10 +43,6 @@ require_signing_identity() {
     fi
     return 0
 }
-
-RVB_INSTAFEL_FALLBACK_COMMIT="${RVB_INSTAFEL_FALLBACK_COMMIT:-8e4756f}"
-RVB_INSTAFEL_DEFAULT_PATCHES="${RVB_INSTAFEL_DEFAULT_PATCHES:-unlock_developer_options remove_snooze_warning remove_ads amoled_theme instafel}"
-RVB_MORPHE_PASSTHROUGH="${RVB_MORPHE_PASSTHROUGH:-true}"
 
 declare -gA __PREBUILTS_CACHE__
 declare -g __PREBUILTS_RESULT=""
@@ -179,30 +174,6 @@ abort() {
     rm -rf ./${TEMP_DIR}/*tmp.* ./${TEMP_DIR}/*/*tmp.* ./${TEMP_DIR}/*-temporary-files ./${TEMP_DIR}/*.apk-temporary-files ./*-temporary-files
     trap - SIGTERM SIGINT EXIT
     exit 1
-}
-
-failure_slug() {
-    printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/^-//; s/-$//'
-}
-
-write_build_failure_descriptor() {
-    [ -n "${TEMP_DIR:-}" ] || return 0
-    local dir="$TEMP_DIR/failures"
-    mkdir -p "$dir" 2> /dev/null || return 0
-    jq -n --arg type "build_failed" --arg app "$2" --arg version "$3" \
-        --arg vc "$4" --arg arch "$5" --arg patches_src "$6" \
-        '{type:$type, app:$app, version:$version, vc:$vc, arch:$arch, patches_src:$patches_src}' \
-        > "$dir/$1.json" 2> /dev/null || true
-}
-
-write_dl_failure_descriptor() {
-    [ -n "${TEMP_DIR:-}" ] || return 0
-    local dir="$TEMP_DIR/failures"
-    mkdir -p "$dir" 2> /dev/null || return 0
-    jq -n --arg type "dl_exhausted" --arg app "$2" --arg version "$3" \
-        --arg vc "$4" --arg arch "$5" --arg pkg "$6" \
-        '{type:$type, app:$app, version:$version, vc:$vc, arch:$arch, pkg:$pkg}' \
-        > "$dir/$1_dl.json" 2> /dev/null || true
 }
 
 
@@ -461,11 +432,6 @@ get_apkmirror_pkg_name() {
 dl_apkmirror() {
     local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-}
 
-    if [ -f "${output%.apk}.apkm" ]; then
-        _bundle_to_apk "${output%.apk}.apkm" "${output}"
-        return 0
-    fi
-
     if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
     local clean_version="${version//[^0-9.]/}"
     local search_version="${version//./-}"
@@ -662,17 +628,6 @@ dl_apkmirror() {
         fi
     fi
     return 1
-}
-
-_bundle_to_apk() {
-    local bundle=$1 output=$2
-    if [ "${MORPHE_PASSTHROUGH_ACTIVE:-false}" = true ]; then
-        if ! _bundle_extract_base "$bundle" "$output"; then
-            return 1
-        fi
-        return 0
-    fi
-    merge_splits "$bundle" "$output"
 }
 
 # ==============================================================================
