@@ -571,7 +571,12 @@ dl_apkmirror() {
 
     pr "Buscando variante (arch='$arch')..."
     local variant_page_url
-    variant_page_url=$(echo "$release_html" | python3 "$search_py" variant "$arch" 2>"$log_stderr")
+    if [ -n "$version_code" ]; then
+        pr "  Con whitelist de versionCodes: $version_code"
+        variant_page_url=$(echo "$release_html" | python3 "$search_py" variant "$arch" "$version_code" 2>"$log_stderr")
+    else
+        variant_page_url=$(echo "$release_html" | python3 "$search_py" variant "$arch" 2>"$log_stderr")
+    fi
     if [ -s "$log_stderr" ]; then
         pr "--- diagnóstico paso 1 ---"; cat "$log_stderr" >&2; pr "--- fin diagnóstico ---"
     fi

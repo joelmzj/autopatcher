@@ -172,8 +172,28 @@ for table_name in $(toml_get_table_names); do
 			continue
 		}
 
+		# --------------------------------------------------------------
+		# Leer versionCodes válidos del patches-list.json (si existen)
+		# --------------------------------------------------------------
+		version_codes_whitelist=""
+		patches_list_url_vc="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
+		if [ "${app_args[channel]}" = "stable" ]; then
+			patches_list_url_vc="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+		fi
+
+		pl_json=$(curl -fsSL "$patches_list_url_vc" 2>/dev/null || echo "")
+		if [ -n "$pl_json" ]; then
+			version_codes_whitelist=$(echo "$pl_json" | \
+				python3 "$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py" versioncodes \
+					"${app_args[pkg_name]}" "$target_apk_ver" "${app_args[arch]}" 2>/dev/null || echo "")
+		fi
+
+		if [ -n "$version_codes_whitelist" ]; then
+			pr "  versionCodes permitidos: $version_codes_whitelist"
+		fi
+
 		pr "Descargando versión $target_apk_ver para $table_name..."
-		dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "" || {
+		dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist" || {
 			wpr "Fallo al descargar la APK para $table_name"
 			continue
 		}
