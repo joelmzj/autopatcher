@@ -1,0 +1,62 @@
+# ============================================================
+# Directorios de build (intermedios y de salida)
+# ============================================================
+temp/
+build/
+build.md
+build.json
+temp_module_build/
+
+# ============================================================
+# Credenciales y material de firma
+# Los keystores reales vienen de secrets, pero se ignoran por
+# si algún día se descarga uno localmente para pruebas
+# ============================================================
+*.keystore
+*.jks
+ks.keystore
+ks-p12.keystore
+keystore.properties
+*.p12
+*.pem
+*.der
+
+# ============================================================
+# Logs y artefactos temporales
+# ============================================================
+*.log
+*.tmp
+*.temp
+*.apk-temporary-files
+*-temporary-files
+
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ============================================================
+# Editores y OS
+# ============================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================================
+# Archivos APK derivados
+# ============================================================
+*.apkm
+*.xapk
+*.apks
