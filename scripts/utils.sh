@@ -533,13 +533,14 @@ dl_apkmirror() {
             local test_html
             test_html=$(python3 "$cf_py" "$fallback_url" 2>/dev/null) || true
             if [ -n "$test_html" ] && \
-               ! echo "$test_html" | grep -qiE 'page not found|404 not found|sorry, the page you were looking for'; then
-                release_url="$fallback_url"
-                pr "  → URL directa válida"
-            else
-                epr "No se encontró la versión '$clean_version' (ni en uploads ni por URL directa)"
-                return 1
-            fi
+			   ! echo "$test_html" | grep -qiE 'page not found|404 not found|sorry, the page you were looking for' && \
+			   echo "$test_html" | grep -qE 'android-apk-download/'; then
+				release_url="$fallback_url"
+				pr "  → URL directa válida"
+			else
+				epr "No se encontró la versión '$clean_version' (ni en uploads ni por URL directa)"
+				return 1
+			fi
         fi
     fi
 
