@@ -1,0 +1,216 @@
+=== Parcheo: YouTubeMusic-anddea ===
+Fecha: 2026-10-16T21:49:47Z
+APK version: 9.15.51
+Patches version: v4.4.0-dev.2
+Patches source: anddea/revanced-patches
+Channel: dev
+Brand: anddea
+Arch: arm64-v8a
+Build mode: both
+Force patch: false
+Inclusive patches: true
+
+--- Argumentos de parches (6) ---
+  -e=Disable music video in album
+  -e=Hide Shorts dimming
+  -e=Hide accessibility controls dialog
+  -e=Hide overlay filter
+  -e=Hide player overlay filter
+  -e=Hide shortcuts
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
+INFO: GitHub: fetching releases from https://api.github.com/repos/anddea/revanced-patches/releases 
+INFO: GitHub: fetched 30 releases from anddea/revanced-patches 
+INFO: Downloading patches from anddea/revanced-patches v4.3.0... 
+INFO: GitHub: downloading patches-4.3.0.mpp from https://github.com/anddea/revanced-patches/releases/download/v4.3.0/patches-4.3.0.mpp 
+INFO: GitHub: wrote 21138349 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/anddea-revanced-patches/v4.3.0__patches-4.3.0.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/anddea-revanced-patches/v4.3.0__patches-4.3.0.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Loading patches... 
+INFO: Initializing patcher... 
+INFO: Filtering patches for com.google.android.apps.youtube.music v9.15.51... 
+INFO: Skipping disabled: Spoof Wi-Fi connection (default) 
+INFO: Skipping disabled: Disable edge-to-edge display (default) 
+INFO: Skipping disabled: Change installer package name (default) 
+INFO: Skipping disabled: Override certificate pinning (default) 
+INFO: Skipping disabled: Spoof signature (default) 
+INFO: Skipping disabled: Change version code (default) 
+INFO: Applying 46 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 27 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
+INFO: Executing patches 
+INFO: Applied: App refresh rate 
+INFO: Applied: Bitrate default value 
+INFO: Applied: Bypass image region restrictions 
+INFO: Applied: Certificate spoof 
+INFO: Applied: Change share sheet 
+INFO: Applied: Change start page 
+INFO: Applied: Disable Cairo splash animation 
+INFO: Applied: Disable QUIC protocol 
+INFO: Applied: Disable dislike redirection 
+INFO: Applied: Disable forced auto captions 
+INFO: Applied: Disable music video in album 
+WARNING: "Enable compact dialog" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+INFO: Applied: Downloads 
+INFO: Applied: Enable debug logging 
+INFO: Applied: Enable landscape mode 
+INFO: Applied: Flyout menu components 
+INFO: Applied: Force original audio 
+INFO: Applied: GmsCore support 
+WARNING: "Hide handle" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+INFO: Applied: Hide account components 
+INFO: Applied: Hide action bar components 
+INFO: Applied: Hide ads 
+INFO: Applied: Hide layout components 
+INFO: Applied: Hide overlay filter 
+INFO: Applied: Hide player overlay filter 
+INFO: Applied: Navigation bar components 
+WARNING: "Enable smooth transition animation" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+WARNING: "Restore old comments popup panels" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+INFO: Applied: Player components 
+INFO: Applied: PoToken provider 
+INFO: Applied: Remove background playback restrictions 
+INFO: Applied: Remove viewer discretion dialog 
+INFO: Applied: Restore old style library shelf 
+INFO: Applied: Return YouTube Dislike 
+INFO: Applied: Return YouTube Username 
+INFO: Applied: Sanitize sharing links 
+INFO: Applied: Settings menu filter 
+INFO: Applied: SponsorBlock 
+WARNING: "Spoof app version" is not supported in this version. Use YouTube Music versions up to 8.03. 
+INFO: Applied: Spoof app version 
+INFO: Applied: Spoof app version for lyrics 
+INFO: Applied: Spoof video streams 
+INFO: Applied: Theme 
+INFO: Applied: Third-party lyrics 
+INFO: Applied: Track crossfade 
+INFO: Applied: Translations for YouTube Music 
+INFO: Applied: Video playback 
+INFO: Applied: Watch history 
+INFO: Applied: Visual preferences icons for YouTube Music 
+INFO: Applied: Custom branding for YouTube Music 
+INFO: Applied: Settings for YouTube Music 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 7628 new classes to new DEX files 
+INFO: Processing 7628 classes in parallel (4 threads) 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792187399523/patched/newDex 
+INFO: Stripped 533 modified classes from 5 original DEX files 
+INFO: Compiling modified resources 
+INFO: Stripping libs (keeping architectures arm64-v8a) 
+INFO: Stripped 0 lib files 
+INFO: Unescaping strings 
+INFO: Post-processing package name change 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 17474 of 126786 values in 114 files, 699 resource files and 0 configurations of patches for com.google.android.apps.youtube.music 
+INFO: Resource APK inputs: reusing 5104 unchanged archive entries, rebuilding 701 entries, dropping 0 entries 
+INFO: Resource APK scan: 1.8s write: 800ms 
+INFO: Using compiled resource APK as output base 
+INFO: Aligning APK 
+INFO: Signing APK 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792187399523 
+
+--- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
+INFO: GitHub: fetching releases from https://api.github.com/repos/anddea/revanced-patches/releases 
+INFO: GitHub: fetched 30 releases from anddea/revanced-patches 
+INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/anddea-revanced-patches/v4.3.0__patches-4.3.0.mpp 
+INFO: Loading patches... 
+INFO: Initializing patcher... 
+INFO: Filtering patches for com.google.android.apps.youtube.music v9.15.51... 
+INFO: Skipping disabled: Spoof Wi-Fi connection (default) 
+INFO: Skipping disabled: Disable edge-to-edge display (default) 
+INFO: Skipping disabled: Change installer package name (default) 
+INFO: Skipping disabled: Override certificate pinning (default) 
+INFO: Skipping disabled: Spoof signature (default) 
+INFO: Skipping disabled: Change version code (default) 
+INFO: Skipping disabled: GmsCore support 
+INFO: Applying 45 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 27 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
+INFO: Executing patches 
+INFO: Applied: App refresh rate 
+INFO: Applied: Bitrate default value 
+INFO: Applied: Bypass image region restrictions 
+INFO: Applied: Certificate spoof 
+INFO: Applied: Change share sheet 
+INFO: Applied: Change start page 
+INFO: Applied: Disable Cairo splash animation 
+INFO: Applied: Disable QUIC protocol 
+INFO: Applied: Disable dislike redirection 
+INFO: Applied: Disable forced auto captions 
+INFO: Applied: Disable music video in album 
+WARNING: "Enable compact dialog" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+INFO: Applied: Downloads 
+INFO: Applied: Enable debug logging 
+INFO: Applied: Enable landscape mode 
+INFO: Applied: Flyout menu components 
+INFO: Applied: Force original audio 
+WARNING: "Hide handle" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+INFO: Applied: Hide account components 
+INFO: Applied: Hide action bar components 
+INFO: Applied: Hide ads 
+INFO: Applied: Hide layout components 
+INFO: Applied: Hide overlay filter 
+INFO: Applied: Hide player overlay filter 
+INFO: Applied: Navigation bar components 
+WARNING: "Enable smooth transition animation" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+WARNING: "Restore old comments popup panels" is not supported in this version. Use YouTube Music 8.30.54 or earlier. 
+INFO: Applied: Player components 
+INFO: Applied: PoToken provider 
+INFO: Applied: Remove background playback restrictions 
+INFO: Applied: Remove viewer discretion dialog 
+INFO: Applied: Restore old style library shelf 
+INFO: Applied: Return YouTube Dislike 
+INFO: Applied: Return YouTube Username 
+INFO: Applied: Sanitize sharing links 
+INFO: Applied: Settings menu filter 
+INFO: Applied: SponsorBlock 
+WARNING: "Spoof app version" is not supported in this version. Use YouTube Music versions up to 8.03. 
+INFO: Applied: Spoof app version 
+INFO: Applied: Spoof app version for lyrics 
+INFO: Applied: Spoof video streams 
+INFO: Applied: Theme 
+INFO: Applied: Third-party lyrics 
+INFO: Applied: Track crossfade 
+INFO: Applied: Translations for YouTube Music 
+INFO: Applied: Video playback 
+INFO: Applied: Watch history 
+INFO: Applied: Visual preferences icons for YouTube Music 
+INFO: Applied: Custom branding for YouTube Music 
+INFO: Applied: Settings for YouTube Music 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 7552 new classes to new DEX files 
+INFO: Processing 7552 classes in parallel (4 threads) 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792187426420/patched/newDex 
+INFO: Stripped 457 modified classes from 5 original DEX files 
+INFO: Compiling modified resources 
+INFO: Stripping libs (keeping architectures arm64-v8a) 
+INFO: Stripped 0 lib files 
+INFO: Unescaping strings 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 17474 of 126786 values in 114 files, 699 resource files and 0 configurations of patches for com.google.android.apps.youtube.music 
+INFO: Resource APK inputs: reusing 5104 unchanged archive entries, rebuilding 701 entries, dropping 0 entries 
+INFO: Resource APK scan: 2.3s write: 900ms 
+INFO: Using compiled resource APK as output base 
+INFO: Aligning APK 
+INFO: Signing APK 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/temp/YouTubeMusic-anddea/module.apk 
+INFO: Purged this session's temp files: patching-1792187426420 
+
+--- Fin del parcheo ---
+APK final: build/YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.apk
+Módulo: build/YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.zip
+Fecha de fin: 2026-10-16T21:50:55Z
