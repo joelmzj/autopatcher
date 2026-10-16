@@ -299,7 +299,6 @@ for table_name in $(toml_get_table_names); do
 		--keystore-entry-password="$RVB_KEYSTORE_PASS" \
 		--signer="Morphe" \
 		--striplibs="${app_args[arch]}" \
-    --force \
 		"${morphe_patch_args[@]}" \
 		"$raw_apk" \
 		|| {
@@ -351,7 +350,6 @@ for table_name in $(toml_get_table_names); do
 					--keystore-entry-password="$RVB_KEYSTORE_PASS" \
 					--signer="Morphe" \
 					--striplibs="${app_args[arch]}" \
-          --force \
 					"${morphe_patch_args[@]}" \
 					-d="GmsCore support" \
 					"$raw_apk" \
