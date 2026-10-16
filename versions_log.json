@@ -133,5 +133,35 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-10-16T21:55:58Z"
+  },
+  "Instagram": {
+    "patches_source": "SysAdminDoc/HushGram",
+    "channel": "stable",
+    "patches_version": "v0.0.12",
+    "apk_version": "451.0.0.53.80",
+    "brand": "HushGram",
+    "arch": "arm64-v8a",
+    "stable_file": "Instagram-v451.0.0.53.80-HushGram-v0.0.12-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-16T22:40:15Z"
+  },
+  "Pinterest": {
+    "patches_source": "SysAdminDoc/HushPinterest",
+    "channel": "stable",
+    "patches_version": "v0.0.11",
+    "apk_version": "14.40.0",
+    "brand": "HushPinterest",
+    "arch": "arm64-v8a",
+    "stable_file": "Pinterest-v14.40.0-HushPinterest-v0.0.11-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-16T22:41:08Z"
   }
 }

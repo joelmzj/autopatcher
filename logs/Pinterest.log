@@ -1,5 +1,5 @@
 === Parcheo: Pinterest ===
-Fecha: 2026-10-16T21:42:01Z
+Fecha: 2026-10-16T22:40:40Z
 APK version: 14.40.0
 Patches version: v0.0.11
 Patches source: SysAdminDoc/HushPinterest
@@ -17,110 +17,71 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/HushPinterest/releases 
-WARNING: GitHub releases fetch error for SysAdminDoc/HushPinterest: HTTP request failed with status 403 rate limit exceeded for https://api.github.com/repos/SysAdminDoc/HushPinterest/releases: {"message":"API rate limit exceeded for 172.172.87.65. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"h 
-Failed to download patches from URL: HTTP request failed with status 403 rate limit exceeded for https://api.github.com/repos/SysAdminDoc/HushPinterest/releases: {"message":"API rate limit exceeded for 172.172.87.65. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"h
-Usage: morphe-desktop patch [-f] [--continue-on-error] [--disable-purge]
-                            [--exclusive] [--mount] [--options-update]
-                            [--prerelease] [--unsigned] [-i[=<deviceSerial>]]
-                            [--verify-with-sdk[=<sdkToolsPath>]]
-                            [--bytecode-mode=<bytecodeMode>]
-                            [--keystore=<keyStoreFilePath>]
-                            [--keystore-entry-alias=<keyStoreEntryAlias>]
-                            [--keystore-entry-password=<keyStoreEntryPassword>]
-                            [--keystore-password=<keyStorePassword>]
-                            [-o=<outputFilePath>]
-                            [--options-file=<optionsFilePath>]
-                            [-r=<patchingResultOutputFilePath>]
-                            [--signer=<signer>] [-t=<temporaryFilesPath>]
-                            [--striplibs=<stripLibs>[,<stripLibs>...]]...
-                            (-p=<patchesFile> [[[-O=<String=Object>]...
-                            (-e=<name> | --ei=<index>)] [(-d=<name> |
-                            --di=<index>)]]...)... <apk>
-Patch an APK file.
-      <apk>                 APK file to patch.
-      --bytecode-mode=<bytecodeMode>
-                            Set bytecode mode. Valid options are FULL,
-                              STRIP_SAFE, and STRIP_FAST (the default).
-                              Default: null
-      --continue-on-error   Continue patching even if a patch fails. By
-                              default, patching stops on the first error.
-                              Default: false
-  -d, --disable=<name>      Name of the patch.
-      --di=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --disable-purge       Keep THIS run's scratch files instead of deleting
-                              them after patching. By default the scratch files
-                              are purged once patching finishes; this keeps
-                              them (e.g. for debugging a failed patch). Does
-                              not affect cached patches, other sessions, or
-                              config.
-                              Default: false
-  -e, --enable=<name>       Name of the patch.
-      --ei=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --exclusive           Disable all patches except the ones enabled.
-                              Default: false
-  -f, --force               Don't check for compatibility with the supplied
-                              APK's version.
-                              Default: false
-  -i, --install[=<deviceSerial>]
-                            Serial of the ADB device to install to. If not
-                              specified, the first connected device will be
-                              used.
-      --keystore=<keyStoreFilePath>
-                            Path to the keystore file containing a private key
-                              and certificate pair to sign the patched APK file
-                              with. Defaults to the same directory as the
-                              supplied APK file.
-      --keystore-entry-alias=<keyStoreEntryAlias>
-                            Alias of the private key and certificate pair
-                              keystore entry.
-                              Default: Morphe
-      --keystore-entry-password=<keyStoreEntryPassword>
-                            Password of the keystore entry.
-      --keystore-password=<keyStorePassword>
-                            Password of the keystore. Empty password by default.
-      --mount               Install the patched APK file by mounting.
-                              Default: false
-  -o, --out=<outputFilePath>
-                            Path to save the patched APK file to. If omitted,
-                              it is saved next to the input APK in a subfolder
-                              named after the app.
-  -O, --options=<String=Object>
-                            Option values keyed by option keys.
-      --options-file=<optionsFilePath>
-                            Path to an options JSON file to read patch
-                              enable/disable and option values from.
-      --options-update      Auto-update the options JSON file after patching to
-                              reflect the current patches. Without this flag,
-                              the file is left unchanged.
-                              Default: false
-  -p, --patches=<patchesFile>
-                            Path to a MPP file or a GitHub/Gitlab repo url such
-                              as https://github.com/MorpheApp/morphe-patches
-                              (Supports multiple patch files)
-      --prerelease          Fetch the latest dev pre-release instead of the
-                              stable main release from the repo provided in
-                              --patches.
-                              Default: false
-  -r, --result-file=<patchingResultOutputFilePath>
-                            Path to write a JSON report of the patching run to.
-                              The report lists the package name and version,
-                              whether patching succeeded, each patching step's
-                              result, etc. (Can be used for scripts and CI.)
-      --signer=<signer>     The name of the signer to sign the patched APK file
-                              with.
-                              Default: Morphe
-      --striplibs=<stripLibs>[,<stripLibs>...]
-                            Architectures to keep, comma-separated (e.g.
-                              arm64-v8a,x86). Strips all other native
-                              architectures.
-  -t, --temporary-files-path=<temporaryFilesPath>
-                            Path to store temporary files.
-      --unsigned            Disable signing of the final apk.
-      --verify-with-sdk[=<sdkToolsPath>]
-                            Verify the patched DEX and APK files using the
-                              provided Android SDK. If not specified, the
-                              patched files will not be verified. Verification
-                              may throw false positives and is for patch
-                              developer use only.
+INFO: GitHub: fetched 9 releases from SysAdminDoc/HushPinterest 
+INFO: Downloading patches from SysAdminDoc/HushPinterest v0.0.11... 
+INFO: GitHub: downloading patches-0.0.11.mpp from https://github.com/SysAdminDoc/HushPinterest/releases/download/v0.0.11/patches-0.0.11.mpp 
+INFO: GitHub: wrote 1610580 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushPinterest/v0.0.11__patches-0.0.11.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushPinterest/v0.0.11__patches-0.0.11.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Loading patches... 
+INFO: Initializing patcher... 
+INFO: Filtering patches for com.pinterest v14.40.0... 
+INFO: Applying 29 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 76 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
+INFO: Executing patches 
+INFO: Applied: AMOLED black 
+INFO: Applied: Disable analytics 
+INFO: Applied: Disable update nag 
+INFO: Applied: Download board 
+INFO: Applied: Download pins 
+INFO: Applied: Filter pin menu 
+INFO: Applied: Fix push notifications 
+INFO: Applied: Hide AI-labeled pins 
+INFO: Applied: Hide ads 
+INFO: Applied: Hide advertising ID 
+INFO: Applied: Hide closeup buttons 
+INFO: Applied: Hide comments 
+INFO: Applied: Hide header buttons 
+INFO: Applied: Hide navigation buttons 
+INFO: Applied: Hide save toasts 
+INFO: Applied: Hide search history 
+INFO: Applied: Hide shopping and product pins 
+INFO: Applied: Hide survey prompts 
+INFO: Applied: Hide topic suggestions 
+INFO: Applied: HushPinterest settings 
+INFO: Applied: Long-press download 
+INFO: Applied: No screenshot share menu 
+INFO: Applied: Open links in your browser 
+INFO: Applied: Original-quality images 
+INFO: Applied: Quiet email reminders 
+INFO: Applied: Remove ad tracking permissions 
+INFO: Applied: Spoof signature for Google sign-in 
+INFO: Applied: Strip link tracking 
+INFO: Applied: System share sheet 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 761 new classes to new DEX files 
+INFO: Processing 761 classes (single threaded mode) 
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792190450863/patched/newDex 
+INFO: Stripped 168 modified classes from 7 original DEX files 
+INFO: Compiling modified resources 
+INFO: Stripping libs (keeping architectures arm64-v8a) 
+INFO: Stripped 51 lib files 
+INFO: Unescaping strings 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 18 of 6662 values in 1 files, 0 resource files and 0 configurations of patches for com.pinterest 
+INFO: Resource APK inputs: reusing 7345 unchanged archive entries, rebuilding 2 entries, dropping 51 entries 
+INFO: Resource APK scan: 1.1s write: 1s 
+INFO: Using compiled resource APK as output base 
+INFO: Aligning APK 
+INFO: Signing APK 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pinterest-v14.40.0-HushPinterest-v0.0.11-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792190450863 
+
+--- Fin del parcheo ---
+APK final: build/Pinterest-v14.40.0-HushPinterest-v0.0.11-arm64-v8a.apk
+Fecha de fin: 2026-10-16T22:41:08Z

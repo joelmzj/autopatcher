@@ -1,5 +1,5 @@
 === Parcheo: Instagram ===
-Fecha: 2026-10-16T21:41:08Z
+Fecha: 2026-10-16T22:39:03Z
 APK version: 451.0.0.53.80
 Patches version: v0.0.12
 Patches source: SysAdminDoc/HushGram
@@ -21,110 +21,149 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/HushGram/releases 
-WARNING: GitHub releases fetch error for SysAdminDoc/HushGram: HTTP request failed with status 403 rate limit exceeded for https://api.github.com/repos/SysAdminDoc/HushGram/releases: {"message":"API rate limit exceeded for 172.172.87.65. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"h 
-Failed to download patches from URL: HTTP request failed with status 403 rate limit exceeded for https://api.github.com/repos/SysAdminDoc/HushGram/releases: {"message":"API rate limit exceeded for 172.172.87.65. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"h
-Usage: morphe-desktop patch [-f] [--continue-on-error] [--disable-purge]
-                            [--exclusive] [--mount] [--options-update]
-                            [--prerelease] [--unsigned] [-i[=<deviceSerial>]]
-                            [--verify-with-sdk[=<sdkToolsPath>]]
-                            [--bytecode-mode=<bytecodeMode>]
-                            [--keystore=<keyStoreFilePath>]
-                            [--keystore-entry-alias=<keyStoreEntryAlias>]
-                            [--keystore-entry-password=<keyStoreEntryPassword>]
-                            [--keystore-password=<keyStorePassword>]
-                            [-o=<outputFilePath>]
-                            [--options-file=<optionsFilePath>]
-                            [-r=<patchingResultOutputFilePath>]
-                            [--signer=<signer>] [-t=<temporaryFilesPath>]
-                            [--striplibs=<stripLibs>[,<stripLibs>...]]...
-                            (-p=<patchesFile> [[[-O=<String=Object>]...
-                            (-e=<name> | --ei=<index>)] [(-d=<name> |
-                            --di=<index>)]]...)... <apk>
-Patch an APK file.
-      <apk>                 APK file to patch.
-      --bytecode-mode=<bytecodeMode>
-                            Set bytecode mode. Valid options are FULL,
-                              STRIP_SAFE, and STRIP_FAST (the default).
-                              Default: null
-      --continue-on-error   Continue patching even if a patch fails. By
-                              default, patching stops on the first error.
-                              Default: false
-  -d, --disable=<name>      Name of the patch.
-      --di=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --disable-purge       Keep THIS run's scratch files instead of deleting
-                              them after patching. By default the scratch files
-                              are purged once patching finishes; this keeps
-                              them (e.g. for debugging a failed patch). Does
-                              not affect cached patches, other sessions, or
-                              config.
-                              Default: false
-  -e, --enable=<name>       Name of the patch.
-      --ei=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --exclusive           Disable all patches except the ones enabled.
-                              Default: false
-  -f, --force               Don't check for compatibility with the supplied
-                              APK's version.
-                              Default: false
-  -i, --install[=<deviceSerial>]
-                            Serial of the ADB device to install to. If not
-                              specified, the first connected device will be
-                              used.
-      --keystore=<keyStoreFilePath>
-                            Path to the keystore file containing a private key
-                              and certificate pair to sign the patched APK file
-                              with. Defaults to the same directory as the
-                              supplied APK file.
-      --keystore-entry-alias=<keyStoreEntryAlias>
-                            Alias of the private key and certificate pair
-                              keystore entry.
-                              Default: Morphe
-      --keystore-entry-password=<keyStoreEntryPassword>
-                            Password of the keystore entry.
-      --keystore-password=<keyStorePassword>
-                            Password of the keystore. Empty password by default.
-      --mount               Install the patched APK file by mounting.
-                              Default: false
-  -o, --out=<outputFilePath>
-                            Path to save the patched APK file to. If omitted,
-                              it is saved next to the input APK in a subfolder
-                              named after the app.
-  -O, --options=<String=Object>
-                            Option values keyed by option keys.
-      --options-file=<optionsFilePath>
-                            Path to an options JSON file to read patch
-                              enable/disable and option values from.
-      --options-update      Auto-update the options JSON file after patching to
-                              reflect the current patches. Without this flag,
-                              the file is left unchanged.
-                              Default: false
-  -p, --patches=<patchesFile>
-                            Path to a MPP file or a GitHub/Gitlab repo url such
-                              as https://github.com/MorpheApp/morphe-patches
-                              (Supports multiple patch files)
-      --prerelease          Fetch the latest dev pre-release instead of the
-                              stable main release from the repo provided in
-                              --patches.
-                              Default: false
-  -r, --result-file=<patchingResultOutputFilePath>
-                            Path to write a JSON report of the patching run to.
-                              The report lists the package name and version,
-                              whether patching succeeded, each patching step's
-                              result, etc. (Can be used for scripts and CI.)
-      --signer=<signer>     The name of the signer to sign the patched APK file
-                              with.
-                              Default: Morphe
-      --striplibs=<stripLibs>[,<stripLibs>...]
-                            Architectures to keep, comma-separated (e.g.
-                              arm64-v8a,x86). Strips all other native
-                              architectures.
-  -t, --temporary-files-path=<temporaryFilesPath>
-                            Path to store temporary files.
-      --unsigned            Disable signing of the final apk.
-      --verify-with-sdk[=<sdkToolsPath>]
-                            Verify the patched DEX and APK files using the
-                              provided Android SDK. If not specified, the
-                              patched files will not be verified. Verification
-                              may throw false positives and is for patch
-                              developer use only.
+INFO: GitHub: fetched 10 releases from SysAdminDoc/HushGram 
+INFO: Downloading patches from SysAdminDoc/HushGram v0.0.12... 
+INFO: GitHub: downloading patches-0.0.12.mpp from https://github.com/SysAdminDoc/HushGram/releases/download/v0.0.12/patches-0.0.12.mpp 
+INFO: GitHub: wrote 6110125 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.12__patches-0.0.12.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.12__patches-0.0.12.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Loading patches... 
+INFO: Initializing patcher... 
+INFO: Filtering patches for com.instagram.android v451.0.0.53.80... 
+INFO: Applying 106 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 38 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
+INFO: Executing patches 
+INFO: Applied: Accent color 
+INFO: Applied: Allow screenshots 
+INFO: Applied: Ask before a call 
+INFO: Applied: Ask before a like 
+INFO: Applied: Ask before a refresh 
+INFO: Applied: Back leaves Home 
+INFO: Applied: Blur the bars around Reels 
+INFO: Applied: Change the like animation 
+INFO: Applied: Change version code 
+INFO: Applied: Clean up Reels 
+INFO: Applied: Clear the media cache 
+INFO: Applied: Control taps and volume on Reels 
+INFO: Applied: Copy comment 
+INFO: Applied: Data saver 
+INFO: Applied: Default playback quality 
+INFO: Applied: Disable analytics 
+INFO: Applied: Don't report screenshots 
+INFO: Applied: Don't save recent searches 
+INFO: Applied: Don't send reel watch history 
+INFO: Applied: Download any reel 
+INFO: Applied: Download any story 
+INFO: Applied: Download any video 
+INFO: Applied: Download voice messages 
+INFO: Applied: Emoji style 
+INFO: Applied: Find the reel you came from 
+INFO: Applied: Font 
+INFO: Applied: Full resolution photos 
+INFO: Applied: Full screen Reels and Home 
+INFO: Applied: Glass tab bar 
+INFO: Applied: Group Instagram's notifications 
+INFO: Applied: Hide AI-labeled reels 
+INFO: Applied: Hide Instants 
+INFO: Applied: Hide Meta AI 
+INFO: Applied: Hide Notes on profile pictures 
+INFO: Applied: Hide Reels in the feed 
+INFO: Applied: Hide ads 
+INFO: Applied: Hide comments 
+INFO: Applied: Hide group buttons on the share sheet 
+INFO: Applied: Hide highlights 
+INFO: Applied: Hide paid partnership Reels 
+INFO: Applied: Hide reels by caption words 
+INFO: Applied: Hide suggested accounts in DMs 
+INFO: Applied: Hide suggested accounts in Reels 
+INFO: Applied: Hide suggested people on profiles 
+INFO: Applied: Hide suggested posts 
+INFO: Applied: Hide suggested stories 
+INFO: Applied: Hide that you're typing 
+INFO: Applied: Hide the Explore grid 
+INFO: Applied: Hide the Reels tab 
+INFO: Applied: Hide the Repost button 
+INFO: Applied: Hide the Share button 
+INFO: Applied: Hide the Threads button 
+INFO: Applied: Hide the home feed 
+INFO: Applied: Hide the notes row 
+INFO: Applied: Hide your active status 
+INFO: Applied: HushGram launch screen 
+INFO: Applied: HushGram settings 
+INFO: Applied: Keep Reels auto scroll on 
+INFO: Applied: Keep a seek bar on Reels 
+INFO: Applied: Keep in chat 
+INFO: Applied: Keep the reel speed 
+INFO: Applied: Lock your messages 
+INFO: Applied: Long press to zoom 
+INFO: Applied: Loop a story 
+INFO: Applied: Open developer options 
+INFO: Applied: Open links in external browser 
+INFO: Applied: Profile posts as a list 
+INFO: Applied: Pure black dark mode 
+INFO: Applied: Read messages without the seen receipt 
+INFO: Applied: Remove build expired popup 
+INFO: Applied: Remove the advertising ID 
+INFO: Applied: Remove the empty space at the bottom 
+INFO: Applied: Restore trust on re-signed builds 
+INFO: Applied: Resume long videos 
+INFO: Applied: Rounded post corners 
+INFO: Applied: Sanitize sharing links 
+INFO: Applied: Save comment photo 
+INFO: Applied: Save profile picture 
+INFO: Applied: Saved on your profile 
+INFO: Applied: See who a story mentions 
+INFO: Applied: Show a post's exact time 
+INFO: Applied: Show a reel's exact time 
+INFO: Applied: Show a story's exact time 
+INFO: Applied: Show hidden like counts 
+INFO: Applied: Show if a profile follows you 
+INFO: Applied: Show when someone was last active 
+INFO: Applied: Spoof location 
+INFO: Applied: Start Home on Following 
+INFO: Applied: Start feed videos with sound 
+INFO: Applied: Start on x86 devices 
+INFO: Applied: Start stories with sound 
+INFO: Applied: Stop Reels scrolling 
+INFO: Applied: Stop Story auto-advance 
+INFO: Applied: Stop background wake-ups 
+INFO: Applied: Stop swipe to create 
+INFO: Applied: Stop swiping between tabs 
+INFO: Applied: Story ring size 
+INFO: Applied: Tap a feed video to pause it 
+INFO: Applied: Tap to play 
+INFO: Applied: Turn off HDR brightness boosts 
+INFO: Applied: Turn off double tap to like 
+INFO: Applied: Upload stories at full quality 
+INFO: Applied: View DM photos and videos anonymously 
+INFO: Applied: View live anonymously 
+INFO: Applied: View stories anonymously 
+INFO: Applied: Install next to Instagram 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 2440 new classes to new DEX files 
+INFO: Processing 2440 classes in parallel (4 threads) 
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792190371876/patched/newDex 
+INFO: Stripped 671 modified classes from 21 original DEX files 
+INFO: Compiling modified resources 
+INFO: Stripping libs (keeping architectures arm64-v8a) 
+INFO: Stripped 0 lib files 
+INFO: Unescaping strings 
+INFO: Post-processing package name change 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 5473 of 5473 values in 3 files, 1 resource files and 0 configurations of patches for com.instagram.android 
+INFO: Resource APK inputs: reusing 24224 unchanged archive entries, rebuilding 3 entries, dropping 0 entries 
+INFO: Resource APK scan: 400ms write: 1.2s 
+INFO: Using compiled resource APK as output base 
+INFO: Aligning APK 
+INFO: Signing APK 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Instagram-v451.0.0.53.80-HushGram-v0.0.12-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792190371876 
+
+--- Fin del parcheo ---
+APK final: build/Instagram-v451.0.0.53.80-HushGram-v0.0.12-arm64-v8a.apk
+Fecha de fin: 2026-10-16T22:40:15Z
