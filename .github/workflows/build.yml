@@ -33,7 +33,7 @@ on:
         type: choice
         default: ""
         options:
-          # BEGIN: AUTO-GENERATED-APPS
+                    # BEGIN: AUTO-GENERATED-APPS
           - ""
           - "*"
           - "Instagram"
@@ -43,11 +43,11 @@ on:
           - "Facebook"
           - "TikTok"
           - "YouTubeMusic-Morphe"
-          - "youtube-music-anddea"
+          - "YouTube-Music-anddea"
           - "YouTube-Morphe"
-          - "youtube-anddea"
-          - "YouTube-Tablet-Android8-anddea"
-          - "YouTube-Tablet-Android8-Morphe"
+          - "YouTube-anddea"
+          - "YouTube-Tablet-anddea"
+          - "YouTube-Tablet-Morphe"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset. '*' = todas."
