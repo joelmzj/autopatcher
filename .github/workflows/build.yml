@@ -160,6 +160,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           # versions_log.json (fuente de verdad) + logs por app
+          # Incluye logs/*.log y logs/failed_apps.json
           git add versions_log.json 2>/dev/null || true
           git add logs/ 2>/dev/null || true
 
@@ -177,6 +178,15 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # ==================================================================
+          # FIX: limpiar cambios locales (chmod +x, line-endings normalizados
+          # en scripts/*.sh por el paso anterior, etc.) antes de cambiar de
+          # rama. Sin esto, `git checkout` falla con:
+          #   "Your local changes would be overwritten by checkout"
+          # ==================================================================
+          git reset --hard HEAD 2>/dev/null || true
+          git clean -fd 2>/dev/null || true
 
           # Leer el manifest de archivos generados en este run (build.sh lo dejó en temp/)
           MANIFEST="temp/uploaded_files.txt"
