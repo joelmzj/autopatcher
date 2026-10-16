@@ -8,6 +8,16 @@ on:
         required: false
         type: boolean
         default: true
+      reset_failed_apps:
+        description: "Resetear logs/failed_apps.json → {} (limpia la cola de reintentos)"
+        required: false
+        type: boolean
+        default: false
+      clean_logs:
+        description: "Borrar logs/*.log (limpia el historial de parcheo por app)"
+        required: false
+        type: boolean
+        default: false
       reset_snapshot:
         description: "Borrar el release 'snapshot' (backup de versiones previas)"
         required: false
@@ -53,26 +63,51 @@ jobs:
           echo "[+] versions_log.json reseteado"
 
       # ======================================================================
-      # 2. Commit del versions_log.json reseteado
+      # 2. Resetear logs/failed_apps.json
+      # ======================================================================
+      - name: Reset failed apps queue
+        if: ${{ inputs.reset_failed_apps }}
+        run: |
+          mkdir -p logs
+          echo '{}' > logs/failed_apps.json
+          echo "[+] logs/failed_apps.json reseteado"
+
+      # ======================================================================
+      # 3. Limpiar logs/*.log
+      # ======================================================================
+      - name: Clean per-app logs
+        if: ${{ inputs.clean_logs }}
+        run: |
+          if [ -d logs ]; then
+            count=$(find logs -maxdepth 1 -name '*.log' 2>/dev/null | wc -l | tr -d ' ')
+            rm -f logs/*.log
+            echo "[+] $count logs/*.log eliminados"
+          else
+            echo "[i] No existe logs/"
+          fi
+
+      # ======================================================================
+      # 4. Commit de los cambios en versions_log y/o logs
       # ======================================================================
       - name: Commit state changes
-        if: ${{ inputs.reset_versions_log }}
+        if: ${{ inputs.reset_versions_log || inputs.reset_failed_apps || inputs.clean_logs }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add versions_log.json 2>/dev/null || true
+          git add logs/ 2>/dev/null || true
 
           if ! git diff --staged --quiet; then
-            git commit -m "chore: reset versions log [skip ci]"
+            git commit -m "chore: reset state + logs [skip ci]"
             git push
-            echo "[+] versions_log.json reseteado y pusheado"
+            echo "[+] Estado reseteado y pusheado"
           else
             echo "[i] Sin cambios que commitear"
           fi
 
       # ======================================================================
-      # 3. Borrar release snapshot
+      # 5. Borrar release snapshot
       # ======================================================================
       - name: Delete snapshot release
         if: ${{ inputs.reset_snapshot }}
@@ -90,7 +125,7 @@ jobs:
           fi
 
       # ======================================================================
-      # 4. Borrar release stable
+      # 6. Borrar release stable
       # ======================================================================
       - name: Delete stable release
         if: ${{ inputs.delete_stable }}
@@ -108,7 +143,7 @@ jobs:
           fi
 
       # ======================================================================
-      # 5. Borrar caché de GitHub Actions
+      # 7. Borrar caché de GitHub Actions
       # ======================================================================
       - name: Delete workflow caches
         if: ${{ inputs.delete_workflow_cache }}
@@ -135,13 +170,15 @@ jobs:
           echo "[+] $count cachés borradas"
 
       # ======================================================================
-      # 6. Resumen final
+      # 8. Resumen final
       # ======================================================================
       - name: Summary
         run: |
           echo "=== Clean & Reset completado ==="
           echo ""
           echo "  Reset versions log:      ${{ inputs.reset_versions_log }}"
+          echo "  Reset failed apps queue: ${{ inputs.reset_failed_apps }}"
+          echo "  Clean per-app logs:      ${{ inputs.clean_logs }}"
           echo "  Reset snapshot:          ${{ inputs.reset_snapshot }}"
           echo "  Delete stable release:   ${{ inputs.delete_stable }}"
           echo "  Delete workflow caches:  ${{ inputs.delete_workflow_cache }}"
