@@ -62,12 +62,11 @@ concurrency:
 jobs:
   build:
     outputs:
-      success: ${{ steps.build_step.outputs.success }}  # <-- Agregado: expone la salida del paso a nivel de job
+      success: ${{ steps.build_step.outputs.success }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 120
-    # Añadido: Contenedor local para resolver los retos de Cloudflare automáticamente
     services:
       cf_solver:
         image: ghcr.io/sarperavci/cloudflarebypassforscraping:latest
@@ -103,7 +102,6 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: |
-          # Limpia automáticamente finales de línea (CRLF/CR) y espacios especiales (NBSP) en todos los scripts
           python3 -c "
           import glob
           for filepath in glob.glob('scripts/*.sh'):
@@ -125,8 +123,8 @@ jobs:
           KEYSTORE_P12_B64: ${{ secrets.KEYSTORE_P12_B64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          TOML: "./bin/toml/tq-x86_64"   # <--- Forzamos la ruta exacta del binario nativo aquí
-          CF_SOLVER_URL: "http://localhost:8000" # <--- Conecta con el servicio de bypass de Cloudflare
+          TOML: "./bin/toml/tq-x86_64"
+          CF_SOLVER_URL: "http://localhost:8000"
         run: |
           # Combinar preset + custom en REBUILD_APPS
           PRESET="${{ inputs.rebuild_preset }}"
@@ -161,13 +159,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Añadir todos los archivos de estado que build.sh modifica
+          # versions_log.json es la única fuente de verdad del pipeline
           git add versions_log.json 2>/dev/null || true
-          git add state/patch_sources.json 2>/dev/null || true
 
           # Commit solo si hay cambios
           if ! git diff --staged --quiet; then
-            git commit -m "chore: update versions_log.json + state [skip ci]"
+            git commit -m "chore: update versions_log.json [skip ci]"
             git push
             echo "[+] Estado commiteado exitosamente"
           else
