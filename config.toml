@@ -134,7 +134,7 @@ enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube-music"
 
-[YouTube-Music-anddea]
+[YouTubeMusic-anddea]
 enabled = true
 pkg-name = "com.google.android.apps.youtube.music"
 app-name = "YouTube Music"
