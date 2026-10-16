@@ -2,14 +2,15 @@
 # module_builder.py
 #
 # Empaqueta un APK parcheado dentro de la plantilla del módulo Magisk/KernelSU
-# y genera un ZIP instalable.
+# y genera un ZIP instalable con module.prop y update.json.
 #
 # Estructura del ZIP resultante:
 #   <zip>/
-#   ├── module.prop                 ← metadata del módulo
-#   ├── config                      ← PKG_NAME, PKG_VER, MODULE_ARCH (leído por utils.sh)
-#   ├── stock/base.apk              ← APK stock monolítico (se instala en customize.sh)
-#   ├── base.apk                    ← APK parcheado (se mueve a /data/adb/rvhc/)
+#   ├── module.prop                 ← metadata del módulo (con updateJson)
+#   ├── update.json                 ← metadata para Magisk/KernelSU
+#   ├── config                      ← PKG_NAME, PKG_VER, MODULE_ARCH
+#   ├── stock/base.apk              ← APK stock monolítico
+#   ├── base.apk                    ← APK parcheado
 #   ├── customize.sh, service.sh, action.sh, uninstall.sh, utils.sh
 #   ├── bin/<arch>/...
 #   └── META-INF/com/google/android/...
@@ -17,10 +18,11 @@
 # Uso:
 #   module_builder.py <template_dir> <stock_apk> <patched_apk> <output_zip> \
 #                     <module_id> <module_name> <pkg_name> <pkg_version> \
-#                     <pkg_version_code> <brand> <arch>
+#                     <pkg_version_code> <brand> <arch> <latest_applied_tag> <channel>
 
 import os
 import sys
+import json
 import shutil
 import zipfile
 
@@ -44,6 +46,31 @@ def _die(msg: str):
     sys.exit(1)
 
 
+def _arch_suffix(arch: str) -> str:
+    """'arm64-v8a' → 'arm64', 'armeabi-v7a' → 'arm', resto igual."""
+    if arch == "arm64-v8a":
+        return "arm64"
+    if arch == "armeabi-v7a":
+        return "arm"
+    return arch
+
+
+def _format_patch_short(tag: str) -> str:
+    """
+    Convierte el tag del bundle en una etiqueta corta para el 'version'.
+      'v1.48.0-dev.9' -> 'dev.9.mpp'
+      'v0.0.11'       -> '0.0.11.mpp'
+      'v4.4.0-dev.2'  -> 'dev.2.mpp'
+    """
+    if not tag or tag == "unknown":
+        return "unknown.mpp"
+    if "-dev." in tag:
+        return "dev." + tag.split("-dev.")[-1] + ".mpp"
+    if tag.startswith("v"):
+        return tag[1:] + ".mpp"
+    return tag + ".mpp"
+
+
 def create_magisk_module(
     template_dir: str,
     stock_apk: str,
@@ -56,6 +83,8 @@ def create_magisk_module(
     pkg_version_code: str,
     brand: str,
     arch: str,
+    latest_applied_tag: str = "",
+    channel: str = "stable",
 ):
     # ------------------------------------------------------------------
     # Validaciones
@@ -109,20 +138,73 @@ def create_magisk_module(
     _log(f"config generado: PKG_NAME={pkg_name} PKG_VER={pkg_version} MODULE_ARCH={module_arch}")
 
     # ------------------------------------------------------------------
-    # 4. Generar module.prop
+    # 4. Construir slug único del módulo
+    #    Formato: {app_slug}-{channel}-{arch}
+    #    Ej: "youtubemusic-morphe-stable-arm64"
     # ------------------------------------------------------------------
-    module_prop_path = os.path.join(temp_dir, "module.prop")
-    with open(module_prop_path, "w", encoding="utf-8") as f:
-        f.write(f"id={module_id}\n")
-        f.write(f"name={module_name}\n")
-        f.write(f"version={pkg_version}-{brand}\n")
-        f.write(f"versionCode={pkg_version_code}\n")
-        f.write(f"author={brand}\n")
-        f.write(f"description={module_name} — patched with {brand}\n")
-    _log(f"module.prop generado: id={module_id} version={pkg_version}-{brand}")
+    app_slug = module_id.replace("_", "-")
+    arch_sfx = _arch_suffix(arch)
+    module_slug = f"{app_slug}-{channel}-{arch_sfx}"
 
     # ------------------------------------------------------------------
-    # 5. Comprimir todo en el ZIP
+    # 5. Formatear version string
+    #    Formato: "v{apk_version} (patches {patch_short})"
+    #    Ej: "v9.20.53 (patches dev.9.mpp)"
+    # ------------------------------------------------------------------
+    patch_short = _format_patch_short(latest_applied_tag)
+    version_string = f"v{pkg_version} (patches {patch_short})"
+
+    # versionCode: usar el pkg_version_code (numérico). Si no lo es, hash determinista.
+    try:
+        vc_int = int(pkg_version_code)
+    except ValueError:
+        vc_int = abs(hash(f"{module_slug}-{pkg_version}")) % 1000000
+
+    # ------------------------------------------------------------------
+    # 6. Generar module.prop con formato nuevo
+    # ------------------------------------------------------------------
+    github_repo = os.environ.get("GITHUB_REPOSITORY", "OWNER/REPO")
+    update_json_url = (
+        f"https://raw.githubusercontent.com/{github_repo}"
+        f"/update/{channel}/{app_slug}-{arch_sfx}.json"
+    )
+
+    module_prop_path = os.path.join(temp_dir, "module.prop")
+    with open(module_prop_path, "w", encoding="utf-8") as f:
+        f.write(f"id={module_slug}\n")
+        f.write(f"name={module_name}\n")
+        f.write(f"version={version_string}\n")
+        f.write(f"versionCode={vc_int}\n")
+        f.write(f"author={brand}\n")
+        f.write(f"description={module_name} module\n")
+        f.write(f"updateJson={update_json_url}\n")
+    _log(f"module.prop generado: id={module_slug} version={version_string}")
+
+    # ------------------------------------------------------------------
+    # 7. Generar update.json (para Magisk/KernelSU)
+    # ------------------------------------------------------------------
+    zip_filename = os.path.basename(output_zip)
+    zip_url = (
+        f"https://github.com/{github_repo}"
+        f"/releases/download/{channel}/{zip_filename}"
+    )
+    changelog_url = (
+        f"https://raw.githubusercontent.com/{github_repo}"
+        f"/update/changelogs/{pkg_version_code}.md"
+    )
+
+    update_json_path = os.path.join(temp_dir, "update.json")
+    with open(update_json_path, "w", encoding="utf-8") as f:
+        json.dump({
+            "version": version_string,
+            "versionCode": vc_int,
+            "zipUrl": zip_url,
+            "changelog": changelog_url,
+        }, f, indent=2, ensure_ascii=False)
+    _log(f"update.json generado: version={version_string} versionCode={vc_int}")
+
+    # ------------------------------------------------------------------
+    # 8. Comprimir todo en el ZIP
     # ------------------------------------------------------------------
     if os.path.exists(output_zip):
         os.remove(output_zip)
@@ -135,7 +217,7 @@ def create_magisk_module(
                 zipf.write(file_path, arcname)
 
     # ------------------------------------------------------------------
-    # 6. Limpieza
+    # 9. Limpieza
     # ------------------------------------------------------------------
     shutil.rmtree(temp_dir)
 
@@ -144,28 +226,30 @@ def create_magisk_module(
 
 
 def main():
-    # script + 11 args = 12
-    if len(sys.argv) != 12:
+    # script + 13 args = 14
+    if len(sys.argv) != 14:
         print(
             "Uso: module_builder.py <template_dir> <stock_apk> <patched_apk> <output_zip> "
             "<module_id> <module_name> <pkg_name> <pkg_version> <pkg_version_code> "
-            "<brand> <arch>",
+            "<brand> <arch> <latest_applied_tag> <channel>",
             file=sys.stderr,
         )
         sys.exit(1)
 
     create_magisk_module(
-        template_dir      = sys.argv[1],
-        stock_apk         = sys.argv[2],
-        patched_apk       = sys.argv[3],
-        output_zip        = sys.argv[4],
-        module_id         = sys.argv[5],
-        module_name       = sys.argv[6],
-        pkg_name          = sys.argv[7],
-        pkg_version       = sys.argv[8],
-        pkg_version_code  = sys.argv[9],
-        brand             = sys.argv[10],
-        arch              = sys.argv[11],
+        template_dir       = sys.argv[1],
+        stock_apk          = sys.argv[2],
+        patched_apk        = sys.argv[3],
+        output_zip         = sys.argv[4],
+        module_id          = sys.argv[5],
+        module_name        = sys.argv[6],
+        pkg_name           = sys.argv[7],
+        pkg_version        = sys.argv[8],
+        pkg_version_code   = sys.argv[9],
+        brand              = sys.argv[10],
+        arch               = sys.argv[11],
+        latest_applied_tag = sys.argv[12],
+        channel            = sys.argv[13],
     )
 
 
