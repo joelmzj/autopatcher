@@ -31,8 +31,8 @@
   },
   "MorpheApp/morphe-patches": {
     "dev": "v1.48.0-dev.8",
-    "last_built_apk_version": "20.21.37",
-    "last_build_timestamp": 1792110319
+    "last_built_apk_version": "9.20.53",
+    "last_build_timestamp": 1792128964
   },
   "anddea/revanced-patches": {
     "dev": "v4.4.0-dev.1",
