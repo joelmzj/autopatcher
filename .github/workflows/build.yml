@@ -33,22 +33,22 @@ on:
         type: choice
         default: ""
         options:
-                                                                                                                                                                # BEGIN: AUTO-GENERATED-APPS
-                                                                                - ""
-                                                                                - "*"
-                                                                                - "Instagram"
-                                                                                - "Telegram"
-                                                                                - "Pinterest"
-                                                                                - "Messenger"
-                                                                                - "Facebook"
-                                                                                - "TikTok"
-                                                                                - "YouTubeMusic-Morphe"
-                                                                                - "YouTubeMusic-anddea"
-                                                                                - "YouTube-Morphe"
-                                                                                - "YouTube-anddea"
-                                                                                - "YouTube-Tablet-anddea"
-                                                                                - "YouTube-Tablet-Morphe"
-                                                                                # END: AUTO-GENERATED-APPS
+          # BEGIN: AUTO-GENERATED-APPS
+          - ""
+          - "*"
+          - "Instagram"
+          - "Telegram"
+          - "Pinterest"
+          - "Messenger"
+          - "Facebook"
+          - "TikTok"
+          - "YouTubeMusic-Morphe"
+          - "YouTubeMusic-anddea"
+          - "YouTube-Morphe"
+          - "YouTube-anddea"
+          - "YouTube-Tablet-anddea"
+          - "YouTube-Tablet-Morphe"
+          # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset. '*' = todas."
         required: false
@@ -170,3 +170,94 @@ jobs:
           else
             echo "[i] Sin cambios en el estado, omitiendo commit"
           fi
+
+      - name: Publish update.json files to update branch
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Early exit si no hay ZIPs de módulos
+          shopt -s nullglob
+          zips=(build/*.zip)
+          if [ "${#zips[@]}" -eq 0 ]; then
+            echo "[i] No hay ZIPs de módulos en build/. Omitiendo publicación de update.json."
+            exit 0
+          fi
+
+          # Guardar branch original para volver al final
+          ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "[i] Branch original: $ORIGINAL_BRANCH"
+
+          # Checkout de la rama update (crear si no existe)
+          if git ls-remote --exit-code --heads origin update >/dev/null 2>&1; then
+            echo "[i] La rama 'update' ya existe. Haciendo checkout..."
+            git fetch origin update
+            git checkout -B update origin/update
+          else
+            echo "[i] La rama 'update' no existe. Creándola huérfana..."
+            git checkout --orphan update
+            git rm -rf . 2>/dev/null || true
+            cat > README.md <<'EOF'
+          # Module update metadata
+
+          Esta rama contiene los archivos `update.json` y changelogs
+          usados por Magisk/KernelSU para detectar actualizaciones de módulos.
+          EOF
+            git add README.md
+            git commit -m "chore: initialize update branch [skip ci]"
+          fi
+
+          # Preparar directorios
+          mkdir -p update/stable update/dev update/changelogs
+          vc=$(date -u +%Y%m%d)
+          published=0
+
+          for zip in "${zips[@]}"; do
+            # Leer el id del módulo desde module.prop dentro del ZIP
+            module_id=$(unzip -p "$zip" module.prop 2>/dev/null | grep '^id=' | cut -d= -f2)
+            [ -z "$module_id" ] && continue
+
+            # Detectar canal desde el id (formato: {app_slug}-{channel}-{arch})
+            channel="stable"
+            case "$module_id" in
+              *-dev-*) channel="dev" ;;
+              *-stable-*) channel="stable" ;;
+            esac
+
+            # Quitar el sufijo -{channel}-{arch} para obtener {app_slug}-{arch}
+            # Ej: "youtubemusic-morphe-dev-arm64" -> "youtubemusic-morphe-arm64"
+            arch_sfx="${module_id##*-}"
+            no_arch="${module_id%-*}"
+            app_slug="${no_arch%-*}"
+            target_name="${app_slug}-${arch_sfx}"
+
+            if unzip -p "$zip" update.json > "update/${channel}/${target_name}.json" 2>/dev/null; then
+              echo "[+] Publicado update/${channel}/${target_name}.json"
+              published=$((published + 1))
+            fi
+          done
+
+          # Changelog genérico
+          {
+            echo "# Build ${vc}"
+            echo ""
+            echo "Actualización automática de módulos Magisk/KernelSU."
+            echo ""
+            echo "- Fecha: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "- Módulos publicados: ${published}"
+          } > "update/changelogs/${vc}.md"
+
+          # Commit y push
+          git add update/
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: publish module update.json [skip ci]"
+            git push origin update
+            echo "[+] Rama 'update' actualizada con ${published} módulos"
+          else
+            echo "[i] Sin cambios en la rama 'update'"
+          fi
+
+          # Volver al branch original
+          git checkout "$ORIGINAL_BRANCH"
+          echo "[i] De vuelta en el branch: $ORIGINAL_BRANCH"
