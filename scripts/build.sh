@@ -396,7 +396,9 @@ for table_name in $(toml_get_table_names); do
 					"$target_apk_ver" \
 					"$pkg_version_code" \
 					"${app_args[brand]}" \
-					"${app_args[arch]}"; then
+					"${app_args[arch]}" \
+					"$latest_applied_tag" \
+					"${RELEASE_TAG:-stable}"; then
 					pr "Módulo generado: $module_zip"
 				else
 					wpr "Fallo al generar el módulo para $table_name"
