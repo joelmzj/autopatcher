@@ -38,6 +38,8 @@ arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
 build-mode = "apk"
+force-patch = false
+enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/instagram/instagram-instagram"
 
@@ -51,6 +53,8 @@ arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
 build-mode = "apk"
+force-patch = false
+enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/telegram-fz-llc/telegram-web-version/"
 
@@ -64,6 +68,8 @@ arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
 build-mode = "apk"
+force-patch = false
+enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/pinterest/pinterest-one-destination-for-a-world-of-inspiration"
 
@@ -77,6 +83,8 @@ arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
 build-mode = "apk"
+force-patch = false
+enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/facebook-2/messenger"
 
@@ -90,6 +98,8 @@ arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
 build-mode = "apk"
+force-patch = false
+enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/facebook-2/facebook"
 
@@ -103,6 +113,8 @@ arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
 build-mode = "apk"
+force-patch = false
+enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly"
 
@@ -118,6 +130,7 @@ inclusive-patches = true
 build-mode = "both"
 patch-folder = "music"
 version = "auto"
+force-patch = false
 enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube-music"
@@ -134,6 +147,7 @@ inclusive-patches = true
 build-mode = "both"
 patch-folder = "music"
 version = "auto"
+force-patch = false
 enable-patches = []
 exclude-patches = []
 patcher-args = "-e 'Dark theme' -OdarkThemeBackgroundColor=@android:color/black"
@@ -151,6 +165,7 @@ inclusive-patches = true
 build-mode = "both"
 patch-folder = "youtube"
 version = "auto"
+force-patch = false
 enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube"
@@ -167,6 +182,7 @@ inclusive-patches = true
 build-mode = "both"
 patch-folder = "youtube"
 version = "auto"
+force-patch = false
 enable-patches = []
 exclude-patches = []
 patcher-args = "-e 'Theme' -OdarkThemeBackgroundColor=@android:color/black"
