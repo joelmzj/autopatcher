@@ -24,7 +24,6 @@ keystore.properties
 # ============================================================
 # Logs y artefactos temporales
 # ============================================================
-*.log
 *.tmp
 *.temp
 *.apk-temporary-files
