@@ -111,11 +111,11 @@ for table_name in $(toml_get_table_names); do
 	if [ -z "$table_name" ]; then continue; fi
 
 	# ==========================================================================
-	# SUBSHELL: aísla el procesamiento de esta app. Un fallo aquí no detiene
-	# la run completa. Los "continue" del loop original se traducen a
-	# "exit 0" (éxito/omitida) o "exit 1" (fallo) dentro de la subshell.
+	# SUBSHELL envuelta en `if` para que set -e no mate al padre cuando la
+	# subshell retorna non-zero. El cuerpo se ejecuta en un proceso hijo:
+	# un fallo dentro solo mata al hijo, no a la run completa.
 	# ==========================================================================
-	(
+	if (
 		t=$(toml_get_table "$table_name")
 		enabled=$(toml_get "$t" enabled) || enabled=true
 		if [ "$enabled" = false ]; then exit 0; fi
@@ -540,10 +540,10 @@ for table_name in $(toml_get_table_names); do
 		# Marcar como compilada exitosamente
 		touch "$COMPILED_MARKER_DIR/$table_name"
 		exit 0
-	)
-	rc=$?
-	if [ "$rc" -ne 0 ]; then
-		wpr "App '$table_name' falló (código $rc). Continuando con la siguiente."
+	); then
+		: # App procesada con éxito (o omitida por falta de cambios)
+	else
+		wpr "App '$table_name' falló. Continuando con la siguiente."
 	fi
 done
 
