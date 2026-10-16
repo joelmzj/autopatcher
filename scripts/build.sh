@@ -111,6 +111,7 @@ for table_name in $(toml_get_table_names); do
 	app_args[channel]=$(toml_get "$t" channel) || app_args[channel]="stable"
 	app_args[inclusive_patches]=$(toml_get "$t" inclusive-patches) || app_args[inclusive_patches]="false"
 	app_args[build_mode]=$(toml_get "$t" build-mode) || app_args[build_mode]="apk"
+	app_args[force_patch]=$(toml_get "$t" force-patch) || app_args[force_patch]="false"
 
 	patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 	target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
@@ -122,6 +123,15 @@ for table_name in $(toml_get_table_names); do
 	)
 	if [ "${#exclude_patches[@]}" -gt 0 ]; then
 		pr "Parches a excluir para $table_name: ${exclude_patches[*]}"
+	fi
+
+	# Leer array enable-patches (universal patches que el usuario quiere forzar)
+	mapfile -t enable_patches < <(
+		jq -r --arg t "$table_name" \
+			'.[$t]["enable-patches"] // [] | .[]' <<<"$__TOML__"
+	)
+	if [ "${#enable_patches[@]}" -gt 0 ]; then
+		pr "Parches universales a habilitar para $table_name: ${enable_patches[*]}"
 	fi
 
 	pr "Procesando aplicación: $table_name (Fuente: $patch_repo)"
@@ -243,16 +253,26 @@ for table_name in $(toml_get_table_names); do
 		pr "APK con firma original (válido como stock para módulo)"
 	fi
 
+	# ------------------------------------------------------------------
 	# 3c. Construir argumentos -d / -e para morphe
+	# ------------------------------------------------------------------
 	declare -a morphe_patch_args=()
 
-	# (a) exclude-patches → -d= para cada uno
+	# (a) exclude-patches → -d= para cada uno (usuario)
 	for pname in "${exclude_patches[@]}"; do
 		[ -z "$pname" ] && continue
 		morphe_patch_args+=( "-d=$pname" )
 	done
 
-	# (b) inclusive-patches=true → -e= para cada patch disabled-by-default
+	# (b) enable-patches → -e= para cada universal que el usuario quiera forzar
+	for pname in "${enable_patches[@]}"; do
+		[ -z "$pname" ] && continue
+		morphe_patch_args+=( "-e=$pname" )
+	done
+
+	# (c) inclusive-patches=true → -e= para cada patch disabled-by-default
+	#     EXCLUYENDO los universales (compatiblePackages == null) y los
+	#     que el usuario haya puesto en exclude-patches.
 	if [ "${app_args[inclusive_patches]}" = "true" ]; then
 		patches_list_url="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
 		if [ "${app_args[channel]}" = "stable" ]; then
@@ -266,26 +286,54 @@ for table_name in $(toml_get_table_names); do
 			jq -r '
 				(.patches // .)[]? |
 				select(
-					(has("default") and .default == false) or
-					(has("use") and .use == false)
+					# Está disabled-by-default
+					((has("default") and .default == false) or
+					 (has("use") and .use == false))
+					and
+					# NO es universal (compatiblePackages != null)
+					(.compatiblePackages != null)
 				) |
 				.name // empty
 			' 2>/dev/null
 		)
 
+		# Filtrar los que el usuario excluyó explícitamente
+		declare -a disabled_filtered=()
+		for dp in "${disabled_patches[@]}"; do
+			[ -z "$dp" ] && continue
+			_is_excluded=false
+			for ep in "${exclude_patches[@]}"; do
+				if [ "$dp" = "$ep" ]; then
+					_is_excluded=true
+					break
+				fi
+			done
+			[ "$_is_excluded" = "false" ] && disabled_filtered+=( "$dp" )
+		done
+		disabled_patches=( "${disabled_filtered[@]}" )
+
 		if [ "${#disabled_patches[@]}" -gt 0 ]; then
-			pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default"
+			pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default (excluye universales)"
 			for pname in "${disabled_patches[@]}"; do
 				[ -z "$pname" ] && continue
 				morphe_patch_args+=( "-e=$pname" )
 			done
 		else
-			wpr "  No se encontraron parches disabled-by-default"
+			wpr "  No se encontraron parches disabled-by-default no-universales"
 		fi
 	fi
 
 	if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
 		pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
+	fi
+
+	# ------------------------------------------------------------------
+	# 3d. Construir force_flag si force-patch = true
+	# ------------------------------------------------------------------
+	declare -a force_flag=()
+	if [ "${app_args[force_patch]}" = "true" ]; then
+		force_flag=("--force")
+		pr "  force-patch activo: saltando verificación de versión"
 	fi
 
 	# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
@@ -299,6 +347,7 @@ for table_name in $(toml_get_table_names); do
 		--keystore-entry-password="$RVB_KEYSTORE_PASS" \
 		--signer="Morphe" \
 		--striplibs="${app_args[arch]}" \
+		"${force_flag[@]}" \
 		"${morphe_patch_args[@]}" \
 		"$raw_apk" \
 		|| {
@@ -350,6 +399,7 @@ for table_name in $(toml_get_table_names); do
 					--keystore-entry-password="$RVB_KEYSTORE_PASS" \
 					--signer="Morphe" \
 					--striplibs="${app_args[arch]}" \
+					"${force_flag[@]}" \
 					"${morphe_patch_args[@]}" \
 					-d="GmsCore support" \
 					"$raw_apk" \
