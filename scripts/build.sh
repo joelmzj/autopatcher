@@ -46,11 +46,22 @@ pr "Limpiando directorio de build..."
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-export SNAPSHOT_TAG="snapshot-$(date -u +%Y%m%d-%H%M%S)-${GITHUB_SHA:0:7}"
-pr "Tag de snapshot para este run: $SNAPSHOT_TAG"
+# ==============================================================================
+# Snapshot: tag FIJO (no incremental). Se crea/puebla en upload_release.
+# ==============================================================================
+SNAPSHOT_TAG="snapshot"
+export SNAPSHOT_TAG
+pr "Tag de snapshot (fijo): $SNAPSHOT_TAG"
 
 # ==============================================================================
-# Estado unificado: versions_log.json es la única fuente de verdad (keyed por app).
+# Logs por app: un archivo por table_name en logs/ (sobrescrito en cada compilación).
+# ==============================================================================
+LOGS_DIR="logs"
+mkdir -p "$LOGS_DIR"
+export LOGS_DIR
+
+# ==============================================================================
+# versions_log.json es la única fuente de verdad (keyed por app).
 # ==============================================================================
 if [ ! -f "versions_log.json" ]; then
     echo '{}' > versions_log.json
@@ -61,6 +72,15 @@ COMPILED_MARKER_DIR="$TEMP_DIR/compiled_markers"
 rm -rf "$COMPILED_MARKER_DIR"
 mkdir -p "$COMPILED_MARKER_DIR"
 export COMPILED_MARKER_DIR
+
+# ==============================================================================
+# Manifest: basenames de los archivos generados en este run.
+# Lo consume build_upload_release.sh para subir SOLO los archivos nuevos.
+# ==============================================================================
+UPLOADED_FILES_MANIFEST="$TEMP_DIR/uploaded_files.txt"
+rm -f "$UPLOADED_FILES_MANIFEST"
+touch "$UPLOADED_FILES_MANIFEST"
+export UPLOADED_FILES_MANIFEST
 
 # Preservar APKs del release anterior para no perder las apps omitidas
 if [ -n "${GITHUB_REPOSITORY:-}" ] && [ -n "${RELEASE_TAG:-stable}" ]; then
@@ -189,6 +209,25 @@ for table_name in $(toml_get_table_names); do
 		patched_apk="$BUILD_DIR/$apk_filename"
 		pr "Nombre del APK: $apk_filename"
 
+		# ==================================================================
+		# 2d. Inicializar log de parcheo para esta app
+		# ==================================================================
+		app_log="$LOGS_DIR/${table_name}.log"
+		{
+			echo "=== Parcheo: $table_name ==="
+			echo "Fecha: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+			echo "APK version: $target_apk_ver"
+			echo "Patches version: $latest_applied_tag"
+			echo "Patches source: $patch_repo"
+			echo "Channel: ${app_args[channel]}"
+			echo "Brand: ${app_args[brand]}"
+			echo "Arch: ${app_args[arch]}"
+			echo "Build mode: ${app_args[build_mode]}"
+			echo "Force patch: ${app_args[force_patch]}"
+			echo "Inclusive patches: ${app_args[inclusive_patches]}"
+			echo ""
+		} > "$app_log"
+
 		# 3. Descargar la APK limpia desde APKMirror
 		if [ -n "${app_args[apkmirror_dlurl]}" ]; then
 			get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
@@ -313,6 +352,22 @@ for table_name in $(toml_get_table_names); do
 			pr "  force-patch activo: saltando verificación de versión"
 		fi
 
+		# Escribir los args al log antes de invocar a morphe
+		{
+			echo "--- Argumentos de parches (${#morphe_patch_args[@]}) ---"
+			for arg in "${morphe_patch_args[@]}"; do
+				echo "  $arg"
+			done
+			if [ "${#force_flag[@]}" -gt 0 ]; then
+				echo ""
+				echo "--- Force flag ---"
+				echo "  ${force_flag[*]}"
+			fi
+			echo ""
+			echo "--- Salida de Morphe CLI (APK principal) ---"
+			echo ""
+		} >> "$app_log"
+
 		# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
 		pr "Aplicando parches con Morphe CLI..."
 		java -jar "$MORPHE_CLI_JAR" patch \
@@ -327,6 +382,7 @@ for table_name in $(toml_get_table_names); do
 			"${force_flag[@]}" \
 			"${morphe_patch_args[@]}" \
 			"$raw_apk" \
+			2>&1 | tee -a "$app_log" \
 			|| {
 				wpr "Error durante el proceso de parcheo de $table_name"
 				exit 1
@@ -337,7 +393,11 @@ for table_name in $(toml_get_table_names); do
 			exit 1
 		fi
 
+		# Registrar el APK en el manifest (para upload selectivo)
+		echo "$apk_filename" >> "$UPLOADED_FILES_MANIFEST"
+
 		# 4b. Módulo Magisk/KernelSU (si build-mode lo requiere)
+		module_zip_filename=""
 		if [ "${app_args[build_mode]}" = "both" ] || [ "${app_args[build_mode]}" = "module" ]; then
 			if [ "$was_merged" = true ]; then
 				wpr "Saltando módulo para $table_name: el stock fue mergeado desde un bundle."
@@ -355,12 +415,20 @@ for table_name in $(toml_get_table_names); do
 
 				module_id=$(echo "$table_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '_' | sed 's/_$//')
 				module_zip="$BUILD_DIR/${apk_filename%.apk}.zip"
+				module_zip_filename=$(basename "$module_zip")
 				pkg_version_code="${NEXT_VER_CODE}"
 				module_apk_src="$patched_apk"
 
 				if [ "$gmscore_present" = true ]; then
 					pr "  Compilando variante para módulo (sin 'GmsCore support')..."
 					module_apk_tmp="$TEMP_DIR/$table_name/module.apk"
+
+					{
+						echo ""
+						echo "--- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---"
+						echo ""
+					} >> "$app_log"
+
 					java -jar "$MORPHE_CLI_JAR" patch \
 						-p="https://github.com/$patch_repo" \
 						-o="$module_apk_tmp" \
@@ -374,6 +442,7 @@ for table_name in $(toml_get_table_names); do
 						"${morphe_patch_args[@]}" \
 						-d="GmsCore support" \
 						"$raw_apk" \
+						2>&1 | tee -a "$app_log" \
 						|| {
 							wpr "Error al compilar la variante para módulo de $table_name"
 							exit 1
@@ -400,13 +469,27 @@ for table_name in $(toml_get_table_names); do
 					"$latest_applied_tag" \
 					"${RELEASE_TAG:-stable}"; then
 					pr "Módulo generado: $module_zip"
+					echo "$module_zip_filename" >> "$UPLOADED_FILES_MANIFEST"
 				else
 					wpr "Fallo al generar el módulo para $table_name"
 				fi
 			fi
 		fi
 
-		# 5. Actualizar versions_log.json (fuente única de verdad, keyed por app)
+		# 5. Actualizar versions_log.json
+		# Leer la entrada previa (si existe) para conservar snapshot_file
+		# y detectar el stable anterior (que será promovido al snapshot).
+		prev_snapshot_file=""
+		prev_snapshot_zip=""
+		prev_stable_file=""
+		prev_stable_zip=""
+		if [ -f "versions_log.json" ]; then
+			prev_snapshot_file=$(jq -r --arg app "$table_name" '.[$app].snapshot_file // ""' versions_log.json)
+			prev_snapshot_zip=$(jq -r --arg app "$table_name" '.[$app].snapshot_zip // ""' versions_log.json)
+			prev_stable_file=$(jq -r --arg app "$table_name" '.[$app].stable_file // .[$app].file // ""' versions_log.json)
+			prev_stable_zip=$(jq -r --arg app "$table_name" '.[$app].stable_zip // ""' versions_log.json)
+		fi
+
 		tmp_vlog=$(mktemp)
 		jq --arg app "$table_name" \
 		   --arg src "$patch_repo" \
@@ -415,7 +498,12 @@ for table_name in $(toml_get_table_names); do
 		   --arg apk_ver "$target_apk_ver" \
 		   --arg brand "${app_args[brand]}" \
 		   --arg arch "${app_args[arch]}" \
-		   --arg apk_file "$apk_filename" \
+		   --arg stable_file "$apk_filename" \
+		   --arg stable_zip "$module_zip_filename" \
+		   --arg snapshot_file "$prev_snapshot_file" \
+		   --arg snapshot_zip "$prev_snapshot_zip" \
+		   --arg prev_stable_file "$prev_stable_file" \
+		   --arg prev_stable_zip "$prev_stable_zip" \
 		   --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
 		   '.[$app] = {
 				patches_source: $src,
@@ -424,13 +512,30 @@ for table_name in $(toml_get_table_names); do
 				apk_version: $apk_ver,
 				brand: $brand,
 				arch: $arch,
-				file: $apk_file,
+				stable_file: $stable_file,
+				stable_zip: (if $stable_zip == "" then null else $stable_zip end),
+				snapshot_file: (if $snapshot_file == "" then null else $snapshot_file end),
+				snapshot_zip: (if $snapshot_zip == "" then null else $snapshot_zip end),
+				prev_stable_file: (if $prev_stable_file == "" then null else $prev_stable_file end),
+				prev_stable_zip: (if $prev_stable_zip == "" then null else $prev_stable_zip end),
 				timestamp: $ts
 			}' \
 			versions_log.json > "$tmp_vlog" && mv "$tmp_vlog" versions_log.json
-		pr "versions_log.json actualizado para $table_name"
 
+		# Cerrar el log con resumen
+		{
+			echo ""
+			echo "--- Fin del parcheo ---"
+			echo "APK final: $patched_apk"
+			if [ -n "$module_zip_filename" ]; then
+				echo "Módulo: $module_zip"
+			fi
+			echo "Fecha de fin: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+		} >> "$app_log"
+
+		pr "versions_log.json actualizado para $table_name"
 		pr "¡Aplicación '$table_name' procesada y guardada en $patched_apk!"
+		pr "Log de parcheo: $app_log"
 
 		# Marcar como compilada exitosamente
 		touch "$COMPILED_MARKER_DIR/$table_name"
@@ -450,8 +555,15 @@ pr "Compilación finalizada."
 apps_compiled=$(find "$COMPILED_MARKER_DIR" -maxdepth 1 -type f 2>/dev/null | wc -l | tr -d ' ')
 export APPS_COMPILED="$apps_compiled"
 
+# Archivos generados en este run (uno por línea)
+manifest_count=0
+if [ -f "$UPLOADED_FILES_MANIFEST" ]; then
+	manifest_count=$(grep -c . "$UPLOADED_FILES_MANIFEST" 2>/dev/null || echo 0)
+fi
+
 if [ "$apps_compiled" -gt 0 ]; then
 	pr "App(s) recompilada(s) en este run: $apps_compiled"
+	pr "Archivo(s) generado(s) en este run: $manifest_count"
 else
 	pr "Sin apps recompiladas en este run. El release no se tocará."
 fi
