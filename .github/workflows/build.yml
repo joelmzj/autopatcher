@@ -153,22 +153,23 @@ jobs:
           bash scripts/build.sh "$CONFIG"
           echo "success=true" >> $GITHUB_OUTPUT
 
-      - name: Commit and push state files if updated
+      - name: Commit logs and versions_log
         if: always()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # versions_log.json es la única fuente de verdad del pipeline
+          # versions_log.json (fuente de verdad) + logs por app
           git add versions_log.json 2>/dev/null || true
+          git add logs/ 2>/dev/null || true
 
           # Commit solo si hay cambios
           if ! git diff --staged --quiet; then
-            git commit -m "chore: update versions_log.json [skip ci]"
+            git commit -m "chore: update versions_log.json + logs [skip ci]"
             git push
-            echo "[+] Estado commiteado exitosamente"
+            echo "[+] Estado y logs commiteados exitosamente"
           else
-            echo "[i] Sin cambios en el estado, omitiendo commit"
+            echo "[i] Sin cambios en estado/logs, omitiendo commit"
           fi
 
       - name: Publish update.json files to update branch
@@ -177,13 +178,31 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Early exit si no hay ZIPs de módulos
-          shopt -s nullglob
-          zips=(build/*.zip)
-          if [ "${#zips[@]}" -eq 0 ]; then
-            echo "[i] No hay ZIPs de módulos en build/. Omitiendo publicación de update.json."
+          # Leer el manifest de archivos generados en este run (build.sh lo dejó en temp/)
+          MANIFEST="temp/uploaded_files.txt"
+          if [ ! -f "$MANIFEST" ]; then
+            echo "[i] No hay manifest ($MANIFEST). Omitiendo publicación de update.json."
             exit 0
           fi
+
+          # Filtrar solo los ZIPs generados en este run
+          declare -a zips=()
+          while IFS= read -r fname; do
+            [ -z "$fname" ] && continue
+            case "$fname" in
+              *.zip)
+                [ -f "build/$fname" ] && zips+=("build/$fname")
+                ;;
+            esac
+          done < "$MANIFEST"
+
+          if [ "${#zips[@]}" -eq 0 ]; then
+            echo "[i] No hay ZIPs de módulos generados en este run. Omitiendo publicación de update.json."
+            exit 0
+          fi
+
+          echo "[i] ZIPs a publicar: ${#zips[@]}"
+          for z in "${zips[@]}"; do echo "  - $z"; done
 
           # Guardar branch original para volver al final
           ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
