@@ -13,6 +13,10 @@
 #   UPLOAD_FILES              (default: ./build/*.apk ./build/*.zip)
 #   GITHUB_REPOSITORY         (requerido)             owner/repo
 #   SNAPSHOT_RETENTION_DAYS   (default: 30)           Días de retención
+#   APPS_COMPILED             (default: -1)           Nº de apps recompiladas en este run
+#                                                     (lo setea build.sh). Si es 0, se
+#                                                     omite toda la creación de snapshot
+#                                                     y la subida a stable.
 
 set -euo pipefail
 shopt -s nullglob
@@ -22,10 +26,22 @@ SNAPSHOT_TAG="${SNAPSHOT_TAG:-}"
 UPLOAD_FILES="${UPLOAD_FILES:-./build/*.apk ./build/*.zip}"
 REPO="${GITHUB_REPOSITORY:-}"
 SNAPSHOT_RETENTION_DAYS="${SNAPSHOT_RETENTION_DAYS:-30}"
+APPS_COMPILED="${APPS_COMPILED:--1}"
 
 pr()  { echo -e "\033[0;32m[+] $1\033[0m"; }
 wpr() { echo -e "\033[0;33m[!] $1\033[0m"; }
 epr() { echo -e "\033[0;31m[-] $1\033[0m"; }
+
+# ==============================================================================
+# Guard: si no se recompiló ninguna app, no tocar los releases.
+# Se preserva lo que ya existe sin crear snapshots redundantes ni re-subir.
+# ==============================================================================
+
+if [ "$APPS_COMPILED" = "0" ]; then
+    pr "Sin apps recompiladas en este run (APPS_COMPILED=0)."
+    pr "Omitiendo creación de snapshot y sincronización del release stable."
+    exit 0
+fi
 
 # ==============================================================================
 # Validaciones previas
