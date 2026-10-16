@@ -1,8 +1,6 @@
 name: Manual & Scheduled Build
 
 on:
-  schedule:
-    - cron: "0 0 * * 0" # Se ejecuta opcionalmente cada domingo (puedes quitarlo si prefieres 100% manual)
   workflow_dispatch:
     inputs:
       config_file:
