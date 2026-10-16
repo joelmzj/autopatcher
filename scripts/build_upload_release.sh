@@ -1,32 +1,36 @@
 #!/usr/bin/env bash
 # build_upload_release.sh
 #
-# Sube los artefactos compilados a GitHub Releases con la estrategia:
-#   1. Crear un release "snapshot" (prerelease) con el set completo del run
-#   2. Sincronizar assets del release "stable" (borrar solo obsoletos)
-#   3. Subir el set completo al release "stable"
-#   4. Aplicar retención: borrar snapshots de más de N días
+# Sube los artefactos compilados a GitHub Releases con la estrategia de 2 releases:
+#
+#   stable   → foto completa con las últimas versiones parcheadas
+#   snapshot → foto de las versiones inmediatamente anteriores a stable
+#              (solo aparecen apps que alguna vez cambiaron)
+#
+# Flujo:
+#   1. Leer manifest de archivos generados en este run
+#   2. Asegurar que ambos releases existen
+#   3. Promover versiones previas: stable → snapshot (con el mismo nombre)
+#   4. Subir archivos nuevos al stable
+#   5. Limpiar obsoletos del stable comparando contra versions_log.json
 #
 # Variables de entorno esperadas:
-#   RELEASE_TAG               (default: stable)       Tag del release estable
-#   SNAPSHOT_TAG              (default: "")           Tag del snapshot (lo setea build.sh)
-#   UPLOAD_FILES              (default: ./build/*.apk ./build/*.zip)
-#   GITHUB_REPOSITORY         (requerido)             owner/repo
-#   SNAPSHOT_RETENTION_DAYS   (default: 30)           Días de retención
-#   APPS_COMPILED             (default: -1)           Nº de apps recompiladas en este run
-#                                                     (lo setea build.sh). Si es 0, se
-#                                                     omite toda la creación de snapshot
-#                                                     y la subida a stable.
+#   RELEASE_TAG               (default: stable)
+#   SNAPSHOT_TAG              (default: snapshot)   tag FIJO (no incremental)
+#   GITHUB_REPOSITORY         (requerido)
+#   APPS_COMPILED             (default: -1)
+#   UPLOADED_FILES_MANIFEST   (requerido) ruta al manifest con basenames generados
+#   VERSIONS_LOG              (default: versions_log.json)
 
 set -euo pipefail
 shopt -s nullglob
 
 RELEASE_TAG="${RELEASE_TAG:-stable}"
-SNAPSHOT_TAG="${SNAPSHOT_TAG:-}"
-UPLOAD_FILES="${UPLOAD_FILES:-./build/*.apk ./build/*.zip}"
+SNAPSHOT_TAG="${SNAPSHOT_TAG:-snapshot}"
 REPO="${GITHUB_REPOSITORY:-}"
-SNAPSHOT_RETENTION_DAYS="${SNAPSHOT_RETENTION_DAYS:-30}"
 APPS_COMPILED="${APPS_COMPILED:--1}"
+MANIFEST="${UPLOADED_FILES_MANIFEST:-}"
+VERSIONS_LOG="${VERSIONS_LOG:-versions_log.json}"
 
 pr()  { echo -e "\033[0;32m[+] $1\033[0m"; }
 wpr() { echo -e "\033[0;33m[!] $1\033[0m"; }
@@ -34,9 +38,7 @@ epr() { echo -e "\033[0;31m[-] $1\033[0m"; }
 
 # ==============================================================================
 # Guard: si no se recompiló ninguna app, no tocar los releases.
-# Se preserva lo que ya existe sin crear snapshots redundantes ni re-subir.
 # ==============================================================================
-
 if [ "$APPS_COMPILED" = "0" ]; then
     pr "Sin apps recompiladas en este run (APPS_COMPILED=0)."
     pr "Omitiendo creación de snapshot y sincronización del release stable."
@@ -46,93 +48,162 @@ fi
 # ==============================================================================
 # Validaciones previas
 # ==============================================================================
-
 command -v gh >/dev/null 2>&1 || { epr "gh CLI no encontrado"; exit 1; }
 [ -n "$REPO" ] || { epr "GITHUB_REPOSITORY no está definido"; exit 1; }
+[ -n "$MANIFEST" ] || { epr "UPLOADED_FILES_MANIFEST no está definido"; exit 1; }
+[ -f "$MANIFEST" ] || { epr "Manifest no encontrado: $MANIFEST"; exit 1; }
+[ -f "$VERSIONS_LOG" ] || { epr "No existe $VERSIONS_LOG"; exit 1; }
 
 # ==============================================================================
-# Recolectar archivos a subir (excluyendo raw_stock_*)
-# NOTA: versions_log.json NO se sube al release — se commitea a git aparte.
+# 1. Leer el manifest (solo basenames de archivos generados en este run)
 # ==============================================================================
-
+declare -A manifest_set=()
 declare -a files=()
-for pattern in $UPLOAD_FILES; do
-    for f in $pattern; do
-        case "$f" in
-            *raw_stock*) continue ;;
-        esac
-        [ -f "$f" ] && files+=("$f")
-    done
-done
+
+while IFS= read -r fname; do
+    [ -z "$fname" ] && continue
+    case "$fname" in
+        *raw_stock*) continue ;;
+    esac
+    manifest_set["$fname"]=1
+    if [ -f "./build/$fname" ]; then
+        files+=("./build/$fname")
+    else
+        wpr "Manifest menciona '$fname' pero no existe en ./build/"
+    fi
+done < "$MANIFEST"
 
 if [ "${#files[@]}" -eq 0 ]; then
-    epr "No se encontraron archivos para subir (patrón: $UPLOAD_FILES)"
+    epr "Manifest vacío o archivos no encontrados en ./build/"
     exit 1
 fi
 
-pr "Archivos a subir: ${#files[@]}"
+pr "Archivos generados en este run: ${#files[@]}"
 for f in "${files[@]}"; do
     size=$(du -h "$f" 2>/dev/null | cut -f1 || echo "?")
     pr "  - $f ($size)"
 done
 
 # ==============================================================================
-# Construir mapa de nombres que vamos a subir (para el diff de assets)
+# 2. Asegurar que ambos releases existen
 # ==============================================================================
+pr "=== Preparando releases ==="
 
-declare -A new_names=()
-for f in "${files[@]}"; do
-    new_names["$(basename "$f")"]=1
-done
-
-# ==============================================================================
-# 1. Crear release snapshot (prerelease)
-# ==============================================================================
-
-if [ -n "$SNAPSHOT_TAG" ]; then
-    pr "=== Creando snapshot release: $SNAPSHOT_TAG ==="
-
-    if gh release view "$SNAPSHOT_TAG" -R "$REPO" >/dev/null 2>&1; then
-        wpr "El release $SNAPSHOT_TAG ya existe, se subirán/actualizarán assets"
-        pr "Subiendo ${#files[@]} archivos al snapshot..."
-        gh release upload "$SNAPSHOT_TAG" "${files[@]}" --clobber -R "$REPO"
-    else
-        pr "Subiendo ${#files[@]} archivos al nuevo snapshot..."
-        gh release create "$SNAPSHOT_TAG" "${files[@]}" \
-            -R "$REPO" \
-            --title "Snapshot $SNAPSHOT_TAG" \
-            --notes "Automated snapshot of build $(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            --prerelease
-    fi
-
-    pr "Snapshot $SNAPSHOT_TAG completado"
+# Snapshot (prerelease, tag fijo)
+if ! gh release view "$SNAPSHOT_TAG" -R "$REPO" >/dev/null 2>&1; then
+    pr "El release '$SNAPSHOT_TAG' no existe, se creará vacío"
+    gh release create "$SNAPSHOT_TAG" \
+        -R "$REPO" \
+        --title "Snapshot (versiones previas)" \
+        --notes "Backup de las versiones inmediatamente anteriores a stable. Se puebla cuando una app se recompila por primera vez." \
+        --prerelease
 else
-    wpr "SNAPSHOT_TAG no definido, se omite creación de snapshot"
+    pr "El release '$SNAPSHOT_TAG' ya existe"
 fi
 
-# ==============================================================================
-# 2. Asegurar que el release stable existe
-# ==============================================================================
-
-pr "=== Preparando release $RELEASE_TAG ==="
-
+# Stable
 if ! gh release view "$RELEASE_TAG" -R "$REPO" >/dev/null 2>&1; then
-    pr "El release $RELEASE_TAG no existe, se creará vacío"
+    pr "El release '$RELEASE_TAG' no existe, se creará vacío"
     gh release create "$RELEASE_TAG" \
         -R "$REPO" \
         --title "$RELEASE_TAG" \
-        --notes "Latest stable build — rebuilt on every run"
+        --notes "Últimas versiones parcheadas"
+else
+    pr "El release '$RELEASE_TAG' ya existe"
 fi
 
 # ==============================================================================
-# 3. Sincronizar assets del release stable (borrar solo OBSOLETOS)
-#     Los assets que existen en el release pero NO se van a subir en este run
-#     se eliminan. Los que SÍ se van a subir se reemplazan con --clobber.
-#     Esto preserva las apps que se omitieron por "sin cambios" (sus APKs
-#     previos siguen en $BUILD_DIR y en files[]).
+# 3. PROMOTE: mover versiones previas de stable → snapshot
+#
+# Para cada app recompilada en este run (stable_file en el manifest):
+#   - Si prev_stable_file existe y difiere de stable_file:
+#       a) Subir prev_stable_file al snapshot (--clobber, mismo nombre)
+#       b) Borrar snapshot_file anterior del snapshot (si difiere)
+#       c) Borrar prev_stable_file del stable
+#   - Repetir para el ZIP si aplica
 # ==============================================================================
+pr "=== Promoviendo versiones previas al snapshot ==="
 
-pr "Sincronizando assets del release $RELEASE_TAG..."
+promoted=0
+while IFS=$'\t' read -r app stable_file stable_zip snapshot_file snapshot_zip prev_stable_file prev_stable_zip; do
+    [ -z "$app" ] && continue
+
+    # Solo apps recompiladas en este run
+    [ -z "${manifest_set[$stable_file]:-}" ] && continue
+
+    # --- APK ---
+    if [ -n "$prev_stable_file" ] && [ "$prev_stable_file" != "$stable_file" ]; then
+        pr "  [$app] Promoviendo APK: $prev_stable_file"
+
+        if [ -f "./build/$prev_stable_file" ]; then
+            gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_file" --clobber -R "$REPO" >/dev/null
+        else
+            wpr "    No encontrado en build/: $prev_stable_file"
+        fi
+
+        if [ -n "$snapshot_file" ] && [ "$snapshot_file" != "$prev_stable_file" ]; then
+            gh release delete-asset "$SNAPSHOT_TAG" "$snapshot_file" -R "$REPO" -y >/dev/null 2>&1 || true
+        fi
+
+        gh release delete-asset "$RELEASE_TAG" "$prev_stable_file" -R "$REPO" -y >/dev/null 2>&1 || true
+        promoted=$((promoted + 1))
+    fi
+
+    # --- ZIP (módulo) ---
+    if [ -n "$prev_stable_zip" ] && [ "$prev_stable_zip" != "$stable_zip" ]; then
+        pr "  [$app] Promoviendo ZIP: $prev_stable_zip"
+
+        if [ -f "./build/$prev_stable_zip" ]; then
+            gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_zip" --clobber -R "$REPO" >/dev/null
+        else
+            wpr "    No encontrado en build/: $prev_stable_zip"
+        fi
+
+        if [ -n "$snapshot_zip" ] && [ "$snapshot_zip" != "$prev_stable_zip" ]; then
+            gh release delete-asset "$SNAPSHOT_TAG" "$snapshot_zip" -R "$REPO" -y >/dev/null 2>&1 || true
+        fi
+
+        gh release delete-asset "$RELEASE_TAG" "$prev_stable_zip" -R "$REPO" -y >/dev/null 2>&1 || true
+        promoted=$((promoted + 1))
+    fi
+done < <(jq -r '
+    to_entries[] |
+    [
+        .key,
+        (.value.stable_file // ""),
+        (.value.stable_zip // ""),
+        (.value.snapshot_file // ""),
+        (.value.snapshot_zip // ""),
+        (.value.prev_stable_file // ""),
+        (.value.prev_stable_zip // "")
+    ] | @tsv
+' "$VERSIONS_LOG")
+
+if [ "$promoted" -gt 0 ]; then
+    pr "Promovidos $promoted archivos al snapshot"
+else
+    pr "No hay archivos previos que promover en este run"
+fi
+
+# ==============================================================================
+# 4. Subir archivos nuevos al release stable (--clobber)
+# ==============================================================================
+pr "=== Subiendo archivos al release $RELEASE_TAG ==="
+gh release upload "$RELEASE_TAG" "${files[@]}" --clobber -R "$REPO"
+pr "Release $RELEASE_TAG actualizado con ${#files[@]} archivos"
+
+# ==============================================================================
+# 5. Limpiar assets obsoletos del stable
+# Un asset es obsoleto si NO está en el set de stable_file/stable_zip vigentes
+# según versions_log.json. Esto evita acumulación tras cambios de versión.
+# ==============================================================================
+pr "=== Verificando assets obsoletos en $RELEASE_TAG ==="
+
+declare -A current_stable_set=()
+while IFS= read -r fname; do
+    [ -z "$fname" ] && continue
+    current_stable_set["$fname"]=1
+done < <(jq -r '.[] | .stable_file // empty, .stable_zip // empty' "$VERSIONS_LOG" 2>/dev/null)
 
 existing_assets=$(gh release view "$RELEASE_TAG" -R "$REPO" --json assets --jq '.assets[].name' 2>/dev/null || echo "")
 
@@ -141,63 +212,23 @@ if [ -n "$existing_assets" ]; then
     preserved=0
     while IFS= read -r asset; do
         [ -z "$asset" ] && continue
-        if [ -z "${new_names[$asset]:-}" ]; then
-            # Asset obsoleto: no está en el nuevo set → borrar
+        if [ -z "${current_stable_set[$asset]:-}" ]; then
             if gh release delete-asset "$RELEASE_TAG" "$asset" -R "$REPO" -y >/dev/null 2>&1; then
                 pr "  ✗ Eliminado (obsoleto): $asset"
                 removed=$((removed + 1))
             fi
         else
-            # Asset que se va a resubir → se preservará/reemplazará
             preserved=$((preserved + 1))
         fi
     done <<< "$existing_assets"
-    pr "  Eliminados $removed assets obsoletos, $preserved assets a actualizar"
+    pr "  Eliminados $removed assets obsoletos, $preserved assets vigentes"
 else
     pr "  No había assets previos en el release"
 fi
 
 # ==============================================================================
-# 4. Subir archivos al release stable
-# ==============================================================================
-
-pr "Subiendo ${#files[@]} archivos al release $RELEASE_TAG..."
-gh release upload "$RELEASE_TAG" "${files[@]}" --clobber -R "$REPO"
-pr "Release $RELEASE_TAG actualizado"
-
-# ==============================================================================
-# 5. Retención: borrar snapshots antiguos
-# ==============================================================================
-
-if [ "$SNAPSHOT_RETENTION_DAYS" -gt 0 ]; then
-    pr "=== Aplicando retención de snapshots (${SNAPSHOT_RETENTION_DAYS} días) ==="
-
-    old_snapshots=$(gh release list -R "$REPO" --limit 200 \
-        --json tagName,createdAt --jq \
-        ".[] | select(.tagName | startswith(\"snapshot-\")) | select((.createdAt | fromdateiso8601) < (now - ${SNAPSHOT_RETENTION_DAYS} * 86400)) | .tagName" \
-        2>/dev/null || echo "")
-
-    if [ -n "$old_snapshots" ]; then
-        count=0
-        while IFS= read -r tag; do
-            [ -z "$tag" ] && continue
-            pr "  Eliminando snapshot antiguo: $tag"
-            if gh release delete "$tag" -R "$REPO" -y --cleanup-tag >/dev/null 2>&1; then
-                count=$((count + 1))
-            fi
-        done <<< "$old_snapshots"
-        pr "  Eliminados $count snapshots antiguos"
-    else
-        pr "  No hay snapshots antiguos que eliminar"
-    fi
-fi
-
-# ==============================================================================
 # 6. Resumen final
 # ==============================================================================
-
 pr "=== ¡Proceso de subida completado! ==="
-pr "  Release estable: https://github.com/${REPO}/releases/tag/${RELEASE_TAG}"
-if [ -n "$SNAPSHOT_TAG" ]; then
-    pr "  Snapshot actual: https://github.com/${REPO}/releases/tag/${SNAPSHOT_TAG}"
-fi
+pr "  Stable:   https://github.com/${REPO}/releases/tag/${RELEASE_TAG}"
+pr "  Snapshot: https://github.com/${REPO}/releases/tag/${SNAPSHOT_TAG}"
