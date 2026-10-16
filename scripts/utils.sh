@@ -184,6 +184,9 @@ abort() {
 java() {
     local -a java_env=(PATH="$PATH" HOME="$HOME" LANG="${LANG:-en_US.UTF-8}")
     [ -n "${XDG_DATA_HOME:-}" ] && java_env+=(XDG_DATA_HOME="$XDG_DATA_HOME")
+    [ -n "${GITHUB_TOKEN:-}" ]  && java_env+=(GITHUB_TOKEN="$GITHUB_TOKEN")
+    [ -n "${GH_TOKEN:-}" ]      && java_env+=(GH_TOKEN="$GH_TOKEN")
+    [ -n "${JAVA_HOME:-}" ]     && java_env+=(JAVA_HOME="$JAVA_HOME")
     env -i "${java_env[@]}" java --enable-native-access=ALL-UNNAMED "$@";
 }
 
