@@ -82,6 +82,21 @@ rm -f "$UPLOADED_FILES_MANIFEST"
 touch "$UPLOADED_FILES_MANIFEST"
 export UPLOADED_FILES_MANIFEST
 
+# ==============================================================================
+# Lista persistente de apps fallidas. Se reintentan automáticamente en el
+# siguiente run (aunque no haya cambios de versión), hasta que compilen bien.
+# ==============================================================================
+FAILED_APPS_FILE="$LOGS_DIR/failed_apps.json"
+if [ ! -f "$FAILED_APPS_FILE" ]; then
+	echo '{}' > "$FAILED_APPS_FILE"
+fi
+export FAILED_APPS_FILE
+
+if [ "$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)" -gt 0 ]; then
+	wpr "Apps pendientes de reintento del run anterior:"
+	jq -r 'to_entries[] | "  - \(.key) (\(.value.attempts) intento(s))"' "$FAILED_APPS_FILE"
+fi
+
 # Preservar APKs del release anterior para no perder las apps omitidas
 if [ -n "${GITHUB_REPOSITORY:-}" ] && [ -n "${RELEASE_TAG:-stable}" ]; then
     pr "Preservando APKs previos del release '$RELEASE_TAG'..."
@@ -171,6 +186,16 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		# ==================================================================
+		# ¿Esta app quedó fallida en un run anterior? Si sí, forzar reintento.
+		# ==================================================================
+		was_failed_before=false
+		if jq -e --arg app "$table_name" 'has($app)' "$FAILED_APPS_FILE" >/dev/null 2>&1; then
+			was_failed_before=true
+			prev_attempts=$(jq -r --arg app "$table_name" '.[$app].attempts // 0' "$FAILED_APPS_FILE")
+			pr "  App '$table_name' en lista de fallos (intentos previos: $prev_attempts). Reintentando..."
+		fi
+
+		# ==================================================================
 		# Validación inteligente de cambios (REBUILD_APPS + should_build_app)
 		# ==================================================================
 		_force_this=false
@@ -187,6 +212,8 @@ for table_name in $(toml_get_table_names); do
 
 		if [ "$_force_this" = "true" ]; then
 			pr "  REBUILD_APPS activo: forzando recompilación de $table_name"
+		elif [ "$was_failed_before" = "true" ]; then
+			pr "  Reintentando por fallo previo (ignorando comparación de versiones)"
 		elif ! should_build_app "$table_name" "$patch_repo" "${app_args[channel]}" "$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
 			exit 0
@@ -541,9 +568,27 @@ for table_name in $(toml_get_table_names); do
 		touch "$COMPILED_MARKER_DIR/$table_name"
 		exit 0
 	); then
-		: # App procesada con éxito (o omitida por falta de cambios)
+		# Éxito: si estaba en la lista de fallos, removerla
+		if [ "$was_failed_before" = "true" ]; then
+			tmp_failed=$(mktemp)
+			jq --arg app "$table_name" 'del(.[$app])' "$FAILED_APPS_FILE" > "$tmp_failed" \
+				&& mv "$tmp_failed" "$FAILED_APPS_FILE"
+			pr "  ✓ '$table_name' removida de la lista de fallos"
+		fi
 	else
 		wpr "App '$table_name' falló. Continuando con la siguiente."
+
+		# Añadir/actualizar en la lista de fallos
+		tmp_failed=$(mktemp)
+		jq --arg app "$table_name" \
+		   --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+		   '.[$app] = {
+				first_failed_at: (.[$app].first_failed_at // $ts),
+				last_attempt_at: $ts,
+				attempts: ((.[$app].attempts // 0) + 1)
+			}' \
+			"$FAILED_APPS_FILE" > "$tmp_failed" && mv "$tmp_failed" "$FAILED_APPS_FILE"
+		wpr "  '$table_name' añadida a la lista de fallos (reintentará en el próximo run)"
 	fi
 done
 
@@ -568,7 +613,14 @@ else
 	pr "Sin apps recompiladas en este run. El release no se tocará."
 fi
 
-# Subir artefactos
+# Apps que quedan pendientes de reintento (fallaron en este run)
+failed_count=$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)
+if [ "$failed_count" -gt 0 ]; then
+	wpr "App(s) pendiente(s) de reintento: $failed_count"
+	jq -r 'to_entries[] | "  - \(.key): \(.value.attempts) intento(s)"' "$FAILED_APPS_FILE"
+fi
+
+# Subir artefactos 
 pr "Subiendo artefactos al Release de GitHub..."
 export RELEASE_TAG="${RELEASE_TAG:-stable}"
 export UPLOAD_FILES="./build/*.apk ./build/*.zip"
