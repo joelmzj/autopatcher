@@ -1,1 +1,12 @@
-{}
+{
+  "Instagram": {
+    "first_failed_at": "2026-10-17T00:00:43Z",
+    "last_attempt_at": "2026-10-17T00:00:43Z",
+    "attempts": 1
+  },
+  "Telegram": {
+    "first_failed_at": "2026-10-17T00:01:07Z",
+    "last_attempt_at": "2026-10-17T00:01:07Z",
+    "attempts": 1
+  }
+}

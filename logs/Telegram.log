@@ -1,0 +1,12 @@
+=== Parcheo: Telegram ===
+Fecha: 2026-10-17T00:00:44Z
+APK version: 13.0.3
+Patches version: v0.0.18
+Patches source: SysAdminDoc/HushTelegram
+Channel: stable
+Brand: HushTelegram
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+
