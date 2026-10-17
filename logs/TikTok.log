@@ -1,5 +1,5 @@
 === Parcheo: TikTok ===
-Fecha: 2026-10-17T00:31:43Z
+Fecha: 2026-10-17T01:41:11Z
 APK version: 47.1.4
 Patches version: v0.75.0
 Patches source: SysAdminDoc/hushfeed
@@ -11,11 +11,11 @@ Force patch: false
 Inclusive patches: true
 
 --- Argumentos de parches (18) ---
+  -d=Change app name
+  -d=Custom launcher icon
   -e=AMOLED dark theme
   -e=Accent color
   -e=Block P2P video relay
-  -e=Change app name
-  -e=Custom launcher icon
   -e=Feature Gate Recorder
   -e=Hide Play Store update offer
   -e=Hide the risk control CAPTCHA
@@ -42,7 +42,9 @@ INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.zhiliaoapp.musically v47.1.4... 
-INFO: Applying 135 patches... 
+INFO: Skipping disabled: Change app name 
+INFO: Skipping disabled: Custom launcher icon 
+INFO: Applying 133 patches... 
 INFO: Deleting existing temporary files directory 
 INFO: Decoding all resources 
 INFO: Leaving 647 native library files in the input APK 
@@ -69,7 +71,6 @@ INFO: Applied: Block popups
 INFO: Applied: Block suggested video notifications 
 [Camera/mic indicator] Instrumented 3 camera opens, 2 camera releases, 1 recorder starts and 2 recorder stops.
 INFO: Applied: Camera and microphone indicator 
-INFO: Applied: Change app name 
 INFO: Applied: Comment publish diagnostics 
 INFO: Applied: Comment send fix 
 INFO: Applied: Comment sort controls 
@@ -77,7 +78,6 @@ INFO: Applied: Comment tools
 INFO: Applied: Confirm feed interactions 
 INFO: Applied: Copy bio and IDs 
 INFO: Applied: Copy comments without username 
-INFO: Applied: Custom launcher icon 
 INFO: Applied: Custom offline videos limit 
 [Device privacy guard] Intercepted 4 clipboard read sites.
 [Device privacy guard] Intercepted 47 VPN and advertising-id sites and 15 network-interface sites.
@@ -206,7 +206,7 @@ INFO: Applied: Use system font
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 4905 new classes to new DEX files 
 INFO: Processing 4905 classes in parallel (4 threads) 
-INFO: Wrote 5 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792197120340/patched/newDex 
+INFO: Wrote 5 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792201294580/patched/newDex 
 INFO: Stripped 1905 modified classes from 43 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -222,20 +222,20 @@ INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_im_bootfinish 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_camera_biz 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_wallpaper_main 
-INFO: Encoded 2200 of 2200 values in 17 files, 2 resource files and 0 configurations of patches for com.zhiliaoapp.musically 
+INFO: Encoded 2200 of 2200 values in 17 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_live_cast 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_search_biz 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_external_payments 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_bnpl 
-INFO: Resource APK inputs: reusing 26311 unchanged archive entries, rebuilding 4 entries, dropping 319 entries 
-INFO: Resource APK scan: 1.5s write: 2.6s 
+INFO: Resource APK inputs: reusing 26312 unchanged archive entries, rebuilding 3 entries, dropping 319 entries 
+INFO: Resource APK scan: 1.3s write: 2.4s 
 INFO: Moving 27 resource files 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.1.4-HushFeed-v0.75.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792197120340 
+INFO: Purged this session's temp files: patching-1792201294580 
 
 --- Fin del parcheo ---
 APK final: build/TikTok-v47.1.4-HushFeed-v0.75.0-arm64-v8a.apk
-Fecha de fin: 2026-10-17T00:33:26Z
+Fecha de fin: 2026-10-17T01:43:08Z

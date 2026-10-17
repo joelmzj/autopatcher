@@ -70,9 +70,9 @@
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "TikTok-v47.1.4-HushFeed-v0.75.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-17T00:33:26Z"
+    "timestamp": "2026-10-17T01:43:08Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
