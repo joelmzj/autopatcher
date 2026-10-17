@@ -40,9 +40,9 @@
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "Messenger-v583.0.0.29.95-HushMessenger-v0.24.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-17T00:29:58Z"
+    "timestamp": "2026-10-17T01:08:04Z"
   },
   "Facebook": {
     "patches_source": "SysAdminDoc/Hushfacebook",
@@ -70,9 +70,9 @@
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "TikTok-v47.1.4-HushFeed-v0.75.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-17T00:33:26Z"
+    "timestamp": "2026-10-17T01:43:08Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
@@ -163,5 +163,20 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-10-17T00:38:37Z"
+  },
+  "Telegram": {
+    "patches_source": "SysAdminDoc/HushTelegram",
+    "channel": "stable",
+    "patches_version": "v0.0.18",
+    "apk_version": "13.0.3",
+    "brand": "HushTelegram",
+    "arch": "arm64-v8a",
+    "stable_file": "Telegram-v13.0.3-HushTelegram-v0.0.18-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-17T01:06:31Z"
   }
 }

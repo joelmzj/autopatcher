@@ -56,7 +56,7 @@ build-mode = "apk"
 force-patch = false
 enable-patches = []
 exclude-patches = []
-apkmirror-dlurl = "https://www.apkmirror.com/apk/telegram-fz-llc/telegram/"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/telegram-fz-llc/telegram-web-version"
 
 [Pinterest]
 enabled = true

@@ -33,22 +33,22 @@ on:
         type: choice
         default: ""
         options:
-          # BEGIN: AUTO-GENERATED-APPS
-          - ""
-          - "*"
-          - "Instagram"
-          - "Telegram"
-          - "Pinterest"
-          - "Messenger"
-          - "Facebook"
-          - "TikTok"
-          - "YouTubeMusic-Morphe"
-          - "YouTubeMusic-anddea"
-          - "YouTube-Morphe"
-          - "YouTube-anddea"
-          - "YouTube-Tablet-anddea"
-          - "YouTube-Tablet-Morphe"
-          # END: AUTO-GENERATED-APPS
+                                        # BEGIN: AUTO-GENERATED-APPS
+                    - ""
+                    - "*"
+                    - "Instagram"
+                    - "Telegram"
+                    - "Pinterest"
+                    - "Messenger"
+                    - "Facebook"
+                    - "TikTok"
+                    - "YouTubeMusic-Morphe"
+                    - "YouTubeMusic-anddea"
+                    - "YouTube-Morphe"
+                    - "YouTube-anddea"
+                    - "YouTube-Tablet-anddea"
+                    - "YouTube-Tablet-Morphe"
+                    # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset. '*' = todas."
         required: false
