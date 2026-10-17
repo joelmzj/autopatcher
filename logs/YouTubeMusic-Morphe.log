@@ -1,7 +1,7 @@
 === Parcheo: YouTubeMusic-Morphe ===
-Fecha: 2026-10-17T04:24:58Z
+Fecha: 2026-10-17T11:29:47Z
 APK version: 9.20.53
-Patches version: v1.48.0-dev.9
+Patches version: v1.48.0-dev.10
 Patches source: MorpheApp/morphe-patches
 Channel: dev
 Brand: Morphe
@@ -21,10 +21,10 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/MorpheApp/morphe-patches/releases 
 INFO: GitHub: fetched 30 releases from MorpheApp/morphe-patches 
-INFO: Downloading patches from MorpheApp/morphe-patches v1.48.0-dev.9... 
-INFO: GitHub: downloading patches-1.48.0-dev.9.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v1.48.0-dev.9/patches-1.48.0-dev.9.mpp 
-INFO: GitHub: wrote 12354880 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.9__patches-1.48.0-dev.9.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.9__patches-1.48.0-dev.9.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Downloading patches from MorpheApp/morphe-patches v1.48.0-dev.10... 
+INFO: GitHub: downloading patches-1.48.0-dev.10.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v1.48.0-dev.10/patches-1.48.0-dev.10.mpp 
+INFO: GitHub: wrote 12493564 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.10__patches-1.48.0-dev.10.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.10__patches-1.48.0-dev.10.mpp. This file will be used on your next run as long as it is not deleted! 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.google.android.apps.youtube.music v9.20.53... 
@@ -89,12 +89,11 @@ INFO: Applied: Spoof app version
 INFO: Applied: Spoof video streams 
 INFO: Applied: Theme 
 INFO: Applied: Third-party lyrics 
-WARNING: res/values/strings.xml String morphe_music_lyrics_split_background_summary contains unescaped quotes: Moves a background vocal written in brackets, such as "(Oh) I want you", out of the sung line into a dimmer line of its own 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 6205 new classes to new DEX files 
-INFO: Processing 6205 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792211107974/patched/newDex 
-INFO: Stripped 330 modified classes from 5 original DEX files 
+INFO: Writing 6206 new classes to new DEX files 
+INFO: Processing 6206 classes in parallel (4 threads) 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792236597697/patched/newDex 
+INFO: Stripped 331 modified classes from 5 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
 INFO: Stripped 0 lib files 
@@ -103,22 +102,22 @@ INFO: Post-processing package name change
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 53697 of 156995 values in 99 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
+INFO: Encoded 55007 of 158305 values in 99 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
 INFO: Resource APK inputs: reusing 5124 unchanged archive entries, rebuilding 117 entries, dropping 0 entries 
-INFO: Resource APK scan: 1.6s write: 600ms 
+INFO: Resource APK scan: 1.7s write: 700ms 
 INFO: Moving 3 resource files 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.9-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792211107974 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.10-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792236597697 
 
 --- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/MorpheApp/morphe-patches/releases 
 INFO: GitHub: fetched 30 releases from MorpheApp/morphe-patches 
-INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.9__patches-1.48.0-dev.9.mpp 
+INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.10__patches-1.48.0-dev.10.mpp 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.google.android.apps.youtube.music v9.20.53... 
@@ -186,11 +185,10 @@ INFO: Applied: Theme
 INFO: Applied: Third-party lyrics 
 INFO: Mounted install app icon: black 
 INFO: Mounted install notification icon: black 
-WARNING: res/values/strings.xml String morphe_music_lyrics_split_background_summary contains unescaped quotes: Moves a background vocal written in brackets, such as "(Oh) I want you", out of the sung line into a dimmer line of its own 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 6100 new classes to new DEX files 
 INFO: Processing 6100 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792211130859/patched/newDex 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792236622184/patched/newDex 
 INFO: Stripped 225 modified classes from 5 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -199,17 +197,17 @@ INFO: Unescaping strings
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 53697 of 156995 values in 99 files, 117 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
+INFO: Encoded 55007 of 158305 values in 99 files, 117 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
 INFO: Resource APK inputs: reusing 5119 unchanged archive entries, rebuilding 119 entries, dropping 0 entries 
-INFO: Resource APK scan: 1.8s write: 700ms 
+INFO: Resource APK scan: 2.1s write: 600ms 
 INFO: Moving 3 resource files 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/temp/YouTubeMusic-Morphe/module.apk 
-INFO: Purged this session's temp files: patching-1792211130859 
+INFO: Purged this session's temp files: patching-1792236622184 
 
 --- Fin del parcheo ---
-APK final: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.9-arm64-v8a.apk
-Módulo: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.9-arm64-v8a.zip
-Fecha de fin: 2026-10-17T04:25:58Z
+APK final: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.10-arm64-v8a.apk
+Módulo: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.10-arm64-v8a.zip
+Fecha de fin: 2026-10-17T11:30:50Z
