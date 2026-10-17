@@ -117,6 +117,7 @@ jobs:
         id: build_step
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PATCHES_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           RELEASE_TAG: "stable"
           KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
