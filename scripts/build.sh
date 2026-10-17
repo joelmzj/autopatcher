@@ -380,6 +380,13 @@ for table_name in $(toml_get_table_names); do
 			pr "  force-patch activo: saltando verificación de versión"
 		fi
 
+		# 3e. channel_flag: --prerelease si el canal es "dev"
+		declare -a channel_flag=()
+		if [ "${app_args[channel]}" = "dev" ]; then
+			channel_flag=("--prerelease")
+			pr "  Canal 'dev': forzando parches pre-release (--prerelease)"
+		fi
+
 		# Escribir los args al log antes de invocar a morphe
 		{
 			echo "--- Argumentos de parches (${#morphe_patch_args[@]}) ---"
@@ -400,6 +407,7 @@ for table_name in $(toml_get_table_names); do
 		pr "Aplicando parches con Morphe CLI..."
 		java -jar "$MORPHE_CLI_JAR" patch \
 			-p="https://github.com/$patch_repo" \
+			"${channel_flag[@]}" \
 			-o="$patched_apk" \
 			--keystore="$RVB_KEYSTORE" \
 			--keystore-password="$RVB_KEYSTORE_PASS" \
@@ -459,6 +467,7 @@ for table_name in $(toml_get_table_names); do
 
 					java -jar "$MORPHE_CLI_JAR" patch \
 						-p="https://github.com/$patch_repo" \
+						"${channel_flag[@]}" \
 						-o="$module_apk_tmp" \
 						--keystore="$RVB_KEYSTORE" \
 						--keystore-password="$RVB_KEYSTORE_PASS" \
