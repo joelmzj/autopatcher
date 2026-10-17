@@ -1,1 +1,7 @@
-{}
+{
+  "Telegram": {
+    "first_failed_at": "2026-10-17T00:28:27Z",
+    "last_attempt_at": "2026-10-17T00:28:27Z",
+    "attempts": 1
+  }
+}
