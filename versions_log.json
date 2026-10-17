@@ -85,9 +85,9 @@
     "stable_zip": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.9-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
-    "timestamp": "2026-10-17T00:34:12Z"
+    "prev_stable_file": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.9-arm64-v8a.apk",
+    "prev_stable_zip": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.9-arm64-v8a.zip",
+    "timestamp": "2026-10-17T04:09:36Z"
   },
   "YouTubeMusic-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -100,9 +100,9 @@
     "stable_zip": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
-    "timestamp": "2026-10-17T00:35:00Z"
+    "prev_stable_file": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.apk",
+    "prev_stable_zip": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.zip",
+    "timestamp": "2026-10-17T04:10:38Z"
   },
   "YouTube-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
