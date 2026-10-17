@@ -126,6 +126,17 @@ for table_name in $(toml_get_table_names); do
 	if [ -z "$table_name" ]; then continue; fi
 
 	# ==========================================================================
+	# Detección de reintento EN EL PADRE. La subshell la hereda por ambiente,
+	# y así el `); then` puede leerla al evaluar el resultado.
+	# ==========================================================================
+	was_failed_before=false
+	if jq -e --arg app "$table_name" 'has($app)' "$FAILED_APPS_FILE" >/dev/null 2>&1; then
+		was_failed_before=true
+		prev_attempts=$(jq -r --arg app "$table_name" '.[$app].attempts // 0' "$FAILED_APPS_FILE")
+		pr "App '$table_name' en lista de fallos (intentos previos: $prev_attempts). Reintentando..."
+	fi
+
+	# ==========================================================================
 	# SUBSHELL envuelta en `if` para que set -e no mate al padre cuando la
 	# subshell retorna non-zero. El cuerpo se ejecuta en un proceso hijo:
 	# un fallo dentro solo mata al hijo, no a la run completa.
@@ -183,16 +194,6 @@ for table_name in $(toml_get_table_names); do
 			else
 				abort "No se pudo resolver la versión desde patches-list.json para $table_name (paquete: ${app_args[pkg_name]})."
 			fi
-		fi
-
-		# ==================================================================
-		# ¿Esta app quedó fallida en un run anterior? Si sí, forzar reintento.
-		# ==================================================================
-		was_failed_before=false
-		if jq -e --arg app "$table_name" 'has($app)' "$FAILED_APPS_FILE" >/dev/null 2>&1; then
-			was_failed_before=true
-			prev_attempts=$(jq -r --arg app "$table_name" '.[$app].attempts // 0' "$FAILED_APPS_FILE")
-			pr "  App '$table_name' en lista de fallos (intentos previos: $prev_attempts). Reintentando..."
 		fi
 
 		# ==================================================================
