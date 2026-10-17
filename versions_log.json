@@ -63,16 +63,16 @@
     "patches_source": "SysAdminDoc/hushfeed",
     "channel": "stable",
     "patches_version": "v0.75.0",
-    "apk_version": "47.1.4",
+    "apk_version": "47.4.3",
     "brand": "HushFeed",
     "arch": "arm64-v8a",
-    "stable_file": "TikTok-v47.1.4-HushFeed-v0.75.0-arm64-v8a.apk",
+    "stable_file": "TikTok-v47.4.3-HushFeed-v0.75.0-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "TikTok-v47.1.4-HushFeed-v0.75.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-17T04:24:57Z"
+    "timestamp": "2026-10-17T23:51:29Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
