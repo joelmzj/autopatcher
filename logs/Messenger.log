@@ -1,5 +1,5 @@
 === Parcheo: Messenger ===
-Fecha: 2026-10-17T00:28:58Z
+Fecha: 2026-10-17T01:06:33Z
 APK version: 583.0.0.29.95
 Patches version: v0.24.0
 Patches source: SysAdminDoc/HushMessenger
@@ -11,8 +11,8 @@ Force patch: false
 Inclusive patches: true
 
 --- Argumentos de parches (3) ---
-  -e=Clone install under another package name
-  -e=Custom new-message sound
+  -d=Clone install under another package name
+  -d=Custom new-message sound
   -e=Spoof package version
 
 --- Salida de Morphe CLI (APK principal) ---
@@ -27,7 +27,9 @@ INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.facebook.orca v583.0.0.29.95... 
-INFO: Applying 57 patches... 
+INFO: Skipping disabled: Clone install under another package name 
+INFO: Skipping disabled: Custom new-message sound 
+INFO: Applying 55 patches... 
 INFO: Deleting existing temporary files directory 
 INFO: Decoding all resources 
 INFO: Leaving 28 native library files in the input APK 
@@ -38,8 +40,6 @@ INFO: Applied: Allow chat bubbles
 INFO: Applied: Allow screenshots 
 INFO: Applied: Auto reply 
 INFO: Applied: Bold and italic text 
-INFO: Applied: Clone install under another package name 
-INFO: Applied: Custom new-message sound 
 INFO: Applied: Fix shared videos with xHE-AAC sound 
 INFO: Applied: Hide AI sticker tools 
 INFO: Applied: Hide Chat Moments 
@@ -93,27 +93,26 @@ INFO: Applied: Use the phone's camera app
 INFO: Applied: Use your own font 
 INFO: Applied: View stories anonymously 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 692 new classes to new DEX files 
-INFO: Processing 692 classes (single threaded mode) 
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792196949197/patched/newDex 
-INFO: Stripped 548 modified classes from 15 original DEX files 
+INFO: Writing 687 new classes to new DEX files 
+INFO: Processing 687 classes (single threaded mode) 
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792199213720/patched/newDex 
+INFO: Stripped 543 modified classes from 15 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
 INFO: Stripped 0 lib files 
 INFO: Unescaping strings 
-INFO: Post-processing package name change 
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
 INFO: Encoded 2 of 664 values in 1 files, 4280 resource files and 0 configurations of patches for com.facebook.orca 
 INFO: Resource APK inputs: reusing 5143 unchanged archive entries, rebuilding 4282 entries, dropping 0 entries 
-INFO: Resource APK scan: 300ms write: 1.9s 
+INFO: Resource APK scan: 600ms write: 3.2s 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Messenger-v583.0.0.29.95-HushMessenger-v0.24.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792196949197 
+INFO: Purged this session's temp files: patching-1792199213720 
 
 --- Fin del parcheo ---
 APK final: build/Messenger-v583.0.0.29.95-HushMessenger-v0.24.0-arm64-v8a.apk
-Fecha de fin: 2026-10-17T00:29:58Z
+Fecha de fin: 2026-10-17T01:08:04Z
