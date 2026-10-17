@@ -1,5 +1,5 @@
 === Parcheo: Instagram ===
-Fecha: 2026-10-17T00:26:52Z
+Fecha: 2026-10-17T03:59:19Z
 APK version: 451.0.0.53.80
 Patches version: v0.0.12
 Patches source: SysAdminDoc/HushGram
@@ -11,8 +11,8 @@ Force patch: false
 Inclusive patches: true
 
 --- Argumentos de parches (5) ---
+  -d=Install next to Instagram
   -e=Change version code
-  -e=Install next to Instagram
   -e=Open developer options
   -e=Pure black dark mode
   -e=View DM photos and videos anonymously
@@ -29,7 +29,8 @@ INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.instagram.android v451.0.0.53.80... 
-INFO: Applying 106 patches... 
+INFO: Skipping disabled: Install next to Instagram 
+INFO: Applying 105 patches... 
 INFO: Deleting existing temporary files directory 
 INFO: Decoding all resources 
 INFO: Leaving 38 native library files in the input APK 
@@ -141,29 +142,27 @@ INFO: Applied: Upload stories at full quality
 INFO: Applied: View DM photos and videos anonymously 
 INFO: Applied: View live anonymously 
 INFO: Applied: View stories anonymously 
-INFO: Applied: Install next to Instagram 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 2440 new classes to new DEX files 
-INFO: Processing 2440 classes in parallel (4 threads) 
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792196839380/patched/newDex 
-INFO: Stripped 671 modified classes from 21 original DEX files 
+INFO: Writing 2389 new classes to new DEX files 
+INFO: Processing 2389 classes in parallel (4 threads) 
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792209584728/patched/newDex 
+INFO: Stripped 620 modified classes from 20 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
 INFO: Stripped 0 lib files 
 INFO: Unescaping strings 
-INFO: Post-processing package name change 
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 5473 of 5473 values in 3 files, 1 resource files and 0 configurations of patches for com.instagram.android 
+INFO: Encoded 5474 of 5474 values in 3 files, 1 resource files and 0 configurations of patches for com.instagram.android 
 INFO: Resource APK inputs: reusing 24224 unchanged archive entries, rebuilding 3 entries, dropping 0 entries 
-INFO: Resource APK scan: 500ms write: 1.4s 
+INFO: Resource APK scan: 800ms write: 1.5s 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Instagram-v451.0.0.53.80-HushGram-v0.0.12-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792196839380 
+INFO: Purged this session's temp files: patching-1792209584728 
 
 --- Fin del parcheo ---
 APK final: build/Instagram-v451.0.0.53.80-HushGram-v0.0.12-arm64-v8a.apk
-Fecha de fin: 2026-10-17T00:28:05Z
+Fecha de fin: 2026-10-17T04:00:36Z
