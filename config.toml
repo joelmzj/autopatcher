@@ -40,7 +40,7 @@ inclusive-patches = true
 build-mode = "apk"
 force-patch = false
 enable-patches = []
-exclude-patches = []
+exclude-patches = ["Install next to Instagram"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/instagram/instagram-instagram"
 
 [Telegram]
