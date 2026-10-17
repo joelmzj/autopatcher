@@ -56,7 +56,7 @@ build-mode = "apk"
 force-patch = false
 enable-patches = []
 exclude-patches = []
-apkmirror-dlurl = "https://www.apkmirror.com/apk/telegram-fz-llc/telegram-web-version/"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/telegram-fz-llc/telegram/"
 
 [Pinterest]
 enabled = true
@@ -85,7 +85,7 @@ inclusive-patches = true
 build-mode = "apk"
 force-patch = false
 enable-patches = []
-exclude-patches = []
+exclude-patches = ["Clone install under another package name", "Custom new-message sound"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/facebook-2/messenger"
 
 [Facebook]
@@ -115,7 +115,7 @@ inclusive-patches = true
 build-mode = "apk"
 force-patch = false
 enable-patches = []
-exclude-patches = []
+exclude-patches = ["Change app name", "Custom launcher icon"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly"
 
 [YouTubeMusic-Morphe]
