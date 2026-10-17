@@ -14,7 +14,7 @@ on:
         type: choice
         default: ""
         options:
-          # BEGIN: AUTO-GENERATED-APPS
+                    # BEGIN: AUTO-GENERATED-APPS
           - ""
           - "*"
           - "Instagram"
