@@ -182,12 +182,12 @@ enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://apkmirror.com/apk/google-inc/youtube"
 
-[YouTube-Tablet-anddea]
+[YouTube-Tablet-Morphe]
 enabled = true
 pkg-name = "com.google.android.youtube"
 app-name = "YouTube"
-patches-source = "anddea/revanced-patches"
-brand = "anddea"
+patches-source = "MorpheApp/morphe-patches"
+brand = "Morphe"
 arch = "arm64-v8a"
 channel = "dev"
 inclusive-patches = true
@@ -198,12 +198,12 @@ enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube/youtube-20-21-37-release/"
 
-[YouTube-Tablet-Morphe]
+[YouTube-Tablet-anddea]
 enabled = true
 pkg-name = "com.google.android.youtube"
 app-name = "YouTube"
-patches-source = "MorpheApp/morphe-patches"
-brand = "Morphe"
+patches-source = "anddea/revanced-patches"
+brand = "anddea"
 arch = "arm64-v8a"
 channel = "dev"
 inclusive-patches = true
