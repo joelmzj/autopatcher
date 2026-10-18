@@ -1,5 +1,5 @@
 === Parcheo: Telegram ===
-Fecha: 2026-10-18T03:29:37Z
+Fecha: 2026-10-18T08:39:14Z
 APK version: 13.0.3
 Patches version: v0.0.19
 Patches source: SysAdminDoc/HushTelegram
@@ -10,3 +10,119 @@ Build mode: apk
 Force patch: false
 Inclusive patches: true
 
+--- Argumentos de parches (4) ---
+  -e=Black and white launch logo
+  -e=HushTelegram icon and name
+  -e=Use registered Maps API key
+  -e=Use registered Telegram API credentials
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
+INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/HushTelegram/releases 
+INFO: GitHub: fetched 10 releases from SysAdminDoc/HushTelegram 
+INFO: Downloading patches from SysAdminDoc/HushTelegram v0.0.19... 
+INFO: GitHub: downloading patches-0.0.19.mpp from https://github.com/SysAdminDoc/HushTelegram/releases/download/v0.0.19/patches-0.0.19.mpp 
+INFO: GitHub: wrote 3557580 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushTelegram/v0.0.19__patches-0.0.19.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushTelegram/v0.0.19__patches-0.0.19.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Loading patches... 
+INFO: Initializing patcher... 
+INFO: Filtering patches for org.telegram.messenger v13.0.3... 
+INFO: Applying 67 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 12 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
+INFO: Executing patches 
+INFO: Applied: AMOLED black 
+INFO: Applied: Add Repeat to the message menu 
+INFO: Applied: Allow chat blur on slower phones 
+INFO: Applied: Ask before sending a sticker 
+INFO: Applied: Black and white launch logo 
+INFO: Applied: Change sticker size 
+INFO: Applied: Disable analytics 
+INFO: Applied: Disable call debug upload 
+INFO: Applied: Disable chat swipe actions 
+INFO: Applied: Disable double-tap reactions 
+INFO: Applied: Disable draft link previews 
+INFO: Applied: Disable pull to archive 
+INFO: Applied: Disable pull to next channel 
+INFO: Applied: Disable update checks 
+INFO: Applied: Exact numbers 
+INFO: Applied: Faster downloads 
+INFO: Applied: Folders by chat type 
+INFO: Applied: Gallery camera on tap 
+INFO: Applied: Hide Contacts tab 
+INFO: Applied: Hide Premium, gifts and Stars 
+INFO: Applied: Hide Send as button 
+INFO: Applied: Hide Stories 
+INFO: Applied: Hide Telegram Features and Invite Friends 
+INFO: Applied: Hide ads 
+INFO: Applied: Hide blocked users in groups 
+INFO: Applied: Hide channel bar buttons 
+INFO: Applied: Hide contacts on Telegram 
+INFO: Applied: Hide folder tab counters 
+INFO: Applied: Hide gallery camera tile 
+INFO: Applied: Hide greeting stickers 
+INFO: Applied: Hide keyboard on scroll 
+INFO: Applied: Hide messages by keyword 
+INFO: Applied: Hide phone number 
+INFO: Applied: Hide popular apps 
+INFO: Applied: Hide promotional banners 
+INFO: Applied: Hide recommendations 
+INFO: Applied: Hide sender names when forwarding 
+INFO: Applied: Hide sponsored proxy channel 
+INFO: Applied: Hide time on stickers 
+INFO: Applied: Hide translate bar 
+INFO: Applied: Holiday look all year 
+INFO: Applied: HushTelegram icon and name 
+INFO: Applied: HushTelegram settings 
+INFO: Applied: Ignore mentions in muted chats 
+INFO: Applied: Keep deleted messages 
+INFO: Applied: Keep videos muted on volume keys 
+INFO: Applied: Message times with seconds 
+INFO: Applied: Open links externally 
+INFO: Applied: Play voice messages one at a time 
+INFO: Applied: Quiet contacts nag 
+INFO: Applied: Repair Firebase push registration 
+INFO: Applied: Reveal spoilers 
+INFO: Applied: Save downloaded files 
+INFO: Applied: Show user and chat IDs 
+INFO: Applied: Silence people outside your contacts 
+INFO: Applied: Start the camera on the rear lens 
+INFO: Applied: Strip link tracking 
+INFO: Applied: Swipe back on profiles 
+INFO: Applied: Translate with an outside service 
+INFO: Applied: Turn off haptic feedback 
+INFO: Applied: Turn off reaction effects 
+INFO: Applied: UnifiedPush notifications 
+INFO: Applied: Use normal paste 
+INFO: Applied: Use registered Maps API key 
+INFO: Applied: Use registered Telegram API credentials 
+INFO: Applied: Use system font 
+INFO: Applied: Voice messages in the music player 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 1139 new classes to new DEX files 
+INFO: Processing 1139 classes (single threaded mode) 
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792312763948/patched/newDex 
+INFO: Stripped 344 modified classes from 4 original DEX files 
+INFO: Compiling modified resources 
+INFO: Stripping libs (keeping architectures arm64-v8a) 
+INFO: Stripped 6 lib files 
+INFO: Unescaping strings 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 8 of 8 values in 2 files, 18 resource files and 0 configurations of patches for org.telegram.messenger 
+INFO: Resource APK inputs: reusing 7316 unchanged archive entries, rebuilding 20 entries, dropping 6 entries 
+INFO: Resource APK scan: 200ms write: 500ms 
+INFO: Using compiled resource APK as output base 
+INFO: Aligning APK 
+INFO: Signing APK 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Telegram-v13.0.3-HushTelegram-v0.0.19-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792312763948 
+
+--- Fin del parcheo ---
+APK final: build/Telegram-v13.0.3-HushTelegram-v0.0.19-arm64-v8a.apk
+Fecha de fin: 2026-10-18T08:39:52Z

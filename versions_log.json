@@ -163,5 +163,20 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-10-17T04:32:13Z"
+  },
+  "Telegram": {
+    "patches_source": "SysAdminDoc/HushTelegram",
+    "channel": "stable",
+    "patches_version": "v0.0.19",
+    "apk_version": "13.0.3",
+    "brand": "HushTelegram",
+    "arch": "arm64-v8a",
+    "stable_file": "Telegram-v13.0.3-HushTelegram-v0.0.19-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-18T08:39:52Z"
   }
 }
