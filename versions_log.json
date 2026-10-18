@@ -18,16 +18,16 @@
     "patches_source": "SysAdminDoc/HushPinterest",
     "channel": "stable",
     "patches_version": "v0.0.11",
-    "apk_version": "14.40.0",
+    "apk_version": "14.41.0",
     "brand": "HushPinterest",
     "arch": "arm64-v8a",
-    "stable_file": "Pinterest-v14.40.0-HushPinterest-v0.0.11-arm64-v8a.apk",
+    "stable_file": "Pinterest-v14.41.0-HushPinterest-v0.0.11-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "Pinterest-v14.40.0-HushPinterest-v0.0.11-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-17T04:18:36Z"
+    "timestamp": "2026-10-18T03:31:09Z"
   },
   "Messenger": {
     "patches_source": "SysAdminDoc/HushMessenger",

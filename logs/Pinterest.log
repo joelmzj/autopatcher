@@ -1,6 +1,6 @@
 === Parcheo: Pinterest ===
-Fecha: 2026-10-17T04:17:59Z
-APK version: 14.40.0
+Fecha: 2026-10-18T03:30:42Z
+APK version: 14.41.0
 Patches version: v0.0.11
 Patches source: SysAdminDoc/HushPinterest
 Channel: stable
@@ -24,64 +24,46 @@ INFO: GitHub: wrote 1610580 bytes to /home/runner/work/autopatcher/autopatcher/t
 INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushPinterest/v0.0.11__patches-0.0.11.mpp. This file will be used on your next run as long as it is not deleted! 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
-INFO: Filtering patches for com.pinterest v14.40.0... 
-INFO: Applying 29 patches... 
-INFO: Deleting existing temporary files directory 
-INFO: Decoding all resources 
-INFO: Leaving 76 native library files in the input APK 
-INFO: Sanitizing unpatched strings 
-INFO: Escaping strings 
+INFO: Filtering patches for com.pinterest v14.41.0... 
+WARNING: Skipping "Download board": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Download pins": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Open links in your browser": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Long-press download": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "System share sheet": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide ads": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide AI-labeled pins": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide shopping and product pins": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "HushPinterest settings": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Fix push notifications": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Disable analytics": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Spoof signature for Google sign-in": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide advertising ID": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Remove ad tracking permissions": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Strip link tracking": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "AMOLED black": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Disable update nag": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide closeup buttons": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide comments": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide header buttons": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide navigation buttons": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Filter pin menu": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide save toasts": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "No screenshot share menu": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide search history": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide survey prompts": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Hide topic suggestions": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Original-quality images": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+WARNING: Skipping "Quiet email reminders": incompatible with com.pinterest 14.41.0 (supported: com.pinterest 14.40.0) 
+INFO: Applying 0 patches... 
 INFO: Executing patches 
-INFO: Applied: AMOLED black 
-INFO: Applied: Disable analytics 
-INFO: Applied: Disable update nag 
-INFO: Applied: Download board 
-INFO: Applied: Download pins 
-INFO: Applied: Filter pin menu 
-INFO: Applied: Fix push notifications 
-INFO: Applied: Hide AI-labeled pins 
-INFO: Applied: Hide ads 
-INFO: Applied: Hide advertising ID 
-INFO: Applied: Hide closeup buttons 
-INFO: Applied: Hide comments 
-INFO: Applied: Hide header buttons 
-INFO: Applied: Hide navigation buttons 
-INFO: Applied: Hide save toasts 
-INFO: Applied: Hide search history 
-INFO: Applied: Hide shopping and product pins 
-INFO: Applied: Hide survey prompts 
-INFO: Applied: Hide topic suggestions 
-INFO: Applied: HushPinterest settings 
-INFO: Applied: Long-press download 
-INFO: Applied: No screenshot share menu 
-INFO: Applied: Open links in your browser 
-INFO: Applied: Original-quality images 
-INFO: Applied: Quiet email reminders 
-INFO: Applied: Remove ad tracking permissions 
-INFO: Applied: Spoof signature for Google sign-in 
-INFO: Applied: Strip link tracking 
-INFO: Applied: System share sheet 
-INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 761 new classes to new DEX files 
-INFO: Processing 761 classes (single threaded mode) 
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792210688444/patched/newDex 
-INFO: Stripped 168 modified classes from 7 original DEX files 
-INFO: Compiling modified resources 
+INFO: Compiling patched dex files (mode: NONE) 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
-INFO: Stripped 51 lib files 
-INFO: Unescaping strings 
-INFO: Processing aapt macros 
-INFO: Generating new resource IDs 
-INFO: Writing resource APK 
-INFO: Encoded 18 of 6662 values in 1 files, 0 resource files and 0 configurations of patches for com.pinterest 
-INFO: Resource APK inputs: reusing 7345 unchanged archive entries, rebuilding 2 entries, dropping 51 entries 
-INFO: Resource APK scan: 1.4s write: 500ms 
-INFO: Using compiled resource APK as output base 
+INFO: Stripped 0 lib files 
 INFO: Aligning APK 
 INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pinterest-v14.40.0-HushPinterest-v0.0.11-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792210688444 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pinterest-v14.41.0-HushPinterest-v0.0.11-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792294268230 
 
 --- Fin del parcheo ---
-APK final: build/Pinterest-v14.40.0-HushPinterest-v0.0.11-arm64-v8a.apk
-Fecha de fin: 2026-10-17T04:18:36Z
+APK final: build/Pinterest-v14.41.0-HushPinterest-v0.0.11-arm64-v8a.apk
+Fecha de fin: 2026-10-18T03:31:09Z
