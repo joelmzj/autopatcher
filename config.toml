@@ -55,7 +55,7 @@ inclusive-patches = true
 build-mode = "apk"
 force-patch = false
 enable-patches = []
-exclude-patches = []
+exclude-patches = ["HushTelegram icon and name"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/telegram-fz-llc/telegram-web-version"
 
 [Pinterest]
