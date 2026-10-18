@@ -1,5 +1,5 @@
 === Parcheo: Telegram ===
-Fecha: 2026-10-18T08:39:14Z
+Fecha: 2026-10-18T12:25:48Z
 APK version: 13.0.3
 Patches version: v0.0.19
 Patches source: SysAdminDoc/HushTelegram
@@ -11,8 +11,8 @@ Force patch: false
 Inclusive patches: true
 
 --- Argumentos de parches (4) ---
+  -d=HushTelegram icon and name
   -e=Black and white launch logo
-  -e=HushTelegram icon and name
   -e=Use registered Maps API key
   -e=Use registered Telegram API credentials
 
@@ -28,7 +28,8 @@ INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for org.telegram.messenger v13.0.3... 
-INFO: Applying 67 patches... 
+INFO: Skipping disabled: HushTelegram icon and name 
+INFO: Applying 66 patches... 
 INFO: Deleting existing temporary files directory 
 INFO: Decoding all resources 
 INFO: Leaving 12 native library files in the input APK 
@@ -76,7 +77,6 @@ INFO: Applied: Hide sponsored proxy channel
 INFO: Applied: Hide time on stickers 
 INFO: Applied: Hide translate bar 
 INFO: Applied: Holiday look all year 
-INFO: Applied: HushTelegram icon and name 
 INFO: Applied: HushTelegram settings 
 INFO: Applied: Ignore mentions in muted chats 
 INFO: Applied: Keep deleted messages 
@@ -105,7 +105,7 @@ INFO: Applied: Voice messages in the music player
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 1139 new classes to new DEX files 
 INFO: Processing 1139 classes (single threaded mode) 
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792312763948/patched/newDex 
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792326355743/patched/newDex 
 INFO: Stripped 344 modified classes from 4 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -114,15 +114,15 @@ INFO: Unescaping strings
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 8 of 8 values in 2 files, 18 resource files and 0 configurations of patches for org.telegram.messenger 
-INFO: Resource APK inputs: reusing 7316 unchanged archive entries, rebuilding 20 entries, dropping 6 entries 
-INFO: Resource APK scan: 200ms write: 500ms 
+INFO: Encoded 8 of 8 values in 2 files, 2 resource files and 0 configurations of patches for org.telegram.messenger 
+INFO: Resource APK inputs: reusing 7316 unchanged archive entries, rebuilding 4 entries, dropping 6 entries 
+INFO: Resource APK scan: 100ms write: 300ms 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Telegram-v13.0.3-HushTelegram-v0.0.19-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792312763948 
+INFO: Purged this session's temp files: patching-1792326355743 
 
 --- Fin del parcheo ---
 APK final: build/Telegram-v13.0.3-HushTelegram-v0.0.19-arm64-v8a.apk
-Fecha de fin: 2026-10-18T08:39:52Z
+Fecha de fin: 2026-10-18T12:26:14Z
