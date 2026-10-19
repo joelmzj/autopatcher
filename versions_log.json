@@ -208,5 +208,20 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-10-19T20:19:33Z"
+  },
+  "SDMaid": {
+    "patches_source": "rushiranpise/morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.23.0",
+    "apk_version": "2.0.3-rc0",
+    "brand": "rushiranpise",
+    "arch": "arm64-v8a",
+    "stable_file": "SDMaid-v2.0.3-rc0-rushiranpise-v1.23.0-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-19T21:00:46Z"
   }
 }
