@@ -192,7 +192,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-19T20:10:20Z"
+    "timestamp": "2026-10-19T20:18:51Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
@@ -207,6 +207,6 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-19T20:01:53Z"
+    "timestamp": "2026-10-19T20:19:33Z"
   }
 }

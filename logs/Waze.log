@@ -1,5 +1,5 @@
 === Parcheo: Waze ===
-Fecha: 2026-10-19T20:01:23Z
+Fecha: 2026-10-19T20:18:52Z
 APK version: 5.24.5.0
 Patches version: v2.5.5
 Patches source: bearinmindcat/morphe-patches
@@ -61,7 +61,7 @@ INFO: Applied: Stay awake in the background
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 30 new classes to new DEX files 
 INFO: Processing 30 classes (single threaded mode) 
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792440103506/patched/newDex 
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792441150614/patched/newDex 
 INFO: Stripped 8 modified classes from 3 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -72,14 +72,24 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK 
 INFO: Encoded 90 of 90 values in 1 files, 1 resource files and 0 configurations of patches for com.waze 
 INFO: Resource APK inputs: reusing 5170 unchanged archive entries, rebuilding 3 entries, dropping 0 entries 
-INFO: Resource APK scan: 300ms write: 700ms 
+INFO: Resource APK scan: 400ms write: 600ms 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Waze-v5.24.5.0-bearinmindcat-v2.5.5-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792440103506 
+INFO: Purged this session's temp files: patching-1792441150614 
+
+--- Contenido de module.prop ---
+id=waze-stable-arm64
+name=Waze (bearinmindcat)
+version=v5.24.5.0 (patches v2.5.5.mpp)
+versionCode=20261019
+author=joelmzj
+description=Waze (bearinmindcat) module
+updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/waze-arm64.json
+--------------------------------
 
 --- Fin del parcheo ---
 APK final: build/Waze-v5.24.5.0-bearinmindcat-v2.5.5-arm64-v8a.apk
 Módulo: build/Waze-v5.24.5.0-bearinmindcat-v2.5.5-arm64-v8a.zip
-Fecha de fin: 2026-10-19T20:01:53Z
+Fecha de fin: 2026-10-19T20:19:33Z
