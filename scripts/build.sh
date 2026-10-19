@@ -484,10 +484,10 @@ for table_name in $(toml_get_table_names); do
 		} >> "$app_log"
 
 		# ==================================================================
-		# 🕵️‍♂️ PRUEBA DE RECONOCIMIENTO: Listar parches (Solo para X-new)
+		# 🕵️‍♂️ PRUEBA DE RECONOCIMIENTO: Listar parches (Solo en runs manuales)
 		# ==================================================================
-		if [ "$table_name" = "X-new" ]; then
-			pr "--- INICIO TEST: Listando parches con morphe-cli ---"
+		if [ "$_force_this" = "true" ]; then
+			pr "--- INICIO TEST: Listando parches con morphe-cli para $table_name ---"
 			{
 				echo ""
 				echo "=== TEST: SALIDA DE list-patches para $table_name ==="
