@@ -1,8 +1,8 @@
 {
   "Telegram": {
     "first_failed_at": "2026-10-19T17:13:27Z",
-    "last_attempt_at": "2026-10-19T17:13:27Z",
-    "attempts": 1
+    "last_attempt_at": "2026-10-19T17:29:44Z",
+    "attempts": 2
   },
   "YouTubeMusic-Morphe": {
     "first_failed_at": "2026-10-19T17:13:41Z",
