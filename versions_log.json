@@ -223,5 +223,20 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-10-19T21:00:46Z"
+  },
+  "Nova-Launcher": {
+    "patches_source": "rushiranpise/morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.23.0",
+    "apk_version": "8.8.8",
+    "brand": "rushiranpise",
+    "arch": "arm64-v8a",
+    "stable_file": "Nova-Launcher-v8.8.8-rushiranpise-v1.23.0-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-19T21:14:09Z"
   }
 }
