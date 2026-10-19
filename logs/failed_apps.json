@@ -1,1 +1,7 @@
-{}
+{
+  "X-new": {
+    "first_failed_at": "2026-10-19T23:10:09Z",
+    "last_attempt_at": "2026-10-19T23:10:09Z",
+    "attempts": 1
+  }
+}
