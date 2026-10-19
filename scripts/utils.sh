@@ -521,29 +521,12 @@ dl_apkmirror() {
         done
 
         # --------------------------------------------------------------
-        # FALLBACK: construir URL de release directamente si no se halló
-        # en uploads. Formato: {base_url}/{slug}-{version_dashed}-release/
+        # Si llegamos aquí, la versión no estaba en las 15 páginas.
+        # Fallback eliminado para evitar falsos positivos.
         # --------------------------------------------------------------
         if [ -z "$release_url" ]; then
-            local base_slug="${url%/}"
-            base_slug="${base_slug##*/}"
-            local dashed_version="${clean_version//./-}"
-            local fallback_url="${url%/}/${base_slug}-${dashed_version}-release/"
-
-            pr "  → Versión no encontrada en uploads. Probando URL directa:"
-            pr "    $fallback_url"
-
-            local test_html
-            test_html=$(python3 "$cf_py" "$fallback_url" 2>/dev/null) || true
-            if [ -n "$test_html" ] && \
-			   ! echo "$test_html" | grep -qiE 'page not found|404 not found|sorry, the page you were looking for' && \
-			   echo "$test_html" | grep -qE 'android-apk-download/'; then
-				release_url="$fallback_url"
-				pr "  → URL directa válida"
-			else
-				epr "No se encontró la versión '$clean_version' (ni en uploads ni por URL directa)"
-				return 1
-			fi
+            epr "No se encontró la versión '$clean_version' en las páginas de APKMirror"
+            return 1
         fi
     fi
 
