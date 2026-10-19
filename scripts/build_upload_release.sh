@@ -116,8 +116,15 @@ promoted=0
 while IFS=$'\t' read -r app stable_file stable_zip snapshot_file snapshot_zip prev_stable_file prev_stable_zip; do
     [ -z "$app" ] && continue
 
-    # Solo apps recompiladas en este run (si no está el apk ni el zip en el manifest, se salta)
-    if [ -z "${manifest_set[$stable_file]:-}" ] && [ -z "${manifest_set[$stable_zip]:-}" ]; then
+    # Solo apps recompiladas en este run
+    app_is_compiled=false
+    if [ -n "$stable_file" ] && [ "${manifest_set[$stable_file]+_}" ]; then
+        app_is_compiled=true
+    elif [ -n "$stable_zip" ] && [ "${manifest_set[$stable_zip]+_}" ]; then
+        app_is_compiled=true
+    fi
+
+    if [ "$app_is_compiled" = "false" ]; then
         continue
     fi
 
