@@ -76,11 +76,6 @@ def _parse_variant(html: str, match) -> dict:
     dpi         = celdas[2].strip() if len(celdas) > 2 else ""
 
     # Version code
-    # El HTML real de APKMirror tiene saltos de línea entre <span y class="...",
-    # y el valor aparece como <span class="colorLightBlack">1561301413</span>
-    # con posibles espacios/saltos de línea antes del número.
-    # Se exige que el contenido sea SOLO dígitos (5+), lo que descarta el
-    # span hermano que contiene la fecha ("October 15, 2026").
     vc = ""
     m = re.search(r'class="colorLightBlack"[^>]*>\s*(\d{5,})\s*<', window)
     if m:
@@ -116,10 +111,6 @@ def _arch_pasa(variant_arch: str, target_arch: str) -> bool:
 # ---------------------------------------------------------------------------
 
 def _elegir_mejor(candidatos: list, use_vc_priority: bool = False):
-    """
-    use_vc_priority=True  → desempate por versionCode más alto (bundle con whitelist)
-    use_vc_priority=False → desempate tradicional: nodpi > 480dpi > menos splits > vc
-    """
     if not candidatos:
         return None
 
@@ -135,7 +126,6 @@ def _elegir_mejor(candidatos: list, use_vc_priority: bool = False):
         return None
 
     if use_vc_priority:
-        # Bundle publica whitelist → el versionCode es lo que importa
         grupo.sort(key=lambda c: (int(c["vc"] or 0), -c["splits"]), reverse=True)
         return grupo[0]
 
@@ -206,7 +196,6 @@ def cmd_variant():
                 f"WARN: whitelist de {len(priority_vcs)} codes no coincide con ninguna variante",
                 file=sys.stderr,
             )
-            # Diagnóstico: ver exactamente qué vcs hay vs. qué whitelist se buscaba
             vcs_presentes = sorted(set(v["vc"] or "?" for v in pasan))
             print(f"WARN: vcs presentes en el HTML: {', '.join(vcs_presentes)}", file=sys.stderr)
             print(f"WARN: whitelist buscada: {', '.join(sorted(priority_vcs))}", file=sys.stderr)
@@ -433,11 +422,8 @@ def cmd_vers():
 def cmd_next():
     """
     Extrae la URL de la página siguiente de uploads.
-
-    IMPORTANTE: el orden de los patrones importa. Los patrones específicos
-    de "siguiente" (rel="next", class="nextpostslink") deben ir ANTES del
-    patrón genérico de /uploads/page/N/, que también matchea enlaces "prev"
-    y números de página (causando ping-pong entre páginas).
+    Solo busca el botón explícito de "Siguiente" para evitar loops infinitos
+    y que el sidebar nos lleve a categorías equivocadas.
     """
     html = sys.stdin.read()
     if not html:
@@ -445,29 +431,27 @@ def cmd_next():
         sys.exit(1)
 
     patterns = [
-        # 1) WordPress wp-pagenavi: <a class="nextpostslink" rel="next" href="...">
-        r'<a[^>]*class="[^"]*nextpostslink[^"]*"[^>]*rel="next"[^>]*href="([^"]+)"',
-        r'<a[^>]*rel="next"[^>]*class="[^"]*nextpostslink[^"]*"[^>]*href="([^"]+)"',
-        # 2) rel="next" en cualquier orden
-        r'rel="next"[^>]*href="([^"]+)"',
-        r'href="([^"]+)"[^>]*rel="next"',
-        # 3) class="nextpostslink" sin rel
-        r'class="[^"]*nextpostslink[^"]*"[^>]*href="([^"]+)"',
-        # 4) Clases "next" o "pagination-next" (otros themes)
-        r'class="[^"]*(?:next|pagination-next)[^"]*"[^>]*href="([^"]+)"',
-        # 5) Fallback final: cualquier href a /uploads/page/N/
-        r'href="([^"]*uploads/page/\d+/\?appcategory=[^"]*)"',
+        # 1) class="nextpostslink" o class="... next ..."
+        r'<a[^>]*class="[^"]*(?:nextpostslink|next)[^"]*"[^>]*href="([^"]+)"',
+        # 2) Lo mismo pero con href antes de class
+        r'<a[^>]*href="([^"]+)"[^>]*class="[^"]*(?:nextpostslink|next)[^"]*"',
+        # 3) rel="next"
+        r'<a[^>]*rel="next"[^>]*href="([^"]+)"',
+        r'<a[^>]*href="([^"]+)"[^>]*rel="next"',
     ]
 
     for pat in patterns:
-        m = re.search(pat, html)
-        if m:
-            url = _abs_url(_unescape(m.group(1)))
-            print(f"INFO: siguiente página: {url}", file=sys.stderr)
-            print(url)
-            sys.exit(0)
+        matches = list(re.finditer(pat, html))
+        if matches:
+            for m in matches:
+                url = _abs_url(_unescape(m.group(1)))
+                # Validación estricta: solo aceptar si es una URL de paginación de uploads
+                if "/uploads/page/" in url or "/page/" in url:
+                    print(f"INFO: siguiente página: {url}", file=sys.stderr)
+                    print(url)
+                    sys.exit(0)
 
-    print("INFO: no hay más páginas", file=sys.stderr)
+    print("INFO: no hay más páginas (no se encontró botón 'Next')", file=sys.stderr)
     sys.exit(1)
 
 
@@ -476,21 +460,6 @@ def cmd_next():
 # ---------------------------------------------------------------------------
 
 def cmd_versioncodes():
-    """
-    Extrae versionCodes válidos del patches-list.json para un paquete,
-    versión y arquitectura específicos.
-
-    Cubre múltiples formatos:
-      - versionCodes como dict {ARM64_V8A: 123}
-      - versionCodes como string "123"
-      - versionCodes como lista [123, 456]
-      - versionCodes = null + description con números
-      - compatiblePackages como dict o lista
-      - compatibility[].targets[]
-
-    Args: <package> <version> <arch>
-    Salida: lista separada por comas, o exit 1 si no encuentra nada
-    """
     if len(sys.argv) < 5:
         print("Uso: versioncodes <package> <version> <arch>", file=sys.stderr)
         sys.exit(1)
@@ -499,7 +468,6 @@ def cmd_versioncodes():
     target_ver = sys.argv[3]
     raw_arch = sys.argv[4].lower()
 
-    # Normalizar arquitectura: crear todas las variantes comunes
     arch_variants = {
         raw_arch,
         raw_arch.replace("-", "_"),
@@ -526,7 +494,6 @@ def cmd_versioncodes():
         print(f"ERROR: JSON inválido: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # Raíz: array o dict
     if isinstance(data, list):
         patches = data
     elif isinstance(data, dict):

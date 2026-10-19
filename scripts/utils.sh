@@ -500,7 +500,15 @@ dl_apkmirror() {
             vers_output=$(echo "$uploads_html" | python3 "$search_py" list true 2>"$log_stderr")
             if [ -s "$log_stderr" ]; then cat "$log_stderr" >&2; fi
 
-            release_url=$(echo "$vers_output" | awk -v v="$clean_version" -F'\t' '$1 == v { print $2; exit }')
+            # 1. Intentar coincidencia exacta (ej. "2.0.3-rc0")
+            release_url=$(echo "$vers_output" | awk -v v="$version" -F'\t' '$1 == v { print $2; exit }')
+            
+            # 2. Si falla, intentar con la versión limpia (ej. "2.0.30")
+            if [ -z "$release_url" ]; then
+                release_url=$(echo "$vers_output" | awk -v v="$clean_version" -F'\t' '$1 == v { print $2; exit }')
+            fi
+            
+            # 3. Si falla, intentar con la versión con guiones (ej. "2-0-3-rc0")
             if [ -z "$release_url" ]; then
                 release_url=$(echo "$vers_output" | awk -v v="$search_version" -F'\t' '$1 == v { print $2; exit }')
             fi
