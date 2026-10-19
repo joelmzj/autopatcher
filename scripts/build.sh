@@ -148,6 +148,7 @@ for table_name in $(toml_get_table_names); do
 
 		declare -A app_args
 		app_args[apkmirror_dlurl]=$(toml_get "$t" "apkmirror-dlurl") || app_args[apkmirror_dlurl]=""
+		app_args[telegram_download_url]=$(toml_get "$t" "telegram-download-url") || app_args[telegram_download_url]="" # ← NUEVA LÍNEA
 		app_args[pkg_name]=$(toml_get "$t" pkg-name) || app_args[pkg_name]=""
 		app_args[app_name]=$(toml_get "$t" app-name) || app_args[app_name]=$table_name
 		app_args[arch]=$(toml_get "$t" arch) || app_args[arch]="arm64-v8a"
@@ -256,8 +257,9 @@ for table_name in $(toml_get_table_names); do
 			echo ""
 		} > "$app_log"
 
-		# 3. Descargar la APK limpia desde APKMirror
-		if [ -n "${app_args[apkmirror_dlurl]}" ]; then
+		# 3. Descargar la APK limpia (APKMirror principal, Telegram como fallback)
+		if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
+			# --- INICIO DEL FLUJO NORMAL DE APKMIRROR ---
 			get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
 				wpr "No se pudo conectar a APKMirror para $table_name"
 				exit 1
@@ -280,14 +282,70 @@ for table_name in $(toml_get_table_names); do
 				pr "  versionCodes permitidos: $version_codes_whitelist"
 			fi
 
-			pr "Descargando versión $target_apk_ver para $table_name..."
-			dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist" || {
-				wpr "Fallo al descargar la APK para $table_name"
+			pr "Descargando versión $target_apk_ver para $table_name desde APKMirror..."
+			
+			# Intentar descargar desde APKMirror
+			if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist"; then
+				# Si APKMirror falla, revisar si tenemos el fallback de Telegram
+				if [ -n "${app_args[telegram_download_url]:-}" ]; then
+					wpr "Fallo en APKMirror. Usando fallback directo desde Telegram..."
+					if ! curl -L -f -s -S -o "$raw_apk" "${app_args[telegram_download_url]}"; then
+						wpr "Fallo al descargar la APK desde la web oficial de Telegram"
+						exit 1
+					fi
+					pr "APK descargada vía fallback de Telegram: $raw_apk"
+				else
+					wpr "Fallo al descargar la APK para $table_name desde APKMirror (y no tiene fallback directo)"
+					exit 1
+				fi
+			else
+				pr "APK descargada desde APKMirror: $raw_apk"
+			fi
+			# --- FIN DEL FLUJO NORMAL DE APKMIRROR ---
+		elif [ -n "${app_args[telegram_download_url]:-}" ]; then
+			# Por si alguna app solo tiene Telegram configurado (sin APKMirror)
+			pr "Descargando APK directamente desde Telegram: ${app_args[telegram_download_url]}"
+			if ! curl -L -f -s -S -o "$raw_apk" "${app_args[telegram_download_url]}"; then
+				wpr "Fallo al descargar la APK desde la web oficial de Telegram"
 				exit 1
-			}
+			fi
+			pr "APK descargada: $raw_apk"
 		else
-			wpr "La aplicación $table_name no tiene definida una URL de APKMirror válida."
+			wpr "La aplicación $table_name no tiene definida una URL de descarga válida."
 			exit 1
+		fi
+
+		# ==================================================================
+		# NUEVO: Verificación de metadatos con APKEditor
+		# ==================================================================
+		if [ -f "$raw_apk" ]; then
+			pr "Verificando metadatos del APK..."
+			apk_info=$(java -jar "$APKEDITOR_JAR" info -i "$raw_apk" 2>/dev/null)
+			
+			# APKEditor normalmente devuelve "Package: com.paquete" y "VersionName: X.X.X"
+			real_pkg=$(echo "$apk_info" | grep -i "Package:" | awk '{print $2}' | tr -d '\r' | tr -d "'" | tr -d '"')
+			real_ver=$(echo "$apk_info" | grep -i "VersionName:" | awk '{print $2}' | tr -d '\r' | tr -d "'" | tr -d '"')
+
+			if [ -z "$real_ver" ]; then
+				wpr "No se pudo extraer la versión del APK usando APKEditor"
+				exit 1
+			fi
+
+			pr "  Package detectado: $real_pkg"
+			pr "  Versión detectada: $real_ver"
+
+			# Validar Paquete (Evita parchear la app equivocada)
+			if [ "$real_pkg" != "${app_args[pkg_name]}" ]; then
+				wpr "El APK no corresponde al paquete ${app_args[pkg_name]} (detectado: $real_pkg)"
+				exit 1
+			fi
+
+			# Validar Versión (Evita parchear una versión no soportada)
+			if [ "$real_ver" != "$target_apk_ver" ]; then
+				wpr "La versión del APK ($real_ver) no coincide con la requerida por los parches ($target_apk_ver)"
+				exit 1
+			fi
+			pr "Verificación exitosa: el APK es el correcto."
 		fi
 
 		# 3b. Mergear bundle a APK monolítico si es necesario
