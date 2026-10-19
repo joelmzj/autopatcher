@@ -117,9 +117,10 @@ fi
 #
 # Para cada app recompilada en este run (stable_file en el manifest):
 #   - Si prev_stable_file existe y difiere de stable_file:
-#       a) Subir prev_stable_file al snapshot (--clobber, mismo nombre)
-#       b) Borrar snapshot_file anterior del snapshot (si difiere)
-#       c) Borrar prev_stable_file del stable
+#       a) Si no está en ./build/, descargarlo del release stable
+#       b) Subir prev_stable_file al snapshot (--clobber, mismo nombre)
+#       c) Borrar snapshot_file anterior del snapshot (si difiere)
+#       d) Borrar prev_stable_file del stable
 #   - Repetir para el ZIP si aplica
 # ==============================================================================
 pr "=== Promoviendo versiones previas al snapshot ==="
@@ -135,10 +136,17 @@ while IFS=$'\t' read -r app stable_file stable_zip snapshot_file snapshot_zip pr
     if [ -n "$prev_stable_file" ] && [ "$prev_stable_file" != "$stable_file" ]; then
         pr "  [$app] Promoviendo APK: $prev_stable_file"
 
+        # Si no está en ./build/, descargarlo del stable actual
+        if [ ! -f "./build/$prev_stable_file" ]; then
+            pr "    Descargando $prev_stable_file desde stable..."
+            gh release download "$RELEASE_TAG" -R "$REPO" \
+                --pattern "$prev_stable_file" --dir "./build/" --clobber 2>/dev/null || true
+        fi
+
         if [ -f "./build/$prev_stable_file" ]; then
             gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_file" --clobber -R "$REPO" >/dev/null
         else
-            wpr "    No encontrado en build/: $prev_stable_file"
+            wpr "    No se pudo obtener $prev_stable_file para el snapshot"
         fi
 
         if [ -n "$snapshot_file" ] && [ "$snapshot_file" != "$prev_stable_file" ]; then
@@ -153,10 +161,17 @@ while IFS=$'\t' read -r app stable_file stable_zip snapshot_file snapshot_zip pr
     if [ -n "$prev_stable_zip" ] && [ "$prev_stable_zip" != "$stable_zip" ]; then
         pr "  [$app] Promoviendo ZIP: $prev_stable_zip"
 
+        # Si no está en ./build/, descargarlo del stable actual
+        if [ ! -f "./build/$prev_stable_zip" ]; then
+            pr "    Descargando $prev_stable_zip desde stable..."
+            gh release download "$RELEASE_TAG" -R "$REPO" \
+                --pattern "$prev_stable_zip" --dir "./build/" --clobber 2>/dev/null || true
+        fi
+
         if [ -f "./build/$prev_stable_zip" ]; then
             gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_zip" --clobber -R "$REPO" >/dev/null
         else
-            wpr "    No encontrado en build/: $prev_stable_zip"
+            wpr "    No se pudo obtener $prev_stable_zip para el snapshot"
         fi
 
         if [ -n "$snapshot_zip" ] && [ "$snapshot_zip" != "$prev_stable_zip" ]; then
