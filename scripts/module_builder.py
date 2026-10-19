@@ -57,17 +57,13 @@ def _arch_suffix(arch: str) -> str:
 
 def _format_patch_short(tag: str) -> str:
     """
-    Convierte el tag del bundle en una etiqueta corta para el 'version'.
-      'v1.48.0-dev.9' -> 'dev.9.mpp'
-      'v0.0.11'       -> '0.0.11.mpp'
-      'v4.4.0-dev.2'  -> 'dev.2.mpp'
+    Devuelve el tag completo con la extensión .mpp.
+      'v1.48.0-dev.9' -> 'v1.48.0-dev.9.mpp'
+      'v0.0.11'       -> 'v0.0.11.mpp'
+      'v4.4.0-dev.2'  -> 'v4.4.0-dev.2.mpp'
     """
     if not tag or tag == "unknown":
         return "unknown.mpp"
-    if "-dev." in tag:
-        return "dev." + tag.split("-dev.")[-1] + ".mpp"
-    if tag.startswith("v"):
-        return tag[1:] + ".mpp"
     return tag + ".mpp"
 
 
@@ -149,7 +145,7 @@ def create_magisk_module(
     # ------------------------------------------------------------------
     # 5. Formatear version string
     #    Formato: "v{apk_version} (patches {patch_short})"
-    #    Ej: "v9.20.53 (patches dev.9.mpp)"
+    #    Ej: "v9.20.53 (patches v1.48.0-dev.9.mpp)"
     # ------------------------------------------------------------------
     patch_short = _format_patch_short(latest_applied_tag)
     version_string = f"v{pkg_version} (patches {patch_short})"
@@ -175,7 +171,7 @@ def create_magisk_module(
         f.write(f"name={module_name}\n")
         f.write(f"version={version_string}\n")
         f.write(f"versionCode={vc_int}\n")
-        f.write(f"author={brand}\n")
+        f.write(f"author=joelmzj\n")  # ← CORREGIDO
         f.write(f"description={module_name} module\n")
         f.write(f"updateJson={update_json_url}\n")
     _log(f"module.prop generado: id={module_slug} version={version_string}")
