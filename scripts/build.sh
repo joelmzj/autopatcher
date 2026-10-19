@@ -484,17 +484,19 @@ for table_name in $(toml_get_table_names); do
 		} >> "$app_log"
 
 		# ==================================================================
-		# 🕵️‍♂️ PRUEBA DE RECONOCIMIENTO: Listar parches (Solo para X-New)
+		# 🕵️‍♂️ PRUEBA DE RECONOCIMIENTO: Listar parches (Solo para X-new)
 		# ==================================================================
 		if [ "$table_name" = "X-new" ]; then
 			pr "--- INICIO TEST: Listando parches con morphe-cli ---"
 			{
 				echo ""
 				echo "=== TEST: SALIDA DE list-patches para $table_name ==="
-				# Ejecutamos el subcomando list-patches
 				java -jar "$MORPHE_CLI_JAR" list-patches \
-					-p="https://github.com/$patch_repo" \
-					"${channel_flag[@]}" 2>&1 || echo "ERROR: El comando list-patches falló"
+					--patches="https://github.com/$patch_repo" \
+					"${channel_flag[@]}" \
+					-p \
+					-v \
+					-f "${app_args[pkg_name]}" 2>&1 || echo "ERROR: El comando list-patches falló"
 				echo "=== FIN TEST ==="
 				echo ""
 			} | tee -a "$app_log"
