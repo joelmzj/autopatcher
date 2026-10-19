@@ -2,17 +2,6 @@
 # apkmirror_search.py
 #
 # Extrae enlaces de APKMirror a partir del HTML recibido por stdin.
-#
-# Modos:
-#   uploads            → URL de uploads (página base → href con ?appcategory=)
-#   list <allow_all>   → versiones + hrefs de release (página uploads)
-#   variant <arch> [vcs] → URL de la variante óptima (opcional: whitelist de versionCodes)
-#   download           → URL del botón de descarga (página de variante)
-#   final              → URL del archivo .apk (página intermedia)
-#   next               → URL de la página siguiente de uploads (paginación)
-#   versioncodes <pkg> <ver> <arch> → versionCodes válidos del patches-list.json
-#   pkg                → nombre de paquete (página base)
-#   vers <allow_all>   → (legacy) lista de versiones sin href
 
 import sys
 import re
@@ -47,6 +36,28 @@ def _es_universal(c: dict) -> bool:
     return "universal" in a or "noarch" in a
 
 
+def _extract_version(clean: str) -> str:
+    """
+    Extrae la versión del texto del enlace.
+    Soporta formatos como:
+      - "App Name 88800 (8.8.8)" -> "8.8.8"
+      - "App Name (2.0.3-rc0)" -> "2.0.3-rc0"
+      - "App Name 5.3" -> "5.3"
+    """
+    # 1. Buscar si hay paréntesis al final (ej. "(8.8.8)")
+    m_paren = re.search(r'\(([^)]+)\)\s*$', clean)
+    if m_paren:
+        return m_paren.group(1).strip()
+    
+    # 2. Si no hay paréntesis, buscar el primer número con formato de versión
+    m2 = re.search(r'(\d+\.\d+.*)$', clean)
+    if m2:
+        return m2.group(1).strip()
+    
+    # 3. Fallback: última palabra
+    return clean.split()[-1]
+
+
 # ---------------------------------------------------------------------------
 # Paso 1: parsear una variante desde la página de release
 # ---------------------------------------------------------------------------
@@ -55,7 +66,6 @@ def _parse_variant(html: str, match) -> dict:
     url = _abs_url(match.group(1))
     window = html[match.end():match.end() + WINDOW_BYTES]
 
-    # Tipo: primer badge con texto BUNDLE o APK
     tipo = "APK"
     m = re.search(r'class="apkm-badge[^"]*"[^>]*>\s*(BUNDLE|APK)\s*<', window)
     if m:
@@ -63,19 +73,16 @@ def _parse_variant(html: str, match) -> dict:
     elif re.search(r'class="apkm-badge[^"]*"[^>]*>\s*\d+\s*S\s*<', window):
         tipo = "BUNDLE"
 
-    # Splits
     splits = 0
     m = re.search(r'class="apkm-badge[^"]*"[^>]*>\s*(\d+)\s*S\s*<', window)
     if m:
         splits = int(m.group(1))
 
-    # Celdas dowrap": arch, minAndroid, dpi
     celdas = re.findall(r'class="[^"]*dowrap"[^>]*>([^<]+)</div>', window)
     arch        = celdas[0].strip() if len(celdas) > 0 else ""
     min_android = celdas[1].strip() if len(celdas) > 1 else ""
     dpi         = celdas[2].strip() if len(celdas) > 2 else ""
 
-    # Version code
     vc = ""
     m = re.search(r'class="colorLightBlack"[^>]*>\s*(\d{5,})\s*<', window)
     if m:
@@ -114,7 +121,6 @@ def _elegir_mejor(candidatos: list, use_vc_priority: bool = False):
     if not candidatos:
         return None
 
-    # Grupos por tipo + universalidad
     grupo = [c for c in candidatos if c["tipo"] == "APK"      and _es_universal(c)]
     if not grupo:
         grupo = [c for c in candidatos if c["tipo"] == "BUNDLE" and _es_universal(c)]
@@ -129,7 +135,6 @@ def _elegir_mejor(candidatos: list, use_vc_priority: bool = False):
         grupo.sort(key=lambda c: (int(c["vc"] or 0), -c["splits"]), reverse=True)
         return grupo[0]
 
-    # Desempate tradicional (sin whitelist)
     nodpi = [c for c in grupo if c["dpi"].lower() == "nodpi"]
     if nodpi:
         grupo = nodpi
@@ -157,7 +162,6 @@ def _elegir_mejor(candidatos: list, use_vc_priority: bool = False):
 def cmd_variant():
     arch = sys.argv[2] if len(sys.argv) > 2 else ""
 
-    # versionCodes prioritarios (opcional): "346611351,346611369,..."
     priority_vcs = set()
     if len(sys.argv) > 3 and sys.argv[3]:
         priority_vcs = set(v.strip() for v in sys.argv[3].split(",") if v.strip())
@@ -185,17 +189,13 @@ def cmd_variant():
 
     pasan = [v for v in variantes if _arch_pasa(v["arch"], arch)]
 
-    # Filtro por versionCodes si el bundle publica whitelist
     if priority_vcs:
         con_vc = [v for v in pasan if v["vc"] in priority_vcs]
         if con_vc:
             print(f"INFO: {len(con_vc)} variantes con vc permitido", file=sys.stderr)
             pasan = con_vc
         else:
-            print(
-                f"WARN: whitelist de {len(priority_vcs)} codes no coincide con ninguna variante",
-                file=sys.stderr,
-            )
+            print(f"WARN: whitelist de {len(priority_vcs)} codes no coincide con ninguna variante", file=sys.stderr)
             vcs_presentes = sorted(set(v["vc"] or "?" for v in pasan))
             print(f"WARN: vcs presentes en el HTML: {', '.join(vcs_presentes)}", file=sys.stderr)
             print(f"WARN: whitelist buscada: {', '.join(sorted(priority_vcs))}", file=sys.stderr)
@@ -211,12 +211,7 @@ def cmd_variant():
         print("ERROR: no se pudo elegir variante", file=sys.stderr)
         sys.exit(1)
 
-    print(
-        f"INFO: elegida {mejor['tipo']} arch={mejor['arch']} "
-        f"dpi={mejor['dpi']} splits={mejor['splits']} vc={mejor['vc']}",
-        file=sys.stderr,
-    )
-
+    print(f"INFO: elegida {mejor['tipo']} arch={mejor['arch']} dpi={mejor['dpi']} splits={mejor['splits']} vc={mejor['vc']}", file=sys.stderr)
     print(mejor["url"])
 
 
@@ -354,8 +349,10 @@ def cmd_list():
         low = clean.lower()
         if not allow_all and any(k in low for k in ("beta", "alpha", "secondary")):
             continue
-        m2 = re.search(r'(\d+\.\d+.*)$', clean)
-        ver = m2.group(1).strip() if m2 else clean.split()[-1]
+        
+        # 🆕 Uso de la nueva función _extract_version
+        ver = _extract_version(clean)
+        
         if ver and ver not in seen:
             seen.add(ver)
             full_url = _abs_url(_unescape(href))
@@ -403,8 +400,10 @@ def cmd_vers():
         low = clean.lower()
         if not allow_all and any(k in low for k in ("beta", "alpha", "secondary")):
             continue
-        m2 = re.search(r'(\d+\.\d+.*)$', clean)
-        ver = m2.group(1).strip() if m2 else clean.split()[-1]
+        
+        # 🆕 Uso de la nueva función _extract_version
+        ver = _extract_version(clean)
+        
         if ver and ver not in seen:
             seen.add(ver)
             versions.append(ver)
@@ -420,22 +419,14 @@ def cmd_vers():
 # ---------------------------------------------------------------------------
 
 def cmd_next():
-    """
-    Extrae la URL de la página siguiente de uploads.
-    Solo busca el botón explícito de "Siguiente" para evitar loops infinitos
-    y que el sidebar nos lleve a categorías equivocadas.
-    """
     html = sys.stdin.read()
     if not html:
         print("ERROR: HTML vacío en stdin", file=sys.stderr)
         sys.exit(1)
 
     patterns = [
-        # 1) class="nextpostslink" o class="... next ..."
         r'<a[^>]*class="[^"]*(?:nextpostslink|next)[^"]*"[^>]*href="([^"]+)"',
-        # 2) Lo mismo pero con href antes de class
         r'<a[^>]*href="([^"]+)"[^>]*class="[^"]*(?:nextpostslink|next)[^"]*"',
-        # 3) rel="next"
         r'<a[^>]*rel="next"[^>]*href="([^"]+)"',
         r'<a[^>]*href="([^"]+)"[^>]*rel="next"',
     ]
@@ -445,7 +436,6 @@ def cmd_next():
         if matches:
             for m in matches:
                 url = _abs_url(_unescape(m.group(1)))
-                # Validación estricta: solo aceptar si es una URL de paginación de uploads
                 if "/uploads/page/" in url or "/page/" in url:
                     print(f"INFO: siguiente página: {url}", file=sys.stderr)
                     print(url)
@@ -456,7 +446,7 @@ def cmd_next():
 
 
 # ---------------------------------------------------------------------------
-# Modo: versioncodes (leer whitelist del patches-list.json)
+# Modo: versioncodes
 # ---------------------------------------------------------------------------
 
 def cmd_versioncodes():
