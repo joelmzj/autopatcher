@@ -499,8 +499,13 @@ for table_name in $(toml_get_table_names); do
 			exit 1
 		fi
 
-		# Registrar el APK en el manifest (para upload selectivo)
-		echo "$apk_filename" >> "$UPLOADED_FILES_MANIFEST"
+		# 🆕 BUG-04: Registrar el APK en el manifest SOLO si el modo es apk o both
+		if [ "${app_args[build_mode]}" = "apk" ] || [ "${app_args[build_mode]}" = "both" ]; then
+			echo "$apk_filename" >> "$UPLOADED_FILES_MANIFEST"
+			pr "  APK registrado en el manifest (modo: ${app_args[build_mode]})"
+		else
+			pr "  Modo '${app_args[build_mode]}': el APK no se subirá a releases"
+		fi
 
 		# 4b. Módulo Magisk/KernelSU (si build-mode lo requiere)
 		module_zip_filename=""
@@ -603,11 +608,32 @@ for table_name in $(toml_get_table_names); do
 		prev_snapshot_zip=""
 		prev_stable_file=""
 		prev_stable_zip=""
+		prev_patch_ver="" # 🆕 BUG-06
+		
 		if [ -f "versions_log.json" ]; then
 			prev_snapshot_file=$(jq -r --arg app "$table_name" '.[$app].snapshot_file // ""' versions_log.json)
 			prev_snapshot_zip=$(jq -r --arg app "$table_name" '.[$app].snapshot_zip // ""' versions_log.json)
 			prev_stable_file=$(jq -r --arg app "$table_name" '.[$app].stable_file // .[$app].file // ""' versions_log.json)
 			prev_stable_zip=$(jq -r --arg app "$table_name" '.[$app].stable_zip // ""' versions_log.json)
+			prev_patch_ver=$(jq -r --arg app "$table_name" '.[$app].patches_version // ""' versions_log.json) # 🆕 BUG-06
+		fi
+
+		# 🆕 BUG-06: Si la versión de parches es la misma, no mover a snapshot
+		if [ "$latest_applied_tag" == "$prev_patch_ver" ]; then
+			pr "  La versión de parches no cambió ($latest_applied_tag). No se moverá a snapshot."
+			prev_stable_file=""
+			prev_stable_zip=""
+		fi
+
+		# 🆕 BUG-05: Ajustar qué formato va a stable según el modo
+		final_stable_file="$apk_filename"
+		final_stable_zip="$module_zip_filename"
+		
+		if [ "${app_args[build_mode]}" = "module" ]; then
+			final_stable_file=""  # Sin APK en stable
+		fi
+		if [ "${app_args[build_mode]}" = "apk" ]; then
+			final_stable_zip=""   # Sin ZIP en stable
 		fi
 
 		tmp_vlog=$(mktemp)
@@ -618,8 +644,8 @@ for table_name in $(toml_get_table_names); do
 		   --arg apk_ver "$target_apk_ver" \
 		   --arg brand "${app_args[brand]}" \
 		   --arg arch "${app_args[arch]}" \
-		   --arg stable_file "$apk_filename" \
-		   --arg stable_zip "$module_zip_filename" \
+		   --arg stable_file "$final_stable_file" \
+		   --arg stable_zip "$final_stable_zip" \
 		   --arg snapshot_file "$prev_snapshot_file" \
 		   --arg snapshot_zip "$prev_snapshot_zip" \
 		   --arg prev_stable_file "$prev_stable_file" \
@@ -632,7 +658,7 @@ for table_name in $(toml_get_table_names); do
 				apk_version: $apk_ver,
 				brand: $brand,
 				arch: $arch,
-				stable_file: $stable_file,
+				stable_file: (if $stable_file == "" then null else $stable_file end),
 				stable_zip: (if $stable_zip == "" then null else $stable_zip end),
 				snapshot_file: (if $snapshot_file == "" then null else $snapshot_file end),
 				snapshot_zip: (if $snapshot_zip == "" then null else $snapshot_zip end),
