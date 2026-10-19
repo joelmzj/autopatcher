@@ -1,7 +1,7 @@
 === Parcheo: TikTok ===
-Fecha: 2026-10-17T23:51:01Z
+Fecha: 2026-10-19T05:55:28Z
 APK version: 47.4.3
-Patches version: v0.75.0
+Patches version: v0.76.0
 Patches source: SysAdminDoc/hushfeed
 Channel: stable
 Brand: HushFeed
@@ -35,158 +35,208 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/hushfeed/releases 
 INFO: GitHub: fetched 30 releases from SysAdminDoc/hushfeed 
-INFO: Downloading patches from SysAdminDoc/hushfeed v0.75.0... 
-INFO: GitHub: downloading patches-0.75.0.mpp from https://github.com/SysAdminDoc/HushFeed/releases/download/v0.75.0/patches-0.75.0.mpp 
-INFO: GitHub: wrote 6169222 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.75.0__patches-0.75.0.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.75.0__patches-0.75.0.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Downloading patches from SysAdminDoc/hushfeed v0.76.0... 
+INFO: GitHub: downloading patches-0.76.0.mpp from https://github.com/SysAdminDoc/HushFeed/releases/download/v0.76.0/patches-0.76.0.mpp 
+INFO: GitHub: wrote 6246670 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.76.0__patches-0.76.0.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.76.0__patches-0.76.0.mpp. This file will be used on your next run as long as it is not deleted! 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.zhiliaoapp.musically v47.4.3... 
-WARNING: Skipping "Hide the risk control CAPTCHA": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide CAPTCHA popups": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Feed filter": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Allow screenshots and Circle to Search": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Disable screen capture detection": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show author region": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Keep playing in the background": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Block author button": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Subtitle tools": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Remember clear display": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Confirm feed interactions": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Copy bio and IDs": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Advanced downloads": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Downloads": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Allow Duet and Stitch": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show engagement rate": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show exact counts": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Keep the Favorites tab": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide feed save button": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide feed follow button": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Mute feed videos": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Feed text sizes": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide feed LIVE button": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide feed search button": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Double-tap controls": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Long-press controls": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Swipe-left controls": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Ghost mode": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Turn off haptics": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Always upload in HD": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "LIVE controls": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Automatic video advance": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Stay on the video in full screen": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Stop video looping": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Story controls": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Not interested button": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Custom offline videos limit": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Picture-in-picture": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Always show publish date": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Prefer H.264 playback": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Playback quality": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Play SDR instead of HDR": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Disable the long press quick share": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Disable the long press repost": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide comment typing suggestions": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Resume videos after scrolling": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Stop search autoplay": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Use non-personalized search": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show LIVE search": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide search suggestions": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show the progress bar": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show the progress bar thumbnail": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide already seen videos": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Skip content warnings": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Share sheet tools": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Keep pulled sounds": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hold-and-slide 2x lock": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Playback speed": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Use system font": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Turn off screen transitions": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Fit the video to the screen": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Remove avatar rings": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide video overlays": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Change app name": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Custom launcher icon": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Run beside the store app": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show commenter handle and region": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Copy comments without username": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Lift text length limits": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Comment publish diagnostics": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Comment send fix": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Comment sort controls": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Comment tools": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide comment popup ads": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Open external links directly": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Feature Gate Lab": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Feature Gate Recorder": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Foldable split comment view": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Follow diagnostics": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Keep a streak going": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Expand activity list": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide inbox stories": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide suggested accounts": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide inbox items": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Notification controls": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Block suggested video notifications": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Keep the app language": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Disable login requirement": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Fix Google login": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Skip passkey sign-in": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Feed tab navigation": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Skip first-launch setup": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Skip the splash ad": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Limit background traffic": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Drop the animated image cache": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Skip update checks": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Block P2P video relay": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Remove content credential and card scanner assets": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Remove unused language packs": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Remove LIVE extras": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Remove creation tools": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Block popups": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Network proxy": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Keep the screen's refresh rate": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Repost diagnostics": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Diagnostic tools": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Settings": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Sanitize sharing links": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide the launcher shortcuts": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Region spoof": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "SIM spoof": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Disable telemetry": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Accent color": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "AMOLED dark theme": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Translate comments": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide Play Store update offer": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Enable voice comments": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Stop on-device AI profiling": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "App lock": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "In-app browser privacy guard": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Camera and microphone indicator": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Block contact list access": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Device privacy guard": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Block installed app scanning": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Location access governor": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Network request report": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Resource and battery governor": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Stop saving search history": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Look like the store app": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Trust user certificates": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Stop recording watch history": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Profile background": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Show follow status": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide floating promotions": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-WARNING: Skipping "Hide profile shortcuts": incompatible with com.zhiliaoapp.musically 47.4.3 (supported: com.zhiliaoapp.musically 47.1.4) 
-INFO: Applying 0 patches... 
+INFO: Skipping disabled: Change app name 
+INFO: Skipping disabled: Custom launcher icon 
+INFO: Applying 133 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 649 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
 INFO: Executing patches 
-INFO: Compiling patched dex files (mode: NONE) 
+INFO: Applied: AMOLED dark theme 
+INFO: Applied: Accent color 
+INFO: Applied: Advanced downloads 
+INFO: Applied: Allow Duet and Stitch 
+INFO: Applied: Allow screenshots and Circle to Search 
+INFO: Applied: Always show publish date 
+INFO: Applied: Always upload in HD 
+INFO: Applied: App lock 
+INFO: Applied: Automatic video advance 
+[P2P Relay Blocker] Emptied 4 reviewed files (9.83 MiB unpacked).
+INFO: Applied: Block P2P video relay 
+INFO: Applied: Block author button 
+[Contact list blocker] Intercepted 3 ContentResolver.query sites.
+INFO: Applied: Block contact list access 
+[Installed apps blocker] Intercepted 1 package query sites.
+INFO: Applied: Block installed app scanning 
+INFO: Applied: Block popups 
+INFO: Applied: Block suggested video notifications 
+[Camera/mic indicator] Instrumented 3 camera opens, 2 camera releases, 1 recorder starts and 2 recorder stops.
+INFO: Applied: Camera and microphone indicator 
+INFO: Applied: Comment publish diagnostics 
+INFO: Applied: Comment send fix 
+INFO: Applied: Comment sort controls 
+INFO: Applied: Comment tools 
+INFO: Applied: Confirm feed interactions 
+INFO: Applied: Copy bio and IDs 
+INFO: Applied: Copy comments without username 
+INFO: Applied: Custom offline videos limit 
+[Device privacy guard] Intercepted 4 clipboard read sites.
+[Device privacy guard] Intercepted 47 VPN and advertising-id sites and 15 network-interface sites.
+[Device privacy guard] Intercepted 2 Settings string reads for a new device identity.
+[Device privacy guard] Answered 4 direct advertising id service reads and 16 advertising id field reads.
+[Device privacy guard] Guarded 5 root results.
+INFO: Applied: Device privacy guard 
+INFO: Applied: Diagnostic tools 
+INFO: Applied: Disable login requirement 
+INFO: Applied: Disable screen capture detection 
+INFO: Applied: Disable telemetry 
+INFO: Applied: Disable the long press quick share 
+INFO: Applied: Disable the long press repost 
+INFO: Applied: Double-tap controls 
+INFO: Applied: Downloads 
+INFO: Applied: Drop the animated image cache 
+INFO: Applied: Enable voice comments 
+INFO: Applied: Expand activity list 
+INFO: Applied: Feature Gate Lab 
+INFO: Applied: Feature Gate Recorder 
+INFO: Applied: Feed filter 
+INFO: Applied: Feed tab navigation 
+INFO: Applied: Feed text sizes 
+INFO: Applied: Fit the video to the screen 
+INFO: Applied: Fix Google login 
+INFO: Applied: Foldable split comment view 
+INFO: Applied: Follow diagnostics 
+INFO: Applied: Ghost mode 
+INFO: Applied: Hide CAPTCHA popups 
+INFO: Applied: Hide Play Store update offer 
+INFO: Applied: Hide already seen videos 
+INFO: Applied: Hide comment popup ads 
+INFO: Applied: Hide comment typing suggestions 
+INFO: Applied: Hide feed LIVE button 
+INFO: Applied: Hide feed follow button 
+INFO: Applied: Hide feed save button 
+INFO: Applied: Hide feed search button 
+INFO: Applied: Hide floating promotions 
+INFO: Applied: Hide inbox items 
+INFO: Applied: Hide inbox stories 
+INFO: Applied: Hide profile shortcuts 
+INFO: Applied: Hide search suggestions 
+INFO: Applied: Hide suggested accounts 
+INFO: Applied: Hide the launcher shortcuts 
+INFO: Applied: Hide the risk control CAPTCHA 
+INFO: Applied: Hide video overlays 
+INFO: Applied: Hold-and-slide 2x lock 
+[Browser privacy guard] Intercepted 22 bridge sites, 69 navigation sites, 13 interface reloads and 64 navigation callbacks across 11 WebView types.
+INFO: Applied: In-app browser privacy guard 
+INFO: Applied: Keep a streak going 
+[Background play] Hooked the mode read, the scene and photo post checks, the page's claim on the sound, the end of a background video and 3 reads of the remembered switch.
+INFO: Applied: Keep playing in the background 
+INFO: Applied: Keep pulled sounds 
+INFO: Applied: Keep the Favorites tab 
+INFO: Applied: Keep the app language 
+INFO: Applied: Keep the screen's refresh rate 
+INFO: Applied: LIVE controls 
+INFO: Applied: Lift text length limits 
+INFO: Applied: Limit background traffic 
+[Location governor] Intercepted 2 location access sites.
+INFO: Applied: Location access governor 
+INFO: Applied: Long-press controls 
+INFO: Applied: Look like the store app 
+INFO: Applied: Mute feed videos 
+INFO: Applied: Network proxy 
+INFO: Applied: Network request report 
+INFO: Applied: Not interested button 
+[Notification controls] Took 5 wake lock calls.
+INFO: Applied: Notification controls 
+INFO: Applied: Open external links directly 
+INFO: Applied: Picture-in-picture 
+INFO: Applied: Play SDR instead of HDR 
+INFO: Applied: Playback quality 
+INFO: Applied: Playback speed 
+INFO: Applied: Prefer H.264 playback 
+INFO: Applied: Profile background 
+INFO: Applied: Region spoof 
+INFO: Applied: Remember clear display 
+[LIVE Stream Suite Optimizer] Emptied 5 reviewed files (5.86 MiB unpacked).
+INFO: Applied: Remove LIVE extras 
+INFO: Applied: Remove avatar rings 
+[Core Asset De-bloat] Emptied 19 reviewed files (15.99 MiB unpacked).
+INFO: Applied: Remove content credential and card scanner assets 
+[Studio & Creation De-bloat] Emptied 7 reviewed files (81.81 MiB unpacked).
+INFO: Applied: Remove creation tools 
+[Language Pack Purger] Kept every reviewed language pack.
+INFO: Applied: Remove unused language packs 
+INFO: Applied: Repost diagnostics 
+[Resource and battery governor] Intercepted 2 sensor registration sites.
+INFO: Applied: Resource and battery governor 
+INFO: Applied: Resume videos after scrolling 
+INFO: Applied: Run beside the store app 
+INFO: Applied: SIM spoof 
+INFO: Applied: Sanitize sharing links 
+INFO: Applied: Settings 
+INFO: Applied: Share sheet tools 
+INFO: Applied: Show LIVE search 
+INFO: Applied: Show author region 
+INFO: Applied: Show commenter handle and region 
+INFO: Applied: Show engagement rate 
+INFO: Applied: Show exact counts 
+[Show follow status] Added five owned profile count presentation hooks.
+[Show follow status] Added owned nickname badges and both warning presentation hooks.
+INFO: Applied: Show follow status 
+INFO: Applied: Show the progress bar 
+INFO: Applied: Show the progress bar thumbnail 
+INFO: Applied: Skip content warnings 
+INFO: Applied: Skip first-launch setup 
+INFO: Applied: Skip passkey sign-in 
+INFO: Applied: Skip the splash ad 
+INFO: Applied: Skip update checks 
+INFO: Applied: Stay on the video in full screen 
+INFO: Applied: Stop on-device AI profiling 
+INFO: Applied: Stop recording watch history 
+INFO: Applied: Stop saving search history 
+INFO: Applied: Stop search autoplay 
+INFO: Applied: Stop video looping 
+INFO: Applied: Story controls 
+INFO: Applied: Subtitle tools 
+INFO: Applied: Swipe-left controls 
+INFO: Applied: Translate comments 
+INFO: Applied: Trust user certificates 
+INFO: Applied: Turn off haptics 
+INFO: Applied: Turn off screen transitions 
+INFO: Applied: Use non-personalized search 
+INFO: Applied: Use system font 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 4954 new classes to new DEX files 
+INFO: Processing 4954 classes in parallel (4 threads) 
+INFO: Wrote 5 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792389351438/patched/newDex 
+INFO: Stripped 1915 modified classes from 43 original DEX files 
+INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
 INFO: Stripped 294 lib files 
+INFO: Unescaping strings 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_camera_biz 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_music_dsp 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ccdc_impl_ocr 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_kids_mode 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_search_biz 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_im_bootfinish 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_wallpaper_main 
+INFO: Encoded 2208 of 2208 values in 17 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ship 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_live_cast 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_external_payments 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_bnpl 
+INFO: Resource APK inputs: reusing 26293 unchanged archive entries, rebuilding 3 entries, dropping 320 entries 
+INFO: Resource APK scan: 2.1s write: 2.8s 
+INFO: Moving 27 resource files 
+INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.4.3-HushFeed-v0.75.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792281080258 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792389351438 
 
 --- Fin del parcheo ---
-APK final: build/TikTok-v47.4.3-HushFeed-v0.75.0-arm64-v8a.apk
-Fecha de fin: 2026-10-17T23:51:29Z
+APK final: build/TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk
+Fecha de fin: 2026-10-19T05:57:54Z
