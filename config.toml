@@ -247,34 +247,35 @@ enable-patches = []
 exclude-patches = ["Change app name", "No Google Assistant"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/waze/waze-gps-maps-traffic-alerts-live-navigation/"
 
-[SDMaid]
+[X]
 enabled = true
-pkg-name = "eu.darken.sdmse"
-app-name = "SD Maid SE"
-patches-source = "rushiranpise/morphe-patches"
-brand = "rushiranpise"
+pkg-name = "com.twitter.android"
+app-name = "X"
+patches-source = "crimera/piko"
+brand = "piko"
 arch = "arm64-v8a"
-channel = "stable"
+channel = "dev"
 inclusive-patches = true
 build-mode = "apk"
 version = "auto"
 force-patch = true
 enable-patches = []
-exclude-patches = []
-apkmirror-dlurl = "https://www.apkmirror.com/apk/darken/sd-maid-2-se-system-cleaner/"
+exclude-patches = ["Bring back twitter"]
+apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter/"
 
-[Nova-Launcher]
+[X-new]
 enabled = true
-pkg-name = "com.teslacoilsw.launcher"
-app-name = "Nova Launcher"
-patches-source = "rushiranpise/morphe-patches"
-brand = "rushiranpise"
+pkg-name = "com.twitter.android"
+app-name = "X"
+patches-source = "crimera/piko-newx"
+brand = "piko"
 arch = "arm64-v8a"
 channel = "stable"
+patches-list-in-release = true
 inclusive-patches = true
 build-mode = "apk"
 version = "auto"
 force-patch = true
 enable-patches = []
-exclude-patches = []
-apkmirror-dlurl = "https://www.apkmirror.com/apk/instabridge-sweden-ab/nova-launcher/"
+exclude-patches = ["NewX: Clone"]
+apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter/"
