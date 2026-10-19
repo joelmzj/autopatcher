@@ -584,7 +584,7 @@ for table_name in $(toml_get_table_names); do
 			pr "Generando módulo Magisk/KernelSU para $table_name..."
 			if python3 "$(dirname "${BASH_SOURCE[0]}")/module_builder.py" \
 				"module" \
-				"$module_stock_src" \  # 🆕 Usamos la carpeta de splits o el APK monolítico
+				"$module_stock_src" \
 				"$module_apk_src" \
 				"$module_zip" \
 				"$module_id" \
