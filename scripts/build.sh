@@ -360,11 +360,21 @@ for table_name in $(toml_get_table_names); do
 			pr "Verificación exitosa: el APK es el correcto."
 		fi
 
+		# ==================================================================
 		# 3b. Mergear bundle a APK monolítico si es necesario
+		# ==================================================================
 		was_merged=false
+		splits_dir=""
 		if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
 			was_merged=true
-			pr "Detectado bundle, mergeando con APKEditor..."
+			
+			# 🆕 Extraer los splits originales ANTES del merge para el módulo
+			splits_dir="$TEMP_DIR/$table_name/splits"
+			mkdir -p "$splits_dir"
+			pr "Detectado bundle, extrayendo splits originales para el módulo..."
+			unzip -j -o "$raw_apk" "*.apk" -d "$splits_dir" >/dev/null 2>&1 || true
+			
+			pr "Mergeando bundle con APKEditor para parchear el APK..."
 			apkm_file="${raw_apk%.apk}.apkm"
 			mv "$raw_apk" "$apkm_file"
 			if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk"; then
@@ -507,97 +517,102 @@ for table_name in $(toml_get_table_names); do
 			pr "  Modo '${app_args[build_mode]}': el APK no se subirá a releases"
 		fi
 
+		# ==================================================================
 		# 4b. Módulo Magisk/KernelSU (si build-mode lo requiere)
+		# ==================================================================
 		module_zip_filename=""
 		if [ "${app_args[build_mode]}" = "both" ] || [ "${app_args[build_mode]}" = "module" ]; then
-			if [ "$was_merged" = true ]; then
-				wpr "Saltando módulo para $table_name: el stock fue mergeado desde un bundle."
-			else
-				gmscore_present=false
-				patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
-				if [ "${app_args[channel]}" = "stable" ]; then
-					patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+			# 🆕 Determinar qué usar como "stock" para el módulo
+			module_stock_src="$raw_apk"
+			if [ "$was_merged" = true ] && [ -d "$splits_dir" ]; then
+				module_stock_src="$splits_dir"
+				pr "  Usando splits originales para el módulo (preservando firma de Google)"
+			fi
+			
+			gmscore_present=false
+			patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
+			if [ "${app_args[channel]}" = "stable" ]; then
+				patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+			fi
+			if curl -fsSL "$patches_list_url_4b" 2>/dev/null | \
+			   jq -e '(.patches // .)[]? | select(.name == "GmsCore support")' >/dev/null 2>&1; then
+				gmscore_present=true
+				pr "  Parche 'GmsCore support' detectado en el bundle"
+			fi
+
+			module_id=$(echo "$table_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '_' | sed 's/_$//')
+			module_zip="$BUILD_DIR/${apk_filename%.apk}.zip"
+			module_zip_filename=$(basename "$module_zip")
+			pkg_version_code="${NEXT_VER_CODE}"
+			module_apk_src="$patched_apk"
+
+			if [ "$gmscore_present" = true ]; then
+				pr "  Compilando variante para módulo (sin 'GmsCore support')..."
+				module_apk_tmp="$TEMP_DIR/$table_name/module.apk"
+
+				{
+					echo ""
+					echo "--- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---"
+					echo ""
+				} >> "$app_log"
+
+				java -jar "$MORPHE_CLI_JAR" patch \
+					-p="https://github.com/$patch_repo" \
+					"${channel_flag[@]}" \
+					-o="$module_apk_tmp" \
+					--keystore="$RVB_KEYSTORE" \
+					--keystore-password="$RVB_KEYSTORE_PASS" \
+					--keystore-entry-alias="$RVB_KEY_ALIAS" \
+					--keystore-entry-password="$RVB_KEYSTORE_PASS" \
+					--signer="Morphe" \
+					--striplibs="${app_args[arch]}" \
+					"${force_flag[@]}" \
+					"${morphe_patch_args[@]}" \
+					-d="GmsCore support" \
+					"$raw_apk" \
+					2>&1 | tee -a "$app_log" \
+					|| {
+						wpr "Error al compilar la variante para módulo de $table_name"
+						exit 1
+					}
+				if [ -f "$module_apk_tmp" ]; then
+					module_apk_src="$module_apk_tmp"
+					pr "  Variante para módulo generada: $module_apk_tmp"
 				fi
-				if curl -fsSL "$patches_list_url_4b" 2>/dev/null | \
-				   jq -e '(.patches // .)[]? | select(.name == "GmsCore support")' >/dev/null 2>&1; then
-					gmscore_present=true
-					pr "  Parche 'GmsCore support' detectado en el bundle"
-				fi
+			fi
 
-				module_id=$(echo "$table_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '_' | sed 's/_$//')
-				module_zip="$BUILD_DIR/${apk_filename%.apk}.zip"
-				module_zip_filename=$(basename "$module_zip")
-				pkg_version_code="${NEXT_VER_CODE}"
-				module_apk_src="$patched_apk"
+			pr "Generando módulo Magisk/KernelSU para $table_name..."
+			if python3 "$(dirname "${BASH_SOURCE[0]}")/module_builder.py" \
+				"module" \
+				"$module_stock_src" \  # 🆕 Usamos la carpeta de splits o el APK monolítico
+				"$module_apk_src" \
+				"$module_zip" \
+				"$module_id" \
+				"$table_name (${app_args[brand]})" \
+				"${app_args[pkg_name]}" \
+				"$target_apk_ver" \
+				"$pkg_version_code" \
+				"${app_args[brand]}" \
+				"${app_args[arch]}" \
+				"$latest_applied_tag" \
+				"${RELEASE_TAG:-stable}"; then
+				pr "Módulo generado: $module_zip"
+				echo "$module_zip_filename" >> "$UPLOADED_FILES_MANIFEST"
 
-				if [ "$gmscore_present" = true ]; then
-					pr "  Compilando variante para módulo (sin 'GmsCore support')..."
-					module_apk_tmp="$TEMP_DIR/$table_name/module.apk"
-
+				# ==================================================================
+				# NUEVO: Volcar module.prop al log para debug
+				# ==================================================================
+				if [ -f "$module_zip" ]; then
 					{
 						echo ""
-						echo "--- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---"
-						echo ""
+						echo "--- Contenido de module.prop ---"
+						unzip -p "$module_zip" module.prop 2>/dev/null || echo "Error al leer module.prop del ZIP"
+						echo "--------------------------------"
 					} >> "$app_log"
-
-					java -jar "$MORPHE_CLI_JAR" patch \
-						-p="https://github.com/$patch_repo" \
-						"${channel_flag[@]}" \
-						-o="$module_apk_tmp" \
-						--keystore="$RVB_KEYSTORE" \
-						--keystore-password="$RVB_KEYSTORE_PASS" \
-						--keystore-entry-alias="$RVB_KEY_ALIAS" \
-						--keystore-entry-password="$RVB_KEYSTORE_PASS" \
-						--signer="Morphe" \
-						--striplibs="${app_args[arch]}" \
-						"${force_flag[@]}" \
-						"${morphe_patch_args[@]}" \
-						-d="GmsCore support" \
-						"$raw_apk" \
-						2>&1 | tee -a "$app_log" \
-						|| {
-							wpr "Error al compilar la variante para módulo de $table_name"
-							exit 1
-						}
-					if [ -f "$module_apk_tmp" ]; then
-						module_apk_src="$module_apk_tmp"
-						pr "  Variante para módulo generada: $module_apk_tmp"
-					fi
+					pr "  Contenido de module.prop añadido al log"
 				fi
-
-				pr "Generando módulo Magisk/KernelSU para $table_name..."
-				if python3 "$(dirname "${BASH_SOURCE[0]}")/module_builder.py" \
-					"module" \
-					"$raw_apk" \
-					"$module_apk_src" \
-					"$module_zip" \
-					"$module_id" \
-					"$table_name (${app_args[brand]})" \
-					"${app_args[pkg_name]}" \
-					"$target_apk_ver" \
-					"$pkg_version_code" \
-					"${app_args[brand]}" \
-					"${app_args[arch]}" \
-					"$latest_applied_tag" \
-					"${RELEASE_TAG:-stable}"; then
-					pr "Módulo generado: $module_zip"
-					echo "$module_zip_filename" >> "$UPLOADED_FILES_MANIFEST"
-
-					# ==================================================================
-					# NUEVO: Volcar module.prop al log para debug
-					# ==================================================================
-					if [ -f "$module_zip" ]; then
-						{
-							echo ""
-							echo "--- Contenido de module.prop ---"
-							unzip -p "$module_zip" module.prop 2>/dev/null || echo "Error al leer module.prop del ZIP"
-							echo "--------------------------------"
-						} >> "$app_log"
-						pr "  Contenido de module.prop añadido al log"
-					fi
-				else
-					wpr "Fallo al generar el módulo para $table_name"
-				fi
+			else
+				wpr "Fallo al generar el módulo para $table_name"
 			fi
 		fi
 
