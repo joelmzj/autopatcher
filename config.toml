@@ -246,3 +246,35 @@ force-patch = true
 enable-patches = []
 exclude-patches = ["Change app name", "No Google Assistant"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/waze/waze-gps-maps-traffic-alerts-live-navigation/"
+
+[SDMaid]
+enabled = true
+pkg-name = "eu.darken.sdmse"
+app-name = "SD Maid SE"
+patches-source = "rushiranpise/morphe-patches"
+brand = "rushiranpise"
+arch = "arm64-v8a"
+channel = "stable"
+inclusive-patches = true
+build-mode = "apk"
+version = "auto"
+force-patch = true
+enable-patches = []
+exclude-patches = []
+apkmirror-dlurl = "https://www.apkmirror.com/apk/darken/sd-maid-2-se-system-cleaner/"
+
+[Nova-Launcher]
+enabled = true
+pkg-name = "com.teslacoilsw.launcher"
+app-name = "Nova Launcher"
+patches-source = "rushiranpise/morphe-patches"
+brand = "rushiranpise"
+arch = "arm64-v8a"
+channel = "stable"
+inclusive-patches = true
+build-mode = "apk"
+version = "auto"
+force-patch = true
+enable-patches = []
+exclude-patches = []
+apkmirror-dlurl = "https://www.apkmirror.com/apk/instabridge-sweden-ab/nova-launcher/"
