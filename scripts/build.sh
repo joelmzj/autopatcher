@@ -486,7 +486,7 @@ for table_name in $(toml_get_table_names); do
 		# ==================================================================
 		# 🕵️‍♂️ PRUEBA DE RECONOCIMIENTO: Listar parches (Solo para X-New)
 		# ==================================================================
-		if [ "$table_name" = "X-New" ]; then
+		if [ "$table_name" = "X-new" ]; then
 			pr "--- INICIO TEST: Listando parches con morphe-cli ---"
 			{
 				echo ""
