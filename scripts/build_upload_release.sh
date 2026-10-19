@@ -13,14 +13,6 @@
 #   3. Promover versiones previas: stable → snapshot (con el mismo nombre)
 #   4. Subir archivos nuevos al stable
 #   5. Limpiar obsoletos del stable comparando contra versions_log.json
-#
-# Variables de entorno esperadas:
-#   RELEASE_TAG               (default: stable)
-#   SNAPSHOT_TAG              (default: snapshot)   tag FIJO (no incremental)
-#   GITHUB_REPOSITORY         (requerido)
-#   APPS_COMPILED             (default: -1)
-#   UPLOADED_FILES_MANIFEST   (requerido) ruta al manifest con basenames generados
-#   VERSIONS_LOG              (default: versions_log.json)
 
 set -euo pipefail
 shopt -s nullglob
@@ -114,72 +106,113 @@ fi
 
 # ==============================================================================
 # 3. PROMOTE: mover versiones previas de stable → snapshot
-#
-# Para cada app recompilada en este run (stable_file en el manifest):
-#   - Si prev_stable_file existe y difiere de stable_file:
-#       a) Si no está en ./build/, descargarlo del release stable
-#       b) Subir prev_stable_file al snapshot (--clobber, mismo nombre)
-#       c) Borrar snapshot_file anterior del snapshot (si difiere)
-#       d) Borrar prev_stable_file del stable
-#   - Repetir para el ZIP si aplica
 # ==============================================================================
 pr "=== Promoviendo versiones previas al snapshot ==="
+
+# 🆕 BUG-02: Set para proteger archivos que no pudieron promocionarse
+declare -A pending_promotions=()
 
 promoted=0
 while IFS=$'\t' read -r app stable_file stable_zip snapshot_file snapshot_zip prev_stable_file prev_stable_zip; do
     [ -z "$app" ] && continue
 
-    # Solo apps recompiladas en este run
-    [ -z "${manifest_set[$stable_file]:-}" ] && continue
+    # Solo apps recompiladas en este run (si no está el apk ni el zip en el manifest, se salta)
+    if [ -z "${manifest_set[$stable_file]:-}" ] && [ -z "${manifest_set[$stable_zip]:-}" ]; then
+        continue
+    fi
 
     # --- APK ---
-    if [ -n "$prev_stable_file" ] && [ "$prev_stable_file" != "$stable_file" ]; then
-        pr "  [$app] Promoviendo APK: $prev_stable_file"
+    if [ -n "$prev_stable_file" ]; then
+        # 🆕 BUG-05: Si cambió de both -> module, borrar de stable sin promover
+        if [ -z "$stable_file" ]; then
+            pr "  [$app] Removiendo APK de stable (cambio a modo module): $prev_stable_file"
+            gh release delete-asset "$RELEASE_TAG" "$prev_stable_file" -R "$REPO" -y >/dev/null 2>&1 || true
+        elif [ "$prev_stable_file" != "$stable_file" ]; then
+            pr "  [$app] Promoviendo APK: $prev_stable_file"
 
-        # Si no está en ./build/, descargarlo del stable actual
-        if [ ! -f "./build/$prev_stable_file" ]; then
-            pr "    Descargando $prev_stable_file desde stable..."
-            gh release download "$RELEASE_TAG" -R "$REPO" \
-                --pattern "$prev_stable_file" --dir "./build/" --clobber 2>/dev/null || true
+            if [ ! -f "./build/$prev_stable_file" ]; then
+                pr "    Descargando $prev_stable_file desde stable..."
+                gh release download "$RELEASE_TAG" -R "$REPO" \
+                    --pattern "$prev_stable_file" --dir "./build/" --clobber 2>/dev/null || true
+            fi
+
+            uploaded=false
+            if [ -f "./build/$prev_stable_file" ]; then
+                if gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_file" --clobber -R "$REPO" >/dev/null 2>&1; then
+                    uploaded=true
+                else
+                    wpr "    Falló la subida de $prev_stable_file al snapshot"
+                fi
+            else
+                wpr "    No se pudo obtener $prev_stable_file para el snapshot"
+            fi
+
+            # 🆕 BUG-01: Solo borrar de stable si la subida fue exitosa
+            if [ "$uploaded" = "true" ]; then
+                if [ -n "$snapshot_file" ] && [ "$snapshot_file" != "$prev_stable_file" ]; then
+                    gh release delete-asset "$SNAPSHOT_TAG" "$snapshot_file" -R "$REPO" -y >/dev/null 2>&1 || true
+                fi
+                gh release delete-asset "$RELEASE_TAG" "$prev_stable_file" -R "$REPO" -y >/dev/null 2>&1 || true
+                promoted=$((promoted + 1))
+
+                # 🆕 BUG-03: Actualizar versions_log.json con el snapshot_file
+                tmp_vlog=$(mktemp)
+                jq --arg app "$app" --arg sf "$prev_stable_file" \
+                   '.[$app].snapshot_file = $sf' "$VERSIONS_LOG" > "$tmp_vlog" \
+                   && mv "$tmp_vlog" "$VERSIONS_LOG"
+            else
+                wpr "    $prev_stable_file NO se borrará de stable porque no se pudo subir al snapshot"
+                # 🆕 BUG-02: Proteger el archivo para que la limpieza no lo borre
+                pending_promotions["$prev_stable_file"]=1
+            fi
         fi
-
-        if [ -f "./build/$prev_stable_file" ]; then
-            gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_file" --clobber -R "$REPO" >/dev/null
-        else
-            wpr "    No se pudo obtener $prev_stable_file para el snapshot"
-        fi
-
-        if [ -n "$snapshot_file" ] && [ "$snapshot_file" != "$prev_stable_file" ]; then
-            gh release delete-asset "$SNAPSHOT_TAG" "$snapshot_file" -R "$REPO" -y >/dev/null 2>&1 || true
-        fi
-
-        gh release delete-asset "$RELEASE_TAG" "$prev_stable_file" -R "$REPO" -y >/dev/null 2>&1 || true
-        promoted=$((promoted + 1))
     fi
 
     # --- ZIP (módulo) ---
-    if [ -n "$prev_stable_zip" ] && [ "$prev_stable_zip" != "$stable_zip" ]; then
-        pr "  [$app] Promoviendo ZIP: $prev_stable_zip"
+    if [ -n "$prev_stable_zip" ]; then
+        # 🆕 BUG-05: Si cambió de both -> apk, borrar de stable sin promover
+        if [ -z "$stable_zip" ]; then
+            pr "  [$app] Removiendo ZIP de stable (cambio a modo apk): $prev_stable_zip"
+            gh release delete-asset "$RELEASE_TAG" "$prev_stable_zip" -R "$REPO" -y >/dev/null 2>&1 || true
+        elif [ "$prev_stable_zip" != "$stable_zip" ]; then
+            pr "  [$app] Promoviendo ZIP: $prev_stable_zip"
 
-        # Si no está en ./build/, descargarlo del stable actual
-        if [ ! -f "./build/$prev_stable_zip" ]; then
-            pr "    Descargando $prev_stable_zip desde stable..."
-            gh release download "$RELEASE_TAG" -R "$REPO" \
-                --pattern "$prev_stable_zip" --dir "./build/" --clobber 2>/dev/null || true
+            if [ ! -f "./build/$prev_stable_zip" ]; then
+                pr "    Descargando $prev_stable_zip desde stable..."
+                gh release download "$RELEASE_TAG" -R "$REPO" \
+                    --pattern "$prev_stable_zip" --dir "./build/" --clobber 2>/dev/null || true
+            fi
+
+            uploaded_zip=false
+            if [ -f "./build/$prev_stable_zip" ]; then
+                if gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_zip" --clobber -R "$REPO" >/dev/null 2>&1; then
+                    uploaded_zip=true
+                else
+                    wpr "    Falló la subida de $prev_stable_zip al snapshot"
+                fi
+            else
+                wpr "    No se pudo obtener $prev_stable_zip para el snapshot"
+            fi
+
+            # 🆕 BUG-01: Solo borrar de stable si la subida fue exitosa
+            if [ "$uploaded_zip" = "true" ]; then
+                if [ -n "$snapshot_zip" ] && [ "$snapshot_zip" != "$prev_stable_zip" ]; then
+                    gh release delete-asset "$SNAPSHOT_TAG" "$snapshot_zip" -R "$REPO" -y >/dev/null 2>&1 || true
+                fi
+                gh release delete-asset "$RELEASE_TAG" "$prev_stable_zip" -R "$REPO" -y >/dev/null 2>&1 || true
+                promoted=$((promoted + 1))
+
+                # 🆕 BUG-03: Actualizar versions_log.json con el snapshot_zip
+                tmp_vlog=$(mktemp)
+                jq --arg app "$app" --arg sz "$prev_stable_zip" \
+                   '.[$app].snapshot_zip = $sz' "$VERSIONS_LOG" > "$tmp_vlog" \
+                   && mv "$tmp_vlog" "$VERSIONS_LOG"
+            else
+                wpr "    $prev_stable_zip NO se borrará de stable porque no se pudo subir al snapshot"
+                # 🆕 BUG-02: Proteger el archivo para que la limpieza no lo borre
+                pending_promotions["$prev_stable_zip"]=1
+            fi
         fi
-
-        if [ -f "./build/$prev_stable_zip" ]; then
-            gh release upload "$SNAPSHOT_TAG" "./build/$prev_stable_zip" --clobber -R "$REPO" >/dev/null
-        else
-            wpr "    No se pudo obtener $prev_stable_zip para el snapshot"
-        fi
-
-        if [ -n "$snapshot_zip" ] && [ "$snapshot_zip" != "$prev_stable_zip" ]; then
-            gh release delete-asset "$SNAPSHOT_TAG" "$snapshot_zip" -R "$REPO" -y >/dev/null 2>&1 || true
-        fi
-
-        gh release delete-asset "$RELEASE_TAG" "$prev_stable_zip" -R "$REPO" -y >/dev/null 2>&1 || true
-        promoted=$((promoted + 1))
     fi
 done < <(jq -r '
     to_entries[] |
@@ -209,8 +242,6 @@ pr "Release $RELEASE_TAG actualizado con ${#files[@]} archivos"
 
 # ==============================================================================
 # 5. Limpiar assets obsoletos del stable
-# Un asset es obsoleto si NO está en el set de stable_file/stable_zip vigentes
-# según versions_log.json. Esto evita acumulación tras cambios de versión.
 # ==============================================================================
 pr "=== Verificando assets obsoletos en $RELEASE_TAG ==="
 
@@ -227,7 +258,8 @@ if [ -n "$existing_assets" ]; then
     preserved=0
     while IFS= read -r asset; do
         [ -z "$asset" ] && continue
-        if [ -z "${current_stable_set[$asset]:-}" ]; then
+        # 🆕 BUG-02: No borrar si está en stable_set o si está pendiente de promoción
+        if [ -z "${current_stable_set[$asset]:-}" ] && [ -z "${pending_promotions[$asset]:-}" ]; then
             if gh release delete-asset "$RELEASE_TAG" "$asset" -R "$REPO" -y >/dev/null 2>&1; then
                 pr "  ✗ Eliminado (obsoleto): $asset"
                 removed=$((removed + 1))
@@ -236,7 +268,7 @@ if [ -n "$existing_assets" ]; then
             preserved=$((preserved + 1))
         fi
     done <<< "$existing_assets"
-    pr "  Eliminados $removed assets obsoletos, $preserved assets vigentes"
+    pr "  Eliminados $removed assets obsoletos, $preserved assets vigentes/protegidos"
 else
     pr "  No había assets previos en el release"
 fi
