@@ -1,0 +1,112 @@
+=== Parcheo: X-new ===
+Fecha: 2026-10-19T23:15:23Z
+APK version: 12.35.0-prod.01
+Patches version: v3.59.0
+Patches source: crimera/piko-newx
+Channel: stable
+Brand: piko
+Arch: arm64-v8a
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+
+--- Argumentos de parches (1) ---
+  -d=NewX: Clone
+
+--- Force flag ---
+  --force
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
+INFO: GitHub: fetching releases from https://api.github.com/repos/crimera/piko-newx/releases 
+INFO: GitHub: fetched 30 releases from crimera/piko-newx 
+INFO: Downloading patches from crimera/piko-newx v3.59.0... 
+INFO: GitHub: downloading patches-3.59.0.mpp from https://github.com/crimera/piko-newx/releases/download/v3.59.0/patches-3.59.0.mpp 
+INFO: GitHub: wrote 5045520 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/crimera-piko-newx/v3.59.0__patches-3.59.0.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/crimera-piko-newx/v3.59.0__patches-3.59.0.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Loading patches... 
+INFO: Initializing patcher... 
+INFO: Filtering patches for com.twitter.android v12.35.0-prod.01... 
+INFO: Skipping disabled: NewX: Restore Twitter branding (default) 
+INFO: Skipping disabled: NewX: Browse tweet object (default) 
+INFO: Skipping disabled: NewX: Clone 
+INFO: Skipping disabled: NewX: Log HLS audio renditions (default) 
+INFO: Skipping disabled: NewX: Server error logging (default) 
+INFO: Skipping disabled: NewX: Share post as image (default) 
+INFO: Skipping disabled: NewX: Hide post dividers (default) 
+INFO: Applying 43 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 36 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
+INFO: Executing patches 
+INFO: Applied: NewX: Classic inline action spacing 
+INFO: Applied: NewX: Crash logs 
+INFO: Applied: NewX: Custom font 
+INFO: Applied: NewX: Custom sharing domain 
+INFO: Applied: NewX: Customize drawer items 
+INFO: Applied: NewX: Customize inline actions 
+INFO: Applied: NewX: Customize media menu items 
+INFO: Applied: NewX: Customize navigation bar 
+INFO: Applied: NewX: Customize post menu items 
+INFO: Applied: NewX: Customize profile tabs 
+INFO: Applied: NewX: Customize timeline tabs 
+INFO: Applied: NewX: Disable automatic timeline refresh 
+INFO: Applied: NewX: Disable blur effects 
+INFO: Applied: NewX: Disable video player scrolling 
+INFO: Applied: NewX: Feature switch overrides 
+INFO: Applied: NewX: Filter For You by topic 
+INFO: Applied: NewX: Filter posts by keyword 
+INFO: Applied: NewX: Gallery profile Photos tab 
+INFO: Applied: NewX: Hide AI-generated posts 
+INFO: Applied: NewX: Hide Discover more 
+INFO: Applied: NewX: Hide Spaces bar 
+INFO: Applied: NewX: Hide compose button 
+INFO: Applied: NewX: Hide new posts pill 
+INFO: Applied: NewX: Hide post author actions 
+INFO: Applied: NewX: Hide post reply bar 
+INFO: Applied: NewX: Hide posts by verified account type 
+INFO: Applied: NewX: Hide premium upsell 
+INFO: Applied: NewX: Hide timeline tabs bar 
+INFO: Applied: NewX: Hide who to follow 
+INFO: Applied: NewX: Inline download button 
+INFO: Applied: NewX: Open canonical URLs 
+INFO: Applied: NewX: Redirect downloads to chosen folder 
+INFO: Applied: NewX: Remove ads 
+INFO: Applied: NewX: Restore pinned home tab 
+INFO: Applied: NewX: Restore timeline position 
+INFO: Applied: NewX: Set default media tab 
+INFO: Applied: NewX: Set default profile post sorting 
+INFO: Applied: NewX: Set default reply sorting 
+INFO: Applied: NewX: Show poll results 
+INFO: Applied: NewX: Show sensitive media 
+INFO: Applied: NewX: Theme 
+INFO: Applied: NewX: Unlock color customization 
+INFO: Applied: NewX: Unlock downloads 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 5515 new classes to new DEX files 
+INFO: Processing 5515 classes in parallel (4 threads) 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792451766439/patched/newDex 
+INFO: Stripped 1136 modified classes from 11 original DEX files 
+INFO: Compiling modified resources 
+INFO: Stripping libs (keeping architectures arm64-v8a) 
+INFO: Stripped 0 lib files 
+INFO: Unescaping strings 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 1013 of 221885 values in 45 files, 1 resource files and 0 configurations of patches for com.twitter.android 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.twitter.android.paymentsdynamicfeature 
+INFO: Resource APK inputs: reusing 4783 unchanged archive entries, rebuilding 3 entries, dropping 0 entries 
+INFO: Resource APK scan: 1.9s write: 700ms 
+INFO: Using compiled resource APK as output base 
+INFO: Aligning APK 
+INFO: Signing APK 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-new-v12.35.0-prod.01-piko-v3.59.0-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792451766439 
+
+--- Fin del parcheo ---
+APK final: build/X-new-v12.35.0-prod.01-piko-v3.59.0-arm64-v8a.apk
+Fecha de fin: 2026-10-19T23:16:35Z
