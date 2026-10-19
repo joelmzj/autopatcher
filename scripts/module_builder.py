@@ -9,14 +9,14 @@
 #   ├── module.prop                 ← metadata del módulo (con updateJson)
 #   ├── update.json                 ← metadata para Magisk/KernelSU
 #   ├── config                      ← PKG_NAME, PKG_VER, MODULE_ARCH
-#   ├── stock/base.apk              ← APK stock monolítico
+#   ├── stock/                      ← Aquí irán los splits (bundle) o el APK stock
 #   ├── base.apk                    ← APK parcheado
 #   ├── customize.sh, service.sh, action.sh, uninstall.sh, utils.sh
 #   ├── bin/<arch>/...
 #   └── META-INF/com/google/android/...
 #
 # Uso:
-#   module_builder.py <template_dir> <stock_apk> <patched_apk> <output_zip> \
+#   module_builder.py <template_dir> <stock_src> <patched_apk> <output_zip> \
 #                     <module_id> <module_name> <pkg_name> <pkg_version> \
 #                     <pkg_version_code> <brand> <arch> <latest_applied_tag> <channel>
 
@@ -69,7 +69,7 @@ def _format_patch_short(tag: str) -> str:
 
 def create_magisk_module(
     template_dir: str,
-    stock_apk: str,
+    stock_src: str,
     patched_apk: str,
     output_zip: str,
     module_id: str,
@@ -87,8 +87,8 @@ def create_magisk_module(
     # ------------------------------------------------------------------
     if not os.path.isdir(template_dir):
         _die(f"template_dir no existe: {template_dir}")
-    if not os.path.isfile(stock_apk):
-        _die(f"stock_apk no existe: {stock_apk}")
+    if not os.path.exists(stock_src):
+        _die(f"stock_src no existe: {stock_src}")
     if not os.path.isfile(patched_apk):
         _die(f"patched_apk no existe: {patched_apk}")
 
@@ -108,13 +108,27 @@ def create_magisk_module(
     shutil.copytree(template_dir, temp_dir)
 
     # ------------------------------------------------------------------
-    # 1. Copiar el APK stock a stock/base.apk
+    # 1. Copiar el stock a la carpeta 'stock' (soporta APK único o splits)
     # ------------------------------------------------------------------
-    stock_dir = os.path.join(temp_dir, "stock")
-    os.makedirs(stock_dir, exist_ok=True)
-    stock_dst = os.path.join(stock_dir, "base.apk")
-    shutil.copy(stock_apk, stock_dst)
-    _log(f"stock APK copiado: {stock_dst}")
+    stock_dir_dst = os.path.join(temp_dir, "stock")
+    os.makedirs(stock_dir_dst, exist_ok=True)
+    
+    if os.path.isdir(stock_src):
+        # Es un directorio con splits (bundle extraído)
+        split_count = 0
+        for f in os.listdir(stock_src):
+            if f.endswith(".apk"):
+                shutil.copy(os.path.join(stock_src, f), os.path.join(stock_dir_dst, f))
+                split_count += 1
+        
+        if split_count == 0:
+            _die(f"No se encontraron archivos .apk en el directorio de splits: {stock_src}")
+        _log(f"Bundle detectado: {split_count} splits copiados a stock/")
+    else:
+        # Es un APK monolítico
+        stock_dst = os.path.join(stock_dir_dst, "base.apk")
+        shutil.copy(stock_src, stock_dst)
+        _log(f"APK stock monolítico copiado: {stock_dst}")
 
     # ------------------------------------------------------------------
     # 2. Copiar el APK parcheado como base.apk en la raíz del módulo
@@ -171,7 +185,7 @@ def create_magisk_module(
         f.write(f"name={module_name}\n")
         f.write(f"version={version_string}\n")
         f.write(f"versionCode={vc_int}\n")
-        f.write(f"author=joelmzj\n")  # ← CORREGIDO
+        f.write(f"author=joelmzj\n")  # Corregido
         f.write(f"description={module_name} module\n")
         f.write(f"updateJson={update_json_url}\n")
     _log(f"module.prop generado: id={module_slug} version={version_string}")
@@ -225,7 +239,7 @@ def main():
     # script + 13 args = 14
     if len(sys.argv) != 14:
         print(
-            "Uso: module_builder.py <template_dir> <stock_apk> <patched_apk> <output_zip> "
+            "Uso: module_builder.py <template_dir> <stock_src> <patched_apk> <output_zip> "
             "<module_id> <module_name> <pkg_name> <pkg_version> <pkg_version_code> "
             "<brand> <arch> <latest_applied_tag> <channel>",
             file=sys.stderr,
@@ -234,7 +248,7 @@ def main():
 
     create_magisk_module(
         template_dir       = sys.argv[1],
-        stock_apk          = sys.argv[2],
+        stock_src          = sys.argv[2],
         patched_apk        = sys.argv[3],
         output_zip         = sys.argv[4],
         module_id          = sys.argv[5],
