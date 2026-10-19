@@ -1,5 +1,5 @@
 === Parcheo: X-new ===
-Fecha: 2026-10-19T23:15:23Z
+Fecha: 2026-10-19T23:25:12Z
 APK version: 12.35.0-prod.01
 Patches version: v3.59.0
 Patches source: crimera/piko-newx
@@ -17,6 +17,46 @@ Inclusive patches: true
   --force
 
 --- Salida de Morphe CLI (APK principal) ---
+
+
+=== TEST: SALIDA DE list-patches para X-new ===
+Invalid value for option '--with-packages': 'https://github.com/crimera/piko-newx' is not a boolean
+Usage: morphe-desktop list-patches [-diopuvx] [--prerelease] [-f=<packageName>]
+                                   [--out=<outputFile>]
+                                   --patches=<patchesFile>...
+                                   [--patches=<patchesFile>...]...
+List patches from supplied MPP files.
+  -d, --with-descriptions   List their descriptions.
+                              Default: true
+  -f, --filter-package-name=<packageName>
+                            Filter patches by package name.
+  -i, --index               List the index of each patch in relation to the
+                              supplied MPP files.
+                              Default: true
+  -o, --with-options        List the options of the patches.
+                              Default: false
+      --out=<outputFile>    Path to the output text file. Writes patch list to
+                              this file instead of stdout.
+  -p, --with-packages       List the packages the patches are compatible with.
+                              Default: false
+      --patches=<patchesFile>...
+                            Path to a MPP file or a GitHub repo url such as
+                              https://github.com/MorpheApp/morphe-patches
+      --prerelease          Fetch the latest dev pre-release instead of the
+                              stable main release from the repo provided in
+                              --patches.
+                              Default: false
+  -u, --with-universal-patches
+                            List patches which are compatible with any app.
+                              Default: true
+  -v, --with-versions       List the versions of the apps the patches are
+                              compatible with.
+                              Default: false
+  -x, --include-experimental
+                            Include experimental app versions in the output.
+                              Default: false
+ERROR: El comando list-patches falló
+=== FIN TEST ===
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/crimera/piko-newx/releases 
@@ -88,7 +128,7 @@ INFO: Applied: NewX: Unlock downloads
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 5515 new classes to new DEX files 
 INFO: Processing 5515 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792451766439/patched/newDex 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792452342470/patched/newDex 
 INFO: Stripped 1136 modified classes from 11 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -97,16 +137,16 @@ INFO: Unescaping strings
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 1013 of 221885 values in 45 files, 1 resource files and 0 configurations of patches for com.twitter.android 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.twitter.android.paymentsdynamicfeature 
+INFO: Encoded 1013 of 221885 values in 45 files, 1 resource files and 0 configurations of patches for com.twitter.android 
 INFO: Resource APK inputs: reusing 4783 unchanged archive entries, rebuilding 3 entries, dropping 0 entries 
-INFO: Resource APK scan: 1.9s write: 700ms 
+INFO: Resource APK scan: 1.4s write: 1.1s 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-new-v12.35.0-prod.01-piko-v3.59.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792451766439 
+INFO: Purged this session's temp files: patching-1792452342470 
 
 --- Fin del parcheo ---
 APK final: build/X-new-v12.35.0-prod.01-piko-v3.59.0-arm64-v8a.apk
-Fecha de fin: 2026-10-19T23:16:35Z
+Fecha de fin: 2026-10-19T23:26:01Z
