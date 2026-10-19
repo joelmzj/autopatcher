@@ -1,5 +1,5 @@
 === Parcheo: Facebook ===
-Fecha: 2026-10-19T05:52:47Z
+Fecha: 2026-10-19T23:42:49Z
 APK version: 583.0.0.39.55
 Patches version: v0.15.0
 Patches source: SysAdminDoc/Hushfacebook
@@ -17,13 +17,1043 @@ Inclusive patches: true
 
 --- Salida de Morphe CLI (APK principal) ---
 
-INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
+
+=== TEST: SALIDA DE list-patches para Facebook ===
 INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/Hushfacebook/releases 
 INFO: GitHub: fetched 25 releases from SysAdminDoc/Hushfacebook 
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: Downloading patches from SysAdminDoc/Hushfacebook v0.15.0... 
 INFO: GitHub: downloading patches-0.15.0.mpp from https://github.com/SysAdminDoc/HushFacebook/releases/download/v0.15.0/patches-0.15.0.mpp 
 INFO: GitHub: wrote 4733397 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-Hushfacebook/v0.15.0__patches-0.15.0.mpp 
 INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-Hushfacebook/v0.15.0__patches-0.15.0.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Index: 0
+Name: Hide affiliate product links
+Description: Removes the shopping cards that affiliate links add to reels, feed posts and comments, plus Shop now cards on reels, so you see fewer sales pitches while you scroll. On by default. Turn it off in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 1
+Name: Disable Audience Network
+Description: Stops Facebook serving its ads inside other apps on your phone. Those apps show their own ads or none, and their rewarded ads may fail. Works as soon as you patch it in, with no switch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 2
+Name: Block Instant Games ads
+Description: Games you play inside Facebook show no ads, so you can keep playing without breaks. A rewarded ad gives no reward unless you also turn on the switch that counts it as watched. On by default. Turn it off in Hushfacebook settings > Menu.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 3
+Name: Block background ad prefetch
+Description: Stops the jobs Facebook runs in the background to download ads, and the model it ranks them with, before you ever see them. Works as soon as you patch it in, with no switch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 4
+Name: Hide sponsored Marketplace listings
+Description: Removes ads and boosted listings from Marketplace's feed and search results, so you see more of what people are selling. Listings people post stay. On by default. Turn it off in Hushfacebook settings > Marketplace.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 5
+Name: Hide sponsored posts
+Description: Removes sponsored and promoted posts from the news feed, with no gap left behind, so you see fewer ads. It also keeps the floating ad button off an ad's comments. On by default. Turn it off in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 6
+Name: Hide sponsored profile posts
+Description: Removes the ads between posts on someone's profile or a Page, so you only see what they posted. On by default. Turn it off in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 7
+Name: Hide sponsored reels
+Description: Removes ads from Reels and Watch, including product banners over reels and ads in the middle of videos, so you can watch without interruptions. On by default. Turn it off in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 8
+Name: Hide sponsored search results
+Description: Removes the ads from Facebook's search results, so you see the people, Pages and posts you searched for. On by default. Turn it off in Hushfacebook settings > Search.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 9
+Name: Hide sponsored stories
+Description: Removes ad cards from the story viewer, so swiping through stories shows only what people posted. On by default. Turn it off in Hushfacebook settings > Stories.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 10
+Name: Block ad telemetry
+Description: Stops Facebook watching for screenshots of ads and reporting which apps you install after seeing ads, and stops several of the ways it sends your phone's advertising ID, so less of what you do feeds its ad tracking. Works as soon as you patch it in, with no switch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 11
+Name: Clean up Facebook's chat list
+Description: Tidies Chats inside Facebook. One switch empties the row of notes and who's active above your chats, and another removes promotional banners like the one asking you to turn on notifications. A third takes the Meta AI button off the search row and the search screen. Your chats stay. Starts off. Turn on the parts you want in Hushfacebook settings > Chats.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 12
+Name: Hide the Get Messenger card
+Description: Hides the "Get the Messenger app" card at the top of Chats when Messenger is already installed. A patched Facebook may not see that Messenger is there, so it keeps showing the card. On by default. Turn it off in Hushfacebook settings > Chats.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 13
+Name: Hide read receipts
+Description: People you chat with in chats that open inside Facebook don't see that you've read their messages, so you can read now and reply later. Replying may still show you've read it. Starts off. Turn it on in Hushfacebook settings > Privacy.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 14
+Name: Hide typing indicator
+Description: Others don't see that you're typing, in chats that open inside Facebook and in comment boxes, so you can write without anyone watching. Your messages send as usual. Starts off. Turn on the parts you want in Hushfacebook settings > Privacy.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 15
+Name: Open Messenger from the top bar
+Description: Makes the Messenger icon at the top of Facebook open the Messenger app instead of Facebook's own Chats, if you'd rather chat in Messenger. Without Messenger installed, Chats opens as before. Starts off. Turn it on in Hushfacebook settings > Chats. Also carries Leave calls and chats to Messenger, a separate switch that starts off and leaves calls and chat notifications to Messenger while it's installed and enabled. Restart Facebook after changing the switch or whether Messenger is installed or enabled, so call routing updates.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 16
+Name: Send chat photos and videos at original quality
+Description: Photos and videos you send from chats that open inside Facebook go out as the originals instead of smaller copies, so they arrive sharp. Very large files are still shrunk. Starts off. Turn it on in Hushfacebook settings > Chats.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 17
+Name: Install beside Meta's apps
+Description: Lets the official Messenger, Facebook Lite, Business Suite and Workplace install next to your patched Facebook. Without it, Android refuses them because they share two permissions with Facebook. Root Mount installs don't need it. Works as soon as you patch it in, with no switch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 18
+Name: Default comment order
+Description: Opens comments in the order you choose, Most relevant, Newest or All comments, instead of the one Facebook picks. Handy if you always want the newest first. Starts off. Turn it on and pick an order in Hushfacebook settings > Comments.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 19
+Name: Open comments at full height
+Description: Opens the comment sheet at the full height of the screen instead of part way up, on posts, videos, reels and stories. On reels and videos, Comment opens that sheet instead of the split view. Starts off. Turn it on in Hushfacebook settings > Comments.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 20
+Name: Comment sheet options
+Description: Small fixes for comments. Stop a long press on Like from opening reactions, hide the GIF and sticker buttons, show every reply without tapping View replies, load a whole reply thread as you scroll, hide Related groups under group posts, hide comments with shop links or your words, and hide who is typing and the new comments pop-up. Starts off. Turn on the parts you want in Hushfacebook settings > Comments.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 21
+Name: Hide Meta AI comment summaries
+Description: Removes Meta AI's summary of the comments from the top of the comment sheet and from under posts, so you read what people actually wrote. Starts off. Turn it on in Hushfacebook settings > Comments.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 22
+Name: Tag suggestions only after @
+Description: Stops Facebook offering people to tag while you type ordinary words in posts and comments, so names don't pop up in your way. Typing @ still brings up the list. Starts off. Turn it on in Hushfacebook settings > Writing.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 23
+Name: Download any photo
+Description: Shows Save photo on every photo you open, even where the poster turned saving off, and saves the largest size so you get the best copy. On by default. Turn it off in Hushfacebook settings > Downloads.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 24
+Name: Download any reel
+Description: Adds a Download button beside every reel and a Download row to its More menu, so you can keep reels on your phone. Videos save at the quality you set, best by default. On by default. Turn it off in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 25
+Name: Download any story
+Description: Adds Save to the menu of any story, including stories with music, so you can keep the ones you like. Videos save at the quality you set, best by default. On by default. Turn it off in Hushfacebook settings > Stories.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 26
+Name: Download any video
+Description: Adds Download to phone to the menu of videos in the feed and in Watch, so you can save them to watch later. Videos save at the quality you set, best by default. Starts off. Turn it on in Hushfacebook settings > Downloads.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 27
+Name: Use the phone's emoji
+Description: Draws emoji with your phone's own emoji font instead of Meta's, so emoji in posts, comments and chats match your keyboard. Reactions and stickers stay as they are. Starts off. Turn it on in Hushfacebook settings > Appearance, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 28
+Name: Hide AI-detected posts
+Description: Removes posts and reels Facebook marked as made with AI, posts creators labeled as AI, posts with Meta's AI characters and Meta AI cards in the feed. Only the Meta AI cards switch starts on. Change them in Hushfacebook settings > News feed and Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 29
+Name: Turn off auto-translation
+Description: Shows posts and reel captions in the language they were written in, instead of Facebook's automatic translation, so you read people's own words. See translation still works. Starts off. Turn it on in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 30
+Name: Hide the Feeds header
+Description: Takes the title row and the All, Favorites, Friends, Groups and Pages filters off the top of the Feeds tab, so it opens straight on posts. Starts off. Turn it on in Hushfacebook settings > News feed, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 31
+Name: Following feed on Home
+Description: Makes Home show the newest posts from the friends, groups and Pages you follow instead of Facebook's ranked feed, so you see what they posted rather than what Facebook picks. Home shows, right below it, narrows Home to one of the Feeds tab's filters (Friends, Favorites, Groups or Pages). Starts off. Turn it on in Hushfacebook settings > Opening Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 32
+Name: Hide Meta AI questions under posts
+Description: Removes the row of Meta AI questions Facebook adds under some posts, for a cleaner feed. The post and its buttons stay. On by default. Turn it off in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 33
+Name: Keep post dates
+Description: Keeps the date under the poster's name, so you can always tell how old a post is. Facebook's newer header can swap it for rotating details, and on some phones the line goes blank. On by default. Turn it off in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 34
+Name: Hide post prompts
+Description: Removes the strip Facebook adds to some posts, like "Are you interested in this post?", "Show less" or follow suggestions, so posts look less cluttered. No gap is left. On by default. Turn it off in Hushfacebook settings > News feed. Three more switches there, Hide the Follow link on posts, Hide counts on posts and Hide the reaction preview on posts, start off.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 35
+Name: Hide Reels in the feed
+Description: Removes the rows of reels between posts and the reels Facebook adds where your feed ends, so the feed sticks to posts. A reel a friend posts stays. Starts off. Turn it on in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 36
+Name: Block background-return feed refresh
+Description: Keeps your place in the feed when you come back to Facebook within ten minutes, or any time with No time limit on, so you don't lose what you were reading. Starts off. Turn it on in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 37
+Name: Hide seen posts
+Description: Keeps posts you've already scrolled past out of the feed when it loads again, for 1, 3, 7 or 30 days, so you see something new. The list stays on your phone. Starts off. Turn it on in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 38
+Name: Hide Stories tray
+Description: Hides the row of stories at the top of the feed, the stories between posts, or the "What's on your mind?" row at the top of Home, so you reach posts sooner. Starts off. Turn on the parts you want in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 39
+Name: Hide suggested and promoted posts
+Description: Removes what Facebook adds to the feed besides ads, like "Suggested for you" posts, "People you may know" and suggested groups, so you see more from people you follow. Most of its switches are on by default. Change them in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 40
+Name: Hide posts by words
+Description: Hides feed posts with words you list, or from people, Pages or sites you list, so you skip topics you're tired of. Photo, video, link and colored background posts can go too. Starts off. Turn it on in Hushfacebook settings > News feed.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 41
+Name: Use the system font
+Description: Draws Facebook's text in your phone's font instead of Meta's, or in a font file you pick, so Facebook matches the rest of your phone. Icons and emoji keep their own. Starts off. Turn it on in Hushfacebook settings > Appearance, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 42
+Name: Accent color
+Description: Swaps Facebook's blue on links, buttons, switches and the selected tab for a color you like better. Nothing changes until you pick one. Pick a color in Hushfacebook settings > Appearance.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 43
+Name: AMOLED black theme
+Description: Makes Facebook's dark mode black, or a dark color you pick, instead of dark gray, which can save battery on OLED screens. Turn on dark mode in Facebook first. It isn't selected by default because undoing it means patching again. Turn on Expert mode in Manager to pick it.
+Enabled: false
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 44
+Name: Force dark mode
+Description: Keeps Facebook in dark mode whatever its own setting says. Useful on tablets, where Facebook's settings have no Dark mode. Starts off. Turn it on in Hushfacebook settings > Appearance, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 45
+Name: Material You theme
+Description: Gives Facebook the colors of your wallpaper on Android 12 and newer, so it matches your phone. Dark mode takes them everywhere, and light mode on its grays, blues and selected tab. It isn't selected by default because undoing it means patching again. Turn on Expert mode in Manager to pick it.
+Enabled: false
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 46
+Name: Frame step
+Description: With a reel or video paused, a tap on its right side steps one frame forward and a tap on its left side one frame back, so you can stop on the exact moment you want. Starts off. Turn it on in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 47
+Name: Turn off HDR brightness
+Description: Stops HDR videos and photos from turning your screen up to full brightness, which can be harsh in the dark. They keep their resolution. Starts off. Turn it on in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 48
+Name: Picture-in-picture
+Description: Keeps reels and videos from the Reels and Video tabs, or full screen, playing in a small window when you leave Facebook, so you can watch while using another app. Needs Android 12 or later. Starts off. Turn it on in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 49
+Name: Keep the progress bar
+Description: Keeps every reel's progress bar full size and moving smoothly, with the time above it, so you can drag it without tapping first. Also keeps a full-screen video's controls on screen until you tap, and another switch lets a tap anywhere on the bar jump there. Starts off. Turn it on in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 50
+Name: Default playback quality
+Description: Plays videos, reels and video stories at the quality you choose, such as Data saver or up to 720p, instead of what Facebook picks. Lower saves data, higher looks sharper. Starts off. Turn it on and pick a quality in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 51
+Name: Keep the reel speed
+Description: A speed you pick in a reel's menu stays for the next reels until Facebook restarts, so you don't set it every time. On by default. A second switch for feed and Watch videos starts off. Both are in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 52
+Name: Resume long videos
+Description: A video longer than two minutes picks up where you left off the next time it plays, in the feed or full screen, so you don't lose your place. Reels, live videos and ads start as usual. Remember what you watch, a second switch, keeps a list on your phone of the reels, videos and stories you watched, under Recently watched. Both start off. Turn them on in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 53
+Name: Skip silent parts
+Description: Plays videos, reels and stories past the silent stretches in their sound, so talks and how-tos get to the point sooner. Starts off. Turn it on in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 54
+Name: Tap to play
+Description: Videos, reels, stories and music wait for your tap instead of starting by themselves, so nothing plays until you want it to. Starts off. Turn it on in Hushfacebook settings > Playback.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 55
+Name: Hide Menu promotions
+Description: Hides the Upgrades and Also from Meta sections and the Muse card in Facebook's Menu, so the Menu has fewer ads for Meta's products. Settings, Help and your shortcuts stay. On by default. Turn it off in Hushfacebook settings > Menu. A switch there, off by default, also hides the Meta AI shortcut, and a list there hides the Menu tiles you pick, such as Marketplace or Gaming.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 56
+Name: Hushfacebook in the Menu
+Description: Adds a Hushfacebook settings row to Facebook's Menu, at the end of Settings and privacy, so the settings are easy to find. A Saved row joins it while the Saved shortcut switch is on, and a Watch history row while the Watch history shortcut switch is. On by default. Turn it off with Settings row in Menu in Hushfacebook settings > Menu, unless it's the last way into the settings still on.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 57
+Name: Hold back analytics uploads
+Description: Stops Facebook sending its usage reports in the background and skips the learning jobs it runs on your phone, so less about how you use the app leaves it. A second switch holds back the camera roll processing that uploads your photos and details about them for sharing suggestions. Both start off. Turn them on in Hushfacebook settings > Privacy, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 58
+Name: Unlock app icons
+Description: Lets you pick the app icons Facebook keeps for Facebook Plus on its App icon page (Menu > Settings and privacy > App icon), so your home screen icon can be any of them. A second switch, Use the icon at the top of Home, puts your pick at the top of Home too. Both start off. Turn them on in Hushfacebook settings > Appearance.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 59
+Name: Hide carrier data banners
+Description: On carriers with Facebook Flex, hides the Data mode bar with its buy mobile data button, or the purple Free mode bar, so the feed gets that space back. Both switches start off. Turn them on in Hushfacebook settings > Appearance.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 60
+Name: Open links in external browser
+Description: Opens web links in your own browser instead of Facebook's built-in one, without Facebook tracking the click. Facebook pages still open in the app. On by default. Turn it off in Hushfacebook settings > Links. A second switch, on by default under Privacy, stops Facebook's browser keeping a history of the links you open in it.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 61
+Name: Turn off haptics
+Description: Stops the short vibrations Facebook plays when you tap and swipe in it, if you find them distracting. Your keyboard and your phone's own vibrations stay. Starts off. Turn it on in Hushfacebook settings > Appearance.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 62
+Name: Restore screens on re-signed builds
+Description: Fixes profiles, photos, posts and some Settings pages that won't open on a patched Facebook, and lets a Messenger or Facebook Lite patched in the same Manager sign in through it. Root Mount installs don't need it. Works as soon as you patch it in, with no switch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 63
+Name: Allow screenshots
+Description: Lets you take screenshots and screen recordings on the pages where Facebook blocks them, so you can keep a copy of what's on screen. Starts off. Turn it on in Hushfacebook settings > Privacy.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 64
+Name: Block screenshot detection
+Description: Stops Facebook noticing when you take a screenshot or record the screen, in the feed, Reels, chats and everywhere else, so it can't react to it. Starts off. Turn it on in Hushfacebook settings > Privacy.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 65
+Name: Hushfacebook settings
+Description: Adds Hushfacebook settings to Facebook, where you turn features on or off, pause Hushfacebook and back up your choices. To open them, long-press the Facebook logo at the top of your feed or Facebook's app icon. Its App name option shows a name you pick under the icon. Other patches need it, so keep it selected.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 66
+Name: Sanitize sharing links
+Description: Takes Facebook's tracking tags off links you share or copy, so you share a clean link. A facebook.com/share/ link is made for one share, so Facebook can still trace that kind back to you, and a switch that starts off shares the post's own link in its place. On by default. Both are in Hushfacebook settings > Links.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 67
+Name: Share sheet items
+Description: Lets you hide items you never use from Facebook's share sheet, such as WhatsApp, Meta AI or Copy link, so the ones you want are easier to reach. Nothing is hidden until you pick. Choose them in Hushfacebook settings > Links, where two switches that start off also take away the buttons that send to the people you picked as a new group chat and the row of people Facebook suggests sending to.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 68
+Name: Turn off screen transitions
+Description: Shows Facebook's tabs, Menu and new screens at once, without the slide between them, so the app feels quicker. Swipes and animations inside a page stay. Starts off. Turn it on in Hushfacebook settings > Appearance.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 69
+Name: Start on x86 devices
+Description: Stops Facebook crashing or freezing at start on x86 devices, such as computer emulators and x86 Chromebooks. Most phones and tablets don't need it, and it doesn't change how they start. Works as soon as you patch it in, with no switch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 70
+Name: Hide Meta upsells
+Description: Hides Meta's pushes for its other products, such as Edits, Threads cross-posting, Meta Verified, avatar stickers and Meta AI's Imagine, so you see fewer sales pitches. Starts off. Turn on the parts you want in Hushfacebook settings > Meta's other products.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 71
+Name: Tab bar at the bottom
+Description: Moves Facebook's tab bar to the bottom of the screen on accounts that have it at the top, where it's easier to reach. A second switch puts it at the top instead, as older Facebook had it. Another lets it slide away as you scroll, and two more keep the tab bar or the top bar on screen instead. One gives tablets and unfolded phones the phone layout so the bar can move there too, and one makes the top bar and the tab bar see-through. Another hides the phone's status bar on the main screen until you swipe down from the top. Three more take the Messenger button, its unread count or the Facebook logo out of the top bar. Starts off. Turn it on in Hushfacebook settings > Appearance, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 72
+Name: Hide tabs
+Description: Takes the tabs you pick off the tab bar, such as Friends, Marketplace, Groups, Gaming or Events, so the bar only has what you use. Each page stays in the Menu. Starts off. Turn on the ones you want in Hushfacebook settings > Appearance, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 73
+Name: Marketplace only
+Description: Turns Facebook into a Marketplace app for buying and selling without the feed. The tab bar keeps only Marketplace, Notifications and your profile or Menu, and Facebook opens on Marketplace. The Events only switch does the same for Events once you pin Events in Facebook's Customize the bar. Both start off. Turn one on in Hushfacebook settings > Opening Facebook, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 74
+Name: Hide the Reels tab
+Description: Takes the Reels tab, called Video on some accounts, off the tab bar, so Reels isn't one tap away. Reels in your feed and reel links still open. Starts off. Turn it on in Hushfacebook settings > Reels and Watch, then restart Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 75
+Name: Hide the Reels tab dot
+Description: Takes the new-item dot and count off the Reels tab, called Video on some accounts, so it stops calling for your attention. Other tabs keep theirs. On by default. Turn it off in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 76
+Name: Show View profile on Marketplace sellers
+Description: Adds View profile to every seller's Marketplace page. It opens their regular Facebook profile, so you can check who you're buying from. Facebook shows that button to only some accounts. On by default. Turn it off in Hushfacebook settings > Marketplace.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 77
+Name: Open on a chosen tab
+Description: Opens Facebook on the tab you pick when you start it from its icon, so you can skip the feed. It's Marketplace unless you change it. Starts off. Turn it on in Hushfacebook settings > Opening Facebook.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 78
+Name: Hide tab badges
+Description: Takes the dot and count off the tabs you pick, and Facebook's count off its app icon, so the app nags you less. Notifications still arrive and still show in the Notifications tab. Starts off. Turn on the ones you want in Hushfacebook settings > Appearance.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 79
+Name: Block promotional notifications
+Description: Blocks the kinds of notification you pick, such as trending videos, memories and birthdays, so you get fewer pings you don't care about. Messages, friend requests, comments and login alerts always come through. Starts off. Turn on the kinds you want in Hushfacebook settings > Notifications.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 80
+Name: Clean up Reels
+Description: Hides clutter on reels, such as the Follow button, comment previews, Remix and Use template buttons and Threads cards between reels, so more of the video shows, and can play each reel once instead of over and over, keep its original audio instead of a Meta AI dub, drop the search pill under the caption or hide the like, comment and share counts. It can also open a video you tap in the feed on its own, with no reels after it. Starts off. Turn on the parts you want in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 81
+Name: Turn off double tap to like
+Description: Stops a double tap on a reel or video from liking it, so you don't like things by accident. A single tap still plays or pauses, and the Like button still works. Starts off. Turn it on in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 82
+Name: Open comments with a gesture
+Description: Open a reel's comments with a double tap or a long press, on the sheet the Comment button opens, instead of liking or holding. Starts off. Turn it on in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 83
+Name: Hold a reel for 2x
+Description: Hold a reel to play it at double speed, and let go to go back to normal. Handy for skimming. The reel's more button still opens Facebook's long-press menu. Starts off. Turn it on in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 84
+Name: Hide reel interest prompts
+Description: Removes the "Are you interested in this reel?" prompt, so reels play without the interruption. On by default. Turn it off in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 85
+Name: Don't send reel watch history
+Description: Stops sending Facebook the list of reels you've watched, so it learns less about what you watch. Reels you've already seen may come back. Starts off. Turn it on in Hushfacebook settings > Reels and Watch.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 86
+Name: Hide Meta AI in search
+Description: Removes the Meta AI answer and Ask Meta AI prompts from search results, and stops suggestions from sending your search to Meta AI. You get plain results for people, groups, Pages and posts. On by default. Turn it off in Hushfacebook settings > Search.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 87
+Name: Stop Story auto-advance
+Description: Keeps each story on screen until you tap or swipe, so you can take your time with it. A second switch replays a finished story from the start. Starts off. Turn it on in Hushfacebook settings > Stories.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 88
+Name: View stories anonymously
+Description: Keeps you off the viewer list of stories you watch, because Facebook isn't told which ones you've seen. Replying or reacting still shows you. Stories you watch to the end show as watched on this phone only, until that person posts a new one. Starts off. Turn it on in Hushfacebook settings > Stories.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 89
+Name: Hide suggested stories
+Description: Removes stories Facebook suggests from people and Pages you don't follow, and the "Find friends from contacts" card, so the Stories tray sticks to people you know. On by default. Turn it off in Hushfacebook settings > Stories.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 90
+Name: Upload Stories in HD
+Description: Videos you post to your Story ask Facebook for its high upload quality instead of standard, so they can come out sharper. Starts off. Turn it on in Hushfacebook settings > Stories.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 91
+Name: Stop update prompts
+Description: Stops Facebook asking you to update, since a patched app can't install Meta's updates anyway. Meta App Manager's update prompts and chat prompts aimed at older versions go too. On by default. Turn it off in Hushfacebook settings > Updates.
+Enabled: true
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365
+
+Index: 92
+Name: Disable Play Store updates
+Description: Stops Google Play offering Facebook updates, which a patched app can't take anyway. It isn't selected by default because once it's installed, a build without it can't install over it. It doesn't work on a Root Mount install. Turn on Expert mode in Manager to pick it.
+Enabled: false
+Compatible packages:
+	Package name: com.facebook.katana
+	Compatible versions:
+		583.0.0.39.55
+	Version codes:
+		583.0.0.39.55: ARM64_V8A=475614366, ARMEABI_V7A=475614365 
+=== FIN TEST ===
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
+INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/Hushfacebook/releases 
+INFO: GitHub: fetched 25 releases from SysAdminDoc/Hushfacebook 
+INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-Hushfacebook/v0.15.0__patches-0.15.0.mpp 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.facebook.katana v583.0.0.39.55... 
@@ -34,121 +1064,3 @@ INFO: Leaving 37 native library files in the input APK
 INFO: Sanitizing unpatched strings 
 INFO: Escaping strings 
 INFO: Executing patches 
-INFO: Applied: AMOLED black theme 
-INFO: Applied: Allow screenshots 
-INFO: Applied: Block Instant Games ads 
-INFO: Applied: Block ad telemetry 
-INFO: Applied: Block background ad prefetch 
-INFO: Applied: Block background-return feed refresh 
-INFO: Applied: Block promotional notifications 
-INFO: Applied: Block screenshot detection 
-INFO: Applied: Clean up Facebook's chat list 
-INFO: Applied: Clean up Reels 
-INFO: Applied: Comment sheet options 
-INFO: Applied: Default comment order 
-INFO: Applied: Default playback quality 
-INFO: Applied: Disable Audience Network 
-INFO: Applied: Don't send reel watch history 
-INFO: Applied: Download any photo 
-INFO: Applied: Download any reel 
-INFO: Applied: Download any story 
-INFO: Applied: Download any video 
-INFO: Applied: Following feed on Home 
-INFO: Applied: Force dark mode 
-INFO: Applied: Frame step 
-INFO: Applied: Hide AI-detected posts 
-INFO: Applied: Hide Menu promotions 
-INFO: Applied: Hide Meta AI comment summaries 
-INFO: Applied: Hide Meta AI in search 
-INFO: Applied: Hide Meta AI questions under posts 
-INFO: Applied: Hide Meta upsells 
-INFO: Applied: Hide Reels in the feed 
-INFO: Applied: Hide Stories tray 
-INFO: Applied: Hide affiliate product links 
-INFO: Applied: Hide carrier data banners 
-INFO: Applied: Hide post prompts 
-INFO: Applied: Hide posts by words 
-INFO: Applied: Hide read receipts 
-INFO: Applied: Hide reel interest prompts 
-INFO: Applied: Hide seen posts 
-INFO: Applied: Hide sponsored Marketplace listings 
-INFO: Applied: Hide sponsored posts 
-INFO: Applied: Hide sponsored profile posts 
-INFO: Applied: Hide sponsored reels 
-INFO: Applied: Hide sponsored search results 
-INFO: Applied: Hide sponsored stories 
-INFO: Hide suggested and promoted posts: 6 of the 15 suggested feed unit classes left Facebook before 583.0.0.39.55, which is expected. The patch goes on with the 9 it found. 
-INFO: Applied: Hide suggested and promoted posts 
-INFO: Applied: Hide suggested stories 
-INFO: Applied: Hide tab badges 
-INFO: Applied: Hide tabs 
-INFO: Applied: Hide the Feeds header 
-INFO: Applied: Hide the Get Messenger card 
-INFO: Applied: Hide the Reels tab 
-INFO: Applied: Hide the Reels tab dot 
-INFO: Applied: Hide typing indicator 
-INFO: Applied: Hold a reel for 2x 
-INFO: Applied: Hold back analytics uploads 
-INFO: Applied: Hushfacebook in the Menu 
-INFO: Applied: Hushfacebook settings 
-INFO: Applied: Install beside Meta's apps 
-INFO: Applied: Keep post dates 
-INFO: Applied: Keep the progress bar 
-INFO: Applied: Keep the reel speed 
-INFO: Applied: Marketplace only 
-INFO: Applied: Open Messenger from the top bar 
-INFO: Applied: Open comments at full height 
-INFO: Applied: Open comments with a gesture 
-INFO: Applied: Open links in external browser 
-INFO: Applied: Open on a chosen tab 
-INFO: Applied: Picture-in-picture 
-INFO: Applied: Restore screens on re-signed builds 
-INFO: Applied: Resume long videos 
-INFO: Applied: Sanitize sharing links 
-INFO: Applied: Send chat photos and videos at original quality 
-INFO: Applied: Share sheet items 
-INFO: Applied: Show View profile on Marketplace sellers 
-INFO: Applied: Skip silent parts 
-INFO: Applied: Start on x86 devices 
-INFO: Applied: Stop Story auto-advance 
-INFO: Applied: Stop update prompts 
-INFO: Applied: Tab bar at the bottom 
-INFO: Applied: Tag suggestions only after @ 
-INFO: Applied: Tap to play 
-INFO: Applied: Turn off HDR brightness 
-INFO: Applied: Turn off auto-translation 
-INFO: Applied: Turn off double tap to like 
-INFO: Applied: Turn off haptics 
-INFO: Applied: Turn off screen transitions 
-INFO: Applied: Unlock app icons 
-INFO: Applied: Upload Stories in HD 
-INFO: Applied: Use the phone's emoji 
-INFO: Applied: Use the system font 
-INFO: Applied: View stories anonymously 
-INFO: Applied: Material You theme 
-INFO: Applied: Disable Play Store updates 
-INFO: Applied: Accent color 
-INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 4450 new classes to new DEX files 
-INFO: Processing 4450 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792389194514/patched/newDex 
-INFO: Stripped 2831 modified classes from 21 original DEX files 
-INFO: Compiling modified resources 
-INFO: Stripping libs (keeping architectures arm64-v8a) 
-INFO: Stripped 0 lib files 
-INFO: Unescaping strings 
-INFO: Processing aapt macros 
-INFO: Generating new resource IDs 
-INFO: Writing resource APK 
-INFO: Encoded 983 of 983 values in 4 files, 25 resource files and 0 configurations of patches for com.facebook.katana 
-INFO: Resource APK inputs: reusing 21519 unchanged archive entries, rebuilding 27 entries, dropping 0 entries 
-INFO: Resource APK scan: 800ms write: 2s 
-INFO: Using compiled resource APK as output base 
-INFO: Aligning APK 
-INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Facebook-v583.0.0.39.55-HushFacebook-v0.15.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792389194514 
-
---- Fin del parcheo ---
-APK final: build/Facebook-v583.0.0.39.55-HushFacebook-v0.15.0-arm64-v8a.apk
-Fecha de fin: 2026-10-19T05:55:26Z
