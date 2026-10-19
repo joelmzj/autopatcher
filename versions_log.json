@@ -100,9 +100,9 @@
     "stable_zip": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
-    "timestamp": "2026-10-17T04:27:06Z"
+    "prev_stable_file": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.apk",
+    "prev_stable_zip": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.2-arm64-v8a.zip",
+    "timestamp": "2026-10-19T18:00:27Z"
   },
   "YouTube-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
@@ -130,9 +130,9 @@
     "stable_zip": "YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.2-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
-    "timestamp": "2026-10-17T04:30:38Z"
+    "prev_stable_file": "YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.2-arm64-v8a.apk",
+    "prev_stable_zip": "YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.2-arm64-v8a.zip",
+    "timestamp": "2026-10-19T18:02:26Z"
   },
   "YouTube-Tablet-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",

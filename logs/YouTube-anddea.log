@@ -1,5 +1,5 @@
 === Parcheo: YouTube-anddea ===
-Fecha: 2026-10-17T04:28:38Z
+Fecha: 2026-10-19T18:00:28Z
 APK version: 21.13.164
 Patches version: v4.4.0-dev.2
 Patches source: anddea/revanced-patches
@@ -132,7 +132,7 @@ INFO: Applied: Settings for YouTube
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 8681 new classes to new DEX files 
 INFO: Processing 8681 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792211338096/patched/newDex 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792432849234/patched/newDex 
 INFO: Stripped 858 modified classes from 6 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -144,12 +144,12 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK 
 INFO: Encoded 65745 of 281846 values in 117 files, 1696 resource files and 0 configurations of patches for com.google.android.youtube 
 INFO: Resource APK inputs: reusing 16117 unchanged archive entries, rebuilding 1698 entries, dropping 87 entries 
-INFO: Resource APK scan: 2.7s write: 1.9s 
+INFO: Resource APK scan: 2.7s write: 2s 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.2-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792211338096 
+INFO: Purged this session's temp files: patching-1792432849234 
 
 --- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---
 
@@ -265,7 +265,7 @@ INFO: Applied: Settings for YouTube
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 8603 new classes to new DEX files 
 INFO: Processing 8603 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792211384989/patched/newDex 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792432895354/patched/newDex 
 INFO: Stripped 780 modified classes from 6 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -276,14 +276,24 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK 
 INFO: Encoded 65745 of 281846 values in 117 files, 1696 resource files and 0 configurations of patches for com.google.android.youtube 
 INFO: Resource APK inputs: reusing 16117 unchanged archive entries, rebuilding 1698 entries, dropping 87 entries 
-INFO: Resource APK scan: 2.7s write: 2s 
+INFO: Resource APK scan: 2.8s write: 2.2s 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/temp/YouTube-anddea/module.apk 
-INFO: Purged this session's temp files: patching-1792211384989 
+INFO: Purged this session's temp files: patching-1792432895354 
+
+--- Contenido de module.prop ---
+id=youtube-anddea-stable-arm64
+name=YouTube-anddea (anddea)
+version=v21.13.164 (patches v4.4.0-dev.2.mpp)
+versionCode=20261019
+author=joelmzj
+description=YouTube-anddea (anddea) module
+updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/youtube-anddea-arm64.json
+--------------------------------
 
 --- Fin del parcheo ---
 APK final: build/YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.2-arm64-v8a.apk
 Módulo: build/YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.2-arm64-v8a.zip
-Fecha de fin: 2026-10-17T04:30:38Z
+Fecha de fin: 2026-10-19T18:02:26Z
