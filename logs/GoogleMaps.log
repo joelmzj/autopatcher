@@ -1,9 +1,9 @@
 === Parcheo: GoogleMaps ===
-Fecha: 2026-10-19T19:48:47Z
+Fecha: 2026-10-19T20:00:18Z
 APK version: 26.36.04.973607363
-Patches version: unknown
+Patches version: v2.5.5
 Patches source: bearinmindcat/morphe-patches
-Channel: dev
+Channel: stable
 Brand: bearinmindcat
 Arch: arm64-v8a
 Build mode: module
@@ -33,109 +33,70 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/bearinmindcat/morphe-patches/releases 
 INFO: GitHub: fetched 30 releases from bearinmindcat/morphe-patches 
-Failed to download patches from URL: Could not get dev release from bearinmindcat/morphe-patches
-Usage: morphe-desktop patch [-f] [--continue-on-error] [--disable-purge]
-                            [--exclusive] [--mount] [--options-update]
-                            [--prerelease] [--unsigned] [-i[=<deviceSerial>]]
-                            [--verify-with-sdk[=<sdkToolsPath>]]
-                            [--bytecode-mode=<bytecodeMode>]
-                            [--keystore=<keyStoreFilePath>]
-                            [--keystore-entry-alias=<keyStoreEntryAlias>]
-                            [--keystore-entry-password=<keyStoreEntryPassword>]
-                            [--keystore-password=<keyStorePassword>]
-                            [-o=<outputFilePath>]
-                            [--options-file=<optionsFilePath>]
-                            [-r=<patchingResultOutputFilePath>]
-                            [--signer=<signer>] [-t=<temporaryFilesPath>]
-                            [--striplibs=<stripLibs>[,<stripLibs>...]]...
-                            (-p=<patchesFile> [[[-O=<String=Object>]...
-                            (-e=<name> | --ei=<index>)] [(-d=<name> |
-                            --di=<index>)]]...)... <apk>
-Patch an APK file.
-      <apk>                 APK file to patch.
-      --bytecode-mode=<bytecodeMode>
-                            Set bytecode mode. Valid options are FULL,
-                              STRIP_SAFE, and STRIP_FAST (the default).
-                              Default: null
-      --continue-on-error   Continue patching even if a patch fails. By
-                              default, patching stops on the first error.
-                              Default: false
-  -d, --disable=<name>      Name of the patch.
-      --di=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --disable-purge       Keep THIS run's scratch files instead of deleting
-                              them after patching. By default the scratch files
-                              are purged once patching finishes; this keeps
-                              them (e.g. for debugging a failed patch). Does
-                              not affect cached patches, other sessions, or
-                              config.
-                              Default: false
-  -e, --enable=<name>       Name of the patch.
-      --ei=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --exclusive           Disable all patches except the ones enabled.
-                              Default: false
-  -f, --force               Don't check for compatibility with the supplied
-                              APK's version.
-                              Default: false
-  -i, --install[=<deviceSerial>]
-                            Serial of the ADB device to install to. If not
-                              specified, the first connected device will be
-                              used.
-      --keystore=<keyStoreFilePath>
-                            Path to the keystore file containing a private key
-                              and certificate pair to sign the patched APK file
-                              with. Defaults to the same directory as the
-                              supplied APK file.
-      --keystore-entry-alias=<keyStoreEntryAlias>
-                            Alias of the private key and certificate pair
-                              keystore entry.
-                              Default: Morphe
-      --keystore-entry-password=<keyStoreEntryPassword>
-                            Password of the keystore entry.
-      --keystore-password=<keyStorePassword>
-                            Password of the keystore. Empty password by default.
-      --mount               Install the patched APK file by mounting.
-                              Default: false
-  -o, --out=<outputFilePath>
-                            Path to save the patched APK file to. If omitted,
-                              it is saved next to the input APK in a subfolder
-                              named after the app.
-  -O, --options=<String=Object>
-                            Option values keyed by option keys.
-      --options-file=<optionsFilePath>
-                            Path to an options JSON file to read patch
-                              enable/disable and option values from.
-      --options-update      Auto-update the options JSON file after patching to
-                              reflect the current patches. Without this flag,
-                              the file is left unchanged.
-                              Default: false
-  -p, --patches=<patchesFile>
-                            Path to a MPP file or a GitHub/Gitlab repo url such
-                              as https://github.com/MorpheApp/morphe-patches
-                              (Supports multiple patch files)
-      --prerelease          Fetch the latest dev pre-release instead of the
-                              stable main release from the repo provided in
-                              --patches.
-                              Default: false
-  -r, --result-file=<patchingResultOutputFilePath>
-                            Path to write a JSON report of the patching run to.
-                              The report lists the package name and version,
-                              whether patching succeeded, each patching step's
-                              result, etc. (Can be used for scripts and CI.)
-      --signer=<signer>     The name of the signer to sign the patched APK file
-                              with.
-                              Default: Morphe
-      --striplibs=<stripLibs>[,<stripLibs>...]
-                            Architectures to keep, comma-separated (e.g.
-                              arm64-v8a,x86). Strips all other native
-                              architectures.
-  -t, --temporary-files-path=<temporaryFilesPath>
-                            Path to store temporary files.
-      --unsigned            Disable signing of the final apk.
-      --verify-with-sdk[=<sdkToolsPath>]
-                            Verify the patched DEX and APK files using the
-                              provided Android SDK. If not specified, the
-                              patched files will not be verified. Verification
-                              may throw false positives and is for patch
-                              developer use only.
+INFO: Downloading patches from bearinmindcat/morphe-patches v2.5.5... 
+INFO: GitHub: downloading patches-2.5.5.mpp from https://github.com/bearinmindcat/morphe-patches/releases/download/v2.5.5/patches-2.5.5.mpp 
+INFO: GitHub: wrote 1116513 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.5.5__patches-2.5.5.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.5.5__patches-2.5.5.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Loading patches... 
+INFO: Initializing patcher... 
+INFO: Filtering patches for com.google.android.apps.maps v26.36.04.973607363... 
+INFO: Skipping disabled: Add microG support 
+INFO: Skipping disabled: Change app name 
+INFO: Skipping disabled: Change package name 
+INFO: Skipping disabled: Legacy icon 
+INFO: Applying 24 patches... 
+INFO: Deleting existing temporary files directory 
+INFO: Decoding all resources 
+INFO: Leaving 86 native library files in the input APK 
+INFO: Sanitizing unpatched strings 
+INFO: Escaping strings 
+INFO: Executing patches 
+INFO: Applied: 120 refresh rate 
+INFO: Applied: Account sheet cleanup 
+INFO: Applied: Any media app 
+INFO: Applied: Avoid Flock cameras 
+INFO: Applied: Better offline maps 
+INFO: Applied: Black theme 
+INFO: Applied: Blue pin 
+INFO: Applied: Bypass Play Services checks 
+INFO: Applied: Customization screen 
+INFO: Applied: Flock cameras 
+INFO: Applied: Hide ads and clutter 
+INFO: Applied: Location provider toggle 
+INFO: Applied: Offline saved places 
+INFO: Applied: Proxy 
+INFO: Applied: Rectangle shapes 
+INFO: Applied: Remove permissions 
+INFO: Applied: Remove sign-in prompts 
+INFO: Applied: Remove telemetry 
+INFO: Applied: Speed cameras 
+INFO: Applied: Speeding chime 
+INFO: Applied: Trim account menu 
+INFO: Applied: Waze alerts 
+INFO: Applied: Zoom controls in navigation 
+INFO: Applied: Power saving mode 
+INFO: Compiling patched dex files (mode: STRIP_FAST) 
+INFO: Writing 883 new classes to new DEX files 
+INFO: Processing 883 classes (single threaded mode) 
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792440034321/patched/newDex 
+INFO: Stripped 572 modified classes from 8 original DEX files 
+INFO: Compiling modified resources 
+INFO: Stripping libs (keeping architectures arm64-v8a) 
+INFO: Stripped 57 lib files 
+INFO: Unescaping strings 
+INFO: Processing aapt macros 
+INFO: Generating new resource IDs 
+INFO: Writing resource APK 
+INFO: Encoded 0 of 0 values in 0 files, 473 resource files and 13 configurations of patches for com.google.android.apps.maps 
+INFO: Resource APK inputs: reusing 8856 unchanged archive entries, rebuilding 475 entries, dropping 68 entries 
+INFO: Resource APK scan: 3.1s write: 1.3s 
+INFO: Using compiled resource APK as output base 
+INFO: Aligning APK 
+INFO: Signing APK 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.5-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792440034321 
+
+--- Fin del parcheo ---
+APK final: build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.5-arm64-v8a.apk
+Módulo: build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.5-arm64-v8a.zip
+Fecha de fin: 2026-10-19T20:01:22Z
