@@ -1,0 +1,6 @@
+{
+  "version": "v5.24.5.0 (patches v2.5.5.mpp)",
+  "versionCode": 20261019,
+  "zipUrl": "https://github.com/joelmzj/autopatcher/releases/download/stable/Waze-v5.24.5.0-bearinmindcat-v2.5.5-arm64-v8a.zip",
+  "changelog": "https://raw.githubusercontent.com/joelmzj/autopatcher/update/changelogs/20261019.md"
+}
