@@ -238,5 +238,20 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-10-19T21:14:09Z"
+  },
+  "X": {
+    "patches_source": "crimera/piko",
+    "channel": "dev",
+    "patches_version": "v3.10.0-dev.14",
+    "apk_version": "12.19.1-release.0",
+    "brand": "piko",
+    "arch": "arm64-v8a",
+    "stable_file": "X-v12.19.1-release.0-piko-v3.10.0-dev.14-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-19T23:10:09Z"
   }
 }
