@@ -507,6 +507,19 @@ for table_name in $(toml_get_table_names); do
 					"${RELEASE_TAG:-stable}"; then
 					pr "Módulo generado: $module_zip"
 					echo "$module_zip_filename" >> "$UPLOADED_FILES_MANIFEST"
+
+					# ==================================================================
+					# NUEVO: Volcar module.prop al log para debug
+					# ==================================================================
+					if [ -f "$module_zip" ]; then
+						{
+							echo ""
+							echo "--- Contenido de module.prop ---"
+							unzip -p "$module_zip" module.prop 2>/dev/null || echo "Error al leer module.prop del ZIP"
+							echo "--------------------------------"
+						} >> "$app_log"
+						pr "  Contenido de module.prop añadido al log"
+					fi
 				else
 					wpr "Fallo al generar el módulo para $table_name"
 				fi
