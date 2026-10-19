@@ -1,1 +1,12 @@
-{}
+{
+  "GoogleMaps": {
+    "first_failed_at": "2026-10-19T19:49:25Z",
+    "last_attempt_at": "2026-10-19T19:49:25Z",
+    "attempts": 1
+  },
+  "Waze": {
+    "first_failed_at": "2026-10-19T19:49:46Z",
+    "last_attempt_at": "2026-10-19T19:49:46Z",
+    "attempts": 1
+  }
+}
