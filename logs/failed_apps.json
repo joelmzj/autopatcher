@@ -1,1 +1,12 @@
-{}
+{
+  "SDMaid": {
+    "first_failed_at": "2026-10-19T20:46:52Z",
+    "last_attempt_at": "2026-10-19T20:46:52Z",
+    "attempts": 1
+  },
+  "Nova-Launcher": {
+    "first_failed_at": "2026-10-19T20:47:10Z",
+    "last_attempt_at": "2026-10-19T20:47:10Z",
+    "attempts": 1
+  }
+}

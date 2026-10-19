@@ -1,0 +1,12 @@
+=== Parcheo: SDMaid ===
+Fecha: 2026-10-19T20:46:40Z
+APK version: 2.0.3-rc0
+Patches version: v1.23.0
+Patches source: rushiranpise/morphe-patches
+Channel: stable
+Brand: rushiranpise
+Arch: arm64-v8a
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+
