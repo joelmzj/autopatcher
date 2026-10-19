@@ -257,8 +257,13 @@ for table_name in $(toml_get_table_names); do
 			echo ""
 		} > "$app_log"
 
+		# ==================================================================
 		# 3. Descargar la APK limpia (APKMirror principal, Telegram como fallback)
+		# ==================================================================
 		downloaded_via_fallback=false
+		
+		# User-Agent de navegador real para evitar que Telegram bloquee la petición (Error 500)
+		TELEGRAM_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 		if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
 			# --- INICIO DEL FLUJO NORMAL DE APKMIRROR ---
@@ -291,8 +296,8 @@ for table_name in $(toml_get_table_names); do
 				# Si APKMirror falla, revisar si tenemos el fallback de Telegram
 				if [ -n "${app_args[telegram_download_url]:-}" ]; then
 					wpr "Fallo en APKMirror. Usando fallback directo desde Telegram..."
-					if ! curl -L -f -s -S -o "$raw_apk" "${app_args[telegram_download_url]}"; then
-						wpr "Fallo al descargar la APK desde la web oficial de Telegram"
+					if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
+						wpr "Fallo al descargar la APK desde la web oficial de Telegram (incluso con User-Agent)"
 						exit 1
 					fi
 					pr "APK descargada vía fallback de Telegram: $raw_apk"
@@ -308,8 +313,8 @@ for table_name in $(toml_get_table_names); do
 		elif [ -n "${app_args[telegram_download_url]:-}" ]; then
 			# Por si alguna app solo tiene Telegram configurado (sin APKMirror)
 			pr "Descargando APK directamente desde Telegram: ${app_args[telegram_download_url]}"
-			if ! curl -L -f -s -S -o "$raw_apk" "${app_args[telegram_download_url]}"; then
-				wpr "Fallo al descargar la APK desde la web oficial de Telegram"
+			if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
+				wpr "Fallo al descargar la APK desde la web oficial de Telegram (incluso con User-Agent)"
 				exit 1
 			fi
 			pr "APK descargada: $raw_apk"
