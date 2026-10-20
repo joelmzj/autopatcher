@@ -392,7 +392,7 @@ for table_name in $(toml_get_table_names); do
 			get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
 				wpr "No se pudo conectar a APKMirror para $table_name"
 				exit 1
-			fi
+			}
 		fi
 
 		# ==================================================================
