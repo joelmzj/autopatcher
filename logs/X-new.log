@@ -1,6 +1,6 @@
 === Parcheo: X-new ===
-Fecha: 2026-10-20T00:48:29Z
-APK version: 12.34.0-prod.01
+Fecha: 2026-10-20T01:03:51Z
+APK version: 12.35.0-prod.01
 Patches version: v3.59.0
 Patches source: crimera/piko-newx
 Channel: stable
@@ -30,12 +30,12 @@ INFO: GitHub: fetched 30 releases from crimera/piko-newx
 INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/crimera-piko-newx/v3.59.0__patches-3.59.0.mpp 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
-INFO: Filtering patches for com.twitter.android v12.34.0-prod.01... 
+INFO: Filtering patches for com.twitter.android v12.35.0-prod.01... 
 INFO: Skipping disabled: NewX: Clone 
 INFO: Applying 49 patches... 
 INFO: Deleting existing temporary files directory 
 INFO: Decoding all resources 
-INFO: Leaving 32 native library files in the input APK 
+INFO: Leaving 36 native library files in the input APK 
 INFO: Sanitizing unpatched strings 
 INFO: Escaping strings 
 INFO: Executing patches 
@@ -89,10 +89,10 @@ INFO: Applied: NewX: Theme
 INFO: Applied: NewX: Unlock color customization 
 INFO: Applied: NewX: Unlock downloads 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 5490 new classes to new DEX files 
-INFO: Processing 5490 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792457346062/patched/newDex 
-INFO: Stripped 1111 modified classes from 9 original DEX files 
+INFO: Writing 5539 new classes to new DEX files 
+INFO: Processing 5539 classes in parallel (4 threads) 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792458264128/patched/newDex 
+INFO: Stripped 1160 modified classes from 11 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
 INFO: Stripped 0 lib files 
@@ -101,15 +101,15 @@ INFO: Processing aapt macros
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.twitter.android.paymentsdynamicfeature 
-INFO: Encoded 5700 of 209561 values in 56 files, 44 resource files and 0 configurations of patches for com.twitter.android 
-INFO: Resource APK inputs: reusing 4756 unchanged archive entries, rebuilding 46 entries, dropping 0 entries 
-INFO: Resource APK scan: 2.4s write: 700ms 
+INFO: Encoded 5338 of 224544 values in 56 files, 44 resource files and 0 configurations of patches for com.twitter.android 
+INFO: Resource APK inputs: reusing 4773 unchanged archive entries, rebuilding 46 entries, dropping 0 entries 
+INFO: Resource APK scan: 1.8s write: 600ms 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-new-v12.34.0-prod.01-piko-v3.59.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792457346062 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-new-v12.35.0-prod.01-piko-v3.59.0-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792458264128 
 
 --- Fin del parcheo ---
-APK final: build/X-new-v12.34.0-prod.01-piko-v3.59.0-arm64-v8a.apk
-Fecha de fin: 2026-10-20T00:49:35Z
+APK final: build/X-new-v12.35.0-prod.01-piko-v3.59.0-arm64-v8a.apk
+Fecha de fin: 2026-10-20T01:04:52Z
