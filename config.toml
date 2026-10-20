@@ -278,5 +278,5 @@ build-mode = "apk"
 version = "auto"
 force-patch = true
 enable-patches = []
-exclude-patches = ["NewX: Clone"]
+exclude-patches = ["NewX: Clone", "NewX: Restore Twitter branding"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter/"
