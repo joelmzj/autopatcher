@@ -19,6 +19,8 @@
 #   se quieren forzar. Por defecto los universales se EXCLUYEN
 #   del parcheo aunque inclusive-patches = true.
 #
+# patches-list-in-release = (true / false)
+# 
 # exclude-patches = [...]:
 #   Lista de parches a excluir explícitamente, sin importar
 #   si están enabled-by-default. Se pasan a morphe con -d=.
@@ -271,10 +273,9 @@ patches-source = "crimera/piko-newx"
 brand = "piko"
 arch = "arm64-v8a"
 channel = "stable"
-patches-list-in-release = true
 inclusive-patches = true
 build-mode = "apk"
-version = "12.35.0-prod.01"
+version = "auto"
 force-patch = true
 enable-patches = []
 exclude-patches = ["NewX: Clone"]
