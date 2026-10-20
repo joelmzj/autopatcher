@@ -674,7 +674,7 @@ for patch in patches:
         continue
 
     compat_pkgs = patch.get('compatiblePackages', {})
-    compatibility = patch.get('compatibility', [])
+    compatibility = patch.get('compatibility') or []
 
     if isinstance(compat_pkgs, dict):
         for p, v_list in compat_pkgs.items():

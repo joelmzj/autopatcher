@@ -38,19 +38,14 @@ toml_prep "${1:-config.toml}" || abort "could not find config file"
 # 🧹 LIMPIEZA: Eliminar de versions_log.json las apps que ya no están en config.toml
 # ==============================================================================
 if [ -f "versions_log.json" ]; then
-    # Obtener los nombres de las tablas válidas (excluyendo la global)
     valid_apps=$(toml_get_table_names | grep -v "^Morphe-Desktop$" || true)
-    
+
     if [ -n "$valid_apps" ]; then
-        # Convertir la lista a un array JSON
         valid_apps_json=$(echo "$valid_apps" | jq -R . | jq -s .)
-        
-        # Filtrar versions_log.json: dejar solo las claves que están en valid_apps_json
         tmp_vlog=$(mktemp)
         jq --argjson valid "$valid_apps_json" \
            'with_entries(select(.key as $k | $valid | index($k)))' \
            versions_log.json > "$tmp_vlog" && mv "$tmp_vlog" versions_log.json
-        
         pr "  Limpieza de versions_log.json completada (apps huérfanas eliminadas)"
     fi
 fi
@@ -67,46 +62,28 @@ pr "Limpiando directorio de build..."
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-# ==============================================================================
-# Snapshot: tag FIJO (no incremental). Se crea/puebla en upload_release.
-# ==============================================================================
 SNAPSHOT_TAG="snapshot"
 export SNAPSHOT_TAG
 pr "Tag de snapshot (fijo): $SNAPSHOT_TAG"
 
-# ==============================================================================
-# Logs por app: un archivo por table_name en logs/ (sobrescrito en cada compilación).
-# ==============================================================================
 LOGS_DIR="logs"
 mkdir -p "$LOGS_DIR"
 export LOGS_DIR
 
-# ==============================================================================
-# versions_log.json es la única fuente de verdad (keyed por app).
-# ==============================================================================
 if [ ! -f "versions_log.json" ]; then
     echo '{}' > versions_log.json
 fi
 
-# Directorio de marcadores de compilación exitosa (uno por app)
 COMPILED_MARKER_DIR="$TEMP_DIR/compiled_markers"
 rm -rf "$COMPILED_MARKER_DIR"
 mkdir -p "$COMPILED_MARKER_DIR"
 export COMPILED_MARKER_DIR
 
-# ==============================================================================
-# Manifest: basenames de los archivos generados en este run.
-# Lo consume build_upload_release.sh para subir SOLO los archivos nuevos.
-# ==============================================================================
 UPLOADED_FILES_MANIFEST="$TEMP_DIR/uploaded_files.txt"
 rm -f "$UPLOADED_FILES_MANIFEST"
 touch "$UPLOADED_FILES_MANIFEST"
 export UPLOADED_FILES_MANIFEST
 
-# ==============================================================================
-# Lista persistente de apps fallidas. Se reintentan automáticamente en el
-# siguiente run (aunque no haya cambios de versión), hasta que compilen bien.
-# ==============================================================================
 FAILED_APPS_FILE="$LOGS_DIR/failed_apps.json"
 if [ ! -f "$FAILED_APPS_FILE" ]; then
 	echo '{}' > "$FAILED_APPS_FILE"
@@ -121,7 +98,6 @@ fi
 # Preservar APKs del release anterior para no perder las apps omitidas
 if [ -n "${GITHUB_REPOSITORY:-}" ] && [ -n "${RELEASE_TAG:-stable}" ]; then
     pr "Preservando APKs previos del release '$RELEASE_TAG'..."
-
     prev_assets=$(gh release view "$RELEASE_TAG" -R "$GITHUB_REPOSITORY" \
         --json assets --jq '.assets[] | select(.name | test("\\.(apk|zip)$")) | .name' \
         2>/dev/null || echo "")
@@ -142,14 +118,9 @@ if [ -n "${GITHUB_REPOSITORY:-}" ] && [ -n "${RELEASE_TAG:-stable}" ]; then
 fi
 
 for table_name in $(toml_get_table_names); do
-	# Omitir la tabla de configuración global
 	if [ "$table_name" = "Morphe-Desktop" ]; then continue; fi
 	if [ -z "$table_name" ]; then continue; fi
 
-	# ==========================================================================
-	# Detección de reintento EN EL PADRE. La subshell la hereda por ambiente,
-	# y así el `); then` puede leerla al evaluar el resultado.
-	# ==========================================================================
 	was_failed_before=false
 	if jq -e --arg app "$table_name" 'has($app)' "$FAILED_APPS_FILE" >/dev/null 2>&1; then
 		was_failed_before=true
@@ -157,11 +128,6 @@ for table_name in $(toml_get_table_names); do
 		pr "App '$table_name' en lista de fallos (intentos previos: $prev_attempts). Reintentando..."
 	fi
 
-	# ==========================================================================
-	# SUBSHELL envuelta en `if` para que set -e no mate al padre cuando la
-	# subshell retorna non-zero. El cuerpo se ejecuta en un proceso hijo:
-	# un fallo dentro solo mata al hijo, no a la run completa.
-	# ==========================================================================
 	if (
 		t=$(toml_get_table "$table_name")
 		enabled=$(toml_get "$t" enabled) || enabled=true
@@ -183,7 +149,6 @@ for table_name in $(toml_get_table_names); do
 		patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 		target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
 
-		# Leer array exclude-patches (vacío si no existe)
 		mapfile -t exclude_patches < <(
 			jq -r --arg t "$table_name" \
 				'.[$t]["exclude-patches"] // [] | .[]' <<<"$__TOML__"
@@ -192,7 +157,6 @@ for table_name in $(toml_get_table_names); do
 			pr "Parches a excluir para $table_name: ${exclude_patches[*]}"
 		fi
 
-		# Leer array enable-patches (universal patches que el usuario quiere forzar)
 		mapfile -t enable_patches < <(
 			jq -r --arg t "$table_name" \
 				'.[$t]["enable-patches"] // [] | .[]' <<<"$__TOML__"
@@ -203,7 +167,6 @@ for table_name in $(toml_get_table_names); do
 
 		pr "Procesando aplicación: $table_name (Fuente: $patch_repo)"
 
-		# 1. Preparar directorios temporales para la app
 		mkdir -p "$TEMP_DIR/$table_name"
 		raw_apk="$TEMP_DIR/$table_name/raw.apk"
 
@@ -215,7 +178,6 @@ for table_name in $(toml_get_table_names); do
 			latest_applied_tag="unknown"
 		fi
 
-		# Determinar la URL inicial del JSON
 		if [ "${app_args[patches_list_in_release]}" = "true" ] && [ "$latest_applied_tag" != "unknown" ]; then
 			patches_json_url="https://github.com/${patch_repo}/releases/download/${latest_applied_tag}/patches-list.json"
 		else
@@ -225,12 +187,10 @@ for table_name in $(toml_get_table_names); do
 			fi
 		fi
 
-		# Validar el JSON. Si no es un objeto con "patches", disparamos el fallback
 		json_is_valid=false
 		if curl -fsSL "$patches_json_url" 2>/dev/null | jq -e 'type == "object" and has("patches")' >/dev/null 2>&1; then
 			json_is_valid=true
 		else
-			# Si falló el primer intento y tenemos un tag válido, intentamos la otra URL por si acaso
 			if [ "$latest_applied_tag" != "unknown" ]; then
 				alt_url=""
 				if [ "${app_args[patches_list_in_release]}" = "true" ]; then
@@ -239,7 +199,7 @@ for table_name in $(toml_get_table_names); do
 				else
 					alt_url="https://github.com/${patch_repo}/releases/download/${latest_applied_tag}/patches-list.json"
 				fi
-				
+
 				if curl -fsSL "$alt_url" 2>/dev/null | jq -e 'type == "object" and has("patches")' >/dev/null 2>&1; then
 					patches_json_url="$alt_url"
 					json_is_valid=true
@@ -247,22 +207,21 @@ for table_name in $(toml_get_table_names); do
 			fi
 		fi
 
-		# Si seguimos con JSON inválido, lo generamos con el CLI
 		if [ "$json_is_valid" = "false" ]; then
 			pr "  JSON de parches inválido o inexistente. Generando fallback desde Morphe CLI..."
 			generated_json="$TEMP_DIR/$table_name/generated_patches.json"
-			
+
 			rel_flag=""
 			if [ "${app_args[channel]}" = "dev" ]; then
 				rel_flag="--prerelease"
 			fi
-			
+
 			if java -jar "$MORPHE_CLI_JAR" list-patches \
 				--patches="https://github.com/$patch_repo" \
 				$rel_flag \
 				-p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
 				python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json"; then
-				
+
 				patches_json_url="$generated_json"
 				pr "  JSON generado exitosamente en $patches_json_url"
 			else
@@ -271,7 +230,7 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		# ==================================================================
-		# 2a. Resolver la versión objetivo según el parámetro del TOML
+		# 2a. Resolver la versión objetivo
 		# ==================================================================
 		if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
 			pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
@@ -285,7 +244,7 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		# ==================================================================
-		# 2b. Validación inteligente de cambios (REBUILD_APPS + should_build_app)
+		# 2b. should_build_app
 		# ==================================================================
 		_force_this=false
 		if [ -n "${REBUILD_APPS:-}" ]; then
@@ -308,7 +267,7 @@ for table_name in $(toml_get_table_names); do
 			exit 0
 		fi
 
-		# 2c. Generar el nombre del APK final usando naming.py
+		# 2c. Nombre del APK
 		apk_filename=$(python3 "$(dirname "${BASH_SOURCE[0]}")/naming.py" \
 			"$table_name" \
 			"$target_apk_ver" \
@@ -319,9 +278,7 @@ for table_name in $(toml_get_table_names); do
 		patched_apk="$BUILD_DIR/$apk_filename"
 		pr "Nombre del APK: $apk_filename"
 
-		# ==================================================================
-		# 2d. Inicializar log de parcheo para esta app
-		# ==================================================================
+		# 2d. Init log
 		app_log="$LOGS_DIR/${table_name}.log"
 		{
 			echo "=== Parcheo: $table_name ==="
@@ -339,157 +296,24 @@ for table_name in $(toml_get_table_names); do
 		} > "$app_log"
 
 		# ==================================================================
-		# 3. Descargar la APK limpia (APKMirror principal, Telegram como fallback)
+		# 3c-3e. Construir args de morphe (una sola vez)
 		# ==================================================================
-		downloaded_via_fallback=false
-		
-		# User-Agent de navegador real para evitar que Telegram bloquee la petición (Error 500)
-		TELEGRAM_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-
-		if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
-			# --- INICIO DEL FLUJO NORMAL DE APKMIRROR ---
-			get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
-				wpr "No se pudo conectar a APKMirror para $table_name"
-				exit 1
-			}
-
-			version_codes_whitelist=""
-			# 🆕 Leer el JSON híbridamente (archivo local o URL)
-			pl_json=""
-			if [ -f "$patches_json_url" ]; then
-				pl_json=$(cat "$patches_json_url")
-			else
-				pl_json=$(curl -fsSL "$patches_json_url" 2>/dev/null || echo "")
-			fi
-
-			if [ -n "$pl_json" ]; then
-				version_codes_whitelist=$(echo "$pl_json" | \
-					python3 "$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py" versioncodes \
-						"${app_args[pkg_name]}" "$target_apk_ver" "${app_args[arch]}" 2>/dev/null || echo "")
-			fi
-
-			if [ -n "$version_codes_whitelist" ]; then
-				pr "  versionCodes permitidos: $version_codes_whitelist"
-			fi
-
-			pr "Descargando versión $target_apk_ver para $table_name desde APKMirror..."
-			
-			# Intentar descargar desde APKMirror
-			if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist"; then
-				# Si APKMirror falla, revisar si tenemos el fallback de Telegram
-				if [ -n "${app_args[telegram_download_url]:-}" ]; then
-					wpr "Fallo en APKMirror. Usando fallback directo desde Telegram..."
-					if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
-						wpr "Fallo al descargar la APK desde la web oficial de Telegram (incluso con User-Agent)"
-						exit 1
-					fi
-					pr "APK descargada vía fallback de Telegram: $raw_apk"
-					downloaded_via_fallback=true
-				else
-					wpr "Fallo al descargar la APK para $table_name desde APKMirror (y no tiene fallback directo)"
-					exit 1
-				fi
-			else
-				pr "APK descargada desde APKMirror: $raw_apk"
-			fi
-			# --- FIN DEL FLUJO NORMAL DE APKMIRROR ---
-		elif [ -n "${app_args[telegram_download_url]:-}" ]; then
-			# Por si alguna app solo tiene Telegram configurado (sin APKMirror)
-			pr "Descargando APK directamente desde Telegram: ${app_args[telegram_download_url]}"
-			if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
-				wpr "Fallo al descargar la APK desde la web oficial de Telegram (incluso con User-Agent)"
-				exit 1
-			fi
-			pr "APK descargada: $raw_apk"
-			downloaded_via_fallback=true
-		else
-			wpr "La aplicación $table_name no tiene definida una URL de descarga válida."
-			exit 1
-		fi
-
-		# ==================================================================
-		# Verificación EXCLUSIVA: Solo si se descargó usando el link de Telegram
-		# ==================================================================
-		if [ "$downloaded_via_fallback" = "true" ]; then
-			pr "Verificando metadatos del APK (descarga directa)..."
-			
-			# Capturamos stdout Y stderr
-			apk_info=$(java -jar "$APKEDITOR_JAR" info -i "$raw_apk" 2>&1)
-			
-			# Mostramos la salida cruda en el log para debug futuro
-			echo "$apk_info" | while read -r line; do pr "  [APKEditor] $line"; done
-
-			# Extracción robusta (soporta "Package:", "Package Name:", "VersionName:", "Version Name:")
-			real_pkg=$(echo "$apk_info" | grep -iE "package(name)?[:=]" | awk -F'[:=]' '{print $2}' | tr -d " \"'" | head -n1)
-			real_ver=$(echo "$apk_info" | grep -iE "versionname[:=]" | awk -F'[:=]' '{print $2}' | tr -d " \"'" | head -n1)
-
-			if [ -z "$real_ver" ]; then
-				wpr "No se pudo extraer la versión del APK usando APKEditor."
-				exit 1
-			fi
-
-			pr "  Package detectado: $real_pkg"
-			pr "  Versión detectada: $real_ver"
-
-			if [ "$real_pkg" != "${app_args[pkg_name]}" ]; then
-				wpr "El APK no corresponde al paquete ${app_args[pkg_name]} (detectado: $real_pkg)"
-				exit 1
-			fi
-
-			if [ "$real_ver" != "$target_apk_ver" ]; then
-				wpr "La versión del APK ($real_ver) no coincide con la requerida por los parches ($target_apk_ver)"
-				exit 1
-			fi
-			pr "Verificación exitosa: el APK es el correcto."
-		fi
-
-		# ==================================================================
-		# 3b. Mergear bundle a APK monolítico si es necesario
-		# ==================================================================
-		was_merged=false
-		splits_dir=""
-		if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
-			was_merged=true
-			
-			# Extraer los splits originales ANTES del merge para el módulo
-			splits_dir="$TEMP_DIR/$table_name/splits"
-			mkdir -p "$splits_dir"
-			pr "Detectado bundle, extrayendo splits originales para el módulo..."
-			unzip -j -o "$raw_apk" "*.apk" -d "$splits_dir" >/dev/null 2>&1 || true
-			
-			pr "Mergeando bundle con APKEditor para parchear el APK..."
-			apkm_file="${raw_apk%.apk}.apkm"
-			mv "$raw_apk" "$apkm_file"
-			if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk"; then
-				wpr "Fallo el merge del bundle para $table_name"
-				exit 1
-			fi
-			pr "Bundle mergeado: $raw_apk"
-		else
-			pr "APK con firma original (válido como stock para módulo)"
-		fi
-
-		# 3c. Construir argumentos -d / -e para morphe
 		declare -a morphe_patch_args=()
 
-		# (a) exclude-patches → -d=
 		for pname in "${exclude_patches[@]}"; do
 			[ -z "$pname" ] && continue
 			morphe_patch_args+=( "-d=$pname" )
 		done
 
-		# (b) enable-patches → -e= (universales forzados explícitamente)
 		for pname in "${enable_patches[@]}"; do
 			[ -z "$pname" ] && continue
 			morphe_patch_args+=( "-e=$pname" )
 		done
 
-		# (c) inclusive-patches=true → -e= para disabled-by-default (sin universales, sin excluidos)
 		if [ "${app_args[inclusive_patches]}" = "true" ]; then
 			pr "  Leyendo lista de parches para forzar disabled-by-default..."
 
 			declare -a disabled_patches=()
-			# 🆕 Lectura híbrida
 			mapfile -t disabled_patches < <(
 				if [ -f "$patches_json_url" ]; then
 					cat "$patches_json_url"
@@ -536,21 +360,18 @@ for table_name in $(toml_get_table_names); do
 			pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
 		fi
 
-		# 3d. force_flag
 		declare -a force_flag=()
 		if [ "${app_args[force_patch]}" = "true" ]; then
 			force_flag=("--force")
 			pr "  force-patch activo: saltando verificación de versión"
 		fi
 
-		# 3e. channel_flag: --prerelease si el canal es "dev"
 		declare -a channel_flag=()
 		if [ "${app_args[channel]}" = "dev" ]; then
 			channel_flag=("--prerelease")
 			pr "  Canal 'dev': forzando parches pre-release (--prerelease)"
 		fi
 
-		# Escribir los args al log antes de invocar a morphe
 		{
 			echo "--- Argumentos de parches (${#morphe_patch_args[@]}) ---"
 			for arg in "${morphe_patch_args[@]}"; do
@@ -562,37 +383,268 @@ for table_name in $(toml_get_table_names); do
 				echo "  ${force_flag[*]}"
 			fi
 			echo ""
-			echo "--- Salida de Morphe CLI (APK principal) ---"
-			echo ""
 		} >> "$app_log"
 
-		# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
-		pr "Aplicando parches con Morphe CLI..."
-		java -jar "$MORPHE_CLI_JAR" patch \
-			-p="https://github.com/$patch_repo" \
-			"${channel_flag[@]}" \
-			-o="$patched_apk" \
-			--keystore="$RVB_KEYSTORE" \
-			--keystore-password="$RVB_KEYSTORE_PASS" \
-			--keystore-entry-alias="$RVB_KEY_ALIAS" \
-			--keystore-entry-password="$RVB_KEYSTORE_PASS" \
-			--signer="Morphe" \
-			--striplibs="${app_args[arch]}" \
-			"${force_flag[@]}" \
-			"${morphe_patch_args[@]}" \
-			"$raw_apk" \
-			2>&1 | tee -a "$app_log" \
-			|| {
-				wpr "Error durante el proceso de parcheo de $table_name"
+		# ==================================================================
+		# Preflight: conectividad APKMirror (una vez)
+		# ==================================================================
+		if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
+			get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
+				wpr "No se pudo conectar a APKMirror para $table_name"
 				exit 1
-			}
+			fi
+		fi
 
-		if [ ! -f "$patched_apk" ]; then
-			wpr "Morphe no generó el APK parcheado para $table_name"
+		# ==================================================================
+		# 3-4. Bucle de descarga + merge + morphe + detección de skew
+		# ==================================================================
+		retry_attempt=0
+		max_retries=1
+		final_success=false
+		json_for_whitelist="$patches_json_url"
+		validation_json=""
+		TELEGRAM_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+		while [ "$retry_attempt" -le "$max_retries" ]; do
+			# ---- Reset de estado por iteración ----
+			rm -f "$raw_apk" "${raw_apk%.apk}.apkm" "$patched_apk"
+			downloaded_via_fallback=false
+			was_merged=false
+			splits_dir=""
+
+			if [ "$retry_attempt" -gt 0 ]; then
+				pr ""
+				pr "═══════════════════════════════════════════════════════════════"
+				pr "  🔄 REINTENTO $retry_attempt/$max_retries con versión $target_apk_ver"
+				pr "═══════════════════════════════════════════════════════════════"
+				{
+					echo ""
+					echo "═══════════════════════════════════════════════════════════════"
+					echo "  🔄 REINTENTO $retry_attempt/$max_retries con versión $target_apk_ver"
+					echo "═══════════════════════════════════════════════════════════════"
+					echo ""
+				} >> "$app_log"
+			fi
+
+			log_size_before=$(wc -c < "$app_log" 2>/dev/null || echo 0)
+
+			# ---- Whitelist de versionCodes (del JSON correspondiente) ----
+			version_codes_whitelist=""
+			if [ -n "$json_for_whitelist" ]; then
+				pl_json=""
+				if [ -f "$json_for_whitelist" ]; then
+					pl_json=$(cat "$json_for_whitelist")
+				else
+					pl_json=$(curl -fsSL "$json_for_whitelist" 2>/dev/null || echo "")
+				fi
+
+				if [ -n "$pl_json" ]; then
+					version_codes_whitelist=$(echo "$pl_json" | \
+						python3 "$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py" versioncodes \
+							"${app_args[pkg_name]}" "$target_apk_ver" "${app_args[arch]}" 2>/dev/null || echo "")
+				fi
+			fi
+
+			if [ -n "$version_codes_whitelist" ]; then
+				pr "  versionCodes permitidos: $version_codes_whitelist"
+			else
+				pr "  (sin whitelist de versionCodes)"
+			fi
+
+			# ---- Descarga ----
+			if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
+				pr "Descargando versión $target_apk_ver para $table_name desde APKMirror..."
+
+				if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist"; then
+					if [ -n "${app_args[telegram_download_url]:-}" ]; then
+						wpr "Fallo en APKMirror. Usando fallback directo desde Telegram..."
+						if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
+							wpr "Fallo al descargar la APK desde Telegram"
+							exit 1
+						fi
+						pr "APK descargada vía fallback de Telegram: $raw_apk"
+						downloaded_via_fallback=true
+					else
+						wpr "Fallo al descargar la APK para $table_name desde APKMirror (sin fallback)"
+						exit 1
+					fi
+				else
+					pr "APK descargada desde APKMirror: $raw_apk"
+				fi
+			elif [ -n "${app_args[telegram_download_url]:-}" ]; then
+				pr "Descargando APK directamente desde Telegram..."
+				if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
+					wpr "Fallo al descargar la APK desde Telegram"
+					exit 1
+				fi
+				pr "APK descargada: $raw_apk"
+				downloaded_via_fallback=true
+			else
+				wpr "La aplicación $table_name no tiene URL de descarga válida."
+				exit 1
+			fi
+
+			# ---- Verificación Telegram ----
+			if [ "$downloaded_via_fallback" = "true" ]; then
+				pr "Verificando metadatos del APK..."
+				apk_info=$(java -jar "$APKEDITOR_JAR" info -i "$raw_apk" 2>&1)
+				echo "$apk_info" | while read -r line; do pr "  [APKEditor] $line"; done
+
+				real_pkg=$(echo "$apk_info" | grep -iE "package(name)?[:=]" | awk -F'[:=]' '{print $2}' | tr -d " \"'" | head -n1)
+				real_ver=$(echo "$apk_info" | grep -iE "versionname[:=]" | awk -F'[:=]' '{print $2}' | tr -d " \"'" | head -n1)
+
+				if [ -z "$real_ver" ]; then
+					wpr "No se pudo extraer la versión del APK"
+					exit 1
+				fi
+
+				pr "  Package detectado: $real_pkg"
+				pr "  Versión detectada: $real_ver"
+
+				if [ "$real_pkg" != "${app_args[pkg_name]}" ]; then
+					wpr "El APK no corresponde al paquete ${app_args[pkg_name]}"
+					exit 1
+				fi
+
+				if [ "$real_ver" != "$target_apk_ver" ]; then
+					wpr "La versión del APK ($real_ver) no coincide con $target_apk_ver"
+					exit 1
+				fi
+				pr "Verificación exitosa."
+			fi
+
+			# ---- Merge bundle si aplica ----
+			if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
+				was_merged=true
+
+				splits_dir="$TEMP_DIR/$table_name/splits"
+				rm -rf "$splits_dir"
+				mkdir -p "$splits_dir"
+				pr "Detectado bundle, extrayendo splits originales para el módulo..."
+				unzip -j -o "$raw_apk" "*.apk" -d "$splits_dir" >/dev/null 2>&1 || true
+
+				pr "Mergeando bundle con APKEditor..."
+				apkm_file="${raw_apk%.apk}.apkm"
+				mv "$raw_apk" "$apkm_file"
+				if ! java -jar "$APKEDITOR_JAR" m -i "$apkm_file" -o "$raw_apk"; then
+					wpr "Fallo el merge del bundle para $table_name"
+					exit 1
+				fi
+				pr "Bundle mergeado: $raw_apk"
+			else
+				pr "APK con firma original (válido como stock para módulo)"
+			fi
+
+			# ---- Morphe ----
+			pr "Aplicando parches con Morphe CLI..."
+			{
+				echo ""
+				echo "--- Salida de Morphe CLI (APK principal) ---"
+				echo ""
+			} >> "$app_log"
+
+			java -jar "$MORPHE_CLI_JAR" patch \
+				-p="https://github.com/$patch_repo" \
+				"${channel_flag[@]}" \
+				-o="$patched_apk" \
+				--keystore="$RVB_KEYSTORE" \
+				--keystore-password="$RVB_KEYSTORE_PASS" \
+				--keystore-entry-alias="$RVB_KEY_ALIAS" \
+				--keystore-entry-password="$RVB_KEYSTORE_PASS" \
+				--signer="Morphe" \
+				--striplibs="${app_args[arch]}" \
+				"${force_flag[@]}" \
+				"${morphe_patch_args[@]}" \
+				"$raw_apk" \
+				2>&1 | tee -a "$app_log" \
+				|| {
+					wpr "Error durante el parcheo de $table_name"
+					exit 1
+				}
+
+			if [ ! -f "$patched_apk" ]; then
+				wpr "Morphe no generó el APK parcheado"
+				exit 1
+			fi
+
+			# ---- Detección de skew ----
+			new_log=$(tail -c +$((log_size_before + 1)) "$app_log" 2>/dev/null || echo "")
+			applied=$(echo "$new_log" | grep -oP 'INFO: Applying \K\d+(?= patches)' | tail -1)
+			applied=${applied:-0}
+			skipped=$(echo "$new_log" | grep -c 'WARNING: Skipping "' || true)
+			skipped=${skipped:-0}
+			total=$((applied + skipped))
+
+			bad_patch=false
+			if [ "$applied" -eq 0 ] && [ "$skipped" -gt 0 ]; then
+				bad_patch=true
+				pr "  ⚠️  Morphe aplicó 0 parches ($skipped skipped) → posible skew"
+			elif [ "$total" -ge 5 ]; then
+				ratio=$(( skipped * 100 / total ))
+				if [ "$ratio" -ge 50 ]; then
+					bad_patch=true
+					pr "  ⚠️  Morphe saltó $skipped de $total (${ratio}%) → posible skew"
+				fi
+			fi
+
+			if [ "$bad_patch" = "false" ]; then
+				final_success=true
+				break
+			fi
+
+			# ---- APK basura: eliminar antes de decidir retry ----
+			rm -f "$patched_apk"
+
+			if [ "$retry_attempt" -ge "$max_retries" ]; then
+				wpr "  ❌ Reintentos agotados. Marcando $table_name para siguiente run."
+				exit 1
+			fi
+
+			# ---- Validación vía CLI ----
+			pr "  Consultando CLI para determinar versión real del .mpp..."
+			validation_json="$TEMP_DIR/$table_name/cli_validation.json"
+			rel_flag=""
+			if [ "${app_args[channel]}" = "dev" ]; then rel_flag="--prerelease"; fi
+
+			if ! java -jar "$MORPHE_CLI_JAR" list-patches \
+				--patches="https://github.com/$patch_repo" \
+				$rel_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
+				python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$validation_json"; then
+				wpr "  ❌ Falló la validación vía CLI"
+				exit 1
+			fi
+
+			cli_ver=$(resolve_target_version_from_bundle "$validation_json" "${app_args[pkg_name]}" "auto")
+
+			if [ -z "$cli_ver" ]; then
+				wpr "  ❌ No se pudo resolver versión desde CLI"
+				exit 1
+			fi
+
+			if [ "$cli_ver" = "$target_apk_ver" ]; then
+				wpr "  ❌ CLI confirma $target_apk_ver. El .mpp no tiene parches compatibles."
+				exit 1
+			fi
+
+			pr "  ✓ Versión correcta según CLI: $cli_ver (era: $target_apk_ver)"
+
+			target_apk_ver="$cli_ver"
+			apk_filename=$(python3 "$(dirname "${BASH_SOURCE[0]}")/naming.py" \
+				"$table_name" "$target_apk_ver" "${app_args[brand]}" "$latest_applied_tag" "${app_args[arch]}")
+			patched_apk="$BUILD_DIR/$apk_filename"
+			json_for_whitelist="$validation_json"
+
+			retry_attempt=$((retry_attempt + 1))
+		done
+
+		if [ "$final_success" = "false" ]; then
+			wpr "  ❌ No se pudo parchear $table_name tras reintentos"
 			exit 1
 		fi
 
-		# Registrar el APK en el manifest SOLO si el modo es apk o both
+		# ==================================================================
+		# Registrar APK en manifest
+		# ==================================================================
 		if [ "${app_args[build_mode]}" = "apk" ] || [ "${app_args[build_mode]}" = "both" ]; then
 			echo "$apk_filename" >> "$UPLOADED_FILES_MANIFEST"
 			pr "  APK registrado en el manifest (modo: ${app_args[build_mode]})"
@@ -601,28 +653,28 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		# ==================================================================
-		# 4b. Módulo Magisk/KernelSU (si build-mode lo requiere)
+		# 4b. Módulo Magisk/KernelSU
 		# ==================================================================
 		module_zip_filename=""
+		module_ok=true
 		if [ "${app_args[build_mode]}" = "both" ] || [ "${app_args[build_mode]}" = "module" ]; then
 			module_stock_src="$raw_apk"
 			if [ "$was_merged" = true ] && [ -d "$splits_dir" ]; then
 				module_stock_src="$splits_dir"
-				pr "  Usando splits originales para el módulo (preservando firma de Google)"
+				pr "  Usando splits originales para el módulo"
 			fi
-			
+
 			gmscore_present=false
 			json_content=""
-			# 🆕 Lectura híbrida para GmsCore
 			if [ -f "$patches_json_url" ]; then
 				json_content=$(cat "$patches_json_url")
 			else
 				json_content=$(curl -fsSL "$patches_json_url" 2>/dev/null || echo "")
 			fi
-			
+
 			if echo "$json_content" | jq -e '(.patches // .)[]? | select(.name == "GmsCore support")' >/dev/null 2>&1; then
 				gmscore_present=true
-				pr "  Parche 'GmsCore support' detectado en el bundle"
+				pr "  Parche 'GmsCore support' detectado"
 			fi
 
 			module_id=$(echo "$table_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '_' | sed 's/_$//')
@@ -635,13 +687,14 @@ for table_name in $(toml_get_table_names); do
 				pr "  Compilando variante para módulo (sin 'GmsCore support')..."
 				module_apk_tmp="$TEMP_DIR/$table_name/module.apk"
 
+				module_log_marker=$(wc -c < "$app_log" 2>/dev/null || echo 0)
 				{
 					echo ""
-					echo "--- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---"
+					echo "--- Salida de Morphe CLI (variante módulo) ---"
 					echo ""
 				} >> "$app_log"
 
-				java -jar "$MORPHE_CLI_JAR" patch \
+				if java -jar "$MORPHE_CLI_JAR" patch \
 					-p="https://github.com/$patch_repo" \
 					"${channel_flag[@]}" \
 					-o="$module_apk_tmp" \
@@ -655,57 +708,70 @@ for table_name in $(toml_get_table_names); do
 					"${morphe_patch_args[@]}" \
 					-d="GmsCore support" \
 					"$raw_apk" \
-					2>&1 | tee -a "$app_log" \
-					|| {
-						wpr "Error al compilar la variante para módulo de $table_name"
-						exit 1
-					}
-				if [ -f "$module_apk_tmp" ]; then
-					module_apk_src="$module_apk_tmp"
-					pr "  Variante para módulo generada: $module_apk_tmp"
+					2>&1 | tee -a "$app_log"; then
+
+					if [ -f "$module_apk_tmp" ]; then
+						module_log_content=$(tail -c +$((module_log_marker + 1)) "$app_log" 2>/dev/null || echo "")
+						module_applied=$(echo "$module_log_content" | grep -oP 'INFO: Applying \K\d+(?= patches)' | tail -1)
+						module_applied=${module_applied:-0}
+
+						if [ "$module_applied" -gt 0 ]; then
+							module_apk_src="$module_apk_tmp"
+							pr "  Variante módulo generada: $module_apk_tmp ($module_applied parches)"
+						else
+							wpr "  ⚠️  Variante módulo aplicó 0 parches. Usando APK principal para el módulo."
+							rm -f "$module_apk_tmp"
+						fi
+					fi
+				else
+					wpr "  ⚠️  Error al compilar variante módulo. Usando APK principal para el módulo."
+					rm -f "$module_apk_tmp"
 				fi
 			fi
 
-			pr "Generando módulo Magisk/KernelSU para $table_name..."
-			if python3 "$(dirname "${BASH_SOURCE[0]}")/module_builder.py" \
-				"module" \
-				"$module_stock_src" \
-				"$module_apk_src" \
-				"$module_zip" \
-				"$module_id" \
-				"$table_name (${app_args[brand]})" \
-				"${app_args[pkg_name]}" \
-				"$target_apk_ver" \
-				"$pkg_version_code" \
-				"${app_args[brand]}" \
-				"${app_args[arch]}" \
-				"$latest_applied_tag" \
-				"${RELEASE_TAG:-stable}"; then
-				pr "Módulo generado: $module_zip"
-				echo "$module_zip_filename" >> "$UPLOADED_FILES_MANIFEST"
+			if [ "$module_ok" = "true" ]; then
+				pr "Generando módulo Magisk/KernelSU para $table_name..."
+				if python3 "$(dirname "${BASH_SOURCE[0]}")/module_builder.py" \
+					"module" \
+					"$module_stock_src" \
+					"$module_apk_src" \
+					"$module_zip" \
+					"$module_id" \
+					"$table_name (${app_args[brand]})" \
+					"${app_args[pkg_name]}" \
+					"$target_apk_ver" \
+					"$pkg_version_code" \
+					"${app_args[brand]}" \
+					"${app_args[arch]}" \
+					"$latest_applied_tag" \
+					"${RELEASE_TAG:-stable}"; then
+					pr "Módulo generado: $module_zip"
+					echo "$module_zip_filename" >> "$UPLOADED_FILES_MANIFEST"
 
-				# Volcar module.prop al log para debug
-				if [ -f "$module_zip" ]; then
-					{
-						echo ""
-						echo "--- Contenido de module.prop ---"
-						unzip -p "$module_zip" module.prop 2>/dev/null || echo "Error al leer module.prop del ZIP"
-						echo "--------------------------------"
-					} >> "$app_log"
-					pr "  Contenido de module.prop añadido al log"
+					if [ -f "$module_zip" ]; then
+						{
+							echo ""
+							echo "--- Contenido de module.prop ---"
+							unzip -p "$module_zip" module.prop 2>/dev/null || echo "Error al leer module.prop"
+							echo "--------------------------------"
+						} >> "$app_log"
+						pr "  module.prop añadido al log"
+					fi
+				else
+					wpr "Fallo al generar el módulo para $table_name"
 				fi
-			else
-				wpr "Fallo al generar el módulo para $table_name"
 			fi
 		fi
 
+		# ==================================================================
 		# 5. Actualizar versions_log.json
+		# ==================================================================
 		prev_snapshot_file=""
 		prev_snapshot_zip=""
 		prev_stable_file=""
 		prev_stable_zip=""
 		prev_patch_ver=""
-		
+
 		if [ -f "versions_log.json" ]; then
 			prev_snapshot_file=$(jq -r --arg app "$table_name" '.[$app].snapshot_file // ""' versions_log.json)
 			prev_snapshot_zip=$(jq -r --arg app "$table_name" '.[$app].snapshot_zip // ""' versions_log.json)
@@ -714,17 +780,15 @@ for table_name in $(toml_get_table_names); do
 			prev_patch_ver=$(jq -r --arg app "$table_name" '.[$app].patches_version // ""' versions_log.json)
 		fi
 
-		# Si la versión de parches es la misma, no mover a snapshot
 		if [ "$latest_applied_tag" == "$prev_patch_ver" ]; then
 			pr "  La versión de parches no cambió ($latest_applied_tag). No se moverá a snapshot."
 			prev_stable_file=""
 			prev_stable_zip=""
 		fi
 
-		# Ajustar qué formato va a stable según el modo
 		final_stable_file="$apk_filename"
 		final_stable_zip="$module_zip_filename"
-		
+
 		if [ "${app_args[build_mode]}" = "module" ]; then
 			final_stable_file=""
 		fi
@@ -764,7 +828,6 @@ for table_name in $(toml_get_table_names); do
 			}' \
 			versions_log.json > "$tmp_vlog" && mv "$tmp_vlog" versions_log.json
 
-		# Cerrar el log con resumen
 		{
 			echo ""
 			echo "--- Fin del parcheo ---"
@@ -782,7 +845,6 @@ for table_name in $(toml_get_table_names); do
 		touch "$COMPILED_MARKER_DIR/$table_name"
 		exit 0
 	); then
-		# Éxito: si estaba en la lista de fallos, removerla
 		if [ "$was_failed_before" = "true" ]; then
 			tmp_failed=$(mktemp)
 			jq --arg app "$table_name" 'del(.[$app])' "$FAILED_APPS_FILE" > "$tmp_failed" \
@@ -792,7 +854,6 @@ for table_name in $(toml_get_table_names); do
 	else
 		wpr "App '$table_name' falló. Continuando con la siguiente."
 
-		# Añadir/actualizar en la lista de fallos
 		tmp_failed=$(mktemp)
 		jq --arg app "$table_name" \
 		   --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
@@ -808,13 +869,9 @@ done
 
 pr "Compilación finalizada."
 
-# ==============================================================================
-# Contar apps recompiladas y exportar para el script de upload
-# ==============================================================================
 apps_compiled=$(find "$COMPILED_MARKER_DIR" -maxdepth 1 -type f 2>/dev/null | wc -l | tr -d ' ')
 export APPS_COMPILED="$apps_compiled"
 
-# Archivos generados en este run (uno por línea)
 manifest_count=0
 if [ -f "$UPLOADED_FILES_MANIFEST" ]; then
 	manifest_count=$(grep -c . "$UPLOADED_FILES_MANIFEST" 2>/dev/null || echo 0)
@@ -827,14 +884,12 @@ else
 	pr "Sin apps recompiladas en este run. El release no se tocará."
 fi
 
-# Apps que quedan pendientes de reintento (fallaron en este run)
 failed_count=$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)
 if [ "$failed_count" -gt 0 ]; then
 	wpr "App(s) pendiente(s) de reintento: $failed_count"
 	jq -r 'to_entries[] | "  - \(.key): \(.value.attempts) intento(s)"' "$FAILED_APPS_FILE"
 fi
 
-# Subir artefactos 
 pr "Subiendo artefactos al Release de GitHub..."
 export RELEASE_TAG="${RELEASE_TAG:-stable}"
 export UPLOAD_FILES="./build/*.apk ./build/*.zip"
