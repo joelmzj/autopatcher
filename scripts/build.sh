@@ -295,95 +295,19 @@ for table_name in $(toml_get_table_names); do
 			echo ""
 		} > "$app_log"
 
-		# ==================================================================
-		# 3c-3e. Construir args de morphe (una sola vez)
-		# ==================================================================
-		declare -a morphe_patch_args=()
-
-		for pname in "${exclude_patches[@]}"; do
-			[ -z "$pname" ] && continue
-			morphe_patch_args+=( "-d=$pname" )
-		done
-
-		for pname in "${enable_patches[@]}"; do
-			[ -z "$pname" ] && continue
-			morphe_patch_args+=( "-e=$pname" )
-		done
-
-		if [ "${app_args[inclusive_patches]}" = "true" ]; then
-			pr "  Leyendo lista de parches para forzar disabled-by-default..."
-
-			declare -a disabled_patches=()
-			mapfile -t disabled_patches < <(
-				if [ -f "$patches_json_url" ]; then
-					cat "$patches_json_url"
-				else
-					curl -fsSL "$patches_json_url" 2>/dev/null
-				fi | jq -r '
-					(.patches // .)[]? |
-					select(
-						((has("default") and .default == false) or
-						 (has("use") and .use == false))
-						and
-						(.compatiblePackages != null)
-					) |
-					.name // empty
-				' 2>/dev/null
-			)
-
-			declare -a disabled_filtered=()
-			for dp in "${disabled_patches[@]}"; do
-				[ -z "$dp" ] && continue
-				_is_excluded=false
-				for ep in "${exclude_patches[@]}"; do
-					if [ "$dp" = "$ep" ]; then
-						_is_excluded=true
-						break
-					fi
-				done
-				[ "$_is_excluded" = "false" ] && disabled_filtered+=( "$dp" )
-			done
-			disabled_patches=( "${disabled_filtered[@]}" )
-
-			if [ "${#disabled_patches[@]}" -gt 0 ]; then
-				pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default (excluye universales)"
-				for pname in "${disabled_patches[@]}"; do
-					[ -z "$pname" ] && continue
-					morphe_patch_args+=( "-e=$pname" )
-				done
-			else
-				wpr "  No se encontraron parches disabled-by-default no-universales"
-			fi
-		fi
-
-		if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
-			pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
-		fi
-
+		# 3d. force_flag (no cambia entre reintentos)
 		declare -a force_flag=()
 		if [ "${app_args[force_patch]}" = "true" ]; then
 			force_flag=("--force")
 			pr "  force-patch activo: saltando verificación de versión"
 		fi
 
+		# 3e. channel_flag (no cambia entre reintentos)
 		declare -a channel_flag=()
 		if [ "${app_args[channel]}" = "dev" ]; then
 			channel_flag=("--prerelease")
 			pr "  Canal 'dev': forzando parches pre-release (--prerelease)"
 		fi
-
-		{
-			echo "--- Argumentos de parches (${#morphe_patch_args[@]}) ---"
-			for arg in "${morphe_patch_args[@]}"; do
-				echo "  $arg"
-			done
-			if [ "${#force_flag[@]}" -gt 0 ]; then
-				echo ""
-				echo "--- Force flag ---"
-				echo "  ${force_flag[*]}"
-			fi
-			echo ""
-		} >> "$app_log"
 
 		# ==================================================================
 		# Preflight: conectividad APKMirror (una vez)
@@ -535,14 +459,85 @@ for table_name in $(toml_get_table_names); do
 				pr "APK con firma original (válido como stock para módulo)"
 			fi
 
-			# ---- Morphe ----
-			pr "Aplicando parches con Morphe CLI..."
+			# ==================================================================
+			# Construir argumentos -d / -e para morphe (RECALCULADO POR ITERACIÓN)
+			# ==================================================================
+			declare -a morphe_patch_args=()
+
+			for pname in "${exclude_patches[@]}"; do
+				[ -z "$pname" ] && continue
+				morphe_patch_args+=( "-d=$pname" )
+			done
+
+			for pname in "${enable_patches[@]}"; do
+				[ -z "$pname" ] && continue
+				morphe_patch_args+=( "-e=$pname" )
+			done
+
+			if [ "${app_args[inclusive_patches]}" = "true" ]; then
+				pr "  Leyendo lista de parches para forzar disabled-by-default..."
+
+				declare -a disabled_patches=()
+				# 🆕 Usamos $json_for_whitelist (que apunta al JSON actual de esta iteración)
+				mapfile -t disabled_patches < <(
+					if [ -f "$json_for_whitelist" ]; then
+						cat "$json_for_whitelist"
+					else
+						curl -fsSL "$json_for_whitelist" 2>/dev/null
+					fi | jq -r '
+						(.patches // .)[]? |
+						select(
+							((has("default") and .default == false) or
+							 (has("use") and .use == false))
+							and
+							(.compatiblePackages != null)
+						) |
+						.name // empty
+					' 2>/dev/null
+				)
+
+				declare -a disabled_filtered=()
+				for dp in "${disabled_patches[@]}"; do
+					[ -z "$dp" ] && continue
+					_is_excluded=false
+					for ep in "${exclude_patches[@]}"; do
+						if [ "$dp" = "$ep" ]; then
+							_is_excluded=true
+							break
+						fi
+					done
+					[ "$_is_excluded" = "false" ] && disabled_filtered+=( "$dp" )
+				done
+				disabled_patches=( "${disabled_filtered[@]}" )
+
+				if [ "${#disabled_patches[@]}" -gt 0 ]; then
+					pr "  Forzando ${#disabled_patches[@]} parches disabled-by-default (excluye universales)"
+					for pname in "${disabled_patches[@]}"; do
+						[ -z "$pname" ] && continue
+						morphe_patch_args+=( "-e=$pname" )
+					done
+				else
+					wpr "  No se encontraron parches disabled-by-default no-universales"
+				fi
+			fi
+
+			if [ "${#morphe_patch_args[@]}" -gt 0 ]; then
+				pr "  Total argumentos de parches: ${#morphe_patch_args[@]}"
+			fi
+
 			{
+				echo ""
+				echo "--- Argumentos de parches (${#morphe_patch_args[@]}) ---"
+				for arg in "${morphe_patch_args[@]}"; do
+					echo "  $arg"
+				done
 				echo ""
 				echo "--- Salida de Morphe CLI (APK principal) ---"
 				echo ""
 			} >> "$app_log"
 
+			# ---- Morphe ----
+			pr "Aplicando parches con Morphe CLI..."
 			java -jar "$MORPHE_CLI_JAR" patch \
 				-p="https://github.com/$patch_repo" \
 				"${channel_flag[@]}" \
@@ -666,6 +661,7 @@ for table_name in $(toml_get_table_names); do
 
 			gmscore_present=false
 			json_content=""
+			# 🆕 Aquí usamos $patches_json_url original, porque GmsCore support suele ser universal
 			if [ -f "$patches_json_url" ]; then
 				json_content=$(cat "$patches_json_url")
 			else
