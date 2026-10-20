@@ -639,6 +639,7 @@ import urllib.request
 import json
 import sys
 import os
+import re
 
 source     = sys.argv[1]
 target_pkg = sys.argv[2]
@@ -699,12 +700,16 @@ for patch in patches:
             elif not is_exp and ver not in stable_versions:
                 stable_versions.append(ver)
 
+# 🆕 Función para extraer la "clave de versión" (todos los números)
+def _version_key(v):
+    return tuple(int(x) for x in re.findall(r'\d+', v))
+
 if mode == 'experimental' and exp_versions:
-    print(exp_versions[0])
+    print(max(exp_versions, key=_version_key))
 elif stable_versions:
-    print(stable_versions[0])
+    print(max(stable_versions, key=_version_key))
 elif exp_versions:
-    print(exp_versions[0])
+    print(max(exp_versions, key=_version_key))
 else:
     sys.exit(1)
 EOF
