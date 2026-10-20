@@ -157,6 +157,7 @@ for table_name in $(toml_get_table_names); do
 		app_args[inclusive_patches]=$(toml_get "$t" inclusive-patches) || app_args[inclusive_patches]="false"
 		app_args[build_mode]=$(toml_get "$t" build-mode) || app_args[build_mode]="apk"
 		app_args[force_patch]=$(toml_get "$t" force-patch) || app_args[force_patch]="false"
+		app_args[patches_list_in_release]=$(toml_get "$t" "patches-list-in-release") || app_args[patches_list_in_release]="false"
 
 		patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 		target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
@@ -185,10 +186,75 @@ for table_name in $(toml_get_table_names); do
 		mkdir -p "$TEMP_DIR/$table_name"
 		raw_apk="$TEMP_DIR/$table_name/raw.apk"
 
-		# 2. Resolver la versión objetivo según el parámetro del TOML
+		# ==================================================================
+		# 2. Obtener tag, construir URL, validar JSON y generar fallback
+		# ==================================================================
+		latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "${app_args[channel]}")
+		if [ -z "$latest_applied_tag" ]; then
+			latest_applied_tag="unknown"
+		fi
+
+		# Determinar la URL inicial del JSON
+		if [ "${app_args[patches_list_in_release]}" = "true" ] && [ "$latest_applied_tag" != "unknown" ]; then
+			patches_json_url="https://github.com/${patch_repo}/releases/download/${latest_applied_tag}/patches-list.json"
+		else
+			patches_json_url="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
+			if [ "${app_args[channel]}" = "stable" ]; then
+				patches_json_url="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+			fi
+		fi
+
+		# Validar el JSON. Si no es un objeto con "patches", disparamos el fallback
+		json_is_valid=false
+		if curl -fsSL "$patches_json_url" 2>/dev/null | jq -e 'type == "object" and has("patches")' >/dev/null 2>&1; then
+			json_is_valid=true
+		else
+			# Si falló el primer intento y tenemos un tag válido, intentamos la otra URL por si acaso
+			if [ "$latest_applied_tag" != "unknown" ]; then
+				alt_url=""
+				if [ "${app_args[patches_list_in_release]}" = "true" ]; then
+					alt_url="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
+					if [ "${app_args[channel]}" = "stable" ]; then alt_url="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"; fi
+				else
+					alt_url="https://github.com/${patch_repo}/releases/download/${latest_applied_tag}/patches-list.json"
+				fi
+				
+				if curl -fsSL "$alt_url" 2>/dev/null | jq -e 'type == "object" and has("patches")' >/dev/null 2>&1; then
+					patches_json_url="$alt_url"
+					json_is_valid=true
+				fi
+			fi
+		fi
+
+		# Si seguimos con JSON inválido, lo generamos con el CLI
+		if [ "$json_is_valid" = "false" ]; then
+			pr "  JSON de parches inválido o inexistente. Generando fallback desde Morphe CLI..."
+			generated_json="$TEMP_DIR/$table_name/generated_patches.json"
+			
+			local rel_flag=""
+			if [ "${app_args[channel]}" = "dev" ]; then
+				rel_flag="--prerelease"
+			fi
+			
+			if java -jar "$MORPHE_CLI_JAR" list-patches \
+				--patches="https://github.com/$patch_repo" \
+				$rel_flag \
+				-p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
+				python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json"; then
+				
+				patches_json_url="$generated_json"
+				pr "  JSON generado exitosamente en $patches_json_url"
+			else
+				wpr "  Falló la generación del JSON desde el CLI."
+			fi
+		fi
+
+		# ==================================================================
+		# 2a. Resolver la versión objetivo según el parámetro del TOML
+		# ==================================================================
 		if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
 			pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
-			resolved_ver=$(resolve_target_version_from_bundle "$patch_repo" "${app_args[pkg_name]}" "$target_apk_ver" "${app_args[channel]}")
+			resolved_ver=$(resolve_target_version_from_bundle "$patches_json_url" "${app_args[pkg_name]}" "$target_apk_ver")
 			if [ -n "$resolved_ver" ]; then
 				target_apk_ver="$resolved_ver"
 				pr "Versión resuelta exitosamente desde patches-list.json: $target_apk_ver"
@@ -198,7 +264,7 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		# ==================================================================
-		# Validación inteligente de cambios (REBUILD_APPS + should_build_app)
+		# 2b. Validación inteligente de cambios (REBUILD_APPS + should_build_app)
 		# ==================================================================
 		_force_this=false
 		if [ -n "${REBUILD_APPS:-}" ]; then
@@ -219,12 +285,6 @@ for table_name in $(toml_get_table_names); do
 		elif ! should_build_app "$table_name" "$patch_repo" "${app_args[channel]}" "$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
 			exit 0
-		fi
-
-		# 2b. Obtener el tag actual de parches (para el nombre del APK)
-		latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "${app_args[channel]}")
-		if [ -z "$latest_applied_tag" ]; then
-			latest_applied_tag="unknown"
 		fi
 
 		# 2c. Generar el nombre del APK final usando naming.py
@@ -273,12 +333,14 @@ for table_name in $(toml_get_table_names); do
 			}
 
 			version_codes_whitelist=""
-			patches_list_url_vc="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
-			if [ "${app_args[channel]}" = "stable" ]; then
-				patches_list_url_vc="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+			# 🆕 Leer el JSON híbridamente (archivo local o URL)
+			pl_json=""
+			if [ -f "$patches_json_url" ]; then
+				pl_json=$(cat "$patches_json_url")
+			else
+				pl_json=$(curl -fsSL "$patches_json_url" 2>/dev/null || echo "")
 			fi
 
-			pl_json=$(curl -fsSL "$patches_list_url_vc" 2>/dev/null || echo "")
 			if [ -n "$pl_json" ]; then
 				version_codes_whitelist=$(echo "$pl_json" | \
 					python3 "$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py" versioncodes \
@@ -368,7 +430,7 @@ for table_name in $(toml_get_table_names); do
 		if [ -f "$raw_apk" ] && ! unzip -l "$raw_apk" 2>/dev/null | grep -qE '[[:space:]]+AndroidManifest\.xml[[:space:]]*$'; then
 			was_merged=true
 			
-			# 🆕 Extraer los splits originales ANTES del merge para el módulo
+			# Extraer los splits originales ANTES del merge para el módulo
 			splits_dir="$TEMP_DIR/$table_name/splits"
 			mkdir -p "$splits_dir"
 			pr "Detectado bundle, extrayendo splits originales para el módulo..."
@@ -403,16 +465,16 @@ for table_name in $(toml_get_table_names); do
 
 		# (c) inclusive-patches=true → -e= para disabled-by-default (sin universales, sin excluidos)
 		if [ "${app_args[inclusive_patches]}" = "true" ]; then
-			patches_list_url="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
-			if [ "${app_args[channel]}" = "stable" ]; then
-				patches_list_url="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
-			fi
-			pr "  Leyendo lista de parches desde: $patches_list_url"
+			pr "  Leyendo lista de parches para forzar disabled-by-default..."
 
 			declare -a disabled_patches=()
+			# 🆕 Lectura híbrida
 			mapfile -t disabled_patches < <(
-				curl -fsSL "$patches_list_url" 2>/dev/null | \
-				jq -r '
+				if [ -f "$patches_json_url" ]; then
+					cat "$patches_json_url"
+				else
+					curl -fsSL "$patches_json_url" 2>/dev/null
+				fi | jq -r '
 					(.patches // .)[]? |
 					select(
 						((has("default") and .default == false) or
@@ -485,9 +547,6 @@ for table_name in $(toml_get_table_names); do
 
 		# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
 		pr "Aplicando parches con Morphe CLI..."
-
-		# 4. Ejecutar el parcheo con la CLI de Morphe Desktop
-		pr "Aplicando parches con Morphe CLI..."
 		java -jar "$MORPHE_CLI_JAR" patch \
 			-p="https://github.com/$patch_repo" \
 			"${channel_flag[@]}" \
@@ -512,7 +571,7 @@ for table_name in $(toml_get_table_names); do
 			exit 1
 		fi
 
-		# 🆕 BUG-04: Registrar el APK en el manifest SOLO si el modo es apk o both
+		# Registrar el APK en el manifest SOLO si el modo es apk o both
 		if [ "${app_args[build_mode]}" = "apk" ] || [ "${app_args[build_mode]}" = "both" ]; then
 			echo "$apk_filename" >> "$UPLOADED_FILES_MANIFEST"
 			pr "  APK registrado en el manifest (modo: ${app_args[build_mode]})"
@@ -525,7 +584,6 @@ for table_name in $(toml_get_table_names); do
 		# ==================================================================
 		module_zip_filename=""
 		if [ "${app_args[build_mode]}" = "both" ] || [ "${app_args[build_mode]}" = "module" ]; then
-			# 🆕 Determinar qué usar como "stock" para el módulo
 			module_stock_src="$raw_apk"
 			if [ "$was_merged" = true ] && [ -d "$splits_dir" ]; then
 				module_stock_src="$splits_dir"
@@ -533,12 +591,15 @@ for table_name in $(toml_get_table_names); do
 			fi
 			
 			gmscore_present=false
-			patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/${app_args[channel]}/patches-list.json"
-			if [ "${app_args[channel]}" = "stable" ]; then
-				patches_list_url_4b="https://raw.githubusercontent.com/${patch_repo}/main/patches-list.json"
+			json_content=""
+			# 🆕 Lectura híbrida para GmsCore
+			if [ -f "$patches_json_url" ]; then
+				json_content=$(cat "$patches_json_url")
+			else
+				json_content=$(curl -fsSL "$patches_json_url" 2>/dev/null || echo "")
 			fi
-			if curl -fsSL "$patches_list_url_4b" 2>/dev/null | \
-			   jq -e '(.patches // .)[]? | select(.name == "GmsCore support")' >/dev/null 2>&1; then
+			
+			if echo "$json_content" | jq -e '(.patches // .)[]? | select(.name == "GmsCore support")' >/dev/null 2>&1; then
 				gmscore_present=true
 				pr "  Parche 'GmsCore support' detectado en el bundle"
 			fi
@@ -602,9 +663,7 @@ for table_name in $(toml_get_table_names); do
 				pr "Módulo generado: $module_zip"
 				echo "$module_zip_filename" >> "$UPLOADED_FILES_MANIFEST"
 
-				# ==================================================================
-				# NUEVO: Volcar module.prop al log para debug
-				# ==================================================================
+				# Volcar module.prop al log para debug
 				if [ -f "$module_zip" ]; then
 					{
 						echo ""
@@ -620,38 +679,36 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		# 5. Actualizar versions_log.json
-		# Leer la entrada previa (si existe) para conservar snapshot_file
-		# y detectar el stable anterior (que será promovido al snapshot).
 		prev_snapshot_file=""
 		prev_snapshot_zip=""
 		prev_stable_file=""
 		prev_stable_zip=""
-		prev_patch_ver="" # 🆕 BUG-06
+		prev_patch_ver=""
 		
 		if [ -f "versions_log.json" ]; then
 			prev_snapshot_file=$(jq -r --arg app "$table_name" '.[$app].snapshot_file // ""' versions_log.json)
 			prev_snapshot_zip=$(jq -r --arg app "$table_name" '.[$app].snapshot_zip // ""' versions_log.json)
 			prev_stable_file=$(jq -r --arg app "$table_name" '.[$app].stable_file // .[$app].file // ""' versions_log.json)
 			prev_stable_zip=$(jq -r --arg app "$table_name" '.[$app].stable_zip // ""' versions_log.json)
-			prev_patch_ver=$(jq -r --arg app "$table_name" '.[$app].patches_version // ""' versions_log.json) # 🆕 BUG-06
+			prev_patch_ver=$(jq -r --arg app "$table_name" '.[$app].patches_version // ""' versions_log.json)
 		fi
 
-		# 🆕 BUG-06: Si la versión de parches es la misma, no mover a snapshot
+		# Si la versión de parches es la misma, no mover a snapshot
 		if [ "$latest_applied_tag" == "$prev_patch_ver" ]; then
 			pr "  La versión de parches no cambió ($latest_applied_tag). No se moverá a snapshot."
 			prev_stable_file=""
 			prev_stable_zip=""
 		fi
 
-		# 🆕 BUG-05: Ajustar qué formato va a stable según el modo
+		# Ajustar qué formato va a stable según el modo
 		final_stable_file="$apk_filename"
 		final_stable_zip="$module_zip_filename"
 		
 		if [ "${app_args[build_mode]}" = "module" ]; then
-			final_stable_file=""  # Sin APK en stable
+			final_stable_file=""
 		fi
 		if [ "${app_args[build_mode]}" = "apk" ]; then
-			final_stable_zip=""   # Sin ZIP en stable
+			final_stable_zip=""
 		fi
 
 		tmp_vlog=$(mktemp)
@@ -701,7 +758,6 @@ for table_name in $(toml_get_table_names); do
 		pr "¡Aplicación '$table_name' procesada y guardada en $patched_apk!"
 		pr "Log de parcheo: $app_log"
 
-		# Marcar como compilada exitosamente
 		touch "$COMPILED_MARKER_DIR/$table_name"
 		exit 0
 	); then

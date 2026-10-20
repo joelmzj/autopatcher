@@ -630,50 +630,48 @@ dl_apkmirror() {
 # ==============================================================================
 
 resolve_target_version_from_bundle() {
-    local repo="$1"
+    local json_source="$1"
     local pkg_name="$2"
     local mode="$3"                     # "auto" o "experimental"
-    local channel="${4:-stable}"        # "stable" o "dev"
 
-    python3 - "$repo" "$pkg_name" "$mode" "$channel" << 'EOF'
+    python3 - "$json_source" "$pkg_name" "$mode" << 'EOF'
 import urllib.request
 import json
 import sys
+import os
 
-repo       = sys.argv[1]
+source     = sys.argv[1]
 target_pkg = sys.argv[2]
 mode       = sys.argv[3]
-channel    = sys.argv[4].lower()
-
-# Elegir rama preferida según el canal
-if channel == "dev":
-    urls = [
-        f"https://raw.githubusercontent.com/{repo}/dev/patches-list.json",
-        f"https://raw.githubusercontent.com/{repo}/main/patches-list.json",
-    ]
-else:
-    urls = [
-        f"https://raw.githubusercontent.com/{repo}/main/patches-list.json",
-        f"https://raw.githubusercontent.com/{repo}/dev/patches-list.json",
-    ]
 
 data = None
-for url in urls:
+
+# 🆕 Detectar si es una URL de internet o un archivo local
+if source.startswith("http"):
     try:
-        req = urllib.request.urlopen(url)
+        req = urllib.request.urlopen(source)
         data = json.loads(req.read().decode('utf-8'))
-        break
     except Exception:
-        continue
+        sys.exit(1)
+else:
+    try:
+        with open(source, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except Exception:
+        sys.exit(1)
 
 if not data:
     sys.exit(1)
 
-patches = data.get('patches', [])
+patches = data.get('patches', []) if isinstance(data, dict) else data
 stable_versions = []
 exp_versions = []
 
 for patch in patches:
+    # Si por alguna razón llega un string suelto (JSON viejo de Piko), lo saltamos
+    if isinstance(patch, str):
+        continue
+
     compat_pkgs = patch.get('compatiblePackages', {})
     compatibility = patch.get('compatibility', [])
 
