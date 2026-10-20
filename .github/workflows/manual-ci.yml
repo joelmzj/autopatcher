@@ -14,7 +14,7 @@ on:
         type: choice
         default: ""
         options:
-# BEGIN: AUTO-GENERATED-APPS
+          # BEGIN: AUTO-GENERATED-APPS
           - ""
           - "*"
           - "Instagram"
@@ -33,7 +33,7 @@ on:
           - "Waze"
           - "X"
           - "X-new"
-# END: AUTO-GENERATED-APPS
+          # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset."
         required: false
