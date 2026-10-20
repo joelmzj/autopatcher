@@ -1,14 +1,15 @@
 === Parcheo: YouTubeMusic-Morphe ===
-Fecha: 2026-10-19T17:37:12Z
+Fecha: 2026-10-20T15:33:22Z
 APK version: 9.20.53
-Patches version: v1.48.0-dev.13
+Patches version: v1.48.0-dev.15
 Patches source: MorpheApp/morphe-patches
 Channel: dev
 Brand: Morphe
 Arch: arm64-v8a
-Build mode: both
+Build mode: apk
 Force patch: false
 Inclusive patches: true
+
 
 --- Argumentos de parches (4) ---
   -e=Custom branding name for Reddit
@@ -21,10 +22,10 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/MorpheApp/morphe-patches/releases 
 INFO: GitHub: fetched 30 releases from MorpheApp/morphe-patches 
-INFO: Downloading patches from MorpheApp/morphe-patches v1.48.0-dev.13... 
-INFO: GitHub: downloading patches-1.48.0-dev.13.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v1.48.0-dev.13/patches-1.48.0-dev.13.mpp 
-INFO: GitHub: wrote 12726234 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.13__patches-1.48.0-dev.13.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.13__patches-1.48.0-dev.13.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Downloading patches from MorpheApp/morphe-patches v1.48.0-dev.15... 
+INFO: GitHub: downloading patches-1.48.0-dev.15.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v1.48.0-dev.15/patches-1.48.0-dev.15.mpp 
+INFO: GitHub: wrote 12729551 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.15__patches-1.48.0-dev.15.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.15__patches-1.48.0-dev.15.mpp. This file will be used on your next run as long as it is not deleted! 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.google.android.apps.youtube.music v9.20.53... 
@@ -90,9 +91,9 @@ INFO: Applied: Spoof video streams
 INFO: Applied: Theme 
 INFO: Applied: Third-party lyrics 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 6208 new classes to new DEX files 
-INFO: Processing 6208 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792431443509/patched/newDex 
+INFO: Writing 6244 new classes to new DEX files 
+INFO: Processing 6244 classes in parallel (4 threads) 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792510412782/patched/newDex 
 INFO: Stripped 332 modified classes from 5 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -102,122 +103,16 @@ INFO: Post-processing package name change
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 54964 of 158262 values in 99 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
+INFO: Encoded 54946 of 158244 values in 99 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
 INFO: Resource APK inputs: reusing 5124 unchanged archive entries, rebuilding 117 entries, dropping 0 entries 
-INFO: Resource APK scan: 1.7s write: 700ms 
+INFO: Resource APK scan: 1.5s write: 800ms 
 INFO: Moving 3 resource files 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.13-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792431443509 
-
---- Salida de Morphe CLI (variante módulo, sin 'GmsCore support') ---
-
-INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
-INFO: GitHub: fetching releases from https://api.github.com/repos/MorpheApp/morphe-patches/releases 
-INFO: GitHub: fetched 30 releases from MorpheApp/morphe-patches 
-INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.13__patches-1.48.0-dev.13.mpp 
-INFO: Loading patches... 
-INFO: Initializing patcher... 
-INFO: Filtering patches for com.google.android.apps.youtube.music v9.20.53... 
-INFO: Skipping disabled: Clone app (default) 
-INFO: Skipping disabled: Change installer source (default) 
-INFO: Skipping disabled: Override certificate pinning (default) 
-INFO: Skipping disabled: Spoof signature (default) 
-INFO: Skipping disabled: Disable Play Store updates (default) 
-INFO: Skipping disabled: GmsCore support 
-INFO: Applying 48 patches... 
-INFO: Deleting existing temporary files directory 
-INFO: Decoding all resources 
-INFO: Leaving 27 native library files in the input APK 
-INFO: Sanitizing unpatched strings 
-INFO: Escaping strings 
-INFO: Executing patches 
-INFO: Applied: Android Auto 
-INFO: Applied: App refresh rate 
-INFO: Applied: Change header 
-INFO: Applied: Change miniplayer color 
-INFO: Applied: Change start page 
-INFO: Applied: Check watch history domain name resolution 
-INFO: Applied: Crossfade 
-INFO: Applied: Custom branding 
-INFO: Applied: Custom font 
-INFO: Applied: Disable DRC audio 
-INFO: Applied: Disable QUIC protocol 
-INFO: Applied: Disable dislike redirection 
-INFO: Applied: Downloads 
-INFO: Applied: Enable audio/video switch 
-INFO: Applied: Enable debugging 
-INFO: Applied: Enable exclusive audio playback 
-INFO: Applied: Enable forced miniplayer 
-INFO: Applied: Enable swipe to dismiss miniplayer 
-INFO: Applied: Force original audio 
-INFO: Applied: Force portrait orientation 
-INFO: Applied: Hide ads 
-INFO: Applied: Hide buttons 
-INFO: Applied: Hide flyout menu components 
-INFO: Applied: Hide layout components 
-INFO: Applied: Hide music action buttons 
-INFO: Applied: Jam queue sharing 
-INFO: Applied: Media notification controls 
-INFO: Applied: Miniplayer previous and next buttons 
-INFO: Applied: Navigation bar 
-INFO: Applied: Network proxy 
-INFO: Applied: Play albums songs 
-INFO: Applied: Playback speed 
-INFO: Applied: Playlist track tap action 
-INFO: PoToken provider is not required for root installation. No changes applied. 
-INFO: Applied: PoToken provider 
-INFO: Applied: Remember repeat state 
-INFO: Applied: Remember shuffle state 
-INFO: Applied: Remove background playback restrictions 
-INFO: Applied: Remove viewer discretion dialog 
-INFO: Applied: Return YouTube Dislike 
-INFO: Applied: Sanitize sharing links 
-INFO: Applied: Scrobbling 
-INFO: Applied: Settings menu filter 
-INFO: Applied: Skip silence 
-INFO: Applied: SponsorBlock 
-INFO: Applied: Spoof app version 
-INFO: Applied: Spoof video streams 
-INFO: Applied: Theme 
-INFO: Applied: Third-party lyrics 
-INFO: Mounted install app icon: black 
-INFO: Mounted install notification icon: black 
-INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 6102 new classes to new DEX files 
-INFO: Processing 6102 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792431468122/patched/newDex 
-INFO: Stripped 226 modified classes from 5 original DEX files 
-INFO: Compiling modified resources 
-INFO: Stripping libs (keeping architectures arm64-v8a) 
-INFO: Stripped 0 lib files 
-INFO: Unescaping strings 
-INFO: Processing aapt macros 
-INFO: Generating new resource IDs 
-INFO: Writing resource APK 
-INFO: Encoded 54964 of 158262 values in 99 files, 117 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
-INFO: Resource APK inputs: reusing 5119 unchanged archive entries, rebuilding 119 entries, dropping 0 entries 
-INFO: Resource APK scan: 1.7s write: 700ms 
-INFO: Moving 3 resource files 
-INFO: Using compiled resource APK as output base 
-INFO: Aligning APK 
-INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/temp/YouTubeMusic-Morphe/module.apk 
-INFO: Purged this session's temp files: patching-1792431468122 
-
---- Contenido de module.prop ---
-id=youtubemusic-morphe-stable-arm64
-name=YouTubeMusic-Morphe (Morphe)
-version=v9.20.53 (patches v1.48.0-dev.13.mpp)
-versionCode=20261019
-author=joelmzj
-description=YouTubeMusic-Morphe (Morphe) module
-updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/youtubemusic-morphe-arm64.json
---------------------------------
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.15-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792510412782 
 
 --- Fin del parcheo ---
-APK final: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.13-arm64-v8a.apk
-Módulo: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.13-arm64-v8a.zip
-Fecha de fin: 2026-10-19T17:38:16Z
+APK final: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.15-arm64-v8a.apk
+Fecha de fin: 2026-10-20T15:33:50Z
