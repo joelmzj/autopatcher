@@ -231,7 +231,7 @@ for table_name in $(toml_get_table_names); do
 			pr "  JSON de parches inválido o inexistente. Generando fallback desde Morphe CLI..."
 			generated_json="$TEMP_DIR/$table_name/generated_patches.json"
 			
-			local rel_flag=""
+			rel_flag=""
 			if [ "${app_args[channel]}" = "dev" ]; then
 				rel_flag="--prerelease"
 			fi
