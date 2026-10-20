@@ -1,5 +1,5 @@
 === Parcheo: Instagram ===
-Fecha: 2026-10-20T19:47:50Z
+Fecha: 2026-10-20T22:51:50Z
 APK version: 452.0.0.48.64
 Patches version: v0.0.13
 Patches source: SysAdminDoc/HushGram
@@ -11,10 +11,11 @@ Force patch: false
 Inclusive patches: true
 
 
---- Argumentos de parches (4) ---
+--- Argumentos de parches (5) ---
   -d=Install next to Instagram
   -e=Change version code
   -e=Pure black dark mode
+  -e=Swipe left to open the profile
   -e=View DM photos and videos anonymously
 
 --- Salida de Morphe CLI (APK principal) ---
@@ -146,7 +147,7 @@ INFO: Stripped 0 lib files
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Instagram-v452.0.0.48.64-HushGram-v0.0.13-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792525698055 
+INFO: Purged this session's temp files: patching-1792536740185 
 
 ═══════════════════════════════════════════════════════════════
   🔄 REINTENTO 1/1 con versión 451.0.0.53.80
@@ -288,7 +289,7 @@ INFO: Applied: View stories anonymously
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 2478 new classes to new DEX files 
 INFO: Processing 2478 classes in parallel (4 threads) 
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792525721101/patched/newDex 
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792536764249/patched/newDex 
 INFO: Stripped 623 modified classes from 20 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -299,13 +300,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK 
 INFO: Encoded 5472 of 5472 values in 3 files, 1 resource files and 0 configurations of patches for com.instagram.android 
 INFO: Resource APK inputs: reusing 24224 unchanged archive entries, rebuilding 3 entries, dropping 0 entries 
-INFO: Resource APK scan: 800ms write: 1s 
+INFO: Resource APK scan: 800ms write: 900ms 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Instagram-v451.0.0.53.80-HushGram-v0.0.13-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792525721101 
+INFO: Purged this session's temp files: patching-1792536764249 
 
 --- Fin del parcheo ---
 APK final: build/Instagram-v451.0.0.53.80-HushGram-v0.0.13-arm64-v8a.apk
-Fecha de fin: 2026-10-20T19:49:43Z
+Fecha de fin: 2026-10-20T22:53:45Z
