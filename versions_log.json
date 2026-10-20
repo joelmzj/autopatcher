@@ -3,16 +3,16 @@
     "patches_source": "SysAdminDoc/HushGram",
     "channel": "stable",
     "patches_version": "v0.0.13",
-    "apk_version": "452.0.0.48.64",
+    "apk_version": "451.0.0.53.80",
     "brand": "HushGram",
     "arch": "arm64-v8a",
-    "stable_file": "Instagram-v452.0.0.48.64-HushGram-v0.0.13-arm64-v8a.apk",
+    "stable_file": "Instagram-v451.0.0.53.80-HushGram-v0.0.13-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-20T03:48:03Z"
+    "timestamp": "2026-10-20T05:05:41Z"
   },
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
