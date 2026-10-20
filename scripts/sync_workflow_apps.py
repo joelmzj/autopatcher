@@ -57,25 +57,43 @@ def update_file(path: Path, apps: list) -> bool:
     """
     content = path.read_text(encoding="utf-8")
 
-    # Detectar indentación real de los marcadores en el archivo
+    # 1. Encontrar el marcador de inicio
     m = re.search(r"^([ \t]*)" + re.escape(BEGIN_MARKER), content, re.MULTILINE)
     if not m:
         return False  # No tiene marcadores, no aplica
-    indent = m.group(1)
 
-    # Construir el bloque nuevo con la misma indentación
-    lines = [f"{indent}{BEGIN_MARKER}"]
-    lines.append(f'{indent}- ""')
-    lines.append(f'{indent}- "*"')
+    # 2. Buscar la línea padre (ej. "options:") hacia atrás
+    before = content[:m.start()]
+    parent_indent = ""
+    for line in reversed(before.splitlines()):
+        stripped = line.rstrip()
+        if stripped.endswith(":") and not stripped.lstrip().startswith("#"):
+            if "options" in stripped:
+                parent_indent = re.match(r"^([ \t]*)", line).group(1)
+                break
+    
+    # Fallback seguro si no se encuentra "options:" (evita usar la indentación corrupta)
+    if not parent_indent:
+        parent_indent = "        " # 8 espacios
+
+    # 3. La indentación correcta para los items es parent_indent + 2 espacios
+    item_indent = parent_indent + "  "
+
+    # 4. Construir el bloque nuevo
+    lines = [f"{item_indent}{BEGIN_MARKER}"]
+    lines.append(f'{item_indent}- ""')
+    lines.append(f'{item_indent}- "*"')
     for app in apps:
-        lines.append(f'{indent}- "{app}"')
-    lines.append(f"{indent}{END_MARKER}")
+        lines.append(f'{item_indent}- "{app}"')
+    lines.append(f"{item_indent}{END_MARKER}")
     new_block = "\n".join(lines)
 
-    # Reemplazar todo el bloque (incluyendo los marcadores)
+    # 5. Reemplazar el bloque.
+    # OJO: Esta regex ahora consume los espacios iniciales (^[ \t]*) 
+    # para destruir cualquier indentación corrupta que exista antes del marcador.
     pattern = re.compile(
-        re.escape(BEGIN_MARKER) + r".*?" + re.escape(END_MARKER),
-        re.DOTALL,
+        r"^[ \t]*" + re.escape(BEGIN_MARKER) + r".*?" + re.escape(END_MARKER),
+        re.MULTILINE | re.DOTALL,
     )
     new_content = pattern.sub(new_block, content)
 
