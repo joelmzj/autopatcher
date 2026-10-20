@@ -34,6 +34,27 @@ set_prebuilts
 
 toml_prep "${1:-config.toml}" || abort "could not find config file"
 
+# ==============================================================================
+# 🧹 LIMPIEZA: Eliminar de versions_log.json las apps que ya no están en config.toml
+# ==============================================================================
+if [ -f "versions_log.json" ]; then
+    # Obtener los nombres de las tablas válidas (excluyendo la global)
+    valid_apps=$(toml_get_table_names | grep -v "^Morphe-Desktop$" || true)
+    
+    if [ -n "$valid_apps" ]; then
+        # Convertir la lista a un array JSON
+        valid_apps_json=$(echo "$valid_apps" | jq -R . | jq -s .)
+        
+        # Filtrar versions_log.json: dejar solo las claves que están en valid_apps_json
+        tmp_vlog=$(mktemp)
+        jq --argjson valid "$valid_apps_json" \
+           'with_entries(select(.key as $k | $valid | index($k)))' \
+           versions_log.json > "$tmp_vlog" && mv "$tmp_vlog" versions_log.json
+        
+        pr "  Limpieza de versions_log.json completada (apps huérfanas eliminadas)"
+    fi
+fi
+
 morphe_channel=$(jq -r '."Morphe-Desktop".morphe_desktop_channel // "stable"' <<<"$__TOML__")
 pr "Obteniendo CLI de Morphe Desktop (Canal: $morphe_channel)..."
 MORPHE_CLI_JAR=$(get_morphe_desktop_cli "$morphe_channel") || abort "No se pudo obtener la CLI de Morphe Desktop"
