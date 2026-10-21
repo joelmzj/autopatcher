@@ -1,7 +1,7 @@
 === Parcheo: TikTok ===
-Fecha: 2026-10-19T05:55:28Z
+Fecha: 2026-10-21T06:56:08Z
 APK version: 47.4.3
-Patches version: v0.76.0
+Patches version: v0.77.0
 Patches source: SysAdminDoc/hushfeed
 Channel: stable
 Brand: HushFeed
@@ -10,7 +10,8 @@ Build mode: apk
 Force patch: false
 Inclusive patches: true
 
---- Argumentos de parches (18) ---
+
+--- Argumentos de parches (19) ---
   -d=Change app name
   -d=Custom launcher icon
   -e=AMOLED dark theme
@@ -26,6 +27,7 @@ Inclusive patches: true
   -e=Remove content credential and card scanner assets
   -e=Remove creation tools
   -e=Remove unused language packs
+  -e=Remove voice tools
   -e=Run beside the store app
   -e=Skip first-launch setup
   -e=Trust user certificates
@@ -35,16 +37,16 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/hushfeed/releases 
 INFO: GitHub: fetched 30 releases from SysAdminDoc/hushfeed 
-INFO: Downloading patches from SysAdminDoc/hushfeed v0.76.0... 
-INFO: GitHub: downloading patches-0.76.0.mpp from https://github.com/SysAdminDoc/HushFeed/releases/download/v0.76.0/patches-0.76.0.mpp 
-INFO: GitHub: wrote 6246670 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.76.0__patches-0.76.0.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.76.0__patches-0.76.0.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Downloading patches from SysAdminDoc/hushfeed v0.77.0... 
+INFO: GitHub: downloading patches-0.77.0.mpp from https://github.com/SysAdminDoc/HushFeed/releases/download/v0.77.0/patches-0.77.0.mpp 
+INFO: GitHub: wrote 6380813 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.77.0__patches-0.77.0.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.77.0__patches-0.77.0.mpp. This file will be used on your next run as long as it is not deleted! 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.zhiliaoapp.musically v47.4.3... 
 INFO: Skipping disabled: Change app name 
 INFO: Skipping disabled: Custom launcher icon 
-INFO: Applying 133 patches... 
+INFO: Applying 134 patches... 
 INFO: Deleting existing temporary files directory 
 INFO: Decoding all resources 
 INFO: Leaving 649 native library files in the input APK 
@@ -165,6 +167,8 @@ INFO: Applied: Remove content credential and card scanner assets
 INFO: Applied: Remove creation tools 
 [Language Pack Purger] Kept every reviewed language pack.
 INFO: Applied: Remove unused language packs 
+[Voice Tools De-bloat] Emptied 8 reviewed files (16.16 MiB unpacked).
+INFO: Applied: Remove voice tools 
 INFO: Applied: Repost diagnostics 
 [Resource and battery governor] Intercepted 2 sensor registration sites.
 INFO: Applied: Resource and battery governor 
@@ -205,10 +209,10 @@ INFO: Applied: Turn off screen transitions
 INFO: Applied: Use non-personalized search 
 INFO: Applied: Use system font 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 4954 new classes to new DEX files 
-INFO: Processing 4954 classes in parallel (4 threads) 
-INFO: Wrote 5 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792389351438/patched/newDex 
-INFO: Stripped 1915 modified classes from 43 original DEX files 
+INFO: Writing 5010 new classes to new DEX files 
+INFO: Processing 5010 classes in parallel (4 threads) 
+INFO: Wrote 5 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792565794246/patched/newDex 
+INFO: Stripped 1932 modified classes from 43 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
 INFO: Stripped 294 lib files 
@@ -216,27 +220,27 @@ INFO: Unescaping strings
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_camera_biz 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_music_dsp 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ccdc_impl_ocr 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_kids_mode 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_search_biz 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_im_bootfinish 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_wallpaper_main 
 INFO: Encoded 2208 of 2208 values in 17 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ship 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_live_cast 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_camera_biz 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_external_payments 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ship 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_im_bootfinish 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_live_cast 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_kids_mode 
 INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_bnpl 
-INFO: Resource APK inputs: reusing 26293 unchanged archive entries, rebuilding 3 entries, dropping 320 entries 
-INFO: Resource APK scan: 2.1s write: 2.8s 
-INFO: Moving 27 resource files 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ccdc_impl_ocr 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_wallpaper_main 
+INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_search_biz 
+INFO: Resource APK inputs: reusing 26289 unchanged archive entries, rebuilding 3 entries, dropping 324 entries 
+INFO: Resource APK scan: 1.8s write: 1.7s 
+INFO: Moving 31 resource files 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792389351438 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.4.3-HushFeed-v0.77.0-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792565794246 
 
 --- Fin del parcheo ---
-APK final: build/TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk
-Fecha de fin: 2026-10-19T05:57:54Z
+APK final: build/TikTok-v47.4.3-HushFeed-v0.77.0-arm64-v8a.apk
+Fecha de fin: 2026-10-21T06:58:49Z

@@ -2,17 +2,17 @@
   "Instagram": {
     "patches_source": "SysAdminDoc/HushGram",
     "channel": "stable",
-    "patches_version": "v0.0.13",
-    "apk_version": "451.0.0.53.80",
+    "patches_version": "v0.0.14",
+    "apk_version": "452.0.0.48.64",
     "brand": "HushGram",
     "arch": "arm64-v8a",
-    "stable_file": "Instagram-v451.0.0.53.80-HushGram-v0.0.13-arm64-v8a.apk",
+    "stable_file": "Instagram-v452.0.0.48.64-HushGram-v0.0.14-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "Instagram-v451.0.0.53.80-HushGram-v0.0.13-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-21T01:12:21Z"
+    "timestamp": "2026-10-21T06:53:18Z"
   },
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
@@ -47,32 +47,32 @@
   "Facebook": {
     "patches_source": "SysAdminDoc/Hushfacebook",
     "channel": "stable",
-    "patches_version": "v0.15.0",
+    "patches_version": "v0.16.0",
     "apk_version": "583.0.0.39.55",
     "brand": "HushFacebook",
     "arch": "arm64-v8a",
-    "stable_file": "Facebook-v583.0.0.39.55-HushFacebook-v0.15.0-arm64-v8a.apk",
+    "stable_file": "Facebook-v583.0.0.39.55-HushFacebook-v0.16.0-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": "Facebook-v583.0.0.39.55-HushFacebook-v0.14.0-arm64-v8a.apk",
+    "prev_stable_file": "Facebook-v583.0.0.39.55-HushFacebook-v0.15.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-19T05:55:26Z"
+    "timestamp": "2026-10-21T06:56:06Z"
   },
   "TikTok": {
     "patches_source": "SysAdminDoc/hushfeed",
     "channel": "stable",
-    "patches_version": "v0.76.0",
+    "patches_version": "v0.77.0",
     "apk_version": "47.4.3",
     "brand": "HushFeed",
     "arch": "arm64-v8a",
-    "stable_file": "TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk",
+    "stable_file": "TikTok-v47.4.3-HushFeed-v0.77.0-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": "TikTok-v47.4.3-HushFeed-v0.75.0-arm64-v8a.apk",
+    "prev_stable_file": "TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-19T05:57:54Z"
+    "timestamp": "2026-10-21T06:58:48Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
