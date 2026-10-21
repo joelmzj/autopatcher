@@ -12,7 +12,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-20T22:53:45Z"
+    "timestamp": "2026-10-21T01:12:21Z"
   },
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
@@ -77,17 +77,17 @@
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v1.48.0-dev.15",
+    "patches_version": "v1.48.0-dev.16",
     "apk_version": "9.20.53",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.15-arm64-v8a.apk",
+    "stable_file": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.16-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.13-arm64-v8a.apk",
-    "prev_stable_zip": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.13-arm64-v8a.zip",
-    "timestamp": "2026-10-20T15:33:50Z"
+    "prev_stable_file": "YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.15-arm64-v8a.apk",
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-21T01:12:59Z"
   },
   "YouTubeMusic-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -107,17 +107,17 @@
   "YouTube-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v1.48.0-dev.15",
+    "patches_version": "v1.48.0-dev.16",
     "apk_version": "21.20.405",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Morphe-v21.20.405-Morphe-v1.48.0-dev.15-arm64-v8a.apk",
+    "stable_file": "YouTube-Morphe-v21.20.405-Morphe-v1.48.0-dev.16-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Morphe-v21.20.405-Morphe-v1.48.0-dev.13-arm64-v8a.apk",
-    "prev_stable_zip": "YouTube-Morphe-v21.20.405-Morphe-v1.48.0-dev.13-arm64-v8a.zip",
-    "timestamp": "2026-10-20T15:34:39Z"
+    "prev_stable_file": "YouTube-Morphe-v21.20.405-Morphe-v1.48.0-dev.15-arm64-v8a.apk",
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-21T01:13:52Z"
   },
   "YouTube-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -137,17 +137,17 @@
   "YouTube-Tablet-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v1.48.0-dev.15",
+    "patches_version": "v1.48.0-dev.16",
     "apk_version": "20.21.37",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.15-arm64-v8a.apk",
+    "stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.16-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.13-arm64-v8a.apk",
+    "prev_stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.15-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-20T15:35:15Z"
+    "timestamp": "2026-10-21T01:14:35Z"
   },
   "YouTube-Tablet-anddea": {
     "patches_source": "anddea/revanced-patches",
