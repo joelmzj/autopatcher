@@ -2,17 +2,17 @@
   "Instagram": {
     "patches_source": "SysAdminDoc/HushGram",
     "channel": "stable",
-    "patches_version": "v0.0.14",
+    "patches_version": "v0.0.15",
     "apk_version": "452.1.0.53.64",
     "brand": "HushGram",
     "arch": "arm64-v8a",
-    "stable_file": "Instagram-v452.1.0.53.64-HushGram-v0.0.14-arm64-v8a.apk",
+    "stable_file": "Instagram-v452.1.0.53.64-HushGram-v0.0.15-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "Instagram-v452.1.0.53.64-HushGram-v0.0.14-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-22T19:34:29Z"
+    "timestamp": "2026-10-22T22:16:35Z"
   },
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
@@ -192,7 +192,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-22T15:54:40Z"
+    "timestamp": "2026-10-22T22:17:57Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",

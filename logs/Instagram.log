@@ -1,7 +1,7 @@
 === Parcheo: Instagram ===
-Fecha: 2026-10-22T19:33:50Z
+Fecha: 2026-10-22T22:15:45Z
 APK version: 452.1.0.53.64
-Patches version: v0.0.14
+Patches version: v0.0.15
 Patches source: SysAdminDoc/HushGram
 Channel: stable
 Brand: HushGram
@@ -22,139 +22,158 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/HushGram/main/patches-bundle.json
-INFO: GitHub: bundle (main) → v0.0.14 @ https://github.com/SysAdminDoc/HushGram/releases/download/v0.0.14/patches-0.0.14.mpp
-INFO: Latest stable via patches-bundle.json: v0.0.14
-INFO: GitHub: downloading patches-0.0.14.mpp from https://github.com/SysAdminDoc/HushGram/releases/download/v0.0.14/patches-0.0.14.mpp
-INFO: GitHub: wrote 5911748 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.14__patches-0.0.14.mpp
-INFO: Resolved patches (v0.0.14) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.14__patches-0.0.14.mpp
+INFO: GitHub: bundle (main) → v0.0.15 @ https://github.com/SysAdminDoc/HushGram/releases/download/v0.0.15/patches-0.0.15.mpp
+INFO: Latest stable via patches-bundle.json: v0.0.15
+INFO: GitHub: downloading patches-0.0.15.mpp from https://github.com/SysAdminDoc/HushGram/releases/download/v0.0.15/patches-0.0.15.mpp
+INFO: GitHub: wrote 5971777 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.15__patches-0.0.15.mpp
+INFO: Resolved patches (v0.0.15) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.15__patches-0.0.15.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.instagram.android v452.1.0.53.64...
-INFO: Skipping "Hide ads": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Install next to Instagram": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Ask before a call": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide Instants": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Keep in chat": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Lock your messages": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Message box buttons": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the notes row": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide your active status": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Show when someone was last active": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Allow screenshots": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Don't report screenshots": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the search bar in Messages": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Read messages without the seen receipt": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "View DM photos and videos anonymously": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide suggested accounts in DMs": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide that you're typing": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Save profile picture": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Download any reel": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Download any story": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Download any video": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Download voice messages": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the Explore grid": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Don't save recent searches": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Show all recent searches": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Back leaves Home": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Open comments without the keyboard": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide comments": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Ask before a like": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Ask before a refresh": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the comment emoji row": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide Follow on feed posts": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Start Home on Following": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the home feed": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Change the like animation": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Show hidden like counts": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Full resolution photos": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide Reels in the feed": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Rounded post corners": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Start feed videos with sound": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide suggested posts": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Stop swipe to create": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Stop swiping between tabs": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Tap a feed video to pause it": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Show a post's exact time": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Long press to zoom": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Turn off HDR brightness boosts": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Data saver": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Default playback quality": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Resume long videos": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Tap to play": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide Meta AI": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Remove the advertising ID": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Remove the empty space at the bottom": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Remove build expired popup": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Clear the media cache": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Copy comment": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Save comment photo": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Emoji style": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Open links in external browser": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Font": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Glass tab bar": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Stop background wake-ups": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Spoof location": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Group Instagram's notifications": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Saved on your profile": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Restore trust on re-signed builds": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "HushGram settings": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Sanitize sharing links": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Accent color": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "HushGram launch screen": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Pure black dark mode": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Start on x86 devices": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Change version code": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Show if a profile follows you": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide highlights": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide Notes on profile pictures": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Profile posts as a list": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide suggested people on profiles": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide profile tabs": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the Threads button": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide AI-labeled reels": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Keep Reels auto scroll on": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Blur the bars around Reels": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide reels by caption words": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Clean up Reels": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Turn off double tap to like": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Full screen Reels and Home": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Find the reel you came from": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide paid partnership Reels": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Stop Reels scrolling": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Keep a seek bar on Reels": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Keep the reel speed": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide suggested accounts in Reels": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Swipe left to open the profile": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the Reels tab": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Control taps and volume on Reels": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Show a reel's exact time": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Don't send reel watch history": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the Repost button": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide the Share button": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide group buttons on the share sheet": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Stop Story auto-advance": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide Follow on stories": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "View live anonymously": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Loop a story": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "See who a story mentions": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Upload stories at full quality": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Story ring size": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "View stories anonymously": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Start stories with sound": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Stop swipe up to reply": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Show a story's exact time": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Skipping "Hide suggested stories": incompatible with com.instagram.android 452.1.0.53.64
-INFO: Applying 0 patches...
+INFO: Skipping disabled: Install next to Instagram
+INFO: Applying 113 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 24770 files can be decoded
 INFO: Executing patches
+INFO: Applied: Accent color
+INFO: Applied: Allow screenshots
+INFO: Applied: Ask before a call
+INFO: Applied: Ask before a like
+INFO: Applied: Ask before a refresh
+INFO: Applied: Back leaves Home
+INFO: Applied: Blur the bars around Reels
+INFO: Applied: Change the like animation
+INFO: Applied: Change version code
+INFO: Applied: Clean up Reels
+INFO: Applied: Clear the media cache
+INFO: Applied: Control taps and volume on Reels
+INFO: Applied: Copy comment
+INFO: Applied: Data saver
+INFO: Applied: Default playback quality
+INFO: Applied: Don't report screenshots
+INFO: Applied: Don't save recent searches
+INFO: Applied: Don't send reel watch history
+INFO: Applied: Download any reel
+INFO: Applied: Download any story
+INFO: Applied: Download any video
+INFO: Applied: Download voice messages
+INFO: Applied: Emoji style
+INFO: Applied: Find the reel you came from
+INFO: Applied: Font
+INFO: Applied: Full resolution photos
+INFO: Applied: Full screen Reels and Home
+INFO: Applied: Glass tab bar
+INFO: Applied: Group Instagram's notifications
+INFO: Applied: Hide AI-labeled reels
+INFO: Applied: Hide Follow on feed posts
+INFO: Applied: Hide Follow on stories
+INFO: Applied: Hide Instants
+INFO: Applied: Hide Meta AI
+INFO: Applied: Hide Notes on profile pictures
+INFO: Applied: Hide Reels in the feed
+INFO: Applied: Hide ads
+INFO: Applied: Hide comments
+INFO: Applied: Hide group buttons on the share sheet
+INFO: Applied: Hide highlights
+INFO: Applied: Hide paid partnership Reels
+INFO: Applied: Hide profile tabs
+INFO: Applied: Hide reels by caption words
+INFO: Applied: Hide suggested accounts in DMs
+INFO: Applied: Hide suggested accounts in Reels
+INFO: Applied: Hide suggested people on profiles
+INFO: Applied: Hide suggested posts
+INFO: Applied: Hide suggested stories
+INFO: Applied: Hide that you're typing
+INFO: Applied: Hide the Explore grid
+INFO: Applied: Hide the Reels tab
+INFO: Applied: Hide the Repost button
+INFO: Applied: Hide the Share button
+INFO: Applied: Hide the Threads button
+INFO: Applied: Hide the comment emoji row
+INFO: Applied: Hide the home feed
+INFO: Applied: Hide the notes row
+INFO: Applied: Hide the search bar in Messages
+INFO: Applied: Hide your active status
+INFO: Applied: HushGram launch screen
+INFO: Applied: HushGram settings
+INFO: Applied: Keep Reels auto scroll on
+INFO: Applied: Keep a seek bar on Reels
+INFO: Applied: Keep in chat
+INFO: Applied: Keep the reel speed
+INFO: Applied: Lock your messages
+INFO: Applied: Long press to zoom
+INFO: Applied: Loop a story
+INFO: Applied: Message box buttons
+INFO: Applied: Open comments without the keyboard
+INFO: Applied: Open links in external browser
+INFO: Applied: Profile posts as a list
+INFO: Applied: Pure black dark mode
+INFO: Applied: Read messages without the seen receipt
+INFO: Applied: Remove build expired popup
+INFO: Applied: Remove the advertising ID
+INFO: Applied: Remove the empty space at the bottom
+INFO: Applied: Restore trust on re-signed builds
+INFO: Applied: Resume long videos
+INFO: Applied: Rounded post corners
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Save comment photo
+INFO: Applied: Save profile picture
+INFO: Applied: Saved on your profile
+INFO: Applied: See who a story mentions
+INFO: Applied: Show a post's exact time
+INFO: Applied: Show a reel's exact time
+INFO: Applied: Show a story's exact time
+INFO: Applied: Show all recent searches
+INFO: Applied: Show hidden like counts
+INFO: Applied: Show if a profile follows you
+INFO: Applied: Show when someone was last active
+INFO: Applied: Spoof location
+INFO: Applied: Start Home on Following
+INFO: Applied: Start feed videos with sound
+INFO: Applied: Start on x86 devices
+INFO: Applied: Start stories with sound
+INFO: Applied: Stop Reels scrolling
+INFO: Applied: Stop Story auto-advance
+INFO: Applied: Stop background wake-ups
+INFO: Applied: Stop swipe to create
+INFO: Applied: Stop swipe up to reply
+INFO: Applied: Stop swiping between tabs
+INFO: Applied: Story ring size
+INFO: Applied: Swipe left to open the profile
+INFO: Applied: Tap a feed video to pause it
+INFO: Applied: Tap to play
+INFO: Applied: Turn off HDR brightness boosts
+INFO: Applied: Turn off double tap to like
+INFO: Applied: Upload stories at full quality
+INFO: Applied: View DM photos and videos anonymously
+INFO: Applied: View live anonymously
+INFO: Applied: View stories anonymously
 INFO: Rebuilding APK...
-INFO: Compiling patched dex files (mode: NONE)
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 1831 unchanged extension classes to 2 DEX files
+INFO: Changed 726 of 215851 classes to mutable
+INFO: Writing 726 new classes to new DEX files
+INFO: Processing 726 classes in parallel (4 threads)
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792707372834/patcher/patched/newDex
+INFO: Stripped 656 modified classes from 20 original DEX files
+INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
 INFO: Stripped 0 lib files
+INFO: Decoded 12 of 24770 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 5472 of 5472 values in 3 files, 1 resource files and 0 configurations of patches for com.instagram.android
+INFO: Reusing 24522 unchanged archive entries, rebuilding 3 entries, dropping 0 entries, leaving out 23 replaced entries
+INFO: Resource APK scan: 300ms write: 900ms
+INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Instagram-v452.1.0.53.64-HushGram-v0.0.14-arm64-v8a.apk
-INFO: Patching took 6.6 seconds
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Instagram-v452.1.0.53.64-HushGram-v0.0.15-arm64-v8a.apk
+INFO: Patching took 22.9 seconds
 
 --- Fin del parcheo ---
-APK final: build/Instagram-v452.1.0.53.64-HushGram-v0.0.14-arm64-v8a.apk
-Fecha de fin: 2026-10-22T19:34:29Z
+APK final: build/Instagram-v452.1.0.53.64-HushGram-v0.0.15-arm64-v8a.apk
+Fecha de fin: 2026-10-22T22:16:35Z
