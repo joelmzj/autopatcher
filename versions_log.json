@@ -40,9 +40,9 @@
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": "Messenger-v583.0.0.29.95-HushMessenger-v0.24.0-arm64-v8a.apk",
+    "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-18T22:53:04Z"
+    "timestamp": "2026-10-22T00:23:58Z"
   },
   "Facebook": {
     "patches_source": "SysAdminDoc/Hushfacebook",
