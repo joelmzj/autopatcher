@@ -1,7 +1,7 @@
 === Parcheo: Facebook ===
-Fecha: 2026-10-22T19:35:31Z
+Fecha: 2026-10-22T23:55:54Z
 APK version: 584.0.0.51.56
-Patches version: v0.16.1
+Patches version: v0.17.0
 Patches source: SysAdminDoc/Hushfacebook
 Channel: stable
 Brand: HushFacebook
@@ -20,119 +20,141 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/Hushfacebook/main/patches-bundle.json
-INFO: GitHub: bundle (main) → v0.16.1 @ https://github.com/SysAdminDoc/Hushfacebook/releases/download/v0.16.1/patches-0.16.1.mpp
-INFO: Latest stable via patches-bundle.json: v0.16.1
-INFO: GitHub: downloading patches-0.16.1.mpp from https://github.com/SysAdminDoc/Hushfacebook/releases/download/v0.16.1/patches-0.16.1.mpp
-INFO: GitHub: wrote 5038085 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-Hushfacebook/v0.16.1__patches-0.16.1.mpp
-INFO: Resolved patches (v0.16.1) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-Hushfacebook/v0.16.1__patches-0.16.1.mpp
+INFO: GitHub: bundle (main) → v0.17.0 @ https://github.com/SysAdminDoc/Hushfacebook/releases/download/v0.17.0/patches-0.17.0.mpp
+INFO: Latest stable via patches-bundle.json: v0.17.0
+INFO: GitHub: downloading patches-0.17.0.mpp from https://github.com/SysAdminDoc/Hushfacebook/releases/download/v0.17.0/patches-0.17.0.mpp
+INFO: GitHub: wrote 5173801 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-Hushfacebook/v0.17.0__patches-0.17.0.mpp
+INFO: Resolved patches (v0.17.0) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-Hushfacebook/v0.17.0__patches-0.17.0.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.facebook.katana v584.0.0.51.56...
-INFO: Skipping "Hide affiliate product links": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Disable Audience Network": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Block Instant Games ads": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Block background ad prefetch": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide sponsored Marketplace listings": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide sponsored posts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide sponsored profile posts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide sponsored reels": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide sponsored search results": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide sponsored stories": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Block ad telemetry": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Clean up Facebook's chat list": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide the Get Messenger card": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide read receipts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide typing indicator": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Open Messenger from the top bar": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Send chat photos and videos at original quality": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Install beside Meta's apps": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Default comment order": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Open comments at full height": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Comment sheet options": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide Meta AI comment summaries": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Tag suggestions only after @": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Download any photo": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Download any reel": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Download any story": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Download any video": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Use the phone's emoji": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide AI-detected posts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Turn off auto-translation": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide the Feeds header": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Following feed on Home": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide Meta AI questions under posts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Keep post dates": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide post prompts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide Reels in the feed": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Block background-return feed refresh": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide seen posts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide Stories tray": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide suggested and promoted posts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide posts by words": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Use the system font": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Accent color": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "AMOLED black theme": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Force dark mode": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Material You theme": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Frame step": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Turn off HDR brightness": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Picture-in-picture": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Keep the progress bar": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Default playback quality": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Keep the reel speed": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Resume long videos": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Skip silent parts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Tap to play": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide Menu promotions": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hushfacebook in the Menu": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hold back analytics uploads": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Unlock app icons": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide carrier data banners": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Open links in external browser": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Turn off haptics": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Restore screens on re-signed builds": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Allow screenshots": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Block screenshot detection": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hushfacebook settings": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Sanitize sharing links": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Share sheet items": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Turn off screen transitions": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Start on x86 devices": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide Meta upsells": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Tab bar at the bottom": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide tabs": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Marketplace only": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide the Reels tab": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide the Reels tab dot": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Show View profile on Marketplace sellers": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Open on a chosen tab": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide tab badges": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Block promotional notifications": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Clean up Reels": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Turn off double tap to like": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Open comments with a gesture": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hold a reel for 2x": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide reel interest prompts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Don't send reel watch history": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide Meta AI in search": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Don't save search history": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Stop Story auto-advance": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "View stories anonymously": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Hide suggested stories": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Upload Stories in HD": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Stop update prompts": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Skipping "Disable Play Store updates": incompatible with com.facebook.katana 584.0.0.51.56
-INFO: Applying 0 patches...
+INFO: Applying 95 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 14903 files can be decoded
 INFO: Executing patches
+INFO: Applied: AMOLED black theme
+INFO: Applied: Allow screenshots
+INFO: Applied: Block Instant Games ads
+INFO: Applied: Block ad telemetry
+INFO: Applied: Block background ad prefetch
+INFO: Applied: Block background-return feed refresh
+INFO: Applied: Block promotional notifications
+INFO: Applied: Block screenshot detection
+INFO: Applied: Clean up Facebook's chat list
+INFO: Applied: Clean up Reels
+INFO: Applied: Comment sheet options
+INFO: Applied: Default comment order
+INFO: Applied: Default playback quality
+INFO: Applied: Disable Audience Network
+INFO: Applied: Don't save search history
+INFO: Applied: Don't send reel watch history
+INFO: Applied: Download any photo
+INFO: Applied: Download any reel
+INFO: Applied: Download any story
+INFO: Applied: Download any video
+INFO: Applied: Following feed on Home
+INFO: Applied: Force dark mode
+INFO: Applied: Frame step
+INFO: Applied: Hide AI-detected posts
+INFO: Applied: Hide Menu promotions
+INFO: Applied: Hide Meta AI comment summaries
+INFO: Applied: Hide Meta AI in search
+INFO: Applied: Hide Meta AI questions under posts
+INFO: Applied: Hide Meta upsells
+INFO: Applied: Hide Reels in the feed
+INFO: Applied: Hide Stories tray
+INFO: Applied: Hide affiliate product links
+INFO: Applied: Hide carrier data banners
+INFO: Applied: Hide post prompts
+INFO: Applied: Hide posts by words
+INFO: Applied: Hide read receipts
+INFO: Applied: Hide reel interest prompts
+INFO: Applied: Hide seen posts
+INFO: Applied: Hide sponsored Marketplace listings
+INFO: Applied: Hide sponsored posts
+INFO: Applied: Hide sponsored profile posts
+INFO: Applied: Hide sponsored reels
+INFO: Applied: Hide sponsored search results
+INFO: Applied: Hide sponsored stories
+Oct 22, 2026 11:57:34 PM app.morphe.patches.facebook.misc.extension.PartialTargetsKt handleTargets
+INFO: Hide suggested and promoted posts: 6 of the 15 suggested feed unit classes left Facebook before 584.0.0.51.56, which is expected. The patch goes on with the 9 it found.
+INFO: Applied: Hide suggested and promoted posts
+INFO: Applied: Hide suggested stories
+INFO: Applied: Hide tab badges
+INFO: Applied: Hide tabs
+INFO: Applied: Hide the Feeds header
+INFO: Applied: Hide the Get Messenger card
+INFO: Applied: Hide the Reels tab
+INFO: Applied: Hide the Reels tab dot
+INFO: Applied: Hide typing indicator
+INFO: Applied: Hold a reel for 2x
+INFO: Applied: Hold back analytics uploads
+INFO: Applied: Hushfacebook in the Menu
+INFO: Applied: Hushfacebook settings
+INFO: Applied: Install beside Meta's apps
+INFO: Applied: Keep feed videos muted
+INFO: Applied: Keep post dates
+INFO: Applied: Keep the progress bar
+INFO: Applied: Keep the reel speed
+INFO: Applied: Marketplace only
+INFO: Applied: Open Messenger from the top bar
+INFO: Applied: Open comments at full height
+INFO: Applied: Open comments with a gesture
+INFO: Applied: Open links in external browser
+INFO: Applied: Open on a chosen tab
+INFO: Applied: Picture-in-picture
+INFO: Applied: Restore screens on re-signed builds
+INFO: Applied: Resume long videos
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Send chat photos and videos at original quality
+INFO: Applied: Share sheet items
+INFO: Applied: Show View profile on Marketplace sellers
+INFO: Applied: Skip silent parts
+INFO: Applied: Start on x86 devices
+INFO: Applied: Stop Story auto-advance
+INFO: Applied: Stop update prompts
+INFO: Applied: Tab bar at the bottom
+INFO: Applied: Tag suggestions only after @
+INFO: Applied: Tap to play
+INFO: Applied: Turn off HDR brightness
+INFO: Applied: Turn off auto-translation
+INFO: Applied: Turn off double tap to like
+INFO: Applied: Turn off haptics
+INFO: Applied: Turn off screen transitions
+INFO: Applied: Unlock app icons
+INFO: Applied: Upload Stories in HD
+INFO: Applied: Use the phone's emoji
+INFO: Applied: Use the system font
+INFO: Applied: View stories anonymously
+INFO: Applied: Material You theme
+INFO: Applied: Disable Play Store updates
+INFO: Applied: Accent color
 INFO: Rebuilding APK...
-INFO: Compiling patched dex files (mode: NONE)
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 1682 unchanged extension classes to 2 DEX files
+INFO: Changed 2921 of 215177 classes to mutable
+INFO: Writing 2921 new classes to new DEX files
+INFO: Processing 2921 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792713389256/patcher/patched/newDex
+INFO: Stripped 2880 modified classes from 20 original DEX files
+INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
 INFO: Stripped 0 lib files
+INFO: Decoded 13 of 14903 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 971 of 971 values in 4 files, 22 resource files and 0 configurations of patches for com.facebook.katana
+INFO: Reusing 14693 unchanged archive entries, rebuilding 24 entries, dropping 0 entries, leaving out 23 replaced entries
+INFO: Resource APK scan: 200ms write: 1s
+INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Facebook-v584.0.0.51.56-HushFacebook-v0.16.1-arm64-v8a.apk
-INFO: Patching took 2.8 seconds
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Facebook-v584.0.0.51.56-HushFacebook-v0.17.0-arm64-v8a.apk
+INFO: Patching took 144.4 seconds
 
 --- Fin del parcheo ---
-APK final: build/Facebook-v584.0.0.51.56-HushFacebook-v0.16.1-arm64-v8a.apk
-Fecha de fin: 2026-10-22T19:36:04Z
+APK final: build/Facebook-v584.0.0.51.56-HushFacebook-v0.17.0-arm64-v8a.apk
+Fecha de fin: 2026-10-22T23:58:53Z
