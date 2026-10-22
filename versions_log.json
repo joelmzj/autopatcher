@@ -17,17 +17,17 @@
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
     "channel": "stable",
-    "patches_version": "v0.0.12",
+    "patches_version": "unknown",
     "apk_version": "14.41.0",
     "brand": "HushPinterest",
     "arch": "arm64-v8a",
-    "stable_file": "Pinterest-v14.41.0-HushPinterest-v0.0.12-arm64-v8a.apk",
+    "stable_file": "Pinterest-v14.41.0-HushPinterest-vunknown-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": null,
     "snapshot_zip": null,
-    "prev_stable_file": "Pinterest-v14.41.0-HushPinterest-v0.0.11-arm64-v8a.apk",
+    "prev_stable_file": "Pinterest-v14.41.0-HushPinterest-v0.0.12-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-18T17:09:02Z"
+    "timestamp": "2026-10-22T15:47:10Z"
   },
   "Messenger": {
     "patches_source": "SysAdminDoc/HushMessenger",
@@ -42,7 +42,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-22T10:57:28Z"
+    "timestamp": "2026-10-22T15:49:10Z"
   },
   "Facebook": {
     "patches_source": "SysAdminDoc/Hushfacebook",
@@ -192,7 +192,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-10-19T20:18:51Z"
+    "timestamp": "2026-10-22T15:54:40Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",

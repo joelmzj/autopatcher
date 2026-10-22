@@ -1,7 +1,7 @@
 === Parcheo: YouTube-Morphe ===
-Fecha: 2026-10-22T10:58:12Z
+Fecha: 2026-10-22T15:50:33Z
 APK version: 21.20.405
-Patches version: v1.48.0-dev.19
+Patches version: v1.48.0-dev.21
 Patches source: MorpheApp/morphe-patches
 Channel: dev
 Brand: Morphe
@@ -22,150 +22,48 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/MorpheApp/morphe-patches/releases 
 INFO: GitHub: fetched 30 releases from MorpheApp/morphe-patches 
-INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.19__patches-1.48.0-dev.19.mpp 
+INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.21__patches-1.48.0-dev.21.mpp 
 INFO: Loading patches... 
-INFO: Initializing patcher... 
-INFO: Filtering patches for com.google.android.youtube v21.20.405... 
-INFO: Skipping disabled: Clone app (default) 
-INFO: Skipping disabled: Change installer source (default) 
-INFO: Skipping disabled: Override certificate pinning (default) 
-INFO: Skipping disabled: Spoof signature (default) 
-INFO: Skipping disabled: Disable Play Store updates (default) 
-INFO: Applying 105 patches... 
-INFO: Deleting existing temporary files directory 
-INFO: Decoding all resources 
-INFO: Leaving 136 native library files in the input APK 
-INFO: Sanitizing unpatched strings 
-INFO: Escaping strings 
-INFO: Executing patches 
-INFO: Applied: AI channel filter 
-INFO: Applied: Add to queue 
-INFO: Applied: Ambient mode 
-INFO: Applied: App refresh rate 
-INFO: Applied: Ask flyout menu 
-INFO: Applied: Bypass image region restrictions 
-INFO: Applied: Bypass link redirects 
-INFO: Applied: Captions 
-INFO: Applied: Change form factor 
-INFO: Applied: Change header 
-INFO: Applied: Change start page 
-INFO: Applied: Channel search 
-INFO: Applied: Channel whitelist 
-INFO: Applied: Check watch history domain name resolution 
-INFO: Applied: Copy text 
-INFO: Applied: Copy video link 
-INFO: Applied: Custom branding 
-INFO: Applied: Custom font 
-INFO: Applied: Custom player overlay opacity 
-INFO: Applied: DeArrow 
-INFO: Applied: Disable DRC audio 
-INFO: Applied: Disable QUIC protocol 
-INFO: Applied: Disable Shorts resuming on startup 
-INFO: Applied: Disable auto feed refresh 
-INFO: Applied: Disable continue watching prompt 
-INFO: Applied: Disable double tap actions 
-INFO: Applied: Disable fullscreen gestures 
-INFO: Applied: Disable haptic feedback 
-INFO: Applied: Disable layout updates 
-INFO: Applied: Disable player popup panels 
-INFO: Applied: Disable playlist autoplay 
-INFO: Applied: Disable rolling number animations 
-INFO: Applied: Disable scrolling speed limit 
-INFO: Applied: Disable sign in to TV popup 
-INFO: Applied: Disable video codecs 
-INFO: Applied: Double tap to seek 
-INFO: Applied: Downloads 
-INFO: Applied: Enable debugging 
-INFO: Applied: Exit fullscreen mode 
-INFO: Applied: Feed card layout 
-INFO: Applied: Feed video actions 
-INFO: Applied: Feed view count 
-INFO: Applied: Force animations 
-INFO: Applied: Force fullscreen landscape 
-INFO: Applied: Force original audio 
-INFO: Applied: Fullscreen video scale 
-INFO: Applied: GmsCore support 
-INFO: Applied: Hide Shorts components 
-INFO: Applied: Hide ads 
-INFO: Applied: Hide autoplay preview 
-INFO: Applied: Hide end screen cards 
-INFO: Applied: Hide end screen suggested video 
-INFO: Applied: Hide info cards 
-INFO: Applied: Hide layout components 
-INFO: Applied: Hide player flyout menu components 
-INFO: Applied: Hide player overlay buttons 
-INFO: Applied: Hide related video overlay 
-INFO: Applied: Hide related videos 
-INFO: Applied: Hide status bar 
-INFO: Applied: Hide timestamp 
-INFO: Applied: Hide video action buttons 
-INFO: Applied: Loop video 
-INFO: Applied: Media notification controls 
-INFO: Applied: Miniplayer 
-INFO: Applied: Mute button 
-INFO: Applied: Navigation bar 
-INFO: Applied: Network proxy 
-INFO: Applied: Open Shorts in regular player 
-INFO: Applied: Open channel of live avatar 
-INFO: Applied: Open links externally 
-INFO: Applied: Open system share sheet 
-INFO: Applied: Open videos fullscreen 
-INFO: Applied: Override YouTube Music buttons 
-INFO: Applied: Picture-in-picture button 
-INFO: Applied: Play all 
-INFO: Applied: Playback buffer 
-INFO: Applied: Playback in feeds 
-INFO: Applied: Playback speed 
-INFO: Applied: PoToken provider 
-INFO: Applied: Reload video 
-INFO: Applied: Remember live stream playback position 
-INFO: Applied: Remove background playback restrictions 
-INFO: Applied: Remove viewer discretion dialog 
-INFO: Applied: Restore original titles 
-INFO: Applied: Return YouTube Dislike 
-INFO: Applied: Sanitize sharing links 
-INFO: Applied: Save to Watch later 
-INFO: Applied: Seekbar 
-INFO: Applied: Series tracking 
-INFO: Applied: Settings menu filter 
-INFO: Applied: Shorts autoplay 
-INFO: Applied: Skip live Shorts 
-INFO: Applied: Skip silence 
-INFO: Applied: SponsorBlock 
-INFO: Applied: Spoof app version 
-INFO: Applied: Spoof device dimensions 
-INFO: Applied: Spoof video streams 
-INFO: Applied: Swipe controls 
-INFO: Applied: Theme 
-INFO: Applied: Video delay 
-INFO: Applied: Video quality 
-INFO: Applied: Voice over translation 
-INFO: Applied: Wide search bar 
-INFO: Applied: Shorts icon style 
-INFO: Applied: Player icon style 
-INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 8686 new classes to new DEX files 
-INFO: Processing 8686 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792666708088/patched/newDex 
-INFO: Stripped 1003 modified classes from 7 original DEX files 
-INFO: Compiling modified resources 
-INFO: Stripping libs (keeping architectures arm64-v8a) 
-INFO: Stripped 96 lib files 
-INFO: Unescaping strings 
-INFO: Post-processing package name change 
-INFO: Processing aapt macros 
-INFO: Generating new resource IDs 
-INFO: Writing resource APK 
-INFO: Encoded 92600 of 251753 values in 70 files, 1200 resource files and 541 configurations of patches for com.google.android.youtube 
-INFO: Resource APK inputs: reusing 16168 unchanged archive entries, rebuilding 1202 entries, dropping 96 entries 
-INFO: Resource APK scan: 2.9s write: 2s 
-INFO: Moving 3 resource files 
-INFO: Using compiled resource APK as output base 
-INFO: Aligning APK 
-INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Morphe-v21.20.405-Morphe-v1.48.0-dev.19-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792666708088 
-
---- Fin del parcheo ---
-APK final: build/YouTube-Morphe-v21.20.405-Morphe-v1.48.0-dev.19-arm64-v8a.apk
-Fecha de fin: 2026-10-22T10:59:02Z
+INFO: Purged this session's temp files: patching-1792684248056 
+Exception in thread "main" java.lang.NoSuchMethodError: 'void app.morphe.patcher.Fingerprint.<init>(app.morphe.patcher.Fingerprint, java.lang.String, java.lang.String, java.util.List, java.lang.String, java.util.List, java.lang.Boolean, java.lang.String, java.util.List, java.util.List, java.util.List, kotlin.jvm.functions.Function2, int, kotlin.jvm.internal.DefaultConstructorMarker)'
+	at app.morphe.patches.music.misc.extension.hooks.YouTubeMusicApplicationInitFingerprint.<init>(ApplicationInitHook.kt:8)
+	at app.morphe.patches.music.misc.extension.hooks.YouTubeMusicApplicationInitFingerprint.<clinit>(ApplicationInitHook.kt)
+	at app.morphe.patches.music.misc.extension.hooks.ApplicationInitHookKt.<clinit>(ApplicationInitHook.kt:17)
+	at app.morphe.patches.music.misc.extension.SharedExtensionPatchKt.<clinit>(SharedExtensionPatch.kt:9)
+	at app.morphe.patches.music.ad.HideAdsPatchKt.hideAdsPatch$lambda$0(HideAdsPatch.kt:41)
+	at app.morphe.patcher.patch.PatchKt.buildPatch(Patch.kt:606)
+	at app.morphe.patcher.patch.PatchKt.bytecodePatch(Patch.kt:722)
+	at app.morphe.patcher.patch.PatchKt.bytecodePatch$default(Patch.kt:717)
+	at app.morphe.patches.music.ad.HideAdsPatchKt.<clinit>(HideAdsPatch.kt:36)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized0(Native Method)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized(Unsafe.java:1160)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.ensureClassInitialized(MethodHandleAccessorFactory.java:301)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newMethodAccessor(MethodHandleAccessorFactory.java:72)
+	at java.base/jdk.internal.reflect.ReflectionFactory.newMethodAccessor(ReflectionFactory.java:159)
+	at java.base/java.lang.reflect.Method.acquireMethodAccessor(Method.java:726)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at app.morphe.patcher.patch.PatchLoader$Companion.getPatchMethods(Patch.kt:933)
+	at app.morphe.patcher.patch.PatchLoader$Companion.loadPatches$lambda$0$1(Patch.kt:957)
+	at kotlin.sequences.FlatteningSequence$iterator$1.ensureItemIterator(Sequences.kt:363)
+	at kotlin.sequences.FlatteningSequence$iterator$1.hasNext(Sequences.kt:351)
+	at kotlin.sequences.FilteringSequence$iterator$1.calcNext(Sequences.kt:202)
+	at kotlin.sequences.FilteringSequence$iterator$1.hasNext(Sequences.kt:227)
+	at kotlin.sequences.SequencesKt___SequencesKt.toSet(_Sequences.kt:1033)
+	at app.morphe.patcher.patch.PatchLoader$Companion.loadPatches(Patch.kt:960)
+	at app.morphe.patcher.patch.PatchLoader$Companion.access$loadPatches(Patch.kt:913)
+	at app.morphe.patcher.patch.PatchLoader.<init>(Patch.kt:858)
+	at app.morphe.patcher.patch.PatchLoader.<init>(Patch.kt)
+	at app.morphe.patcher.patch.PatchLoader$Jar.<init>(Patch.kt:867)
+	at app.morphe.patcher.patch.PatchKt.loadPatchesFromJar(Patch.kt:981)
+	at app.morphe.engine.patches.PatchBundleLoader.loadEach(PatchBundleLoader.kt:47)
+	at app.morphe.desktop.command.PatchCommand.call(PatchCommand.kt:513)
+	at app.morphe.desktop.command.PatchCommand.call(PatchCommand.kt:55)
+	at picocli.CommandLine.executeUserObject(CommandLine.java:2031)
+	at picocli.CommandLine.access$1500(CommandLine.java:148)
+	at picocli.CommandLine$RunLast.executeUserObjectOfLastSubcommandWithSameParent(CommandLine.java:2469)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2461)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2423)
+	at picocli.CommandLine$AbstractParseResultHandler.execute(CommandLine.java:2277)
+	at picocli.CommandLine$RunLast.execute(CommandLine.java:2425)
+	at picocli.CommandLine.execute(CommandLine.java:2174)
+	at app.morphe.MorpheLauncherKt.main(MorpheLauncher.kt:85)

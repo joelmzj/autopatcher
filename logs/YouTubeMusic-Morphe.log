@@ -1,7 +1,7 @@
 === Parcheo: YouTubeMusic-Morphe ===
-Fecha: 2026-10-22T10:57:35Z
+Fecha: 2026-10-22T15:49:18Z
 APK version: 9.20.53
-Patches version: v1.48.0-dev.19
+Patches version: unknown
 Patches source: MorpheApp/morphe-patches
 Channel: dev
 Brand: Morphe
@@ -22,97 +22,51 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/MorpheApp/morphe-patches/releases 
 INFO: GitHub: fetched 30 releases from MorpheApp/morphe-patches 
-INFO: Downloading patches from MorpheApp/morphe-patches v1.48.0-dev.19... 
-INFO: GitHub: downloading patches-1.48.0-dev.19.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v1.48.0-dev.19/patches-1.48.0-dev.19.mpp 
-INFO: GitHub: wrote 13071707 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.19__patches-1.48.0-dev.19.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.19__patches-1.48.0-dev.19.mpp. This file will be used on your next run as long as it is not deleted! 
+INFO: Downloading patches from MorpheApp/morphe-patches v1.48.0-dev.21... 
+INFO: GitHub: downloading patches-1.48.0-dev.21.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v1.48.0-dev.21/patches-1.48.0-dev.21.mpp 
+INFO: GitHub: wrote 13079164 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.21__patches-1.48.0-dev.21.mpp 
+INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.21__patches-1.48.0-dev.21.mpp. This file will be used on your next run as long as it is not deleted! 
 INFO: Loading patches... 
-INFO: Initializing patcher... 
-INFO: Filtering patches for com.google.android.apps.youtube.music v9.20.53... 
-INFO: Skipping disabled: Clone app (default) 
-INFO: Skipping disabled: Change installer source (default) 
-INFO: Skipping disabled: Override certificate pinning (default) 
-INFO: Skipping disabled: Spoof signature (default) 
-INFO: Skipping disabled: Disable Play Store updates (default) 
-INFO: Applying 49 patches... 
-INFO: Deleting existing temporary files directory 
-INFO: Decoding all resources 
-INFO: Leaving 27 native library files in the input APK 
-INFO: Sanitizing unpatched strings 
-INFO: Escaping strings 
-INFO: Executing patches 
-INFO: Applied: Android Auto 
-INFO: Applied: App refresh rate 
-INFO: Applied: Change header 
-INFO: Applied: Change miniplayer color 
-INFO: Applied: Change start page 
-INFO: Applied: Check watch history domain name resolution 
-INFO: Applied: Crossfade 
-INFO: Applied: Custom branding 
-INFO: Applied: Custom font 
-INFO: Applied: Disable DRC audio 
-INFO: Applied: Disable QUIC protocol 
-INFO: Applied: Disable dislike redirection 
-INFO: Applied: Downloads 
-INFO: Applied: Enable audio/video switch 
-INFO: Applied: Enable debugging 
-INFO: Applied: Enable exclusive audio playback 
-INFO: Applied: Enable forced miniplayer 
-INFO: Applied: Enable swipe to dismiss miniplayer 
-INFO: Applied: Force original audio 
-INFO: Applied: Force portrait orientation 
-INFO: Applied: GmsCore support 
-INFO: Applied: Hide ads 
-INFO: Applied: Hide buttons 
-INFO: Applied: Hide flyout menu components 
-INFO: Applied: Hide layout components 
-INFO: Applied: Hide music action buttons 
-INFO: Applied: Jam queue sharing 
-INFO: Applied: Media notification controls 
-INFO: Applied: Miniplayer previous and next buttons 
-INFO: Applied: Navigation bar 
-INFO: Applied: Network proxy 
-INFO: Applied: Play albums songs 
-INFO: Applied: Playback speed 
-INFO: Applied: Playlist track tap action 
-INFO: Applied: PoToken provider 
-INFO: Applied: Remember repeat state 
-INFO: Applied: Remember shuffle state 
-INFO: Applied: Remove background playback restrictions 
-INFO: Applied: Remove viewer discretion dialog 
-INFO: Applied: Return YouTube Dislike 
-INFO: Applied: Sanitize sharing links 
-INFO: Applied: Scrobbling 
-INFO: Applied: Settings menu filter 
-INFO: Applied: Skip silence 
-INFO: Applied: SponsorBlock 
-INFO: Applied: Spoof app version 
-INFO: Applied: Spoof video streams 
-INFO: Applied: Theme 
-INFO: Applied: Third-party lyrics 
-INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 6310 new classes to new DEX files 
-INFO: Processing 6310 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792666666310/patched/newDex 
-INFO: Stripped 337 modified classes from 5 original DEX files 
-INFO: Compiling modified resources 
-INFO: Stripping libs (keeping architectures arm64-v8a) 
-INFO: Stripped 0 lib files 
-INFO: Unescaping strings 
-INFO: Post-processing package name change 
-INFO: Processing aapt macros 
-INFO: Generating new resource IDs 
-INFO: Writing resource APK 
-INFO: Encoded 54831 of 135416 values in 66 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music 
-INFO: Resource APK inputs: reusing 5124 unchanged archive entries, rebuilding 117 entries, dropping 0 entries 
-INFO: Resource APK scan: 2.3s write: 900ms 
-INFO: Moving 3 resource files 
-INFO: Using compiled resource APK as output base 
-INFO: Aligning APK 
-INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.19-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792666666310 
-
---- Fin del parcheo ---
-APK final: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.48.0-dev.19-arm64-v8a.apk
-Fecha de fin: 2026-10-22T10:58:08Z
+INFO: Purged this session's temp files: patching-1792684168432 
+Exception in thread "main" java.lang.NoSuchMethodError: 'void app.morphe.patcher.Fingerprint.<init>(app.morphe.patcher.Fingerprint, java.lang.String, java.lang.String, java.util.List, java.lang.String, java.util.List, java.lang.Boolean, java.lang.String, java.util.List, java.util.List, java.util.List, kotlin.jvm.functions.Function2, int, kotlin.jvm.internal.DefaultConstructorMarker)'
+	at app.morphe.patches.music.misc.extension.hooks.YouTubeMusicApplicationInitFingerprint.<init>(ApplicationInitHook.kt:8)
+	at app.morphe.patches.music.misc.extension.hooks.YouTubeMusicApplicationInitFingerprint.<clinit>(ApplicationInitHook.kt)
+	at app.morphe.patches.music.misc.extension.hooks.ApplicationInitHookKt.<clinit>(ApplicationInitHook.kt:17)
+	at app.morphe.patches.music.misc.extension.SharedExtensionPatchKt.<clinit>(SharedExtensionPatch.kt:9)
+	at app.morphe.patches.music.ad.HideAdsPatchKt.hideAdsPatch$lambda$0(HideAdsPatch.kt:41)
+	at app.morphe.patcher.patch.PatchKt.buildPatch(Patch.kt:606)
+	at app.morphe.patcher.patch.PatchKt.bytecodePatch(Patch.kt:722)
+	at app.morphe.patcher.patch.PatchKt.bytecodePatch$default(Patch.kt:717)
+	at app.morphe.patches.music.ad.HideAdsPatchKt.<clinit>(HideAdsPatch.kt:36)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized0(Native Method)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized(Unsafe.java:1160)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.ensureClassInitialized(MethodHandleAccessorFactory.java:301)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newMethodAccessor(MethodHandleAccessorFactory.java:72)
+	at java.base/jdk.internal.reflect.ReflectionFactory.newMethodAccessor(ReflectionFactory.java:159)
+	at java.base/java.lang.reflect.Method.acquireMethodAccessor(Method.java:726)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at app.morphe.patcher.patch.PatchLoader$Companion.getPatchMethods(Patch.kt:933)
+	at app.morphe.patcher.patch.PatchLoader$Companion.loadPatches$lambda$0$1(Patch.kt:957)
+	at kotlin.sequences.FlatteningSequence$iterator$1.ensureItemIterator(Sequences.kt:363)
+	at kotlin.sequences.FlatteningSequence$iterator$1.hasNext(Sequences.kt:351)
+	at kotlin.sequences.FilteringSequence$iterator$1.calcNext(Sequences.kt:202)
+	at kotlin.sequences.FilteringSequence$iterator$1.hasNext(Sequences.kt:227)
+	at kotlin.sequences.SequencesKt___SequencesKt.toSet(_Sequences.kt:1033)
+	at app.morphe.patcher.patch.PatchLoader$Companion.loadPatches(Patch.kt:960)
+	at app.morphe.patcher.patch.PatchLoader$Companion.access$loadPatches(Patch.kt:913)
+	at app.morphe.patcher.patch.PatchLoader.<init>(Patch.kt:858)
+	at app.morphe.patcher.patch.PatchLoader.<init>(Patch.kt)
+	at app.morphe.patcher.patch.PatchLoader$Jar.<init>(Patch.kt:867)
+	at app.morphe.patcher.patch.PatchKt.loadPatchesFromJar(Patch.kt:981)
+	at app.morphe.engine.patches.PatchBundleLoader.loadEach(PatchBundleLoader.kt:47)
+	at app.morphe.desktop.command.PatchCommand.call(PatchCommand.kt:513)
+	at app.morphe.desktop.command.PatchCommand.call(PatchCommand.kt:55)
+	at picocli.CommandLine.executeUserObject(CommandLine.java:2031)
+	at picocli.CommandLine.access$1500(CommandLine.java:148)
+	at picocli.CommandLine$RunLast.executeUserObjectOfLastSubcommandWithSameParent(CommandLine.java:2469)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2461)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2423)
+	at picocli.CommandLine$AbstractParseResultHandler.execute(CommandLine.java:2277)
+	at picocli.CommandLine$RunLast.execute(CommandLine.java:2425)
+	at picocli.CommandLine.execute(CommandLine.java:2174)
+	at app.morphe.MorpheLauncherKt.main(MorpheLauncher.kt:85)
