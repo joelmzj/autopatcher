@@ -614,14 +614,31 @@ dl_apkmirror() {
     # ------------------------------------------------------------------
     # Descarga final del archivo
     # ------------------------------------------------------------------
-    pr "Descargando APK final con cf_get.py..."
+    pr "Descargando APK final..."
     mkdir -p "$(dirname "$output")"
+    
+    # 🆕 INTENTO 1: Usar curl directamente (el enlace final no suele tener Cloudflare)
+    if curl -L -f -s -S --retry 3 --retry-delay 5 \
+        -A "$DEFAULT_UA" \
+        -e "$variant_page_url" \
+        -b "$TEMP_DIR/cookie.txt" \
+        -c "$TEMP_DIR/cookie.txt" \
+        -o "$output" "$final_url"; then
+        if [ -f "$output" ] && [ -s "$output" ]; then
+            pr "APK descargada y verificada: $output"
+            return 0
+        fi
+    fi
+
+    # 🆕 INTENTO 2: Si curl falla (ej. por un challenge inesperado), usar cf_get.py
+    pr "Curl falló, reintentando con cf_get.py..."
     if python3 "$cf_py" download "$final_url" "$output" "$variant_page_url" "$TEMP_DIR/cookie.txt"; then
         if [ -f "$output" ] && [ -s "$output" ]; then
             pr "APK descargada y verificada: $output"
             return 0
         fi
     fi
+    
     return 1
 }
 
