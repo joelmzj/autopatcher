@@ -1,5 +1,5 @@
 === Parcheo: Messenger ===
-Fecha: 2026-10-22T05:39:28Z
+Fecha: 2026-10-22T10:55:14Z
 APK version: 584.0.0.49.98
 Patches version: v0.25.0
 Patches source: SysAdminDoc/HushMessenger
@@ -97,7 +97,7 @@ INFO: Stripped 0 lib files
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Messenger-v584.0.0.49.98-HushMessenger-v0.25.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792647589484 
+INFO: Purged this session's temp files: patching-1792666540411 
 
 ═══════════════════════════════════════════════════════════════
   🔄 REINTENTO 1/1 con versión 583.0.0.29.95
@@ -190,7 +190,7 @@ INFO: Applied: View stories anonymously
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
 INFO: Writing 714 new classes to new DEX files 
 INFO: Processing 714 classes (single threaded mode) 
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792647603109/patched/newDex 
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792666559075/patched/newDex 
 INFO: Stripped 553 modified classes from 15 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
@@ -201,13 +201,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK 
 INFO: Encoded 2 of 664 values in 1 files, 6612 resource files and 0 configurations of patches for com.facebook.orca 
 INFO: Resource APK inputs: reusing 12950 unchanged archive entries, rebuilding 6614 entries, dropping 0 entries 
-INFO: Resource APK scan: 500ms write: 3.4s 
+INFO: Resource APK scan: 700ms write: 4.1s 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Messenger-v583.0.0.29.95-HushMessenger-v0.25.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792647603109 
+INFO: Purged this session's temp files: patching-1792666559075 
 
 --- Fin del parcheo ---
 APK final: build/Messenger-v583.0.0.29.95-HushMessenger-v0.25.0-arm64-v8a.apk
-Fecha de fin: 2026-10-22T05:41:26Z
+Fecha de fin: 2026-10-22T10:57:28Z

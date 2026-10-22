@@ -1,7 +1,7 @@
 === Parcheo: YouTube-Tablet-Morphe ===
-Fecha: 2026-10-21T11:16:35Z
+Fecha: 2026-10-22T10:59:07Z
 APK version: 20.21.37
-Patches version: v1.48.0-dev.18
+Patches version: v1.48.0-dev.19
 Patches source: MorpheApp/morphe-patches
 Channel: dev
 Brand: Morphe
@@ -22,7 +22,7 @@ Inclusive patches: true
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
 INFO: GitHub: fetching releases from https://api.github.com/repos/MorpheApp/morphe-patches/releases 
 INFO: GitHub: fetched 30 releases from MorpheApp/morphe-patches 
-INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.18__patches-1.48.0-dev.18.mpp 
+INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.48.0-dev.19__patches-1.48.0-dev.19.mpp 
 INFO: Loading patches... 
 INFO: Initializing patcher... 
 INFO: Filtering patches for com.google.android.youtube v20.21.37... 
@@ -31,7 +31,7 @@ INFO: Skipping disabled: Change installer source (default)
 INFO: Skipping disabled: Override certificate pinning (default) 
 INFO: Skipping disabled: Spoof signature (default) 
 INFO: Skipping disabled: Disable Play Store updates (default) 
-INFO: Applying 102 patches... 
+INFO: Applying 105 patches... 
 INFO: Deleting existing temporary files directory 
 INFO: Decoding all resources 
 INFO: Leaving 116 native library files in the input APK 
@@ -42,6 +42,8 @@ INFO: Applied: AI channel filter
 INFO: Applied: Add to queue 
 INFO: Applied: Ambient mode 
 INFO: Applied: App refresh rate 
+WARNING: 'Ask flyout menu' requires YouTube 21.16+ 
+INFO: Applied: Ask flyout menu 
 INFO: Applied: Bypass image region restrictions 
 INFO: Applied: Bypass link redirects 
 INFO: Applied: Captions 
@@ -130,6 +132,7 @@ WARNING: 'Series tracking' requires YouTube 21.02+
 INFO: Applied: Series tracking 
 INFO: Applied: Settings menu filter 
 INFO: Applied: Shorts autoplay 
+INFO: Applied: Skip live Shorts 
 WARNING: 'Skip silence' does not support older legacy app targets. 
 INFO: Applied: Skip silence 
 INFO: Applied: SponsorBlock 
@@ -138,16 +141,17 @@ INFO: Applied: Spoof device dimensions
 INFO: Applied: Spoof video streams 
 INFO: Applied: Swipe controls 
 INFO: Applied: Theme 
+INFO: Applied: Video delay 
 INFO: Applied: Video quality 
 INFO: Applied: Voice over translation 
 INFO: Applied: Wide search bar 
 INFO: Applied: Shorts icon style 
 INFO: Applied: Player icon style 
 INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 8456 new classes to new DEX files 
-INFO: Processing 8456 classes in parallel (4 threads) 
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792581401732/patched/newDex 
-INFO: Stripped 895 modified classes from 6 original DEX files 
+INFO: Writing 8588 new classes to new DEX files 
+INFO: Processing 8588 classes in parallel (4 threads) 
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792666762573/patched/newDex 
+INFO: Stripped 904 modified classes from 6 original DEX files 
 INFO: Compiling modified resources 
 INFO: Stripping libs (keeping architectures arm64-v8a) 
 INFO: Stripped 81 lib files 
@@ -156,16 +160,16 @@ INFO: Post-processing package name change
 INFO: Processing aapt macros 
 INFO: Generating new resource IDs 
 INFO: Writing resource APK 
-INFO: Encoded 92617 of 279686 values in 105 files, 1127 resource files and 541 configurations of patches for com.google.android.youtube 
-INFO: Resource APK inputs: reusing 12697 unchanged archive entries, rebuilding 1129 entries, dropping 81 entries 
-INFO: Resource APK scan: 2.4s write: 1.6s 
+INFO: Encoded 92155 of 238084 values in 70 files, 1128 resource files and 541 configurations of patches for com.google.android.youtube 
+INFO: Resource APK inputs: reusing 12697 unchanged archive entries, rebuilding 1130 entries, dropping 81 entries 
+INFO: Resource APK scan: 2.7s write: 1.8s 
 INFO: Moving 3 resource files 
 INFO: Using compiled resource APK as output base 
 INFO: Aligning APK 
 INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.18-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792581401732 
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.19-arm64-v8a.apk 
+INFO: Purged this session's temp files: patching-1792666762573 
 
 --- Fin del parcheo ---
-APK final: build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.18-arm64-v8a.apk
-Fecha de fin: 2026-10-21T11:17:08Z
+APK final: build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.48.0-dev.19-arm64-v8a.apk
+Fecha de fin: 2026-10-22T10:59:54Z
