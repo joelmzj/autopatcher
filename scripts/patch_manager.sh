@@ -59,11 +59,15 @@ get_latest_remote_tag() {
 #
 # Firma: should_build_app TABLE_NAME PATCH_REPO CHANNEL APK_VERSION BRAND ARCH
 #
-# Compara 4 campos contra versions_log.json:
-#   1. patches_version  → ¿cambió el repo de parches?
-#   2. apk_version      → ¿cambió la versión de APK objetivo?
-#   3. brand            → ¿cambió la marca configurada?
-#   4. arch             → ¿cambió la arquitectura?
+# Compara campos contra versions_log.json:
+#   1. patches_version  → ¿cambió el tag del release de parches?
+#   2. brand            → ¿cambió la marca configurada?
+#   3. arch             → ¿cambió la arquitectura?
+#
+# ⚠️ NOTA IMPORTANTE: Ya NO se compara `apk_version` porque el JSON de `main` 
+# puede estar desincronizado (skew) con el `.mpp` real del release. Eso causaba
+# rebuilds infinitos. Si necesitas forzar una compilación sin cambiar de tag,
+# usa la variable REBUILD_APPS.
 #
 # Retorna 0 → compilar, 1 → omitir
 # ==============================================================================
@@ -101,19 +105,13 @@ should_build_app() {
         return 0
     fi
 
-    # Condición 2: nueva versión de APK objetivo
-    if [ "$current_apk_ver" != "$cached_apk_ver" ]; then
-        echo -e "\033[0;32m[+] ¡Nueva versión de APK objetivo detectada para $table_name! [$cached_apk_ver -> $current_apk_ver]\033[0m" >&2
-        return 0
-    fi
-
-    # Condición 3: cambió brand
+    # Condición 2: cambió brand
     if [ -n "$cached_brand" ] && [ "$current_brand" != "$cached_brand" ]; then
         echo -e "\033[0;32m[+] Cambio de brand detectado para $table_name [$cached_brand -> $current_brand]\033[0m" >&2
         return 0
     fi
 
-    # Condición 4: cambió arch
+    # Condición 3: cambió arch
     if [ -n "$cached_arch" ] && [ "$current_arch" != "$cached_arch" ]; then
         echo -e "\033[0;32m[+] Cambio de arch detectado para $table_name [$cached_arch -> $current_arch]\033[0m" >&2
         return 0
