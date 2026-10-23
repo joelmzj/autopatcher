@@ -68,7 +68,7 @@ def generate_markdown():
         if app_config.get("build-mode", "apk") == "module":
             continue
 
-        app_name = app_config.get("app-name", table_name)
+        app_name = table_name
         
         # 🆕 Obtener el ID real (del versions_log si existe, o del TOML por defecto)
         app_vlog = vlog.get(table_name, {})
