@@ -1,5 +1,5 @@
 === Parcheo: Waze ===
-Fecha: 2026-10-23T17:40:57Z
+Fecha: 2026-10-23T19:02:48Z
 APK version: 5.24.5.0
 Patches version: v2.5.6
 Patches source: bearinmindcat/morphe-patches
@@ -64,7 +64,7 @@ INFO: Copied 20 unchanged extension classes to 1 DEX files
 INFO: Changed 10 of 60864 classes to mutable
 INFO: Writing 10 new classes to new DEX files
 INFO: Processing 10 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792777276399/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792782184163/patcher/patched/newDex
 INFO: Stripped 8 modified classes from 3 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -75,12 +75,12 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 90 of 90 values in 1 files, 1 resource files and 0 configurations of patches for com.waze
 INFO: Reusing 5167 unchanged archive entries, rebuilding 3 entries, dropping 0 entries, leaving out 3 replaced entries
-INFO: Resource APK scan: 200ms write: 600ms
+INFO: Resource APK scan: 200ms write: 1.1s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Waze-v5.24.5.0-bearinmindcat-v2.5.6-arm64-v8a.apk
-INFO: Patching took 9.2 seconds
+INFO: Patching took 8.0 seconds
 
 --- Contenido de module.prop ---
 id=waze-stable-arm64
@@ -95,4 +95,4 @@ updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/w
 --- Fin del parcheo ---
 APK final: build/Waze-v5.24.5.0-bearinmindcat-v2.5.6-arm64-v8a.apk
 Módulo: build/Waze-v5.24.5.0-bearinmindcat-v2.5.6-arm64-v8a.zip
-Fecha de fin: 2026-10-23T17:41:38Z
+Fecha de fin: 2026-10-23T19:03:23Z

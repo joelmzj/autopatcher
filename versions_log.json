@@ -191,8 +191,8 @@
     "snapshot_file": null,
     "snapshot_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.6-arm64-v8a.zip",
     "prev_stable_file": null,
-    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.5-arm64-v8a.zip",
-    "timestamp": "2026-10-23T17:40:55Z"
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-23T19:02:47Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
@@ -206,8 +206,8 @@
     "snapshot_file": null,
     "snapshot_zip": "Waze-v5.24.5.0-bearinmindcat-v2.5.6-arm64-v8a.zip",
     "prev_stable_file": null,
-    "prev_stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.5.5-arm64-v8a.zip",
-    "timestamp": "2026-10-23T17:41:38Z"
+    "prev_stable_zip": null,
+    "timestamp": "2026-10-23T19:03:23Z"
   },
   "X": {
     "patches_source": "crimera/piko-newx",
