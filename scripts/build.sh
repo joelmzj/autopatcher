@@ -557,10 +557,19 @@ for table_name in $(toml_get_table_names); do
 					exit 1
 				}
 
-			if [ ! -f "$patched_apk" ]; then
-				wpr "Morphe no generó el APK parcheado"
-				exit 1
-			fi
+		if [ ! -f "$patched_apk" ]; then
+			wpr "Morphe no generó el APK parcheado"
+			exit 1
+		fi
+
+		# 🆕 EXTRAER EL ID REAL DEL APK COMPILADO
+		final_pkg_name=$(java -jar "$APKEDITOR_JAR" info -i "$patched_apk" 2>&1 | grep -iE "package(name)?[:=]" | awk -F'[:=]' '{print $2}' | tr -d " \"'" | head -n1)
+		
+		if [ -z "$final_pkg_name" ]; then
+			final_pkg_name="${app_args[pkg_name]}"
+		fi
+		
+		pr "  ID del paquete final (instalado): $final_pkg_name"
 
 			# ---- Detección de skew ----
 			new_log=$(tail -c +$((log_size_before + 1)) "$app_log" 2>/dev/null || echo "")
