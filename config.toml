@@ -253,24 +253,8 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/waze/waze-gps-maps-traffic-aler
 enabled = true
 pkg-name = "com.twitter.android"
 app-name = "X"
-patches-source = "crimera/piko"
-brand = "piko"
-arch = "arm64-v8a"
-channel = "dev"
-inclusive-patches = true
-build-mode = "apk"
-version = "auto"
-force-patch = true
-enable-patches = []
-exclude-patches = ["Bring back twitter"]
-apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter/"
-
-[X-new]
-enabled = true
-pkg-name = "com.twitter.android"
-app-name = "X"
 patches-source = "crimera/piko-newx"
-brand = "piko"
+brand = "piko-newx"
 arch = "arm64-v8a"
 channel = "stable"
 inclusive-patches = true
