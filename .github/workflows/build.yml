@@ -174,6 +174,10 @@ jobs:
           # Commit solo si hay cambios
           if ! git diff --staged --quiet; then
             git commit -m "chore: update versions_log.json + logs [skip ci]"
+            
+            # 🔥 FIX BUG 2: Sincronizar con el remoto antes de subir para evitar rechazos
+            git pull --rebase origin main || true
+            
             git push
             echo "[+] Estado y logs commiteados exitosamente"
           else
@@ -244,8 +248,8 @@ jobs:
             git commit -m "chore: initialize update branch [skip ci]"
           fi
 
-          # Preparar directorios
-          mkdir -p update/stable update/dev update/changelogs
+          # 🔥 FIX BUG 3: Preparar directorios en la raíz de la rama (sin la carpeta 'update/')
+          mkdir -p stable dev changelogs
           vc=$(date -u +%Y%m%d)
           published=0
 
@@ -268,13 +272,15 @@ jobs:
             app_slug="${no_arch%-*}"
             target_name="${app_slug}-${arch_sfx}"
 
-            if unzip -p "$zip" update.json > "update/${channel}/${target_name}.json" 2>/dev/null; then
-              echo "[+] Publicado update/${channel}/${target_name}.json"
+            # 🔥 FIX BUG 3: Guardar en la raíz de la rama, no dentro de update/
+            if unzip -p "$zip" update.json > "${channel}/${target_name}.json" 2>/dev/null; then
+              echo "[+] Publicado ${channel}/${target_name}.json"
               published=$((published + 1))
             fi
           done
 
           # Changelog genérico
+          # 🔥 FIX BUG 3: Guardar en la raíz de la rama
           {
             echo "# Build ${vc}"
             echo ""
@@ -282,12 +288,18 @@ jobs:
             echo ""
             echo "- Fecha: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             echo "- Módulos publicados: ${published}"
-          } > "update/changelogs/${vc}.md"
+          } > "changelogs/${vc}.md"
 
           # Commit y push
-          git add update/
+          # 🔥 FIX BUG 3: Añadir las carpetas de la raíz al stage
+          git add stable/ dev/ changelogs/ README.md 2>/dev/null || true
+          
           if ! git diff --staged --quiet; then
             git commit -m "chore: publish module update.json [skip ci]"
+            
+            # 🔥 FIX BUG 3: Sincronizar con el remoto antes de subir
+            git pull --rebase origin update || true
+            
             git push origin update
             echo "[+] Rama 'update' actualizada con ${published} módulos"
           else

@@ -109,6 +109,9 @@ fi
 # ==============================================================================
 pr "=== Promoviendo versiones previas al snapshot ==="
 
+# 🆕 Obtener la lista actual de assets en stable ANTES de subir los nuevos
+existing_assets=$(gh release view "$RELEASE_TAG" -R "$REPO" --json assets --jq '.assets[].name' 2>/dev/null || echo "")
+
 # 🆕 BUG-02: Set para proteger archivos que no pudieron promocionarse
 declare -A pending_promotions=()
 
@@ -126,6 +129,22 @@ while IFS=$'\t' read -r app stable_file stable_zip snapshot_file snapshot_zip pr
 
     if [ "$app_is_compiled" = "false" ]; then
         continue
+    fi
+
+    # 🆕 AUTO-REPARACIÓN (INFERENCIA): Si el log no tiene el archivo anterior,
+    # buscarlo directamente en los assets actuales de stable.
+    if [ -z "$prev_stable_file" ] && [ -n "$stable_file" ]; then
+        prefix_app=$(echo "$stable_file" | sed -E 's/-v?[0-9]+\..*//')
+        if [ -z "$prefix_app" ] || [ "$prefix_app" = "$stable_file" ]; then prefix_app="$app"; fi
+        prev_stable_file=$(echo "$existing_assets" | grep -iE "^${prefix_app}-.*\.apk$" | grep -vF "$stable_file" | head -n1 || true)
+        [ -n "$prev_stable_file" ] && pr "  [$app] Inferido APK previo desde stable: $prev_stable_file"
+    fi
+
+    if [ -z "$prev_stable_zip" ] && [ -n "$stable_zip" ]; then
+        prefix_app=$(echo "$stable_zip" | sed -E 's/-v?[0-9]+\..*//')
+        if [ -z "$prefix_app" ] || [ "$prefix_app" = "$stable_zip" ]; then prefix_app="$app"; fi
+        prev_stable_zip=$(echo "$existing_assets" | grep -iE "^${prefix_app}-.*\.zip$" | grep -vF "$stable_zip" | head -n1 || true)
+        [ -n "$prev_stable_zip" ] && pr "  [$app] Inferido ZIP previo desde stable: $prev_stable_zip"
     fi
 
     # --- APK ---
@@ -258,6 +277,7 @@ while IFS= read -r fname; do
     current_stable_set["$fname"]=1
 done < <(jq -r '.[] | .stable_file // empty, .stable_zip // empty' "$VERSIONS_LOG" 2>/dev/null)
 
+# Recargar assets después de la subida para tener los nombres exactos
 existing_assets=$(gh release view "$RELEASE_TAG" -R "$REPO" --json assets --jq '.assets[].name' 2>/dev/null || echo "")
 
 if [ -n "$existing_assets" ]; then

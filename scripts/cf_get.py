@@ -231,73 +231,56 @@ def fetch_from_solver_html(url: str) -> tuple[str | None, str]:
 def download_file(url: str, dest_path: str, referer: str = "", cookie_file: str = "") -> bool:
     os.makedirs(os.path.dirname(os.path.abspath(dest_path)), exist_ok=True)
     temp_dest = f"{dest_path}.part"
-    impersonate_targets = get_impersonate_targets()
 
-    for imp in impersonate_targets:
-        try:
-            s = requests.Session(impersonate=imp)
-            load_cookies(s, cookie_file)
-            headers = {}
-            if referer:
-                headers["Referer"] = referer
+    s = requests.Session(impersonate="chrome")
+    load_cookies(s, cookie_file)
+    headers = {}
+    if referer:
+        headers["Referer"] = referer
 
-            resp = s.get(url, headers=headers, timeout=(
-                10, 300), stream=True, allow_redirects=True)
-            if is_challenge(resp.status_code, "", getattr(resp, "headers", None)):
-                if referer:
-                    resp_no_ref = s.get(url, timeout=(
-                        10, 300), stream=True, allow_redirects=True)
-                    if not is_challenge(resp_no_ref.status_code, "", getattr(resp_no_ref, "headers", None)):
-                        resp = resp_no_ref
+    try:
+        resp = s.get(url, headers=headers, timeout=(15, 600), stream=True, allow_redirects=True)
+        
+        # Si es un bloqueo de Cloudflare (403/503), intentar resolver el reto UNA sola vez
+        if resp.status_code in (403, 503):
+            sys.stderr.write(f"[cf_get] HTTP {resp.status_code} en descarga. Intentando solver...\n")
+            solved, ua = solve_challenge(url, s)
+            if solved:
+                save_cookies(s, cookie_file, ua)
+                resp = s.get(url, headers=headers, timeout=(15, 600), stream=True, allow_redirects=True)
 
-                if is_challenge(resp.status_code, "", getattr(resp, "headers", None)):
-                    solved, ua = solve_challenge(effective_url(resp, url), s)
-                    if not solved and referer:
-                        solved, ua = solve_challenge(referer, s)
-                    if solved:
-                        save_cookies(s, cookie_file, ua)
-                        resp = s.get(url, timeout=(
-                            10, 300), stream=True, allow_redirects=True)
-
-            if resp.status_code == 200:
-                rejected = False
-                probing = True
-                with open(temp_dest, "wb") as f:
-                    for chunk in resp.iter_content(chunk_size=1048576):
-                        if not chunk:
-                            continue
-                        if probing:
-                            probing = False
-                            if html_interstitial(chunk, getattr(resp, "headers", None)):
-                                rejected = True
-                                break
+        if resp.status_code == 200:
+            with open(temp_dest, "wb") as f:
+                for chunk in resp.iter_content(chunk_size=1048576):
+                    if chunk:
                         f.write(chunk)
-                try:
-                    resp.close()
-                except Exception:
-                    pass
-                if rejected or not os.path.isfile(temp_dest) or os.path.getsize(temp_dest) == 0:
-                    if os.path.isfile(temp_dest):
-                        try:
-                            os.remove(temp_dest)
-                        except Exception:
-                            pass
-                    continue
+            
+            # Validar tamaño y que el archivo no sea HTML (bloqueo disfrazado)
+            if os.path.getsize(temp_dest) > 1024 * 1024:
+                with open(temp_dest, "rb") as f:
+                    head = f.read(64).lstrip()
+                    if head[:1] == b"<":
+                        sys.stderr.write(f"[cf_get] Descarga fallida: el archivo es HTML (bloqueo).\n")
+                        os.remove(temp_dest)
+                        return False
+                
                 if os.path.isfile(dest_path):
                     os.remove(dest_path)
                 os.rename(temp_dest, dest_path)
                 save_cookies(s, cookie_file)
                 return True
-        except Exception as e:
-            sys.stderr.write(
-                f"[cf_get] Download error with target {imp}: {e}\n")
-            if os.path.isfile(temp_dest):
-                try:
-                    os.remove(temp_dest)
-                except Exception:
-                    pass
-            continue
-
+            else:
+                sys.stderr.write(f"[cf_get] Descarga fallida: tamaño demasiado pequeño ({os.path.getsize(temp_dest)} bytes).\n")
+                os.remove(temp_dest)
+        else:
+            sys.stderr.write(f"[cf_get] Descarga fallida: HTTP {resp.status_code}\n")
+            
+    except Exception as e:
+        sys.stderr.write(f"[cf_get] Error de descarga: {e}\n")
+    
+    if os.path.isfile(temp_dest):
+        try: os.remove(temp_dest)
+        except: pass
     return False
 
 

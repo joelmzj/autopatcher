@@ -1,7 +1,7 @@
 === Parcheo: X ===
-Fecha: 2026-10-19T23:08:47Z
+Fecha: 2026-10-22T22:56:11Z
 APK version: 12.19.1-release.0
-Patches version: v3.10.0-dev.14
+Patches version: v3.11.0-dev.1
 Patches source: crimera/piko
 Channel: dev
 Brand: piko
@@ -10,11 +10,14 @@ Build mode: apk
 Force patch: true
 Inclusive patches: true
 
---- Argumentos de parches (13) ---
+
+--- Argumentos de parches (15) ---
   -d=Bring back twitter
   -e=Allow user network certificate
   -e=Clone
   -e=Disable analytics
+  -e=Disable background components
+  -e=Disable background processes and telemetry
   -e=Disable screenshot detection
   -e=Dynamic color
   -e=Export all activities
@@ -25,124 +28,123 @@ Inclusive patches: true
   -e=View live anonymously
   -e=View stories anonymously
 
---- Force flag ---
-  --force
-
 --- Salida de Morphe CLI (APK principal) ---
 
-INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
-INFO: GitHub: fetching releases from https://api.github.com/repos/crimera/piko/releases 
-INFO: GitHub: fetched 30 releases from crimera/piko 
-INFO: Downloading patches from crimera/piko v3.10.0-dev.14... 
-INFO: GitHub: downloading patches-3.10.0-dev.14.mpp from https://github.com/crimera/piko/releases/download/v3.10.0-dev.14/patches-3.10.0-dev.14.mpp 
-INFO: GitHub: wrote 8642706 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/crimera-piko/v3.10.0-dev.14__patches-3.10.0-dev.14.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/crimera-piko/v3.10.0-dev.14__patches-3.10.0-dev.14.mpp. This file will be used on your next run as long as it is not deleted! 
-INFO: Loading patches... 
-INFO: Initializing patcher... 
-INFO: Filtering patches for com.twitter.android v12.19.1-release.0... 
-INFO: Skipping disabled: Bring back twitter 
-INFO: Applying 74 patches... 
-INFO: Deleting existing temporary files directory 
-INFO: Decoding all resources 
-INFO: Leaving 85 native library files in the input APK 
-INFO: Sanitizing unpatched strings 
-INFO: Escaping strings 
-INFO: Executing patches 
-INFO: Applied: Add ability to copy media link 
-INFO: Applied: Block redirecting to X Lite 
-INFO: Applied: Block update screen 
-INFO: Applied: Change app icon 
-INFO: Applied: Change version code 
-INFO: Applied: Clear tracking params 
-INFO: Applied: Control video auto scroll 
-INFO: Applied: Custom download folder 
-INFO: Applied: Custom emoji font 
-INFO: Applied: Custom font 
-INFO: Applied: Custom share menu 
-INFO: Applied: Custom sharing domain 
-INFO: Applied: Customise post font size 
-INFO: Applied: Customize Inline action Bar items 
-INFO: Applied: Customize Navigation Bar items 
-INFO: Applied: Customize default reply sorting 
-INFO: Applied: Customize explore tabs 
-INFO: Applied: Customize notification tabs 
-INFO: Applied: Customize profile tabs 
-INFO: Applied: Customize search suggestions 
-INFO: Applied: Customize search tab items 
-INFO: Applied: Customize side bar items 
-INFO: Applied: Customize timeline top bar 
-INFO: Applied: Delete from database 
-INFO: Applied: Disable auto timeline scroll on launch 
-INFO: Applied: Disable chirp font 
-INFO: Applied: Download patch 
-INFO: Applied: Dynamic color 
-INFO: Applied: Enable PiP mode automatically 
-INFO: Applied: Enable Undo Posts 
-INFO: Applied: Enable debug menu for posts 
-INFO: Applied: Enable force HD videos 
-INFO: Applied: Export all activities 
-INFO: Applied: Force enable translate 
-INFO: Applied: Handle custom twitter links 
-INFO: Applied: Hide Banner 
-INFO: Applied: Hide Community Notes 
-INFO: Applied: Hide FAB 
-INFO: Applied: Hide FAB Menu Buttons 
-INFO: Applied: Hide Live Threads 
-INFO: Applied: Hide Recommended Users 
-INFO: Applied: Hide badges from navigation bar icons 
-INFO: Applied: Hide bookmark icon in timeline 
-INFO: Applied: Hide community badges 
-INFO: Applied: Hide followed by context 
-INFO: Applied: Hide hidden replies 
-INFO: Applied: Hide immersive player 
-INFO: Applied: Hide nudge button 
-INFO: Applied: Hide post metrics 
-INFO: Applied: Hide promote button 
-INFO: Applied: Hide recommendation items 
-INFO: Applied: Hook feature flag 
-INFO: Applied: Import/Export login token 
-INFO: Applied: Legacy share links 
-INFO: Applied: Log server response 
-INFO: Applied: More information on profile 
-INFO: Applied: Native downloader 
-INFO: Applied: Native reader mode 
-INFO: Applied: Native translator 
-INFO: Applied: No shortened URL 
-INFO: Applied: Pause search suggestions 
-INFO: Applied: Remove Ads 
-INFO: Applied: Remove premium upsell 
-INFO: Applied: Remove search suggestions 
-INFO: Applied: Remove view count 
-INFO: Applied: Restore legacy follower lists 
-INFO: Applied: Round off numbers 
-INFO: Applied: Selectable Text 
-INFO: Applied: Share Tweet as Image 
-INFO: Applied: Show changelogs 
-INFO: Applied: Show poll results 
-INFO: Applied: Show post source label 
-INFO: Applied: Show sensitive media 
-INFO: Applied: Support external downloader 
-INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 3418 new classes to new DEX files 
-INFO: Processing 3418 classes in parallel (4 threads) 
-INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792451381685/patched/newDex 
-INFO: Stripped 99 modified classes from 11 original DEX files 
-INFO: Compiling modified resources 
-INFO: Stripping libs (keeping architectures arm64-v8a) 
-INFO: Stripped 35 lib files 
-INFO: Unescaping strings 
-INFO: Processing aapt macros 
-INFO: Generating new resource IDs 
-INFO: Writing resource APK 
-INFO: Encoded 11118 of 321634 values in 53 files, 198 resource files and 0 configurations of patches for com.twitter.android 
-INFO: Resource APK inputs: reusing 8370 unchanged archive entries, rebuilding 200 entries, dropping 35 entries 
-INFO: Resource APK scan: 2.2s write: 900ms 
-INFO: Using compiled resource APK as output base 
-INFO: Aligning APK 
-INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-v12.19.1-release.0-piko-v3.10.0-dev.14-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792451381685 
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/crimera/piko/dev/patches-bundle.json
+INFO: GitHub: bundle (dev) → v3.11.0-dev.1 @ https://github.com/crimera/piko/releases/download/v3.11.0-dev.1/patches-3.11.0-dev.1.mpp
+INFO: Latest dev via patches-bundle.json: v3.11.0-dev.1
+INFO: GitHub: downloading patches-3.11.0-dev.1.mpp from https://github.com/crimera/piko/releases/download/v3.11.0-dev.1/patches-3.11.0-dev.1.mpp
+INFO: GitHub: wrote 8449902 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/crimera-piko/v3.11.0-dev.1__patches-3.11.0-dev.1.mpp
+INFO: Resolved patches (v3.11.0-dev.1) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/crimera-piko/v3.11.0-dev.1__patches-3.11.0-dev.1.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.twitter.android v12.19.1-release.0...
+INFO: Skipping disabled: Bring back twitter
+INFO: Applying 74 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 8529 files can be decoded
+INFO: Executing patches
+INFO: Applied: Add ability to copy media link
+INFO: Applied: Block redirecting to X Lite
+INFO: Applied: Block update screen
+INFO: Applied: Change app icon
+INFO: Applied: Change version code
+INFO: Applied: Clear tracking params
+INFO: Applied: Control video auto scroll
+INFO: Applied: Custom download folder
+INFO: Applied: Custom emoji font
+INFO: Applied: Custom font
+INFO: Applied: Custom share menu
+INFO: Applied: Custom sharing domain
+INFO: Applied: Customise post font size
+INFO: Applied: Customize Inline action Bar items
+INFO: Applied: Customize Navigation Bar items
+INFO: Applied: Customize default reply sorting
+INFO: Applied: Customize explore tabs
+INFO: Applied: Customize notification tabs
+INFO: Applied: Customize profile tabs
+INFO: Applied: Customize search suggestions
+INFO: Applied: Customize search tab items
+INFO: Applied: Customize side bar items
+INFO: Applied: Customize timeline top bar
+INFO: Applied: Delete from database
+INFO: Applied: Disable auto timeline scroll on launch
+INFO: Applied: Disable chirp font
+INFO: Applied: Download patch
+INFO: Applied: Dynamic color
+INFO: Applied: Enable PiP mode automatically
+INFO: Applied: Enable Undo Posts
+INFO: Applied: Enable debug menu for posts
+INFO: Applied: Enable force HD videos
+INFO: Applied: Export all activities
+INFO: Applied: Force enable translate
+INFO: Applied: Handle custom twitter links
+INFO: Applied: Hide Banner
+INFO: Applied: Hide Community Notes
+INFO: Applied: Hide FAB
+INFO: Applied: Hide FAB Menu Buttons
+INFO: Applied: Hide Live Threads
+INFO: Applied: Hide Recommended Users
+INFO: Applied: Hide badges from navigation bar icons
+INFO: Applied: Hide bookmark icon in timeline
+INFO: Applied: Hide community badges
+INFO: Applied: Hide followed by context
+INFO: Applied: Hide hidden replies
+INFO: Applied: Hide immersive player
+INFO: Applied: Hide nudge button
+INFO: Applied: Hide post metrics
+INFO: Applied: Hide promote button
+INFO: Applied: Hide recommendation items
+INFO: Applied: Hook feature flag
+INFO: Applied: Import/Export login token
+INFO: Applied: Legacy share links
+INFO: Applied: Log server response
+INFO: Applied: More information on profile
+INFO: Applied: Native downloader
+INFO: Applied: Native reader mode
+INFO: Applied: Native translator
+INFO: Applied: No shortened URL
+INFO: Applied: Pause search suggestions
+INFO: Applied: Remove Ads
+INFO: Applied: Remove premium upsell
+INFO: Applied: Remove search suggestions
+INFO: Applied: Remove view count
+INFO: Applied: Restore legacy follower lists
+INFO: Applied: Round off numbers
+INFO: Applied: Selectable Text
+INFO: Applied: Share Tweet as Image
+INFO: Applied: Show changelogs
+INFO: Applied: Show poll results
+INFO: Applied: Show post source label
+INFO: Applied: Show sensitive media
+INFO: Applied: Support external downloader
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 3295 unchanged extension classes to 2 DEX files
+INFO: Changed 109 of 241879 classes to mutable
+INFO: Writing 109 new classes to new DEX files
+INFO: Processing 109 classes (single threaded mode)
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792709815863/patcher/patched/newDex
+INFO: Stripped 99 modified classes from 11 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 35 lib files
+INFO: Decoded 40 of 8529 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 11112 of 222877 values in 44 files, 198 resource files and 0 configurations of patches for com.twitter.android
+INFO: Reusing 8356 unchanged archive entries, rebuilding 200 entries, dropping 35 entries, leaving out 14 replaced entries
+INFO: Resource APK scan: 800ms write: 1.3s
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-v12.19.1-release.0-piko-v3.11.0-dev.1-arm64-v8a.apk
+INFO: Patching took 12.2 seconds
 
 --- Fin del parcheo ---
-APK final: build/X-v12.19.1-release.0-piko-v3.10.0-dev.14-arm64-v8a.apk
-Fecha de fin: 2026-10-19T23:10:09Z
+APK final: build/X-v12.19.1-release.0-piko-v3.11.0-dev.1-arm64-v8a.apk
+Fecha de fin: 2026-10-22T22:57:08Z

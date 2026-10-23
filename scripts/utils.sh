@@ -614,14 +614,42 @@ dl_apkmirror() {
     # ------------------------------------------------------------------
     # Descarga final del archivo
     # ------------------------------------------------------------------
-    pr "Descargando APK final con cf_get.py..."
+    pr "Descargando APK final..."
     mkdir -p "$(dirname "$output")"
-    if python3 "$cf_py" download "$final_url" "$output" "$variant_page_url" "$TEMP_DIR/cookie.txt"; then
+
+    local CURL_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+    # Intento 1: curl con headers completos y cookie jar
+    if curl -L -f -s -S --retry 3 --retry-delay 5 \
+        --connect-timeout 30 --max-time 1800 \
+        -A "$CURL_UA" \
+        -e "$download_url" \
+        -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" \
+        -H "Accept-Language: en-US,en;q=0.5" \
+        -H "Accept-Encoding: gzip, deflate, br" \
+        -H "Connection: keep-alive" \
+        -H "Upgrade-Insecure-Requests: 1" \
+        -H "Sec-Fetch-Dest: document" \
+        -H "Sec-Fetch-Mode: navigate" \
+        -H "Sec-Fetch-Site: same-origin" \
+        -b "$TEMP_DIR/cookie.txt" \
+        -c "$TEMP_DIR/cookie.txt" \
+        -o "$output" "$final_url"; then
         if [ -f "$output" ] && [ -s "$output" ]; then
             pr "APK descargada y verificada: $output"
             return 0
         fi
     fi
+
+    # Intento 2: Si curl sigue fallando, usar cf_get.py
+    pr "Curl falló, reintentando con cf_get.py..."
+    if python3 "$cf_py" download "$final_url" "$output" "$download_url" "$TEMP_DIR/cookie.txt"; then
+        if [ -f "$output" ] && [ -s "$output" ]; then
+            pr "APK descargada y verificada: $output"
+            return 0
+        fi
+    fi
+    
     return 1
 }
 

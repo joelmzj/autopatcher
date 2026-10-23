@@ -1,7 +1,7 @@
 === Parcheo: TikTok ===
-Fecha: 2026-10-19T05:55:28Z
-APK version: 47.4.3
-Patches version: v0.76.0
+Fecha: 2026-10-23T06:49:20Z
+APK version: 47.5.3
+Patches version: v0.78.0
 Patches source: SysAdminDoc/hushfeed
 Channel: stable
 Brand: HushFeed
@@ -10,7 +10,8 @@ Build mode: apk
 Force patch: false
 Inclusive patches: true
 
---- Argumentos de parches (18) ---
+
+--- Argumentos de parches (19) ---
   -d=Change app name
   -d=Custom launcher icon
   -e=AMOLED dark theme
@@ -26,217 +27,213 @@ Inclusive patches: true
   -e=Remove content credential and card scanner assets
   -e=Remove creation tools
   -e=Remove unused language packs
+  -e=Remove voice tools
   -e=Run beside the store app
   -e=Skip first-launch setup
   -e=Trust user certificates
 
 --- Salida de Morphe CLI (APK principal) ---
 
-INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
-INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/hushfeed/releases 
-INFO: GitHub: fetched 30 releases from SysAdminDoc/hushfeed 
-INFO: Downloading patches from SysAdminDoc/hushfeed v0.76.0... 
-INFO: GitHub: downloading patches-0.76.0.mpp from https://github.com/SysAdminDoc/HushFeed/releases/download/v0.76.0/patches-0.76.0.mpp 
-INFO: GitHub: wrote 6246670 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.76.0__patches-0.76.0.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.76.0__patches-0.76.0.mpp. This file will be used on your next run as long as it is not deleted! 
-INFO: Loading patches... 
-INFO: Initializing patcher... 
-INFO: Filtering patches for com.zhiliaoapp.musically v47.4.3... 
-INFO: Skipping disabled: Change app name 
-INFO: Skipping disabled: Custom launcher icon 
-INFO: Applying 133 patches... 
-INFO: Deleting existing temporary files directory 
-INFO: Decoding all resources 
-INFO: Leaving 649 native library files in the input APK 
-INFO: Sanitizing unpatched strings 
-INFO: Escaping strings 
-INFO: Executing patches 
-INFO: Applied: AMOLED dark theme 
-INFO: Applied: Accent color 
-INFO: Applied: Advanced downloads 
-INFO: Applied: Allow Duet and Stitch 
-INFO: Applied: Allow screenshots and Circle to Search 
-INFO: Applied: Always show publish date 
-INFO: Applied: Always upload in HD 
-INFO: Applied: App lock 
-INFO: Applied: Automatic video advance 
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/hushfeed/main/patches-bundle.json
+INFO: GitHub: bundle (main) → v0.78.0 @ https://github.com/SysAdminDoc/hushfeed/releases/download/v0.78.0/patches-0.78.0.mpp
+INFO: Latest stable via patches-bundle.json: v0.78.0
+INFO: GitHub: downloading patches-0.78.0.mpp from https://github.com/SysAdminDoc/hushfeed/releases/download/v0.78.0/patches-0.78.0.mpp
+INFO: GitHub: wrote 6644966 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.78.0__patches-0.78.0.mpp
+INFO: Resolved patches (v0.78.0) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.78.0__patches-0.78.0.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.zhiliaoapp.musically v47.5.3...
+INFO: Skipping disabled: Change app name
+INFO: Skipping disabled: Custom launcher icon
+INFO: Applying 136 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 26515 files can be decoded
+INFO: Executing patches
+INFO: Applied: AMOLED dark theme
+INFO: Applied: Accent color
+INFO: Applied: Advanced downloads
+INFO: Applied: Allow Duet and Stitch
+INFO: Applied: Allow screenshots and Circle to Search
+INFO: Applied: Always show publish date
+INFO: Applied: Always upload in HD
+INFO: Applied: App lock
+INFO: Applied: Automatic video advance
 [P2P Relay Blocker] Emptied 4 reviewed files (9.83 MiB unpacked).
-INFO: Applied: Block P2P video relay 
-INFO: Applied: Block author button 
+INFO: Applied: Block P2P video relay
+INFO: Applied: Block author button
 [Contact list blocker] Intercepted 3 ContentResolver.query sites.
-INFO: Applied: Block contact list access 
+INFO: Applied: Block contact list access
 [Installed apps blocker] Intercepted 1 package query sites.
-INFO: Applied: Block installed app scanning 
-INFO: Applied: Block popups 
-INFO: Applied: Block suggested video notifications 
+INFO: Applied: Block installed app scanning
+INFO: Applied: Block popups
+INFO: Applied: Block suggested video notifications
 [Camera/mic indicator] Instrumented 3 camera opens, 2 camera releases, 1 recorder starts and 2 recorder stops.
-INFO: Applied: Camera and microphone indicator 
-INFO: Applied: Comment publish diagnostics 
-INFO: Applied: Comment send fix 
-INFO: Applied: Comment sort controls 
-INFO: Applied: Comment tools 
-INFO: Applied: Confirm feed interactions 
-INFO: Applied: Copy bio and IDs 
-INFO: Applied: Copy comments without username 
-INFO: Applied: Custom offline videos limit 
+INFO: Applied: Camera and microphone indicator
+INFO: Applied: Comment publish diagnostics
+INFO: Applied: Comment send fix
+INFO: Applied: Comment sort controls
+INFO: Applied: Comment tools
+INFO: Applied: Confirm feed interactions
+INFO: Applied: Copy bio and IDs
+INFO: Applied: Copy comments without username
+INFO: Applied: Custom offline videos limit
 [Device privacy guard] Intercepted 4 clipboard read sites.
 [Device privacy guard] Intercepted 47 VPN and advertising-id sites and 15 network-interface sites.
 [Device privacy guard] Intercepted 2 Settings string reads for a new device identity.
 [Device privacy guard] Answered 4 direct advertising id service reads and 16 advertising id field reads.
 [Device privacy guard] Guarded 5 root results.
-INFO: Applied: Device privacy guard 
-INFO: Applied: Diagnostic tools 
-INFO: Applied: Disable login requirement 
-INFO: Applied: Disable screen capture detection 
-INFO: Applied: Disable telemetry 
-INFO: Applied: Disable the long press quick share 
-INFO: Applied: Disable the long press repost 
-INFO: Applied: Double-tap controls 
-INFO: Applied: Downloads 
-INFO: Applied: Drop the animated image cache 
-INFO: Applied: Enable voice comments 
-INFO: Applied: Expand activity list 
-INFO: Applied: Feature Gate Lab 
-INFO: Applied: Feature Gate Recorder 
-INFO: Applied: Feed filter 
-INFO: Applied: Feed tab navigation 
-INFO: Applied: Feed text sizes 
-INFO: Applied: Fit the video to the screen 
-INFO: Applied: Fix Google login 
-INFO: Applied: Foldable split comment view 
-INFO: Applied: Follow diagnostics 
-INFO: Applied: Ghost mode 
-INFO: Applied: Hide CAPTCHA popups 
-INFO: Applied: Hide Play Store update offer 
-INFO: Applied: Hide already seen videos 
-INFO: Applied: Hide comment popup ads 
-INFO: Applied: Hide comment typing suggestions 
-INFO: Applied: Hide feed LIVE button 
-INFO: Applied: Hide feed follow button 
-INFO: Applied: Hide feed save button 
-INFO: Applied: Hide feed search button 
-INFO: Applied: Hide floating promotions 
-INFO: Applied: Hide inbox items 
-INFO: Applied: Hide inbox stories 
-INFO: Applied: Hide profile shortcuts 
-INFO: Applied: Hide search suggestions 
-INFO: Applied: Hide suggested accounts 
-INFO: Applied: Hide the launcher shortcuts 
-INFO: Applied: Hide the risk control CAPTCHA 
-INFO: Applied: Hide video overlays 
-INFO: Applied: Hold-and-slide 2x lock 
-[Browser privacy guard] Intercepted 22 bridge sites, 69 navigation sites, 13 interface reloads and 64 navigation callbacks across 11 WebView types.
-INFO: Applied: In-app browser privacy guard 
-INFO: Applied: Keep a streak going 
+INFO: Applied: Device privacy guard
+INFO: Applied: Diagnostic tools
+INFO: Applied: Disable login requirement
+INFO: Applied: Disable screen capture detection
+INFO: Applied: Disable telemetry
+INFO: Applied: Disable the long press quick share
+INFO: Applied: Disable the long press repost
+INFO: Applied: Double-tap controls
+INFO: Applied: Downloads
+INFO: Applied: Drop the animated image cache
+INFO: Applied: Enable voice comments
+INFO: Applied: Expand activity list
+INFO: Applied: Feature Gate Lab
+INFO: Applied: Feature Gate Recorder
+INFO: Applied: Feed filter
+INFO: Applied: Feed tab navigation
+INFO: Applied: Feed text sizes
+INFO: Applied: Fit the video to the screen
+INFO: Applied: Fix Google login
+INFO: Applied: Foldable split comment view
+INFO: Applied: Follow diagnostics
+INFO: Applied: Ghost mode
+INFO: Applied: Hide CAPTCHA popups
+INFO: Applied: Hide Play Store update offer
+INFO: Applied: Hide already seen videos
+INFO: Applied: Hide comment popup ads
+INFO: Applied: Hide comment typing suggestions
+INFO: Applied: Hide feed LIVE button
+INFO: Applied: Hide feed follow button
+INFO: Applied: Hide feed save button
+INFO: Applied: Hide feed search button
+INFO: Applied: Hide floating promotions
+INFO: Applied: Hide inbox items
+INFO: Applied: Hide inbox stories
+INFO: Applied: Hide profile shortcuts
+INFO: Applied: Hide search suggestions
+INFO: Applied: Hide suggested accounts
+INFO: Applied: Hide the launcher shortcuts
+INFO: Applied: Hide the risk control CAPTCHA
+INFO: Applied: Hide video overlays
+INFO: Applied: Hold-and-slide 2x lock
+[Browser privacy guard] Intercepted 22 bridge sites, 69 navigation sites, 13 interface reloads and 64 navigation callbacks across 12 WebView types.
+INFO: Applied: In-app browser privacy guard
+INFO: Applied: Keep a streak going
 [Background play] Hooked the mode read, the scene and photo post checks, the page's claim on the sound, the end of a background video and 3 reads of the remembered switch.
-INFO: Applied: Keep playing in the background 
-INFO: Applied: Keep pulled sounds 
-INFO: Applied: Keep the Favorites tab 
-INFO: Applied: Keep the app language 
-INFO: Applied: Keep the screen's refresh rate 
-INFO: Applied: LIVE controls 
-INFO: Applied: Lift text length limits 
-INFO: Applied: Limit background traffic 
+INFO: Applied: Keep playing in the background
+INFO: Applied: Keep pulled sounds
+INFO: Applied: Keep the Favorites tab
+INFO: Applied: Keep the app language
+INFO: Applied: Keep the screen's brightness in the camera
+INFO: Applied: Keep the screen's refresh rate
+INFO: Applied: LIVE controls
+INFO: Applied: Lift text length limits
+INFO: Applied: Limit background traffic
 [Location governor] Intercepted 2 location access sites.
-INFO: Applied: Location access governor 
-INFO: Applied: Long-press controls 
-INFO: Applied: Look like the store app 
-INFO: Applied: Mute feed videos 
-INFO: Applied: Network proxy 
-INFO: Applied: Network request report 
-INFO: Applied: Not interested button 
+INFO: Applied: Location access governor
+INFO: Applied: Long-press controls
+INFO: Applied: Look like the store app
+INFO: Applied: Mute feed videos
+INFO: Applied: Network proxy
+INFO: Applied: Network request report
+INFO: Applied: Not interested button
 [Notification controls] Took 5 wake lock calls.
-INFO: Applied: Notification controls 
-INFO: Applied: Open external links directly 
-INFO: Applied: Picture-in-picture 
-INFO: Applied: Play SDR instead of HDR 
-INFO: Applied: Playback quality 
-INFO: Applied: Playback speed 
-INFO: Applied: Prefer H.264 playback 
-INFO: Applied: Profile background 
-INFO: Applied: Region spoof 
-INFO: Applied: Remember clear display 
-[LIVE Stream Suite Optimizer] Emptied 5 reviewed files (5.86 MiB unpacked).
-INFO: Applied: Remove LIVE extras 
-INFO: Applied: Remove avatar rings 
+INFO: Applied: Notification controls
+INFO: Applied: Open external links directly
+INFO: Applied: Open the comments at full height
+INFO: Applied: Picture-in-picture
+INFO: Applied: Play SDR instead of HDR
+INFO: Applied: Playback quality
+INFO: Applied: Playback speed
+INFO: Applied: Prefer H.264 playback
+INFO: Applied: Profile background
+INFO: Applied: Region spoof
+INFO: Applied: Remember clear display
+[LIVE Stream Suite Optimizer] Emptied 5 reviewed files (5.94 MiB unpacked).
+INFO: Applied: Remove LIVE extras
+INFO: Applied: Remove avatar rings
 [Core Asset De-bloat] Emptied 19 reviewed files (15.99 MiB unpacked).
-INFO: Applied: Remove content credential and card scanner assets 
+INFO: Applied: Remove content credential and card scanner assets
 [Studio & Creation De-bloat] Emptied 7 reviewed files (81.81 MiB unpacked).
-INFO: Applied: Remove creation tools 
+INFO: Applied: Remove creation tools
 [Language Pack Purger] Kept every reviewed language pack.
-INFO: Applied: Remove unused language packs 
-INFO: Applied: Repost diagnostics 
+INFO: Applied: Remove unused language packs
+[Voice Tools De-bloat] Emptied 8 reviewed files (16.16 MiB unpacked).
+INFO: Applied: Remove voice tools
+INFO: Applied: Repost diagnostics
 [Resource and battery governor] Intercepted 2 sensor registration sites.
-INFO: Applied: Resource and battery governor 
-INFO: Applied: Resume videos after scrolling 
-INFO: Applied: Run beside the store app 
-INFO: Applied: SIM spoof 
-INFO: Applied: Sanitize sharing links 
-INFO: Applied: Settings 
-INFO: Applied: Share sheet tools 
-INFO: Applied: Show LIVE search 
-INFO: Applied: Show author region 
-INFO: Applied: Show commenter handle and region 
-INFO: Applied: Show engagement rate 
-INFO: Applied: Show exact counts 
+INFO: Applied: Resource and battery governor
+INFO: Applied: Resume videos after scrolling
+INFO: Applied: Run beside the store app
+INFO: Applied: SIM spoof
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Settings
+INFO: Applied: Share sheet tools
+INFO: Applied: Show LIVE search
+INFO: Applied: Show author region
+INFO: Applied: Show commenter handle and region
+INFO: Applied: Show engagement rate
+INFO: Applied: Show exact counts
 [Show follow status] Added five owned profile count presentation hooks.
 [Show follow status] Added owned nickname badges and both warning presentation hooks.
-INFO: Applied: Show follow status 
-INFO: Applied: Show the progress bar 
-INFO: Applied: Show the progress bar thumbnail 
-INFO: Applied: Skip content warnings 
-INFO: Applied: Skip first-launch setup 
-INFO: Applied: Skip passkey sign-in 
-INFO: Applied: Skip the splash ad 
-INFO: Applied: Skip update checks 
-INFO: Applied: Stay on the video in full screen 
-INFO: Applied: Stop on-device AI profiling 
-INFO: Applied: Stop recording watch history 
-INFO: Applied: Stop saving search history 
-INFO: Applied: Stop search autoplay 
-INFO: Applied: Stop video looping 
-INFO: Applied: Story controls 
-INFO: Applied: Subtitle tools 
-INFO: Applied: Swipe-left controls 
-INFO: Applied: Translate comments 
-INFO: Applied: Trust user certificates 
-INFO: Applied: Turn off haptics 
-INFO: Applied: Turn off screen transitions 
-INFO: Applied: Use non-personalized search 
-INFO: Applied: Use system font 
-INFO: Compiling patched dex files (mode: STRIP_FAST) 
-INFO: Writing 4954 new classes to new DEX files 
-INFO: Processing 4954 classes in parallel (4 threads) 
-INFO: Wrote 5 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792389351438/patched/newDex 
-INFO: Stripped 1915 modified classes from 43 original DEX files 
-INFO: Compiling modified resources 
-INFO: Stripping libs (keeping architectures arm64-v8a) 
-INFO: Stripped 294 lib files 
-INFO: Unescaping strings 
-INFO: Processing aapt macros 
-INFO: Generating new resource IDs 
-INFO: Writing resource APK 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_camera_biz 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_music_dsp 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ccdc_impl_ocr 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_kids_mode 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_search_biz 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_im_bootfinish 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_wallpaper_main 
-INFO: Encoded 2208 of 2208 values in 17 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_ship 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_live_cast 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_external_payments 
-INFO: Encoded 0 of 0 values in 0 files, 0 resource files and 0 configurations of patches for com.zhiliaoapp.musically.df_pipo_bnpl 
-INFO: Resource APK inputs: reusing 26293 unchanged archive entries, rebuilding 3 entries, dropping 320 entries 
-INFO: Resource APK scan: 2.1s write: 2.8s 
-INFO: Moving 27 resource files 
-INFO: Using compiled resource APK as output base 
-INFO: Aligning APK 
-INFO: Signing APK 
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk 
-INFO: Purged this session's temp files: patching-1792389351438 
+INFO: Applied: Show follow status
+INFO: Applied: Show the progress bar
+INFO: Applied: Show the progress bar thumbnail
+INFO: Applied: Skip content warnings
+INFO: Applied: Skip first-launch setup
+INFO: Applied: Skip passkey sign-in
+INFO: Applied: Skip the splash ad
+INFO: Applied: Skip update checks
+INFO: Applied: Stay on the video in full screen
+INFO: Applied: Stop on-device AI profiling
+INFO: Applied: Stop recording watch history
+INFO: Applied: Stop saving search history
+INFO: Applied: Stop search autoplay
+INFO: Applied: Stop video looping
+INFO: Applied: Story controls
+INFO: Applied: Subtitle tools
+INFO: Applied: Swipe-left controls
+INFO: Applied: Translate comments
+INFO: Applied: Trust user certificates
+INFO: Applied: Turn off haptics
+INFO: Applied: Turn off screen transitions
+INFO: Applied: Use non-personalized search
+INFO: Applied: Use system font
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 3152 unchanged extension classes to 2 DEX files
+INFO: Changed 1966 of 483697 classes to mutable
+INFO: Writing 1966 new classes to new DEX files
+INFO: Processing 1966 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792738179003/patcher/patched/newDex
+INFO: Stripped 1945 modified classes from 43 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 294 lib files
+INFO: Decoded 255 of 26515 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 2225 of 2225 values in 18 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically
+INFO: Reusing 26284 unchanged archive entries, rebuilding 3 entries, dropping 324 entries, leaving out 46 replaced entries
+INFO: Resource APK scan: 600ms write: 1.9s
+INFO: Moving 31 resource files
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk
+INFO: Patching took 41.8 seconds
 
 --- Fin del parcheo ---
-APK final: build/TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk
-Fecha de fin: 2026-10-19T05:57:54Z
+APK final: build/TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk
+Fecha de fin: 2026-10-23T06:50:20Z

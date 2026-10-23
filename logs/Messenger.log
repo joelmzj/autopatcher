@@ -1,7 +1,7 @@
 === Parcheo: Messenger ===
-Fecha: 2026-10-19T23:47:21Z
-APK version: 583.0.0.29.95
-Patches version: v0.25.0
+Fecha: 2026-10-22T22:54:34Z
+APK version: 584.0.0.49.98
+Patches version: v0.26.0
 Patches source: SysAdminDoc/HushMessenger
 Channel: stable
 Brand: HushMessenger
@@ -10,6 +10,7 @@ Build mode: apk
 Force patch: false
 Inclusive patches: true
 
+
 --- Argumentos de parches (3) ---
   -d=Clone install under another package name
   -d=Custom new-message sound
@@ -17,613 +18,113 @@ Inclusive patches: true
 
 --- Salida de Morphe CLI (APK principal) ---
 
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/HushMessenger/main/patches-bundle.json
+INFO: GitHub: bundle (main) → v0.26.0 @ https://github.com/SysAdminDoc/HushMessenger/releases/download/v0.26.0/patches-0.26.0.mpp
+INFO: Latest stable via patches-bundle.json: v0.26.0
+INFO: GitHub: downloading patches-0.26.0.mpp from https://github.com/SysAdminDoc/HushMessenger/releases/download/v0.26.0/patches-0.26.0.mpp
+INFO: GitHub: wrote 1280765 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushMessenger/v0.26.0__patches-0.26.0.mpp
+INFO: Resolved patches (v0.26.0) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushMessenger/v0.26.0__patches-0.26.0.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.facebook.orca v584.0.0.49.98...
+INFO: Skipping disabled: Clone install under another package name
+INFO: Skipping disabled: Custom new-message sound
+INFO: Applying 61 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 9645 files can be decoded
+INFO: Executing patches
+Oct 22, 2026 10:55:40 PM app.hushmessenger.patches.controls.ScreenHostsKt followShortcutWrites
+INFO: Launcher shortcuts: 10 of Messenger's writes keep the pair on top
+INFO: Applied: Allow chat bubbles
+INFO: Applied: Allow screenshots
+INFO: Applied: Auto reply
+INFO: Applied: Bold and italic text
+INFO: Applied: Fix videos that won't send
+INFO: Applied: Hide AI sticker tools
+INFO: Applied: Hide Chat Moments
+INFO: Applied: Hide Facebook shortcuts
+INFO: Applied: Hide Mark as read
+INFO: Applied: Hide Meta AI
+INFO: Applied: Hide Notifications tab
+INFO: Applied: Hide People You May Know
+INFO: Applied: Hide People tab
+INFO: Applied: Hide Reels badge
+INFO: Applied: Hide ad banners in business chats
+INFO: Applied: Hide avatar stickers
+INFO: Applied: Hide business reply suggestions
+INFO: Applied: Hide business typing suggestions
+INFO: Applied: Hide chat promotions
+INFO: Applied: Hide event prompts
+INFO: Applied: Hide friend request cards
+INFO: Applied: Hide growth prompts
+INFO: Applied: Hide inbox promotions
+INFO: Applied: Hide inbox tabs
+INFO: Applied: Hide joined community chats
+INFO: Applied: Hide read receipts
+INFO: Applied: Hide stories and notes
+INFO: Applied: Hide tab badges
+INFO: Applied: Hide the recent photo card
+INFO: Applied: Hide typing indicator
+INFO: Applied: Hold stories at the end
+INFO: Applied: Ignore the swipe up for disappearing messages
+INFO: Applied: Install beside Meta apps
+INFO: Applied: Keep a message log
+INFO: Applied: Keep emoji search on emoji
+INFO: Applied: Keep unsent messages
+INFO: Applied: Mark as read button
+Oct 22, 2026 10:55:44 PM app.hushmessenger.patches.controls.MaterialYouPatchKt materialYouPatch$lambda$0$0
+INFO: Material You: 364 classes, 74 surfaces, 620 colour calls
+INFO: Applied: Material You theme
+INFO: Applied: Open settings from menu
+INFO: Applied: Open web links externally
+INFO: Applied: Open your gallery app
+INFO: Applied: Pin more chats
+INFO: Applied: Quiet incoming calls
+INFO: Applied: Restore old emoji drawer
+INFO: Applied: Restore screens on re-signed builds
+INFO: Applied: Save any story
+INFO: Applied: Send photos at original quality
+INFO: Applied: Send videos without re-encoding
+INFO: Applied: Slide chats in and out
+INFO: Applied: Spoof package version
+INFO: Applied: Stop ad attribution uploads
+INFO: Applied: Stop analytics uploads
+INFO: Applied: Stop app list and device ID sharing
+INFO: Applied: Stop inbox and ad link logging
+INFO: Applied: Stop live connection logging
+INFO: Applied: Stop nearby scans
+INFO: Applied: Unlock app icons
+INFO: Applied: Use system emoji
+INFO: Applied: Use the phone's camera app
+INFO: Applied: Use your own font
+INFO: Applied: View stories anonymously
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 172 unchanged extension classes to 1 DEX files
+INFO: Changed 543 of 145912 classes to mutable
+INFO: Writing 543 new classes to new DEX files
+INFO: Processing 543 classes in parallel (4 threads)
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792709697367/patcher/patched/newDex
+INFO: Stripped 540 modified classes from 16 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 0 lib files
+INFO: Decoded 1 of 9645 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 0 of 0 values in 0 files, 6 resource files and 0 configurations of patches for com.facebook.orca
+INFO: Reusing 9419 unchanged archive entries, rebuilding 8 entries, dropping 0 entries, leaving out 16 replaced entries
+INFO: Resource APK scan: 100ms write: 500ms
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Messenger-v584.0.0.49.98-HushMessenger-v0.26.0-arm64-v8a.apk
+INFO: Patching took 53.7 seconds
 
-=== TEST: SALIDA DE list-patches para Messenger ===
-INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/HushMessenger/releases 
-INFO: GitHub: fetched 25 releases from SysAdminDoc/HushMessenger 
-INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
-INFO: Downloading patches from SysAdminDoc/HushMessenger v0.25.0... 
-INFO: GitHub: downloading patches-0.25.0.mpp from https://github.com/SysAdminDoc/HushMessenger/releases/download/v0.25.0/patches-0.25.0.mpp 
-INFO: GitHub: wrote 1167516 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushMessenger/v0.25.0__patches-0.25.0.mpp 
-INFO: Patches mpp saved to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushMessenger/v0.25.0__patches-0.25.0.mpp. This file will be used on your next run as long as it is not deleted! 
-INFO: Index: 0
-Name: Clone install under another package name
-Description: Installs a second copy of Messenger beside the first, with its own app name. Push notifications may not reach the copy. Pick it in Morphe Manager's Expert mode. Works as soon as you patch it in, with no switch.
-Enabled: false
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 1
-Name: Install beside Meta apps
-Description: Lets your patched Messenger install next to Facebook and other Meta apps. Without it, the apps can clash over shared permissions and the install can stop at a blank screen. Works as soon as you patch it in, with no switch.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 2
-Name: Restore screens on re-signed builds
-Description: Patching and signing Messenger yourself can break some of its screens. This makes Messenger's signature check pass again, including for a Facebook you patched with the same key, and lets Threads and Instagram video links open in a Threads or Instagram you patched yourself. Works as soon as you patch it in, with no switch.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 3
-Name: Material You theme
-Description: Colors Messenger's dark mode with your wallpaper colors on Android 12 and newer, and a fixed blue on Android 11. Light mode stays the same. Turn on dark mode in Messenger first. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 4
-Name: Hide inbox ads
-Description: Hides ad cards in your chat list. Meta stopped selling Messenger inbox ads in November 2025, so this is only a safeguard in case they come back. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 5
-Name: Hide People You May Know
-Description: Hides suggested people in chats, search and stories, and on the People and Notifications tabs, so you only see people you know. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 6
-Name: Hide friend request cards
-Description: Hides friend request cards in your chat list so they stop taking up room. It doesn't accept or decline anyone. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 7
-Name: Hide joined community chats
-Description: Hides the community chats you joined from your main chat list. Search and community folders still show them. Messages and unread counts don't change. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 8
-Name: Hide growth prompts
-Description: Hides prompts to add more people, the tip sheets in notes (like Make my notes public), and the Share your own story card after someone else's stories. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 9
-Name: Hide inbox promotions
-Description: Hides promotion banners in your chat list. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 10
-Name: Hide stories and notes
-Description: Hides the row of stories and notes above your chats. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 11
-Name: Hide inbox tabs
-Description: Hides the Home and Channels tabs inside your inbox. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 12
-Name: Hide Mark as read
-Description: Hides Mark as read in the menu you get when you press and hold a chat in your chat list, so you can't mark a chat read by accident. Mark as unread stays. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 13
-Name: Pin more chats
-Description: Raises Messenger's limit of three pinned chats to 20, so you can keep more chats at the top of your chat list. Messenger's servers can still stop you sooner. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 14
-Name: Hide Facebook shortcuts
-Description: Hides Facebook buttons, profile and sharing shortcuts, and the Also from Meta and Subscriptions sections in the Menu tab. Handy if you only use Messenger. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 15
-Name: Hide Meta AI
-Description: Hides the Meta AI floating button, toolbar button, tab and menu entries, plus AI in search and in @ suggestions. Restart Messenger to see the tab go. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 16
-Name: Hide Chat Moments
-Description: Hides Chat Moments in the menu. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 17
-Name: Hide Reels badge
-Description: Hides the Reels notification badge. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 18
-Name: Hide People tab
-Description: Hides the People tab in the bar at the bottom. Restart Messenger to see the tab go. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 19
-Name: Hide Notifications tab
-Description: Hides the Notifications tab in the bar at the bottom. Restart Messenger to see the tab go. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 20
-Name: Hold stories at the end
-Description: Keeps a story on screen when it ends instead of moving on to the next one, so you go on with a tap or a swipe. Photos and videos both wait, and the last story stays open until you close it. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 21
-Name: Hide AI sticker tools
-Description: Hides the Generate AI sticker buttons, the AI sticker tab and AI sticker suggestions. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 22
-Name: Hide avatar stickers
-Description: Hides the avatar tab in the sticker keyboard. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 23
-Name: Restore old emoji drawer
-Description: Turns off Meta's redesigned emoji keyboard, so you keep the earlier layout. Restart Messenger after changing it. If Meta never gave you the redesign, nothing changes. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 24
-Name: Keep emoji search on emoji
-Description: Typing while the emoji keyboard is open no longer jumps to sticker search. The keyboard stays on emoji. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 25
-Name: Hide chat promotions
-Description: Hides promotion banners inside conversations. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 26
-Name: Hide ad banners in business chats
-Description: In a chat you started from a business's ad, hides the banner that shows that ad. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 27
-Name: Hide business reply suggestions
-Description: Hides suggested replies in conversations with businesses. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 28
-Name: Hide business typing suggestions
-Description: Hides business suggestions that pop up as you type. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 29
-Name: Hide event prompts
-Description: Hides event promotion prompts inside chats. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 30
-Name: Hide typing indicator
-Description: Stops Messenger from showing others when you're typing, even in end-to-end encrypted chats. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 31
-Name: Open web links externally
-Description: Opens web links (http and https) in your default browser instead of inside Messenger. Other link types work as before. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 32
-Name: Allow chat bubbles
-Description: Lets you pick Stock, Chat heads or Native Bubbles for floating chats. Needs Android 11 or newer. Chat heads also needs Messenger's own Chat heads switch, and Native Bubbles needs Messenger's bubbles allowed in Android's notification settings. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 33
-Name: Use system emoji
-Description: Shows emoji in your phone's own style instead of Messenger's. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 34
-Name: Send photos at original quality
-Description: With HD on, sends a JPEG photo at its full size instead of Messenger's smaller copy, so it stays sharp. Location is still removed. Photos over 20 MB are still made smaller. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 35
-Name: Send videos without re-encoding
-Description: Sends a video as the original file instead of a recompressed copy, when Messenger allows it. Videos over 25 MB, edited videos and some formats are still compressed. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 36
-Name: Fix videos that won't send
-Description: Messenger stops two kinds of video with "Unable to send". One is a video whose only sound is xHE-AAC, which Facebook and Instagram now use. The other is a Samsung screen recording whose recorder tag Messenger's media check rejects. Whether you share one into Messenger from another app or pick it in a chat, the sound is converted to regular AAC, or the tag is dropped, so it sends. The picture isn't touched. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 37
-Name: Turn off the swipe up for disappearing messages
-Description: Swiping up at the bottom of a chat no longer turns on disappearing messages, so a scroll can't set the timer by accident. You can still change it in the chat's settings. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 38
-Name: Keep a message log
-Description: Saves each message when its notification arrives, so you can still read it if it's unsent. Works in end-to-end encrypted chats too. Stays on your phone. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 39
-Name: Auto reply
-Description: Answers messages with replies you write in HushMessenger settings, when they have words you pick or any message at all. Replies go out through Messenger's own notification reply, encrypted chats too, at most once every five minutes per chat. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 40
-Name: Use the phone's camera app
-Description: The camera button in a chat opens your phone's own camera app. The photo then opens in Messenger's editor, ready to send. Photos only. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 41
-Name: Open your gallery app
-Description: The gallery button in a chat opens your phone's own gallery app. What you pick then opens in Messenger's editor for that chat, ready to send. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 42
-Name: Stop analytics uploads
-Description: Stops the background services Messenger uses to upload usage statistics. It still records them on your phone, and they can upload after you turn this off. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 43
-Name: Stop ad attribution uploads
-Description: Stops the job that reads your phone's advertising ID and sends it to Meta with your ad tracking setting. The ID itself doesn't change. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 44
-Name: Stop inbox and ad link logging
-Description: Stops two reports Messenger logs. One says which part of your chat list was on screen, which Messenger files under inbox ads. The other says which ad brought you in when a link from an ad opens a chat. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 45
-Name: Stop MQTT logging
-Description: Drops the health reports and push logging Messenger's MQTT client sends. Messenger sends most of its traffic another way, so there's often little for it to drop. Messages, calls and active status keep working. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 46
-Name: Stop nearby scans
-Description: Stops Messenger from reading the list of Wi-Fi networks around you, and hides the name and hardware address of the one you're connected to, the way Android does when Messenger can't see your location. Also stops the timer it can run while it's open to check your location and scan for Wi-Fi networks and Bluetooth devices. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 47
-Name: Stop app list and device ID sharing
-Description: Stops Messenger from going through the apps on your phone to find other Meta apps, and from asking them for the device ID Meta uses to link the apps on one phone. Messenger keeps the ID it already has. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 48
-Name: Allow screenshots
-Description: Lets you screenshot protected chat media, such as view-once photos and Quicksnap, and stops screenshot notices. It doesn't add replay or saving. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 49
-Name: Hide read receipts
-Description: Opening a chat no longer tells people you read their message, and the chat stays unread on this phone. Marking it read yourself or replying in it marks it read and shows Seen, like Messenger does. Group chats aren't tested. Messenger's own Read receipts setting under Privacy & safety marks chats read without showing Seen. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 50
-Name: Mark as read button
-Description: Puts Messenger's Mark as read icon in a chat's top bar while Hide read receipts is on. Opening the chat still sends nothing, and a tap on the icon sends Seen and marks the chat read. It takes the place of the chat details button, since tapping the chat's name opens the same page, so the call buttons stay put. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 51
-Name: Keep unsent messages
-Description: Keeps messages on screen after someone unsends them, in chats where it works. Encrypted chats aren't supported, and group chats aren't tested. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 52
-Name: Unlock app icons
-Description: Lets you pick any icon in Messenger's App icon setting without a subscription. Messenger still decides whether that setting shows for your account. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 53
-Name: Use your own font
-Description: Shows Messenger's text in your phone's font instead of Meta's, or in a .ttf or .otf file you pick in HushMessenger settings. Emoji don't change. Restart Messenger after changing it. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 54
-Name: View stories anonymously
-Description: Opens other people's stories without adding you to their viewer list. Messenger still marks them as seen on your side. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 55
-Name: Save any story
-Description: Adds Save to the More options menu on other people's stories, so you can keep their photo or video on your phone. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 56
-Name: Slide chats in and out
-Description: Slides a chat in from the side when you open it and back out when you go back. Chat heads and bubbles keep their own animations. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 57
-Name: Bold and italic text
-Description: Adds Bold and Italic to the menu that shows when you select words you typed. They're special Unicode letters, so they show on any phone, but screen readers may read them oddly. Starts off. Turn it on in HushMessenger settings > Controls.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 58
-Name: Open settings from menu
-Description: Adds a HushMessenger entry to Messenger's Menu tab and side menu, and makes a long press on the Messenger logo at the top of Chats or on the Menu tab's title open these settings too. Works as soon as you patch it in, with no switch.
-Enabled: true
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 59
-Name: Custom new-message sound
-Description: Replaces Messenger's new-message sound with an .ogg, .mp3, .m4a or .wav file (1 MB or less) that you choose. Pick it in Morphe Manager's Expert mode. Works as soon as you patch it in, with no switch.
-Enabled: false
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95
-
-Index: 60
-Name: Spoof package version
-Description: Gives Messenger a high version number so the Play Store stops offering Meta's updates. Messenger may report it to Meta. Going back means uninstalling first, which erases its data. Pick it in Expert mode. Works as soon as you patch it in, with no switch.
-Enabled: false
-Compatible packages:
-	Package name: com.facebook.orca
-	Compatible versions:
-		583.0.0.29.95 
-=== FIN TEST ===
-
-INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent) 
-INFO: GitHub: fetching releases from https://api.github.com/repos/SysAdminDoc/HushMessenger/releases 
-INFO: GitHub: fetched 25 releases from SysAdminDoc/HushMessenger 
-INFO: Using cached patch file at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushMessenger/v0.25.0__patches-0.25.0.mpp 
-INFO: Loading patches... 
-INFO: Initializing patcher... 
-INFO: Filtering patches for com.facebook.orca v583.0.0.29.95... 
-INFO: Skipping disabled: Clone install under another package name 
-INFO: Skipping disabled: Custom new-message sound 
-INFO: Applying 59 patches... 
-INFO: Deleting existing temporary files directory 
-INFO: Decoding all resources 
-INFO: Leaving 28 native library files in the input APK 
-INFO: Sanitizing unpatched strings 
-INFO: Escaping strings 
-INFO: Executing patches 
-INFO: Applied: Allow chat bubbles 
-INFO: Applied: Allow screenshots 
-INFO: Applied: Auto reply 
-INFO: Applied: Bold and italic text 
-INFO: Applied: Fix videos that won't send 
-INFO: Applied: Hide AI sticker tools 
-INFO: Applied: Hide Chat Moments 
-INFO: Applied: Hide Facebook shortcuts 
-INFO: Applied: Hide Mark as read 
-INFO: Applied: Hide Meta AI 
-INFO: Applied: Hide Notifications tab 
-INFO: Applied: Hide People You May Know 
-INFO: Applied: Hide People tab 
-INFO: Applied: Hide Reels badge 
-INFO: Applied: Hide ad banners in business chats 
-INFO: Applied: Hide avatar stickers 
-INFO: Applied: Hide business reply suggestions 
-INFO: Applied: Hide business typing suggestions 
-INFO: Applied: Hide chat promotions 
-INFO: Applied: Hide event prompts 
-INFO: Applied: Hide friend request cards 
-INFO: Applied: Hide growth prompts 
-INFO: Applied: Hide inbox ads 
-INFO: Applied: Hide inbox promotions 
-INFO: Applied: Hide inbox tabs 
-INFO: Applied: Hide joined community chats 
-INFO: Applied: Hide read receipts 
-INFO: Applied: Hide stories and notes 
-INFO: Applied: Hide typing indicator 
-INFO: Applied: Hold stories at the end 
-INFO: Applied: Install beside Meta apps 
-INFO: Applied: Keep a message log 
-INFO: Applied: Keep emoji search on emoji 
-INFO: Applied: Keep unsent messages 
-INFO: Applied: Mark as read button 
+--- Fin del parcheo ---
+APK final: build/Messenger-v584.0.0.49.98-HushMessenger-v0.26.0-arm64-v8a.apk
+Fecha de fin: 2026-10-22T22:55:51Z
