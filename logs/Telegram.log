@@ -1,5 +1,5 @@
 === Parcheo: Telegram ===
-Fecha: 2026-10-23T17:38:41Z
+Fecha: 2026-10-23T20:02:54Z
 APK version: 13.1.0
 Patches version: v0.0.20
 Patches source: SysAdminDoc/HushTelegram
@@ -107,7 +107,7 @@ INFO: Copied 732 unchanged extension classes to 2 DEX files
 INFO: Changed 417 of 23132 classes to mutable
 INFO: Writing 417 new classes to new DEX files
 INFO: Processing 417 classes (single threaded mode)
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792777131946/patcher/patched/newDex
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792785782774/patcher/patched/newDex
 INFO: Stripped 351 modified classes from 4 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -119,13 +119,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 8 of 8 values in 2 files, 2 resource files and 0 configurations of patches for org.telegram.messenger.web
 INFO: Reusing 7516 unchanged archive entries, rebuilding 4 entries, dropping 6 entries, leaving out 7 replaced entries
-INFO: Resource APK scan: 100ms write: 300ms
+INFO: Resource APK scan: 100ms write: 400ms
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Telegram-v13.1.0-HushTelegram-v0.0.20-arm64-v8a.apk
-INFO: Patching took 25.6 seconds
+INFO: Patching took 24.3 seconds
 
 --- Fin del parcheo ---
 APK final: build/Telegram-v13.1.0-HushTelegram-v0.0.20-arm64-v8a.apk
-Fecha de fin: 2026-10-23T17:39:17Z
+Fecha de fin: 2026-10-23T20:03:27Z

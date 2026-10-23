@@ -1,5 +1,5 @@
 === Parcheo: YouTube-Tablet-anddea ===
-Fecha: 2026-10-22T19:40:28Z
+Fecha: 2026-10-23T20:13:54Z
 APK version: 20.21.37
 Patches version: v4.4.0-dev.3
 Patches source: anddea/revanced-patches
@@ -53,7 +53,7 @@ INFO: Applied: Change share sheet
 INFO: Applied: Change start page
 INFO: Applied: Copy text
 INFO: Applied: Custom DPI
-Oct 22, 2026 7:40:49 PM app.morphe.util.Utils printInfo$app_morphe_patches
+Oct 23, 2026 8:14:14 PM app.morphe.util.Utils printInfo$app_morphe_patches
 INFO: Custom Shorts action buttons: added 0 drawable aliases, skipped 28 existing aliases.
 INFO: Applied: Custom Shorts action buttons
 INFO: Applied: Custom double tap length
@@ -71,7 +71,7 @@ INFO: Applied: Disable scrolling speed limit
 INFO: Applied: Disable sign in to TV popup
 INFO: Applied: Enable debug logging
 INFO: Applied: Enable gradient loading screen
-Oct 22, 2026 7:40:53 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:14:17 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Downloads button in You tab" is not supported in this version. Use YouTube 21.39.525.
 INFO: Applied: Feed video actions
 INFO: Applied: Force original audio
@@ -139,7 +139,7 @@ INFO: Copied 8093 unchanged extension classes to 2 DEX files
 INFO: Changed 894 of 54216 classes to mutable
 INFO: Writing 894 new classes to new DEX files
 INFO: Processing 894 classes in parallel (4 threads)
-INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792698035250/patcher/patched/newDex
+INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792786440465/patcher/patched/newDex
 INFO: Stripped 845 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -151,13 +151,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 65577 of 264772 values in 117 files, 1698 resource files and 0 configurations of patches for com.google.android.youtube
 INFO: Reusing 12632 unchanged archive entries, rebuilding 1700 entries, dropping 81 entries, leaving out 6 replaced entries
-INFO: Resource APK scan: 2.9s write: 1.9s
+INFO: Resource APK scan: 2.1s write: 1.9s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Tablet-anddea-v20.21.37-anddea-v4.4.0-dev.3-arm64-v8a.apk
-INFO: Patching took 39.4 seconds
+INFO: Patching took 35.8 seconds
 
 --- Fin del parcheo ---
 APK final: build/YouTube-Tablet-anddea-v20.21.37-anddea-v4.4.0-dev.3-arm64-v8a.apk
-Fecha de fin: 2026-10-22T19:41:14Z
+Fecha de fin: 2026-10-23T20:14:37Z

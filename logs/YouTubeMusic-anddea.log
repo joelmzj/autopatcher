@@ -1,5 +1,5 @@
 === Parcheo: YouTubeMusic-anddea ===
-Fecha: 2026-10-22T21:13:15Z
+Fecha: 2026-10-23T20:10:01Z
 APK version: 9.15.51
 Patches version: v4.4.0-dev.3
 Patches source: anddea/revanced-patches
@@ -55,7 +55,7 @@ INFO: Applied: Disable QUIC protocol
 INFO: Applied: Disable dislike redirection
 INFO: Applied: Disable forced auto captions
 INFO: Applied: Disable music video in album
-Oct 22, 2026 9:13:42 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:19 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Enable compact dialog" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
 INFO: Applied: Downloads
 INFO: Applied: Enable debug logging
@@ -63,7 +63,7 @@ INFO: Applied: Enable landscape mode
 INFO: Applied: Flyout menu components
 INFO: Applied: Force original audio
 INFO: Applied: GmsCore support
-Oct 22, 2026 9:13:44 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:22 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Hide handle" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
 INFO: Applied: Hide account components
 INFO: Applied: Hide action bar components
@@ -72,9 +72,9 @@ INFO: Applied: Hide layout components
 INFO: Applied: Hide overlay filter
 INFO: Applied: Hide player overlay filter
 INFO: Applied: Navigation bar components
-Oct 22, 2026 9:13:45 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:22 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Enable smooth transition animation" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
-Oct 22, 2026 9:13:45 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:22 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Restore old comments popup panels" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
 INFO: Applied: Player components
 INFO: Applied: PoToken provider
@@ -87,7 +87,7 @@ INFO: Applied: Sanitize sharing links
 INFO: Applied: Settings menu filter
 INFO: Applied: Skip silence
 INFO: Applied: SponsorBlock
-Oct 22, 2026 9:13:45 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:23 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Spoof app version" is not supported in this version. Use YouTube Music versions up to 8.03.
 INFO: Applied: Spoof app version
 INFO: Applied: Spoof app version for lyrics
@@ -107,7 +107,7 @@ INFO: Copied 8126 unchanged extension classes to 2 DEX files
 INFO: Changed 559 of 72809 classes to mutable
 INFO: Writing 559 new classes to new DEX files
 INFO: Processing 559 classes in parallel (4 threads)
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792703610920/patcher/patched/newDex
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792786211165/patcher/patched/newDex
 INFO: Stripped 543 modified classes from 5 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -119,12 +119,12 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 18182 of 127494 values in 114 files, 701 resource files and 0 configurations of patches for com.google.android.apps.youtube.music
 INFO: Reusing 5099 unchanged archive entries, rebuilding 703 entries, dropping 0 entries, leaving out 5 replaced entries
-INFO: Resource APK scan: 1.6s write: 1s
+INFO: Resource APK scan: 1.5s write: 1s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.3-arm64-v8a.apk
-INFO: Patching took 22.6 seconds
+INFO: Patching took 19.1 seconds
 
 --- Salida de Morphe CLI (variante módulo) ---
 
@@ -162,14 +162,14 @@ INFO: Applied: Disable QUIC protocol
 INFO: Applied: Disable dislike redirection
 INFO: Applied: Disable forced auto captions
 INFO: Applied: Disable music video in album
-Oct 22, 2026 9:14:03 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:42 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Enable compact dialog" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
 INFO: Applied: Downloads
 INFO: Applied: Enable debug logging
 INFO: Applied: Enable landscape mode
 INFO: Applied: Flyout menu components
 INFO: Applied: Force original audio
-Oct 22, 2026 9:14:04 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:42 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Hide handle" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
 INFO: Applied: Hide account components
 INFO: Applied: Hide action bar components
@@ -178,9 +178,9 @@ INFO: Applied: Hide layout components
 INFO: Applied: Hide overlay filter
 INFO: Applied: Hide player overlay filter
 INFO: Applied: Navigation bar components
-Oct 22, 2026 9:14:04 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:43 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Enable smooth transition animation" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
-Oct 22, 2026 9:14:04 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:43 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Restore old comments popup panels" is not supported in this version. Use YouTube Music 8.30.54 or earlier.
 INFO: Applied: Player components
 INFO: Applied: PoToken provider
@@ -193,7 +193,7 @@ INFO: Applied: Sanitize sharing links
 INFO: Applied: Settings menu filter
 INFO: Applied: Skip silence
 INFO: Applied: SponsorBlock
-Oct 22, 2026 9:14:05 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 23, 2026 8:10:44 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Spoof app version" is not supported in this version. Use YouTube Music versions up to 8.03.
 INFO: Applied: Spoof app version
 INFO: Applied: Spoof app version for lyrics
@@ -213,7 +213,7 @@ INFO: Copied 8127 unchanged extension classes to 2 DEX files
 INFO: Changed 482 of 72809 classes to mutable
 INFO: Writing 482 new classes to new DEX files
 INFO: Processing 482 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792703634737/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792786232488/patcher/patched/newDex
 INFO: Stripped 467 modified classes from 5 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -224,18 +224,18 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 18182 of 127494 values in 114 files, 701 resource files and 0 configurations of patches for com.google.android.apps.youtube.music
 INFO: Reusing 5099 unchanged archive entries, rebuilding 703 entries, dropping 0 entries, leaving out 5 replaced entries
-INFO: Resource APK scan: 1.4s write: 1s
+INFO: Resource APK scan: 1.2s write: 1s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/temp/YouTubeMusic-anddea/module.apk
-INFO: Patching took 18.2 seconds
+INFO: Patching took 19.3 seconds
 
 --- Contenido de module.prop ---
 id=youtubemusic-anddea-stable-arm64
 name=YouTubeMusic-anddea (anddea)
 version=v9.15.51 (patches v4.4.0-dev.3.mpp)
-versionCode=20261022
+versionCode=20261023
 author=joelmzj
 description=YouTubeMusic-anddea (anddea) module
 updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/youtubemusic-anddea-arm64.json
@@ -244,4 +244,4 @@ updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/y
 --- Fin del parcheo ---
 APK final: build/YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.3-arm64-v8a.apk
 Módulo: build/YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.3-arm64-v8a.zip
-Fecha de fin: 2026-10-22T21:14:19Z
+Fecha de fin: 2026-10-23T20:10:58Z
