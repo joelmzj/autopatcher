@@ -107,15 +107,6 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: |
-          python3 -c "
-          import glob
-          for filepath in glob.glob('scripts/*.sh'):
-              with open(filepath, 'rb') as f:
-                  content = f.read()
-              content = content.replace(b'\r\n', b'\n').replace(b'\r', b'\n').replace(b'\xc2\xa0', b' ')
-              with open(filepath, 'wb') as f:
-                  f.write(content)
-          "
           bash scripts/install_keystore.sh
 
       - name: Run Build and Patch Process
