@@ -1,5 +1,5 @@
 === Parcheo: TikTok ===
-Fecha: 2026-10-23T06:49:20Z
+Fecha: 2026-10-23T20:08:25Z
 APK version: 47.5.3
 Patches version: v0.78.0
 Patches source: SysAdminDoc/hushfeed
@@ -214,7 +214,7 @@ INFO: Copied 3152 unchanged extension classes to 2 DEX files
 INFO: Changed 1966 of 483697 classes to mutable
 INFO: Writing 1966 new classes to new DEX files
 INFO: Processing 1966 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792738179003/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792786119445/patcher/patched/newDex
 INFO: Stripped 1945 modified classes from 43 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -226,14 +226,14 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 2225 of 2225 values in 18 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically
 INFO: Reusing 26284 unchanged archive entries, rebuilding 3 entries, dropping 324 entries, leaving out 46 replaced entries
-INFO: Resource APK scan: 600ms write: 1.9s
+INFO: Resource APK scan: 800ms write: 2s
 INFO: Moving 31 resource files
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk
-INFO: Patching took 41.8 seconds
+INFO: Patching took 52.6 seconds
 
 --- Fin del parcheo ---
 APK final: build/TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk
-Fecha de fin: 2026-10-23T06:50:20Z
+Fecha de fin: 2026-10-23T20:09:33Z

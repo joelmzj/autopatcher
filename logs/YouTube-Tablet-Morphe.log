@@ -1,5 +1,5 @@
 === Parcheo: YouTube-Tablet-Morphe ===
-Fecha: 2026-10-23T12:21:32Z
+Fecha: 2026-10-23T20:13:26Z
 APK version: 20.21.37
 Patches version: v1.49.0-dev.1
 Patches source: MorpheApp/morphe-patches
@@ -154,7 +154,7 @@ INFO: Copied 7592 unchanged extension classes to 3 DEX files
 INFO: Changed 1020 of 53779 classes to mutable
 INFO: Writing 1020 new classes to new DEX files
 INFO: Processing 1020 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792758099025/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792786415040/patcher/patched/newDex
 INFO: Stripped 907 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -167,14 +167,14 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 91136 of 91136 values in 71 files, 1129 resource files and 541 configurations of patches for com.google.android.youtube
 INFO: Reusing 12691 unchanged archive entries, rebuilding 1131 entries, dropping 81 entries, leaving out 6 replaced entries
-INFO: Resource APK scan: 1.7s write: 1.4s
+INFO: Resource APK scan: 1.6s write: 1.4s
 INFO: Moving 3 resource files
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.1-arm64-v8a.apk
-INFO: Patching took 18.2 seconds
+INFO: Patching took 16.7 seconds
 
 --- Fin del parcheo ---
 APK final: build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.1-arm64-v8a.apk
-Fecha de fin: 2026-10-23T12:21:57Z
+Fecha de fin: 2026-10-23T20:13:53Z

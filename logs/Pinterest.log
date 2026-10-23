@@ -1,5 +1,5 @@
 === Parcheo: Pinterest ===
-Fecha: 2026-10-23T06:48:34Z
+Fecha: 2026-10-23T20:03:29Z
 APK version: 14.41.0
 Patches version: v0.0.13
 Patches source: SysAdminDoc/HushPinterest
@@ -71,7 +71,7 @@ INFO: Copied 632 unchanged extension classes to 2 DEX files
 INFO: Changed 244 of 75525 classes to mutable
 INFO: Writing 244 new classes to new DEX files
 INFO: Processing 244 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792738136670/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792785826991/patcher/patched/newDex
 INFO: Stripped 231 modified classes from 7 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -88,8 +88,8 @@ INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pinterest-v14.41.0-HushPinterest-v0.0.13-arm64-v8a.apk
-INFO: Patching took 16.4 seconds
+INFO: Patching took 22.3 seconds
 
 --- Fin del parcheo ---
 APK final: build/Pinterest-v14.41.0-HushPinterest-v0.0.13-arm64-v8a.apk
-Fecha de fin: 2026-10-23T06:49:13Z
+Fecha de fin: 2026-10-23T20:04:10Z
