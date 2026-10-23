@@ -1,0 +1,54 @@
+name: Update Obtainium Links
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  update-links:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install toml
+
+      - name: Generate Obtainium links
+        run: python scripts/generate_obtainium_links.py
+
+      - name: Update README.md
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          readme = Path("README.md")
+          links = Path("OBTAINIUM_LINKS.md").read_text(encoding="utf-8")
+          marker_start = "<!-- OBTAINIUM_LINKS_START -->"
+          marker_end = "<!-- OBTAINIUM_LINKS_END -->"
+          content = readme.read_text(encoding="utf-8") if readme.exists() else ""
+          
+          if marker_start in content and marker_end in content:
+              pre, rest = content.split(marker_start, 1)
+              _, post = rest.split(marker_end, 1)
+              content = pre + marker_start + "\n" + links + "\n" + marker_end + post
+          else:
+              content += "\n\n" + marker_start + "\n" + links + "\n" + marker_end
+              
+          readme.write_text(content, encoding="utf-8")
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md OBTAINIUM_LINKS.md
+          git diff --staged --quiet || git commit -m "docs: update Obtainium links [skip ci]"
+          git push
