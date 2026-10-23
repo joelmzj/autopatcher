@@ -1,5 +1,5 @@
 === Parcheo: Messenger ===
-Fecha: 2026-10-23T20:04:11Z
+Fecha: 2026-10-23T20:32:35Z
 APK version: 584.0.0.49.98
 Patches version: v0.26.0
 Patches source: SysAdminDoc/HushMessenger
@@ -35,7 +35,7 @@ INFO: Deleting existing temporary files directory
 INFO: Decoding the manifest
 INFO: Decoding resources on request, 9645 files can be decoded
 INFO: Executing patches
-Oct 23, 2026 8:05:22 PM app.hushmessenger.patches.controls.ScreenHostsKt followShortcutWrites
+Oct 23, 2026 8:33:54 PM app.hushmessenger.patches.controls.ScreenHostsKt followShortcutWrites
 INFO: Launcher shortcuts: 10 of Messenger's writes keep the pair on top
 INFO: Applied: Allow chat bubbles
 INFO: Applied: Allow screenshots
@@ -74,7 +74,7 @@ INFO: Applied: Keep a message log
 INFO: Applied: Keep emoji search on emoji
 INFO: Applied: Keep unsent messages
 INFO: Applied: Mark as read button
-Oct 23, 2026 8:05:28 PM app.hushmessenger.patches.controls.MaterialYouPatchKt materialYouPatch$lambda$0$0
+Oct 23, 2026 8:34:00 PM app.hushmessenger.patches.controls.MaterialYouPatchKt materialYouPatch$lambda$0$0
 INFO: Material You: 364 classes, 74 surfaces, 620 colour calls
 INFO: Applied: Material You theme
 INFO: Applied: Open settings from menu
@@ -106,7 +106,7 @@ INFO: Copied 172 unchanged extension classes to 1 DEX files
 INFO: Changed 543 of 145912 classes to mutable
 INFO: Writing 543 new classes to new DEX files
 INFO: Processing 543 classes in parallel (4 threads)
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792785866689/patcher/patched/newDex
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792787570171/patcher/patched/newDex
 INFO: Stripped 540 modified classes from 16 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -118,13 +118,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 0 of 0 values in 0 files, 6 resource files and 0 configurations of patches for com.facebook.orca
 INFO: Reusing 9419 unchanged archive entries, rebuilding 8 entries, dropping 0 entries, leaving out 16 replaced entries
-INFO: Resource APK scan: 100ms write: 800ms
+INFO: Resource APK scan: 100ms write: 500ms
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Messenger-v584.0.0.49.98-HushMessenger-v0.26.0-arm64-v8a.apk
-INFO: Patching took 73.0 seconds
+INFO: Patching took 80.9 seconds
 
 --- Fin del parcheo ---
 APK final: build/Messenger-v584.0.0.49.98-HushMessenger-v0.26.0-arm64-v8a.apk
-Fecha de fin: 2026-10-23T20:05:40Z
+Fecha de fin: 2026-10-23T20:34:11Z

@@ -1,5 +1,5 @@
 === Parcheo: YouTubeMusic-Morphe ===
-Fecha: 2026-10-23T20:09:35Z
+Fecha: 2026-10-23T20:38:17Z
 APK version: 9.20.53
 Patches version: v1.49.0-dev.1
 Patches source: MorpheApp/morphe-patches
@@ -94,7 +94,7 @@ INFO: Copied 5921 unchanged extension classes to 3 DEX files
 INFO: Changed 389 of 71216 classes to mutable
 INFO: Writing 389 new classes to new DEX files
 INFO: Processing 389 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792786185415/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792787907480/patcher/patched/newDex
 INFO: Stripped 337 modified classes from 5 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -107,14 +107,14 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 54239 of 54239 values in 67 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music
 INFO: Reusing 5119 unchanged archive entries, rebuilding 117 entries, dropping 0 entries, leaving out 5 replaced entries
-INFO: Resource APK scan: 1.2s write: 700ms
+INFO: Resource APK scan: 1s write: 500ms
 INFO: Moving 3 resource files
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.49.0-dev.1-arm64-v8a.apk
-INFO: Patching took 12.8 seconds
+INFO: Patching took 13.0 seconds
 
 --- Fin del parcheo ---
 APK final: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.49.0-dev.1-arm64-v8a.apk
-Fecha de fin: 2026-10-23T20:09:59Z
+Fecha de fin: 2026-10-23T20:38:41Z

@@ -1,17 +1,1 @@
-{
-  "GoogleMaps": {
-    "first_failed_at": "2026-10-23T20:14:46Z",
-    "last_attempt_at": "2026-10-23T20:14:46Z",
-    "attempts": 1
-  },
-  "Waze": {
-    "first_failed_at": "2026-10-23T20:15:06Z",
-    "last_attempt_at": "2026-10-23T20:15:06Z",
-    "attempts": 1
-  },
-  "X": {
-    "first_failed_at": "2026-10-23T20:15:31Z",
-    "last_attempt_at": "2026-10-23T20:15:31Z",
-    "attempts": 1
-  }
-}
+{}
