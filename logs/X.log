@@ -1,5 +1,5 @@
 === Parcheo: X ===
-Fecha: 2026-10-23T17:41:43Z
+Fecha: 2026-10-23T18:46:34Z
 APK version: 12.36.1-prod.01
 Patches version: v3.61.0
 Patches source: crimera/piko-newx
@@ -92,7 +92,7 @@ INFO: Copied 4389 unchanged extension classes to 2 DEX files
 INFO: Changed 1168 of 124990 classes to mutable
 INFO: Writing 1168 new classes to new DEX files
 INFO: Processing 1168 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792777341855/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792781231226/patcher/patched/newDex
 INFO: Stripped 1155 modified classes from 11 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -104,13 +104,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 1013 of 222989 values in 45 files, 1 resource files and 0 configurations of patches for com.twitter.android
 INFO: Reusing 4776 unchanged archive entries, rebuilding 3 entries, dropping 0 entries, leaving out 11 replaced entries
-INFO: Resource APK scan: 1s write: 600ms
+INFO: Resource APK scan: 1.2s write: 500ms
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-v12.36.1-prod.01-piko-newx-v3.61.0-arm64-v8a.apk
-INFO: Patching took 21.4 seconds
+INFO: Patching took 23.6 seconds
 
 --- Fin del parcheo ---
 APK final: build/X-v12.36.1-prod.01-piko-newx-v3.61.0-arm64-v8a.apk
-Fecha de fin: 2026-10-23T17:42:43Z
+Fecha de fin: 2026-10-23T18:47:34Z
