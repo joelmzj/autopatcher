@@ -42,7 +42,7 @@ def generate_markdown():
         
     data = toml.load(config_path)
     
-    # Cargar versions_log.json si existe (para los paquetes modificados)
+    # Cargar versions_log.json para leer los IDs reales extraídos por build.sh
     vlog = {}
     if vlog_path.exists():
         try:
@@ -55,9 +55,8 @@ def generate_markdown():
         "",
         "Añade cualquiera de estas apps a Obtainium con un solo toque.",
         "",
-        "> **Nota para YouTube/YouTube Music:** Las versiones de Teléfono y Tablet comparten el mismo paquete. "
-        "Solo puedes añadir **una** de ellas a Obtainium a la vez. Si quieres cambiar de variante, "
-        "edita el filtro de APK dentro de Obtainium.",
+        "> **Nota:** Si notas que un ID de paquete ha cambiado repentinamente (por ejemplo, por un nuevo parche de clonación), "
+        "significa que el desarrollador ha modificado el paquete base. Revisa la configuración de esa app.",
         "",
     ]
 
@@ -71,7 +70,7 @@ def generate_markdown():
 
         app_name = app_config.get("app-name", table_name)
         
-        # Buscar el paquete final en versions_log, si no, usar el del TOML
+        # 🆕 Obtener el ID real (del versions_log si existe, o del TOML por defecto)
         app_vlog = vlog.get(table_name, {})
         pkg_name = app_vlog.get("final_pkg_name") or app_config.get("pkg-name")
         
@@ -82,7 +81,9 @@ def generate_markdown():
         apk_prefix = f"^{table_name}-"
         
         link = build_link(pkg_name, app_name, apk_prefix)
-        lines.append(f"- **{app_name}** → [Añadir a Obtainium]({link})")
+        
+        # 🆕 Imprimir el ID en el README
+        lines.append(f"- **{app_name}** (`{pkg_name}`) → [Añadir a Obtainium]({link})")
 
     lines.append("")
     lines.append("> **Nota:** Solo se instalan los APKs.")
@@ -91,4 +92,4 @@ def generate_markdown():
 if __name__ == "__main__":
     md = generate_markdown()
     Path("OBTAINIUM_LINKS.md").write_text(md, encoding="utf-8")
-    print("✅ Generado OBTAINIUM_LINKS.md")
+    print("✅ Generado OBTAINIUM_LINKS.md dinámicamente")
