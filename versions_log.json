@@ -17,17 +17,17 @@
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
     "channel": "stable",
-    "patches_version": "v0.0.12",
+    "patches_version": "v0.0.13",
     "apk_version": "14.41.0",
     "brand": "HushPinterest",
     "arch": "arm64-v8a",
-    "stable_file": "Pinterest-v14.41.0-HushPinterest-v0.0.12-arm64-v8a.apk",
+    "stable_file": "Pinterest-v14.41.0-HushPinterest-v0.0.13-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "Pinterest-v14.41.0-HushPinterest-v0.0.12-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Pinterest-v14.41.0-HushPinterest-vunknown-arm64-v8a.apk",
+    "prev_stable_file": "Pinterest-v14.41.0-HushPinterest-v0.0.12-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-22T19:35:13Z"
+    "timestamp": "2026-10-23T06:49:13Z"
   },
   "Messenger": {
     "patches_source": "SysAdminDoc/HushMessenger",
@@ -62,17 +62,17 @@
   "TikTok": {
     "patches_source": "SysAdminDoc/hushfeed",
     "channel": "stable",
-    "patches_version": "v0.77.0",
-    "apk_version": "47.4.3",
+    "patches_version": "v0.78.0",
+    "apk_version": "47.5.3",
     "brand": "HushFeed",
     "arch": "arm64-v8a",
-    "stable_file": "TikTok-v47.4.3-HushFeed-v0.77.0-arm64-v8a.apk",
+    "stable_file": "TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "TikTok-v47.4.3-HushFeed-v0.77.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "TikTok-v47.4.3-HushFeed-v0.76.0-arm64-v8a.apk",
+    "prev_stable_file": "TikTok-v47.4.3-HushFeed-v0.77.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-21T06:58:48Z"
+    "timestamp": "2026-10-23T06:50:20Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
