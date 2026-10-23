@@ -807,6 +807,7 @@ for table_name in $(toml_get_table_names); do
 		   --arg ch "${app_args[channel]}" \
 		   --arg patch_ver "$latest_applied_tag" \
 		   --arg apk_ver "$target_apk_ver" \
+		   --arg final_pkg "$final_pkg_name" \  # 🆕 Pasar la variable
 		   --arg brand "${app_args[brand]}" \
 		   --arg arch "${app_args[arch]}" \
 		   --arg stable_file "$final_stable_file" \
@@ -821,6 +822,7 @@ for table_name in $(toml_get_table_names); do
 				channel: $ch,
 				patches_version: $patch_ver,
 				apk_version: $apk_ver,
+				final_pkg_name: $final_pkg,
 				brand: $brand,
 				arch: $arch,
 				stable_file: (if $stable_file == "" then null else $stable_file end),
