@@ -82,18 +82,18 @@
   "TikTok": {
     "patches_source": "SysAdminDoc/hushfeed",
     "channel": "stable",
-    "patches_version": "v0.78.0",
+    "patches_version": "v0.79.0",
     "apk_version": "47.5.3",
     "final_pkg_name": "com.zhiliaoapp.musically",
     "brand": "HushFeed",
     "arch": "arm64-v8a",
-    "stable_file": "TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk",
+    "stable_file": "TikTok-v47.5.3-HushFeed-v0.79.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-23T20:38:16Z"
+    "timestamp": "2026-10-24T22:11:18Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
@@ -194,34 +194,34 @@
   "GoogleMaps": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.5.6",
+    "patches_version": "v2.5.7",
     "apk_version": "26.36.04.973607363",
     "final_pkg_name": "com.google.android.apps.maps",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.6-arm64-v8a.zip",
+    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.7-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": null,
-    "timestamp": "2026-10-23T20:44:46Z"
+    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.6-arm64-v8a.zip",
+    "timestamp": "2026-10-24T22:13:04Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.5.6",
+    "patches_version": "v2.5.7",
     "apk_version": "5.24.5.0",
     "final_pkg_name": "com.waze",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.5.6-arm64-v8a.zip",
+    "stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.5.7-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": null,
-    "timestamp": "2026-10-23T20:45:26Z"
+    "prev_stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.5.6-arm64-v8a.zip",
+    "timestamp": "2026-10-24T22:13:44Z"
   },
   "X": {
     "patches_source": "crimera/piko-newx",
