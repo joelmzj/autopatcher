@@ -226,17 +226,17 @@
   "X": {
     "patches_source": "crimera/piko-newx",
     "channel": "stable",
-    "patches_version": "v3.61.0",
-    "apk_version": "12.36.1-prod.01",
+    "patches_version": "v3.64.0",
+    "apk_version": "12.37.2-prod.01",
     "final_pkg_name": "com.twitter.android",
     "brand": "piko-newx",
     "arch": "arm64-v8a",
-    "stable_file": "X-v12.36.1-prod.01-piko-newx-v3.61.0-arm64-v8a.apk",
+    "stable_file": "X-v12.37.2-prod.01-piko-newx-v3.64.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "X-v12.36.1-prod.01-piko-newx-v3.61.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "X-v12.36.1-prod.01-piko-newx-v3.61.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-23T20:46:30Z"
+    "timestamp": "2026-10-24T07:49:38Z"
   }
 }
