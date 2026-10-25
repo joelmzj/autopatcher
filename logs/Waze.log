@@ -1,7 +1,7 @@
 === Parcheo: Waze ===
-Fecha: 2026-10-24T22:13:06Z
+Fecha: 2026-10-25T18:04:09Z
 APK version: 5.24.5.0
-Patches version: v2.5.7
+Patches version: v2.6.0
 Patches source: bearinmindcat/morphe-patches
 Channel: stable
 Brand: bearinmindcat
@@ -15,8 +15,8 @@ Inclusive patches: true
   -d=Change app name
   -d=No Google Assistant
   -e=Add microG support
-  -e=Alert distances
   -e=All moods
+  -e=Bigger alert pins
   -e=Navigation distances
   -e=No AI reporting
   -e=Open without device location
@@ -29,16 +29,16 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/bearinmindcat/morphe-patches/main/patches-bundle.json
-INFO: GitHub: bundle (main) → v2.5.7 @ https://github.com/bearinmindcat/morphe-patches/releases/download/v2.5.7/patches-2.5.7.mpp
-INFO: Latest stable via patches-bundle.json: v2.5.7
-INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.5.7__patches-2.5.7.mpp (1124833 bytes)
-INFO: Resolved patches (v2.5.7) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.5.7__patches-2.5.7.mpp
+INFO: GitHub: bundle (main) → v2.6.0 @ https://github.com/bearinmindcat/morphe-patches/releases/download/v2.6.0/patches-2.6.0.mpp
+INFO: Latest stable via patches-bundle.json: v2.6.0
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.6.0__patches-2.6.0.mpp (1128107 bytes)
+INFO: Resolved patches (v2.6.0) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.6.0__patches-2.6.0.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.waze v5.24.5.0...
 INFO: Skipping disabled: Change app name
 INFO: Skipping disabled: No Google Assistant
-INFO: Applying 15 patches...
+INFO: Applying 16 patches...
 INFO: Deleting existing temporary files directory
 INFO: Decoding all resources
 INFO: Leaving 19 native library files in the input APK
@@ -47,6 +47,8 @@ INFO: Escaping strings
 INFO: Executing patches
 INFO: Applied: Alert distances
 INFO: Applied: All moods
+INFO: Applied: Bigger alert pins
+INFO: Building instruction indexes for 60870 classes...
 INFO: Applied: Bigger speedometer
 INFO: Applied: Full black
 INFO: Applied: Hide ads
@@ -62,11 +64,11 @@ INFO: Applied: Speed limit sign
 INFO: Applied: Stay awake in the background
 INFO: Rebuilding APK...
 INFO: Compiling patched dex files (mode: STRIP_FAST)
-INFO: Copied 20 unchanged extension classes to 1 DEX files
-INFO: Changed 11 of 60864 classes to mutable
+INFO: Copied 26 unchanged extension classes to 1 DEX files
+INFO: Changed 11 of 60870 classes to mutable
 INFO: Writing 11 new classes to new DEX files
 INFO: Processing 11 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792880002699/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792951467325/patcher/patched/newDex
 INFO: Stripped 9 modified classes from 3 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -77,24 +79,24 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 90 of 90 values in 1 files, 1 resource files and 0 configurations of patches for com.waze
 INFO: Reusing 5167 unchanged archive entries, rebuilding 3 entries, dropping 0 entries, leaving out 3 replaced entries
-INFO: Resource APK scan: 200ms write: 600ms
+INFO: Resource APK scan: 100ms write: 1s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Waze-v5.24.5.0-bearinmindcat-v2.5.7-arm64-v8a.apk
-INFO: Patching took 8.5 seconds
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Waze-v5.24.5.0-bearinmindcat-v2.6.0-arm64-v8a.apk
+INFO: Patching took 7.5 seconds
 
 --- Contenido de module.prop ---
 id=waze-stable-arm64
 name=Waze (bearinmindcat)
-version=v5.24.5.0 (patches v2.5.7.mpp)
-versionCode=20261024
+version=v5.24.5.0 (patches v2.6.0.mpp)
+versionCode=20261025
 author=joelmzj
 description=Waze (bearinmindcat) module
 updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/waze-arm64.json
 --------------------------------
 
 --- Fin del parcheo ---
-APK final: build/Waze-v5.24.5.0-bearinmindcat-v2.5.7-arm64-v8a.apk
-Módulo: build/Waze-v5.24.5.0-bearinmindcat-v2.5.7-arm64-v8a.zip
-Fecha de fin: 2026-10-24T22:13:44Z
+APK final: build/Waze-v5.24.5.0-bearinmindcat-v2.6.0-arm64-v8a.apk
+Módulo: build/Waze-v5.24.5.0-bearinmindcat-v2.6.0-arm64-v8a.zip
+Fecha de fin: 2026-10-25T18:04:46Z
