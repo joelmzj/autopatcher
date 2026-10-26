@@ -230,7 +230,7 @@ build-mode = "module"
 version = "auto"
 force-patch = true
 enable-patches = []
-exclude-patches = ["Change app name", "Change package name", "Legacy icon", "Add microG support"]
+exclude-patches = ["Change app name", "Change package name", "Legacy icon", "Add original microG support", "Add microG-RE support"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/maps/"
 
 [Waze]
@@ -246,7 +246,7 @@ build-mode = "module"
 version = "auto"
 force-patch = true
 enable-patches = []
-exclude-patches = ["Change app name", "No Google Assistant"]
+exclude-patches = ["Change app name", "No Google Assistant", ""]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/waze/waze-gps-maps-traffic-alerts-live-navigation/"
 
 [X]
