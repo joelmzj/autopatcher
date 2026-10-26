@@ -13,7 +13,7 @@ if [ -z "${GITHUB_TOKEN-}" ] && command -v gh >/dev/null 2>&1; then
     GITHUB_TOKEN=$(gh auth token 2>/dev/null || true)
 fi
 if [ "${GITHUB_TOKEN-}" ]; then GH_HEADER="Authorization: token ${GITHUB_TOKEN}"; else GH_HEADER=; fi
-NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d')}
+NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d%H')}
 OS=$(uname -o)
 DEFAULT_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36"
 
