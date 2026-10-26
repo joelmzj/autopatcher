@@ -1,7 +1,7 @@
 === Parcheo: TikTok ===
-Fecha: 2026-10-23T20:37:09Z
+Fecha: 2026-10-24T22:10:01Z
 APK version: 47.5.3
-Patches version: v0.78.0
+Patches version: v0.79.0
 Patches source: SysAdminDoc/hushfeed
 Channel: stable
 Brand: HushFeed
@@ -36,17 +36,17 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/hushfeed/main/patches-bundle.json
-INFO: GitHub: bundle (main) → v0.78.0 @ https://github.com/SysAdminDoc/hushfeed/releases/download/v0.78.0/patches-0.78.0.mpp
-INFO: Latest stable via patches-bundle.json: v0.78.0
-INFO: GitHub: downloading patches-0.78.0.mpp from https://github.com/SysAdminDoc/hushfeed/releases/download/v0.78.0/patches-0.78.0.mpp
-INFO: GitHub: wrote 6644966 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.78.0__patches-0.78.0.mpp
-INFO: Resolved patches (v0.78.0) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.78.0__patches-0.78.0.mpp
+INFO: GitHub: bundle (main) → v0.79.0 @ https://github.com/SysAdminDoc/hushfeed/releases/download/v0.79.0/patches-0.79.0.mpp
+INFO: Latest stable via patches-bundle.json: v0.79.0
+INFO: GitHub: downloading patches-0.79.0.mpp from https://github.com/SysAdminDoc/hushfeed/releases/download/v0.79.0/patches-0.79.0.mpp
+INFO: GitHub: wrote 6624200 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.79.0__patches-0.79.0.mpp
+INFO: Resolved patches (v0.79.0) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-hushfeed/v0.79.0__patches-0.79.0.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.zhiliaoapp.musically v47.5.3...
 INFO: Skipping disabled: Change app name
 INFO: Skipping disabled: Custom launcher icon
-INFO: Applying 136 patches...
+INFO: Applying 138 patches...
 INFO: Deleting existing temporary files directory
 INFO: Decoding the manifest
 INFO: Decoding resources on request, 26515 files can be decoded
@@ -138,6 +138,7 @@ INFO: Applied: Keep the screen's refresh rate
 INFO: Applied: LIVE controls
 INFO: Applied: Lift text length limits
 INFO: Applied: Limit background traffic
+INFO: Applied: Load all saved stickers
 [Location governor] Intercepted 2 location access sites.
 INFO: Applied: Location access governor
 INFO: Applied: Long-press controls
@@ -169,6 +170,7 @@ INFO: Applied: Remove creation tools
 INFO: Applied: Remove unused language packs
 [Voice Tools De-bloat] Emptied 8 reviewed files (16.16 MiB unpacked).
 INFO: Applied: Remove voice tools
+INFO: Applied: Report a newer phone to effects
 INFO: Applied: Repost diagnostics
 [Resource and battery governor] Intercepted 2 sensor registration sites.
 INFO: Applied: Resource and battery governor
@@ -210,12 +212,12 @@ INFO: Applied: Use non-personalized search
 INFO: Applied: Use system font
 INFO: Rebuilding APK...
 INFO: Compiling patched dex files (mode: STRIP_FAST)
-INFO: Copied 3152 unchanged extension classes to 2 DEX files
-INFO: Changed 1966 of 483697 classes to mutable
-INFO: Writing 1966 new classes to new DEX files
-INFO: Processing 1966 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792787844607/patcher/patched/newDex
-INFO: Stripped 1945 modified classes from 43 original DEX files
+INFO: Copied 3306 unchanged extension classes to 2 DEX files
+INFO: Changed 1985 of 483852 classes to mutable
+INFO: Writing 1985 new classes to new DEX files
+INFO: Processing 1985 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792879822498/patcher/patched/newDex
+INFO: Stripped 1963 modified classes from 43 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
 INFO: Stripped 294 lib files
@@ -226,14 +228,14 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 2225 of 2225 values in 18 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically
 INFO: Reusing 26284 unchanged archive entries, rebuilding 3 entries, dropping 324 entries, leaving out 46 replaced entries
-INFO: Resource APK scan: 800ms write: 1.3s
+INFO: Resource APK scan: 800ms write: 1.7s
 INFO: Moving 31 resource files
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk
-INFO: Patching took 49.7 seconds
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.5.3-HushFeed-v0.79.0-arm64-v8a.apk
+INFO: Patching took 54.3 seconds
 
 --- Fin del parcheo ---
-APK final: build/TikTok-v47.5.3-HushFeed-v0.78.0-arm64-v8a.apk
-Fecha de fin: 2026-10-23T20:38:16Z
+APK final: build/TikTok-v47.5.3-HushFeed-v0.79.0-arm64-v8a.apk
+Fecha de fin: 2026-10-24T22:11:18Z
