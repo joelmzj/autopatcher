@@ -240,7 +240,7 @@ jobs:
 
           # 🔥 FIX BUG 3: Preparar directorios en la raíz de la rama (sin la carpeta 'update/')
           mkdir -p stable dev changelogs
-          vc=$(date -u +%Y%m%d)
+          vc=$(date -u +%Y%m%d%H)
           published=0
 
           for zip in "${zips[@]}"; do
