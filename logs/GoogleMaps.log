@@ -1,5 +1,5 @@
 === Parcheo: GoogleMaps ===
-Fecha: 2026-10-26T21:56:18Z
+Fecha: 2026-10-26T22:29:45Z
 APK version: 26.36.04.973607363
 Patches version: v2.6.4
 Patches source: bearinmindcat/morphe-patches
@@ -56,7 +56,7 @@ INFO: Applied: Account sheet cleanup
 INFO: Applied: Any media app
 INFO: Applied: Avoid Flock cameras
 INFO: Applied: Better offline maps
-Oct 26, 2026 9:56:47 PM org.ungoogled.patches.maps.ui.SharedUiPatchesKt shapeShimsPatch$lambda$0$0
+Oct 26, 2026 10:30:07 PM org.ungoogled.patches.maps.ui.SharedUiPatchesKt shapeShimsPatch$lambda$0$0
 INFO: Shape/colour shims: 1434 call sites in 739 methods
 INFO: Applied: Black theme
 INFO: Applied: Blue pin
@@ -67,7 +67,7 @@ INFO: Applied: Hide ads and clutter
 INFO: Applied: Location provider toggle
 INFO: Applied: Offline saved places
 INFO: Applied: Proxy
-Oct 26, 2026 9:57:02 PM org.ungoogled.patches.maps.ui.rectangle.RectangleShapesPatchKt rectangleShapesResourcePatch$lambda$0$0
+Oct 26, 2026 10:30:17 PM org.ungoogled.patches.maps.ui.rectangle.RectangleShapesPatchKt rectangleShapesResourcePatch$lambda$0$0
 INFO: Rectangle shapes: 81 dimens, 78 styles, 108 drawables, 8 masks in 4 densities
 INFO: Applied: Rectangle shapes
 INFO: Applied: Remove permissions
@@ -85,7 +85,7 @@ INFO: Copied 304 unchanged extension classes to 1 DEX files
 INFO: Changed 583 of 73958 classes to mutable
 INFO: Writing 583 new classes to new DEX files
 INFO: Processing 583 classes in parallel (4 threads)
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793051792578/patcher/patched/newDex
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793053799226/patcher/patched/newDex
 INFO: Stripped 576 modified classes from 8 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -97,18 +97,18 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 0 of 0 values in 0 files, 473 resource files and 13 configurations of patches for com.google.android.apps.maps
 INFO: Reusing 8848 unchanged archive entries, rebuilding 475 entries, dropping 68 entries, leaving out 8 replaced entries
-INFO: Resource APK scan: 800ms write: 1.1s
+INFO: Resource APK scan: 600ms write: 1.4s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.4-arm64-v8a.apk
-INFO: Patching took 37.9 seconds
+INFO: Patching took 24.7 seconds
 
 --- Contenido de module.prop ---
 id=googlemaps-stable-arm64
 name=GoogleMaps (bearinmindcat)
 version=v26.36.04.973607363 (patches v2.6.4.mpp)
-versionCode=20261026
+versionCode=2026102622
 author=joelmzj
 description=GoogleMaps (bearinmindcat) module
 updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/googlemaps-arm64.json
@@ -117,4 +117,4 @@ updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/g
 --- Fin del parcheo ---
 APK final: build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.4-arm64-v8a.apk
 Módulo: build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.4-arm64-v8a.zip
-Fecha de fin: 2026-10-26T21:57:31Z
+Fecha de fin: 2026-10-26T22:30:37Z
