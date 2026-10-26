@@ -194,34 +194,34 @@
   "GoogleMaps": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.6.0",
+    "patches_version": "v2.6.4",
     "apk_version": "26.36.04.973607363",
     "final_pkg_name": "com.google.android.apps.maps",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.0-arm64-v8a.zip",
+    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.4-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.5.7-arm64-v8a.zip",
-    "timestamp": "2026-10-25T18:04:08Z"
+    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.0-arm64-v8a.zip",
+    "timestamp": "2026-10-26T21:57:31Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.6.3",
+    "patches_version": "v2.6.4",
     "apk_version": "5.24.5.0",
     "final_pkg_name": "com.waze",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.6.3-arm64-v8a.zip",
+    "stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.6.4-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.6.0-arm64-v8a.zip",
-    "timestamp": "2026-10-26T18:04:23Z"
+    "prev_stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.6.3-arm64-v8a.zip",
+    "timestamp": "2026-10-26T21:58:10Z"
   },
   "X": {
     "patches_source": "crimera/piko-newx",

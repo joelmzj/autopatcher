@@ -1,7 +1,7 @@
 === Parcheo: GoogleMaps ===
-Fecha: 2026-10-26T18:03:20Z
+Fecha: 2026-10-26T21:56:18Z
 APK version: 26.36.04.973607363
-Patches version: v2.6.3
+Patches version: v2.6.4
 Patches source: bearinmindcat/morphe-patches
 Channel: stable
 Brand: bearinmindcat
@@ -11,13 +11,12 @@ Force patch: true
 Inclusive patches: true
 
 
---- Argumentos de parches (16) ---
+--- Argumentos de parches (15) ---
   -d=Change app name
   -d=Change package name
   -d=Legacy icon
-  -d=Add microG support
-  -e=Add microG-RE support
-  -e=Add original microG support
+  -d=Add original microG support
+  -d=Add microG-RE support
   -e=All moods
   -e=Bigger alert pins
   -e=Navigation distances
@@ -33,18 +32,20 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/bearinmindcat/morphe-patches/main/patches-bundle.json
-INFO: GitHub: bundle (main) → v2.6.3 @ https://github.com/bearinmindcat/morphe-patches/releases/download/v2.6.3/patches-2.6.3.mpp
-INFO: Latest stable via patches-bundle.json: v2.6.3
-INFO: GitHub: downloading patches-2.6.3.mpp from https://github.com/bearinmindcat/morphe-patches/releases/download/v2.6.3/patches-2.6.3.mpp
-INFO: GitHub: wrote 1141443 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.6.3__patches-2.6.3.mpp
-INFO: Resolved patches (v2.6.3) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.6.3__patches-2.6.3.mpp
+INFO: GitHub: bundle (main) → v2.6.4 @ https://github.com/bearinmindcat/morphe-patches/releases/download/v2.6.4/patches-2.6.4.mpp
+INFO: Latest stable via patches-bundle.json: v2.6.4
+INFO: GitHub: downloading patches-2.6.4.mpp from https://github.com/bearinmindcat/morphe-patches/releases/download/v2.6.4/patches-2.6.4.mpp
+INFO: GitHub: wrote 1143980 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.6.4__patches-2.6.4.mpp
+INFO: Resolved patches (v2.6.4) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.6.4__patches-2.6.4.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.google.android.apps.maps v26.36.04.973607363...
+INFO: Skipping disabled: Add microG-RE support
+INFO: Skipping disabled: Add original microG support
 INFO: Skipping disabled: Change app name
 INFO: Skipping disabled: Change package name
 INFO: Skipping disabled: Legacy icon
-INFO: Applying 26 patches...
+INFO: Applying 24 patches...
 INFO: Deleting existing temporary files directory
 INFO: Decoding the manifest
 INFO: Decoding resources on request, 9243 files can be decoded
@@ -52,68 +53,68 @@ INFO: Executing patches
 INFO: Building instruction indexes for 73958 classes...
 INFO: Applied: 120 refresh rate
 INFO: Applied: Account sheet cleanup
-ERROR: FAILED: Add original microG support
-INFO: Patching took 9.4 seconds
-ERROR: Patching aborted: Patching failed: Patch "Add original microG support" failed: The patch "Add original microG support" depends on "ResourcePatch@1354001835", which raised an exception:
-app.morphe.patcher.patch.PatchException: Add microG-RE support and Add original microG support cannot both be on. Pick the one for your microG.
-	at org.ungoogled.patches.maps.microg.MicrogSelection.select(MicrogSelection.kt:35)
-	at org.ungoogled.patches.maps.microg.OriginalMicrogSupportPatchKt.originalMicrogManifestPatch$lambda$0$0(OriginalMicrogSupportPatch.kt:54)
-	at app.morphe.patcher.patch.Patch.execute(Patch.kt:141)
-	at app.morphe.patcher.patch.ResourcePatch.execute$morphe_patcher(Patch.kt:431)
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend$execute(Patcher.kt:125)
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend$execute(Patcher.kt:100)
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend(Patcher.kt:151)
-	at app.morphe.patcher.Patcher$invoke$1.invoke(Patcher.kt)
-	at app.morphe.patcher.Patcher$invoke$1.invoke(Patcher.kt)
-	at kotlinx.coroutines.flow.SafeFlow.collectSafely(Builders.kt:57)
-	at kotlinx.coroutines.flow.AbstractFlow.collect(Flow.kt:226)
-	at app.morphe.engine.PatchEngine$patch$3.invokeSuspend(PatchEngine.kt:491)
-	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
-	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
-	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
-	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:798)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+INFO: Applied: Any media app
+INFO: Applied: Avoid Flock cameras
+INFO: Applied: Better offline maps
+Oct 26, 2026 9:56:47 PM org.ungoogled.patches.maps.ui.SharedUiPatchesKt shapeShimsPatch$lambda$0$0
+INFO: Shape/colour shims: 1434 call sites in 739 methods
+INFO: Applied: Black theme
+INFO: Applied: Blue pin
+INFO: Applied: Bypass Play Services checks
+INFO: Applied: Customization screen
+INFO: Applied: Flock cameras
+INFO: Applied: Hide ads and clutter
+INFO: Applied: Location provider toggle
+INFO: Applied: Offline saved places
+INFO: Applied: Proxy
+Oct 26, 2026 9:57:02 PM org.ungoogled.patches.maps.ui.rectangle.RectangleShapesPatchKt rectangleShapesResourcePatch$lambda$0$0
+INFO: Rectangle shapes: 81 dimens, 78 styles, 108 drawables, 8 masks in 4 densities
+INFO: Applied: Rectangle shapes
+INFO: Applied: Remove permissions
+INFO: Applied: Remove sign-in prompts
+INFO: Applied: Remove telemetry
+INFO: Applied: Speed cameras
+INFO: Applied: Speeding chime
+INFO: Applied: Trim account menu
+INFO: Applied: Waze alerts
+INFO: Applied: Zoom controls in navigation
+INFO: Applied: Power saving mode
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 304 unchanged extension classes to 1 DEX files
+INFO: Changed 583 of 73958 classes to mutable
+INFO: Writing 583 new classes to new DEX files
+INFO: Processing 583 classes in parallel (4 threads)
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793051792578/patcher/patched/newDex
+INFO: Stripped 576 modified classes from 8 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 57 lib files
+INFO: Decoded 6371 of 9243 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 0 of 0 values in 0 files, 473 resource files and 13 configurations of patches for com.google.android.apps.maps
+INFO: Reusing 8848 unchanged archive entries, rebuilding 475 entries, dropping 68 entries, leaving out 8 replaced entries
+INFO: Resource APK scan: 800ms write: 1.1s
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.4-arm64-v8a.apk
+INFO: Patching took 37.9 seconds
 
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Add original microG support" depends on "ResourcePatch@1354001835", which raised an exception:
-app.morphe.patcher.patch.PatchException: Add microG-RE support and Add original microG support cannot both be on. Pick the one for your microG.
-	at org.ungoogled.patches.maps.microg.MicrogSelection.select(MicrogSelection.kt:35)
-	at org.ungoogled.patches.maps.microg.OriginalMicrogSupportPatchKt.originalMicrogManifestPatch$lambda$0$0(OriginalMicrogSupportPatch.kt:54)
-	at app.morphe.patcher.patch.Patch.execute(Patch.kt:141)
-	at app.morphe.patcher.patch.ResourcePatch.execute$morphe_patcher(Patch.kt:431)
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend$execute(Patcher.kt:125)
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend$execute(Patcher.kt:100)
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend(Patcher.kt:151)
-	at app.morphe.patcher.Patcher$invoke$1.invoke(Patcher.kt)
-	at app.morphe.patcher.Patcher$invoke$1.invoke(Patcher.kt)
-	at kotlinx.coroutines.flow.SafeFlow.collectSafely(Builders.kt:57)
-	at kotlinx.coroutines.flow.AbstractFlow.collect(Flow.kt:226)
-	at app.morphe.engine.PatchEngine$patch$3.invokeSuspend(PatchEngine.kt:491)
-	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
-	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
-	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
-	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:798)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+--- Contenido de module.prop ---
+id=googlemaps-stable-arm64
+name=GoogleMaps (bearinmindcat)
+version=v26.36.04.973607363 (patches v2.6.4.mpp)
+versionCode=20261026
+author=joelmzj
+description=GoogleMaps (bearinmindcat) module
+updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/googlemaps-arm64.json
+--------------------------------
 
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend$execute(Patcher.kt:103)
-	at app.morphe.patcher.Patcher$invoke$1.invokeSuspend(Patcher.kt:151)
-	at app.morphe.patcher.Patcher$invoke$1.invoke(Patcher.kt)
-	at app.morphe.patcher.Patcher$invoke$1.invoke(Patcher.kt)
-	at kotlinx.coroutines.flow.SafeFlow.collectSafely(Builders.kt:57)
-	at kotlinx.coroutines.flow.AbstractFlow.collect(Flow.kt:226)
-	at app.morphe.engine.PatchEngine$patch$3.invokeSuspend(PatchEngine.kt:491)
-	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
-	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
-	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
-	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:798)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
-
-INFO: Use --continue-on-error to skip failed patches and continue patching
+--- Fin del parcheo ---
+APK final: build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.4-arm64-v8a.apk
+Módulo: build/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.6.4-arm64-v8a.zip
+Fecha de fin: 2026-10-26T21:57:31Z
