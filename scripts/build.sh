@@ -9,6 +9,8 @@ echo '{}' > "$BUILD_JSON_FILE"
 
 trap "abort" INT
 
+RUN_START_TS=$(date +%s)
+
 # ==============================================================================
 # 🧮 Helper: hash estable de los parches aplicables a un paquete
 # ------------------------------------------------------------------------------
@@ -55,6 +57,88 @@ compute_patches_hash_for_pkg() {
 			)]
 		' \
 		| sha256sum | cut -d' ' -f1
+}
+
+# ==============================================================================
+# 🎨 Helpers de log con banners visibles (stdout + logfile opcional)
+# ==============================================================================
+_BANNER_LINE="═══════════════════════════════════════════════════════════════"
+
+_format_duration() {
+    local secs="${1:-0}"
+    if [ "$secs" -lt 60 ]; then echo "${secs}s"
+    elif [ "$secs" -lt 3600 ]; then echo "$((secs / 60))m$((secs % 60))s"
+    else echo "$((secs / 3600))h$(( (secs % 3600) / 60 ))m$((secs % 60))s"
+    fi
+}
+
+# Escribe el mismo bloque a stdout (con color) y al logfile (sin color)
+_emit_banner() {
+    local color="$1"; shift
+    local logfile="$1"; shift
+    local plain_block="$1"; shift
+
+    echo ""
+    echo -e "\033[${color}m${_BANNER_LINE}\033[0m"
+    while IFS= read -r line; do
+        echo -e "\033[${color}m${line}\033[0m"
+    done <<< "$plain_block"
+    echo -e "\033[${color}m${_BANNER_LINE}\033[0m"
+
+    if [ -n "$logfile" ] && [ -d "$(dirname "$logfile")" ]; then
+        {
+            echo ""
+            echo "$_BANNER_LINE"
+            echo "$plain_block"
+            echo "$_BANNER_LINE"
+            echo ""
+        } >> "$logfile"
+    fi
+}
+
+print_run_header() {
+    local config="${1:-config.toml}"
+    local total failed
+    total=$(toml_get_table_names 2>/dev/null | grep -vc '^Morphe-Desktop$' || echo 0)
+    failed=$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)
+    _emit_banner "1;34" "" "$(printf '  🏁 RUN DE COMPILACIÓN\n     Inicio:         %s\n     Config:         %s\n     REBUILD_APPS:   %s\n     Release tag:    %s\n     Apps en config: %s\n     Fallos previos: %s' \
+        "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$config" "${REBUILD_APPS:-<vacío>}" "${RELEASE_TAG:-stable}" "$total" "$failed")"
+    echo ""
+}
+
+print_run_footer() {
+    local duration="$1"
+    local total compiled failed
+    total=$(toml_get_table_names 2>/dev/null | grep -vc '^Morphe-Desktop$' || echo 0)
+    compiled=$(find "$COMPILED_MARKER_DIR" -maxdepth 1 -type f 2>/dev/null | wc -l | tr -d ' ')
+    failed=$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)
+    _emit_banner "1;34" "" "$(printf '  🏁 RUN FINALIZADO\n     Duración:       %s\n     Apps en config: %s\n     Compiladas:     %s\n     Fallidas:       %s' \
+        "$(_format_duration "$duration")" "$total" "$compiled" "$failed")"
+}
+
+print_app_header() {
+    local app="$1" repo="$2" channel="$3" pkg="$4" brand="$5" arch="$6" logfile="${7:-}"
+    _emit_banner "1;36" "$logfile" "$(printf '  🚀 PROCESANDO: %s\n     Repo:    %s\n     Pkg:     %s\n     Canal:   %s  |  Brand: %s  |  Arch: %s\n     Inicio:  %s' \
+        "$app" "$repo" "$pkg" "$channel" "$brand" "$arch" "$(date -u +%Y-%m-%dT%H:%M:%SZ)")"
+}
+
+print_app_success() {
+    local app="$1" apk="$2" hash="$3" apk_ver="$4" patch_ver="$5" start_ts="$6" logfile="${7:-}"
+    local dur=$(( $(date +%s) - start_ts ))
+    _emit_banner "1;32" "$logfile" "$(printf '  ✅ ÉXITO: %s  (%s)\n     APK:      %s\n     APK ver:  %s\n     Parches:  %s\n     Hash:     %s...' \
+        "$app" "$(_format_duration "$dur")" "$(basename "$apk")" "$apk_ver" "$patch_ver" "${hash:0:32}")"
+}
+
+print_app_skipped() {
+    local app="$1" reason="${2:-sin cambios}"
+    _emit_banner "1;33" "" "$(printf '  ⏭️  OMITIDA: %s  (%s)' "$app" "$reason")"
+}
+
+print_app_failure() {
+    local app="$1" start_ts="$2" logfile="${3:-}"
+    local dur=$(( $(date +%s) - start_ts ))
+    _emit_banner "1;31" "$logfile" "$(printf '  ❌ FALLÓ: %s  (%s)\n     Revisa logs/%s.log para detalles' \
+        "$app" "$(_format_duration "$dur")" "$app")"
 }
 
 if [ "${1-}" = "clean" ]; then
@@ -149,6 +233,9 @@ if [ "$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)" -gt 0 ]; then
 	jq -r 'to_entries[] | "  - \(.key) (\(.value.attempts) intento(s))"' "$FAILED_APPS_FILE"
 fi
 
+# 🆕 Banner global de inicio
+print_run_header "${1:-config.toml}"
+
 # Preservar APKs del release anterior para no perder las apps omitidas
 if [ -n "${GITHUB_REPOSITORY:-}" ] && [ -n "${RELEASE_TAG:-stable}" ]; then
     pr "Preservando APKs previos del release '$RELEASE_TAG'..."
@@ -174,6 +261,8 @@ fi
 for table_name in $(toml_get_table_names); do
 	if [ "$table_name" = "Morphe-Desktop" ]; then continue; fi
 	if [ -z "$table_name" ]; then continue; fi
+
+	app_start_ts=$(date +%s)
 
 	was_failed_before=false
 	if jq -e --arg app "$table_name" 'has($app)' "$FAILED_APPS_FILE" >/dev/null 2>&1; then
@@ -219,10 +308,14 @@ for table_name in $(toml_get_table_names); do
 			pr "Parches universales a habilitar para $table_name: ${enable_patches[*]}"
 		fi
 
-		pr "Procesando aplicación: $table_name (Fuente: $patch_repo)"
-
 		mkdir -p "$TEMP_DIR/$table_name"
 		raw_apk="$TEMP_DIR/$table_name/raw.apk"
+
+		# 🆕 Definir el log de la app ANTES del header para que el banner lo incluya
+		app_log="$LOGS_DIR/${table_name}.log"
+		: > "$app_log"
+
+		print_app_header "$table_name" "$patch_repo" "${app_args[channel]}" "${app_args[pkg_name]}" "${app_args[brand]}" "${app_args[arch]}" "$app_log"
 
 		# ==================================================================
 		# 2. Obtener tag, construir URL, validar JSON y generar fallback
@@ -349,6 +442,7 @@ for table_name in $(toml_get_table_names); do
 			pr "  Reintentando por fallo previo (ignorando comparación de versiones)"
 		elif ! should_build_app "$table_name" "$patch_repo" "${app_args[channel]}" "$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}" "${app_args[pkg_name]}" "$new_patches_hash"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
+			print_app_skipped "$table_name" "sin cambios"
 			exit 0
 		fi
 
@@ -363,8 +457,7 @@ for table_name in $(toml_get_table_names); do
 		patched_apk="$BUILD_DIR/$apk_filename"
 		pr "Nombre del APK: $apk_filename"
 
-		# 2d. Init log
-		app_log="$LOGS_DIR/${table_name}.log"
+		# 2d. Init log (append: el banner del header ya escribió al inicio)
 		{
 			echo "=== Parcheo: $table_name ==="
 			echo "Fecha: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -379,7 +472,7 @@ for table_name in $(toml_get_table_names); do
 			echo "Inclusive patches: ${app_args[inclusive_patches]}"
 			echo "Patches hash: $new_patches_hash"
 			echo ""
-		} > "$app_log"
+		} >> "$app_log"
 
 		# 3d. force_flag (no cambia entre reintentos)
 		declare -a force_flag=()
@@ -934,6 +1027,8 @@ for table_name in $(toml_get_table_names); do
 			}' \
 			versions_log.json > "$tmp_vlog" && mv "$tmp_vlog" versions_log.json
 
+		print_app_success "$table_name" "$patched_apk" "$new_patches_hash" "$target_apk_ver" "$latest_applied_tag" "$app_start_ts" "$app_log"
+
 		{
 			echo ""
 			echo "--- Fin del parcheo ---"
@@ -959,6 +1054,7 @@ for table_name in $(toml_get_table_names); do
 		fi
 	else
 		wpr "App '$table_name' falló. Continuando con la siguiente."
+		print_app_failure "$table_name" "$app_start_ts" "$LOGS_DIR/${table_name}.log"
 
 		tmp_failed=$(mktemp)
 		jq --arg app "$table_name" \
@@ -1004,6 +1100,9 @@ if [ -s "$JSON_FAILURES_FILE" ]; then
 	done < "$JSON_FAILURES_FILE"
 	wpr "  Revisa el CLI de Morphe y el formato del repo de parches antes del próximo run."
 fi
+
+# 🆕 Banner global de cierre
+print_run_footer "$(( $(date +%s) - RUN_START_TS ))"
 
 pr "Subiendo artefactos al Release de GitHub..."
 export RELEASE_TAG="${RELEASE_TAG:-stable}"
