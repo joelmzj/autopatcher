@@ -30,7 +30,7 @@ compute_patches_hash_for_pkg() {
 		return 1
 	fi
 
-	# Normaliza formato: acepta tanto {"patches":[...]} como [...] top-level
+	# Normaliza formato: {"patches":[...]} o [...] top-level
 	local normalized
 	normalized=$(echo "$json_content" | jq -c '
 		if (.patches | type) == "array" then .patches
@@ -38,11 +38,22 @@ compute_patches_hash_for_pkg() {
 		else error("no patches array") end
 	' 2>/dev/null) || return 1
 
-	# Hash sobre el subconjunto compatible, envuelto en array para que
-	# "sin parches para este paquete" sea [] y no una salida vacía ambigua
+	# Hash sobre el subconjunto compatible, soportando ambos formatos:
+	#   - array:  [{ "packageName": "...", "targets": [...] }, ...]  (ReVanced/Morphe)
+	#   - object: { "pkg": ["ver", ...], ... }                        (Hush*)
 	echo "$normalized" \
-		| jq -S --arg pkg "$pkg" \
-			'[.[] | select(.compatiblePackages // [] | index($pkg))]' \
+		| jq -S --arg pkg "$pkg" '
+			[.[] | select(
+				(.compatiblePackages // []) as $cp |
+				if ($cp | type) == "array" then
+					($cp | any((.packageName // "") == $pkg))
+				elif ($cp | type) == "object" then
+					$cp | has($pkg)
+				else
+					false
+				end
+			)]
+		' \
 		| sha256sum | cut -d' ' -f1
 }
 
@@ -220,6 +231,7 @@ for table_name in $(toml_get_table_names); do
 		if [ -z "$latest_applied_tag" ]; then
 			latest_applied_tag="unknown"
 		fi
+		pr "  Tag de parches remoto: $latest_applied_tag (canal: ${app_args[channel]})"
 
 		if [ "${app_args[patches_list_in_release]}" = "true" ] && [ "$latest_applied_tag" != "unknown" ]; then
 			patches_json_url="https://github.com/${patch_repo}/releases/download/${latest_applied_tag}/patches-list.json"
@@ -231,9 +243,12 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		json_is_valid=false
+		pr "  → Descargando patches-list.json desde: $patches_json_url"          # 🆕 2a
 		if curl -fsSL "$patches_json_url" 2>/dev/null | jq -e 'type == "object" and has("patches")' >/dev/null 2>&1; then
 			json_is_valid=true
+			pr "    ✓ JSON válido desde URL principal"                              # 🆕
 		else
+			wpr "    ✗ URL principal inválida o inexistente; probando alternativa..."  # 🆕
 			if [ "$latest_applied_tag" != "unknown" ]; then
 				alt_url=""
 				if [ "${app_args[patches_list_in_release]}" = "true" ]; then
@@ -243,15 +258,19 @@ for table_name in $(toml_get_table_names); do
 					alt_url="https://github.com/${patch_repo}/releases/download/${latest_applied_tag}/patches-list.json"
 				fi
 
+				pr "  → Reintentando patches-list.json desde: $alt_url"             # 🆕 2b
 				if curl -fsSL "$alt_url" 2>/dev/null | jq -e 'type == "object" and has("patches")' >/dev/null 2>&1; then
 					patches_json_url="$alt_url"
 					json_is_valid=true
+					pr "    ✓ JSON válido desde URL alternativa"                     # 🆕
+				else
+					wpr "    ✗ URL alternativa inválida o inexistente"              # 🆕
 				fi
 			fi
 		fi
 
 		if [ "$json_is_valid" = "false" ]; then
-			pr "  JSON de parches inválido o inexistente. Generando fallback desde Morphe CLI..."
+			pr "  → Generando patches-list.json vía Morphe CLI (repo: $patch_repo, pkg: ${app_args[pkg_name]})"  # 🆕 2c
 			generated_json="$TEMP_DIR/$table_name/generated_patches.json"
 
 			rel_flag=""
@@ -268,9 +287,9 @@ for table_name in $(toml_get_table_names); do
 
 				patches_json_url="$generated_json"
 				json_is_valid=true
-				pr "  ✅ JSON generado exitosamente en $patches_json_url"
+				pr "    ✓ JSON generado exitosamente en: $patches_json_url"         # 🆕
 			else
-				wpr "  ❌ Falló la generación del JSON desde el CLI"
+				wpr "    ✗ Falló la generación del JSON desde el CLI"               # 🆕
 			fi
 		fi
 
@@ -607,6 +626,7 @@ for table_name in $(toml_get_table_names); do
 			java -jar "$MORPHE_CLI_JAR" patch \
 				-p="https://github.com/$patch_repo" \
 				"${channel_flag[@]}" \
+				--continue-on-error \
 				-o="$patched_apk" \
 				--keystore="$RVB_KEYSTORE" \
 				--keystore-password="$RVB_KEYSTORE_PASS" \
@@ -643,23 +663,28 @@ for table_name in $(toml_get_table_names); do
 			applied=${applied:-0}
 			skipped=$(echo "$new_log" | grep -c 'WARNING: Skipping "' || true)
 			skipped=${skipped:-0}
+			failed=$(echo "$new_log" | grep -c 'ERROR: FAILED:' || true)
+			failed=${failed:-0}
 			total=$((applied + skipped))
+
+			if [ "$failed" -gt 0 ]; then
+				wpr "  ⚠️  $failed parche(s) fallaron individualmente (continue-on-error)"
+			fi
 
 			bad_patch=false
 			if [ "$applied" -eq 0 ] && [ "$skipped" -gt 0 ]; then
 				bad_patch=true
 				pr "  ⚠️  Morphe aplicó 0 parches ($skipped skipped) → posible skew"
+			elif [ "$applied" -eq "$failed" ] && [ "$failed" -gt 0 ]; then
+				# Todos los parches intentados fallaron → APK inservible
+				bad_patch=true
+				pr "  ⚠️  Todos los $failed parches fallaron → APK sin cambios reales"
 			elif [ "$total" -ge 5 ]; then
 				ratio=$(( skipped * 100 / total ))
 				if [ "$ratio" -ge 50 ]; then
 					bad_patch=true
 					pr "  ⚠️  Morphe saltó $skipped de $total (${ratio}%) → posible skew"
 				fi
-			fi
-
-			if [ "$bad_patch" = "false" ]; then
-				final_success=true
-				break
 			fi
 
 			# ---- APK basura: eliminar antes de decidir retry ----
@@ -767,6 +792,7 @@ for table_name in $(toml_get_table_names); do
 				if java -jar "$MORPHE_CLI_JAR" patch \
 					-p="https://github.com/$patch_repo" \
 					"${channel_flag[@]}" \
+					--continue-on-error \
 					-o="$module_apk_tmp" \
 					--keystore="$RVB_KEYSTORE" \
 					--keystore-password="$RVB_KEYSTORE_PASS" \

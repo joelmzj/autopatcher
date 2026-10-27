@@ -655,6 +655,17 @@ dl_apkmirror() {
 
 # ==============================================================================
 # RESOLUCIÓN INTELIGENTE DE VERSIONES DESDE EL BUNDLE DE PARCHES
+# ------------------------------------------------------------------------------
+# Firma: resolve_target_version_from_bundle <json_source> <pkg_name> <mode>
+#   mode: "auto" | "experimental" | (cualquier otro → tratado como estable)
+#
+# Reglas:
+#   1. Filtra SIEMPRE por packageName == pkg_name (no contamina con otros paquetes).
+#   2. Prioriza `compatibility[]` (tiene packageName + flag experimental).
+#   3. Fallback a `compatiblePackages[]` (soporta array ReVanced/Morphe y dict Hush).
+#   4. Respeta `experimental`/`isExperimental` de cada target.
+#   5. auto/stable → prefiere estables; cae a exp si no hay estables.
+#      experimental → prefiere exp; cae a estable si no hay exp.
 # ==============================================================================
 
 resolve_target_version_from_bundle() {
@@ -666,7 +677,6 @@ resolve_target_version_from_bundle() {
 import urllib.request
 import json
 import sys
-import os
 import re
 
 source     = sys.argv[1]
@@ -675,7 +685,6 @@ mode       = sys.argv[3]
 
 data = None
 
-# 🆕 Detectar si es una URL de internet o un archivo local
 if source.startswith("http"):
     try:
         req = urllib.request.urlopen(source)
@@ -696,49 +705,73 @@ patches = data.get('patches', []) if isinstance(data, dict) else data
 stable_versions = []
 exp_versions = []
 
+def _add(lst, v):
+    if v and v not in lst:
+        lst.append(v)
+
+def _iter_targets_from_compatibility(compatibility):
+    """Solo targets cuyo packageName == target_pkg."""
+    if not isinstance(compatibility, list):
+        return
+    for comp in compatibility:
+        if not isinstance(comp, dict):
+            continue
+        if comp.get('packageName') != target_pkg:
+            continue
+        for t in comp.get('targets') or []:
+            if isinstance(t, dict):
+                yield t
+
+def _iter_targets_from_compatible_packages(compat_pkgs):
+    """Soporta array (ReVanced/Morphe) y dict (Hush)."""
+    if isinstance(compat_pkgs, dict):
+        for v in (compat_pkgs.get(target_pkg) or []):
+            if isinstance(v, str):
+                yield {"version": v, "experimental": False}
+    elif isinstance(compat_pkgs, list):
+        for pkg in compat_pkgs:
+            if not isinstance(pkg, dict):
+                continue
+            if pkg.get('packageName') == target_pkg:
+                for t in pkg.get('targets') or []:
+                    if isinstance(t, dict):
+                        yield t
+
 for patch in patches:
-    # Si por alguna razón llega un string suelto (JSON viejo de Piko), lo saltamos
     if isinstance(patch, str):
         continue
 
-    compat_pkgs = patch.get('compatiblePackages', {})
+    compat_pkgs   = patch.get('compatiblePackages') or {}
     compatibility = patch.get('compatibility') or []
 
-    if isinstance(compat_pkgs, dict):
-        for p, v_list in compat_pkgs.items():
-            if p == target_pkg and isinstance(v_list, list):
-                for v in v_list:
-                    if v not in stable_versions:
-                        stable_versions.append(v)
+    # Prioridad 1: compatibility[] (filtra por packageName dentro del generador)
+    targets = list(_iter_targets_from_compatibility(compatibility))
+    # Prioridad 2: si compatibility no aportó nada para este paquete, usar compatiblePackages
+    if not targets:
+        targets = list(_iter_targets_from_compatible_packages(compat_pkgs))
 
-    targets_pool = []
-    for comp in compatibility:
-        targets_pool.extend(comp.get('targets', []))
-    if isinstance(compat_pkgs, list):
-        for pkg in compat_pkgs:
-            if pkg.get('packageName') == target_pkg or pkg.get('name') == target_pkg:
-                targets_pool.extend(pkg.get('targets', []))
-
-    for t in targets_pool:
+    for t in targets:
         ver = t.get('version')
-        if ver:
-            is_exp = t.get('isExperimental', t.get('experimental', False))
-            if is_exp and ver not in exp_versions:
-                exp_versions.append(ver)
-            elif not is_exp and ver not in stable_versions:
-                stable_versions.append(ver)
+        if not ver:
+            continue
+        is_exp = bool(t.get('isExperimental', t.get('experimental', False)))
+        if is_exp:
+            _add(exp_versions, ver)
+        else:
+            _add(stable_versions, ver)
 
-# 🆕 Función para extraer la "clave de versión" (todos los números)
 def _version_key(v):
     return tuple(int(x) for x in re.findall(r'\d+', v))
 
-if mode == 'experimental' and exp_versions:
-    print(max(exp_versions, key=_version_key))
-elif stable_versions:
-    print(max(stable_versions, key=_version_key))
-elif exp_versions:
-    print(max(exp_versions, key=_version_key))
-else:
+if not stable_versions and not exp_versions:
     sys.exit(1)
+
+if mode == 'experimental':
+    pool = exp_versions or stable_versions
+else:
+    # auto / stable / cualquier otro → prefiere estable
+    pool = stable_versions or exp_versions
+
+print(max(pool, key=_version_key))
 EOF
 }
