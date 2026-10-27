@@ -1,5 +1,14 @@
+
+═══════════════════════════════════════════════════════════════
+  🚀 PROCESANDO: Google-Photos
+     Repo:    rushiranpise/morphe-patches
+     Pkg:     com.google.android.apps.photos
+     Canal:   stable  |  Brand: rushiranpise  |  Arch: arm64-v8a
+     Inicio:  2026-10-27T23:49:57Z
+═══════════════════════════════════════════════════════════════
+
 === Parcheo: Google-Photos ===
-Fecha: 2026-10-27T23:20:33Z
+Fecha: 2026-10-27T23:49:59Z
 APK version: 7.97.0.997578476
 Patches version: v1.23.0
 Patches source: rushiranpise/morphe-patches
@@ -59,7 +68,7 @@ INFO: Copied 1133 unchanged extension classes to 1 DEX files
 INFO: Changed 322 of 72961 classes to mutable
 INFO: Writing 322 new classes to new DEX files
 INFO: Processing 322 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793143249132/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793145013773/patcher/patched/newDex
 INFO: Stripped 321 modified classes from 8 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -71,9 +80,22 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 6036 of 15517 values in 37 files, 0 resource files and 0 configurations of patches for com.google.android.apps.photos
 INFO: Reusing 7979 unchanged archive entries, rebuilding 2 entries, dropping 36 entries, leaving out 8 replaced entries
-INFO: Resource APK scan: 2.2s write: 1.3s
+INFO: Resource APK scan: 2s write: 800ms
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk
-INFO: Patching took 21.0 seconds
+INFO: Patching took 24.2 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: Google-Photos  (43s)
+     APK:      Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk
+     APK ver:  7.97.0.997578476
+     Parches:  v1.23.0
+     Hash:     872d5408261d6b19cf2e38f9010b78e1...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk
+Fecha de fin: 2026-10-27T23:50:40Z

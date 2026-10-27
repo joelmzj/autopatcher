@@ -1,5 +1,14 @@
+
+═══════════════════════════════════════════════════════════════
+  🚀 PROCESANDO: Telegram
+     Repo:    SysAdminDoc/HushTelegram
+     Pkg:     org.telegram.messenger.web
+     Canal:   stable  |  Brand: HushTelegram  |  Arch: arm64-v8a
+     Inicio:  2026-10-27T23:46:41Z
+═══════════════════════════════════════════════════════════════
+
 === Parcheo: Telegram ===
-Fecha: 2026-10-27T23:17:09Z
+Fecha: 2026-10-27T23:46:43Z
 APK version: 13.1.0
 Patches version: v0.0.21
 Patches source: SysAdminDoc/HushTelegram
@@ -109,7 +118,7 @@ INFO: Copied 787 unchanged extension classes to 2 DEX files
 INFO: Changed 434 of 23193 classes to mutable
 INFO: Writing 434 new classes to new DEX files
 INFO: Processing 434 classes (single threaded mode)
-INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793143038691/patcher/patched/newDex
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793144812029/patcher/patched/newDex
 INFO: Stripped 362 modified classes from 4 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -126,4 +135,17 @@ INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Telegram-v13.1.0-HushTelegram-v0.0.21-arm64-v8a.apk
-INFO: Patching took 20.5 seconds
+INFO: Patching took 24.4 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: Telegram  (36s)
+     APK:      Telegram-v13.1.0-HushTelegram-v0.0.21-arm64-v8a.apk
+     APK ver:  13.1.0
+     Parches:  v0.0.21
+     Hash:     7972c3ce16186366f38bcf46f931aa20...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/Telegram-v13.1.0-HushTelegram-v0.0.21-arm64-v8a.apk
+Fecha de fin: 2026-10-27T23:47:17Z

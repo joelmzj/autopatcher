@@ -1,5 +1,14 @@
+
+═══════════════════════════════════════════════════════════════
+  🚀 PROCESANDO: X
+     Repo:    crimera/piko-newx
+     Pkg:     com.twitter.android
+     Canal:   stable  |  Brand: piko-newx  |  Arch: arm64-v8a
+     Inicio:  2026-10-27T23:48:55Z
+═══════════════════════════════════════════════════════════════
+
 === Parcheo: X ===
-Fecha: 2026-10-27T23:19:36Z
+Fecha: 2026-10-27T23:48:59Z
 APK version: 12.37.2-prod.01
 Patches version: v3.65.0
 Patches source: crimera/piko-newx
@@ -92,7 +101,7 @@ INFO: Copied 4362 unchanged extension classes to 2 DEX files
 INFO: Changed 1163 of 128690 classes to mutable
 INFO: Writing 1163 new classes to new DEX files
 INFO: Processing 1163 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793143210042/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793144974903/patcher/patched/newDex
 INFO: Stripped 1150 modified classes from 12 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -104,9 +113,22 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 1005 of 246770 values in 45 files, 1 resource files and 0 configurations of patches for com.twitter.android
 INFO: Reusing 4793 unchanged archive entries, rebuilding 3 entries, dropping 0 entries, leaving out 12 replaced entries
-INFO: Resource APK scan: 800ms write: 900ms
+INFO: Resource APK scan: 1s write: 700ms
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/X-v12.37.2-prod.01-piko-newx-v3.65.0-arm64-v8a.apk
-INFO: Patching took 18.2 seconds
+INFO: Patching took 20.9 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: X  (1m2s)
+     APK:      X-v12.37.2-prod.01-piko-newx-v3.65.0-arm64-v8a.apk
+     APK ver:  12.37.2-prod.01
+     Parches:  v3.65.0
+     Hash:     de32efb1d5914660218c57cd453ae1c7...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/X-v12.37.2-prod.01-piko-newx-v3.65.0-arm64-v8a.apk
+Fecha de fin: 2026-10-27T23:49:57Z
