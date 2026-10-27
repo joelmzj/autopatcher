@@ -9,6 +9,43 @@ echo '{}' > "$BUILD_JSON_FILE"
 
 trap "abort" INT
 
+# ==============================================================================
+# 🧮 Helper: hash estable de los parches aplicables a un paquete
+# ------------------------------------------------------------------------------
+# Firma: compute_patches_hash_for_pkg <json_source> <pkg_name>
+#   json_source: URL http(s) o ruta local a un patches-list.json
+# Devuelve SHA-256 del array ordenado de parches compatibles con el paquete.
+# Un array vacío "[]" produce un hash estable y distinguible de un fallo real.
+# ==============================================================================
+compute_patches_hash_for_pkg() {
+	local json_source="$1"
+	local pkg="$2"
+
+	local json_content
+	if [ -f "$json_source" ]; then
+		json_content=$(cat "$json_source" 2>/dev/null) || return 1
+	elif [[ "$json_source" == http* ]]; then
+		json_content=$(curl -fsSL "$json_source" 2>/dev/null) || return 1
+	else
+		return 1
+	fi
+
+	# Normaliza formato: acepta tanto {"patches":[...]} como [...] top-level
+	local normalized
+	normalized=$(echo "$json_content" | jq -c '
+		if (.patches | type) == "array" then .patches
+		elif type == "array" then .
+		else error("no patches array") end
+	' 2>/dev/null) || return 1
+
+	# Hash sobre el subconjunto compatible, envuelto en array para que
+	# "sin parches para este paquete" sea [] y no una salida vacía ambigua
+	echo "$normalized" \
+		| jq -S --arg pkg "$pkg" \
+			'[.[] | select(.compatiblePackages // [] | index($pkg))]' \
+		| sha256sum | cut -d' ' -f1
+}
+
 if [ "${1-}" = "clean" ]; then
 	rm -r "$TEMP_DIR" "$BUILD_DIR" build.md
 	exit 0
@@ -89,6 +126,12 @@ if [ ! -f "$FAILED_APPS_FILE" ]; then
 	echo '{}' > "$FAILED_APPS_FILE"
 fi
 export FAILED_APPS_FILE
+
+# 🆕 Reporte por-run de apps que no pudieron obtener/generar patches-list.json
+JSON_FAILURES_FILE="$LOGS_DIR/json_failures.txt"
+rm -f "$JSON_FAILURES_FILE"
+touch "$JSON_FAILURES_FILE"
+export JSON_FAILURES_FILE
 
 if [ "$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)" -gt 0 ]; then
 	wpr "Apps pendientes de reintento del run anterior:"
@@ -220,14 +263,37 @@ for table_name in $(toml_get_table_names); do
 				--patches="https://github.com/$patch_repo" \
 				$rel_flag \
 				-p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
-				python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json"; then
+				python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json" \
+				&& jq -e 'type == "object" and has("patches")' "$generated_json" >/dev/null 2>&1; then
 
 				patches_json_url="$generated_json"
-				pr "  JSON generado exitosamente en $patches_json_url"
+				json_is_valid=true
+				pr "  ✅ JSON generado exitosamente en $patches_json_url"
 			else
-				wpr "  Falló la generación del JSON desde el CLI."
+				wpr "  ❌ Falló la generación del JSON desde el CLI"
 			fi
 		fi
+
+		# 🆕 Sin JSON válido → se detiene la compilación de ESTA app.
+		# Se registra en JSON_FAILURES_FILE para que quede visible al final del run.
+		# Se usa exit 1 (no 0) para que la app quede en failed_apps y se reintente
+		# el próximo run (preserva el estado si ya venía de un fallo previo).
+		if [ "$json_is_valid" = "false" ]; then
+			wpr "  ❌ No se pudo obtener ni generar patches-list.json para $table_name"
+			wpr "     Posible cambio incompatible en el CLI o en el repo de parches ($patch_repo, ${app_args[channel]})."
+			wpr "     Revisa scripts/build.sh, el CLI o el formato del repo antes de reintentar."
+			echo "${table_name}|${app_args[pkg_name]}|${patch_repo}|${app_args[channel]}|no_json" >> "$JSON_FAILURES_FILE"
+			exit 1
+		fi
+
+		# 🆕 Calcular hash de los parches aplicables a esta app
+		new_patches_hash=$(compute_patches_hash_for_pkg "$patches_json_url" "${app_args[pkg_name]}") || new_patches_hash=""
+		if [ -z "$new_patches_hash" ]; then
+			wpr "  ❌ No se pudo calcular el hash de parches para $table_name"
+			echo "${table_name}|${app_args[pkg_name]}|${patch_repo}|${app_args[channel]}|hash_failed" >> "$JSON_FAILURES_FILE"
+			exit 1
+		fi
+		pr "  Hash de parches para ${app_args[pkg_name]}: $new_patches_hash"
 
 		# ==================================================================
 		# 2a. Resolver la versión objetivo
@@ -262,7 +328,7 @@ for table_name in $(toml_get_table_names); do
 			pr "  REBUILD_APPS activo: forzando recompilación de $table_name"
 		elif [ "$was_failed_before" = "true" ]; then
 			pr "  Reintentando por fallo previo (ignorando comparación de versiones)"
-		elif ! should_build_app "$table_name" "$patch_repo" "${app_args[channel]}" "$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}"; then
+		elif ! should_build_app "$table_name" "$patch_repo" "${app_args[channel]}" "$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}" "${app_args[pkg_name]}" "$new_patches_hash"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
 			exit 0
 		fi
@@ -292,6 +358,7 @@ for table_name in $(toml_get_table_names); do
 			echo "Build mode: ${app_args[build_mode]}"
 			echo "Force patch: ${app_args[force_patch]}"
 			echo "Inclusive patches: ${app_args[inclusive_patches]}"
+			echo "Patches hash: $new_patches_hash"
 			echo ""
 		} > "$app_log"
 
@@ -478,7 +545,6 @@ for table_name in $(toml_get_table_names); do
 				pr "  Leyendo lista de parches para forzar disabled-by-default..."
 
 				declare -a disabled_patches=()
-				# 🆕 Usamos $json_for_whitelist (que apunta al JSON actual de esta iteración)
 				mapfile -t disabled_patches < <(
 					if [ -f "$json_for_whitelist" ]; then
 						cat "$json_for_whitelist"
@@ -670,7 +736,6 @@ for table_name in $(toml_get_table_names); do
 
 			gmscore_present=false
 			json_content=""
-			# 🆕 Aquí usamos $patches_json_url original, porque GmsCore support suele ser universal
 			if [ -f "$patches_json_url" ]; then
 				json_content=$(cat "$patches_json_url")
 			else
@@ -806,6 +871,7 @@ for table_name in $(toml_get_table_names); do
 		   --arg src "$patch_repo" \
 		   --arg ch "${app_args[channel]}" \
 		   --arg patch_ver "$latest_applied_tag" \
+		   --arg patches_hash "$new_patches_hash" \
 		   --arg apk_ver "$target_apk_ver" \
 		   --arg final_pkg "$final_pkg_name" \
 		   --arg brand "${app_args[brand]}" \
@@ -821,6 +887,7 @@ for table_name in $(toml_get_table_names); do
 				patches_source: $src,
 				channel: $ch,
 				patches_version: $patch_ver,
+				patches_hash: $patches_hash,
 				apk_version: $apk_ver,
 				final_pkg_name: $final_pkg,
 				brand: $brand,
@@ -895,6 +962,15 @@ failed_count=$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)
 if [ "$failed_count" -gt 0 ]; then
 	wpr "App(s) pendiente(s) de reintento: $failed_count"
 	jq -r 'to_entries[] | "  - \(.key): \(.value.attempts) intento(s)"' "$FAILED_APPS_FILE"
+fi
+
+# 🆕 Reporte de apps que no pudieron obtener/generar patches-list.json
+if [ -s "$JSON_FAILURES_FILE" ]; then
+	wpr "App(s) con fallo al obtener/generar patches-list.json en este run:"
+	while IFS='|' read -r app pkg repo chan reason; do
+		wpr "  - $app ($pkg) desde $repo [$chan] (${reason:-unknown})"
+	done < "$JSON_FAILURES_FILE"
+	wpr "  Revisa el CLI de Morphe y el formato del repo de parches antes del próximo run."
 fi
 
 pr "Subiendo artefactos al Release de GitHub..."
