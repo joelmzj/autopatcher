@@ -1,5 +1,5 @@
 === Parcheo: YouTube-anddea ===
-Fecha: 2026-10-23T20:40:19Z
+Fecha: 2026-10-27T22:15:57Z
 APK version: 21.13.164
 Patches version: v4.4.0-dev.3
 Patches source: anddea/revanced-patches
@@ -9,6 +9,7 @@ Arch: arm64-v8a
 Build mode: both
 Force patch: false
 Inclusive patches: true
+Patches hash: e17c377135a6c44964df5c4b416b06258ec66f4365a5085a5215e88ba60b86ba
 
 
 --- Argumentos de parches (6) ---
@@ -43,19 +44,20 @@ INFO: Leaving 123 native library files in the input APK
 INFO: Sanitizing unpatched strings
 INFO: Escaping strings
 INFO: Executing patches
+INFO: Building instruction indexes for 58344 classes...
 INFO: Applied: Ambient mode control
 INFO: Applied: App refresh rate
 INFO: Applied: Bypass URL redirects
 INFO: Applied: Bypass image region restrictions
 INFO: Applied: Change form factor
-Oct 23, 2026 8:40:50 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:18 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Change player flyout menu toggles" is not supported in this version. Use YouTube versions up to 21.04.
 INFO: Applied: Change player flyout menu toggles
 INFO: Applied: Change share sheet
 INFO: Applied: Change start page
 INFO: Applied: Copy text
 INFO: Applied: Custom DPI
-Oct 23, 2026 8:40:51 PM app.morphe.util.Utils printInfo$app_morphe_patches
+Oct 27, 2026 10:16:19 PM app.morphe.util.Utils printInfo$app_morphe_patches
 INFO: Custom Shorts action buttons: added 12 drawable aliases, skipped 16 existing aliases.
 INFO: Applied: Custom Shorts action buttons
 INFO: Applied: Custom double tap length
@@ -73,18 +75,18 @@ INFO: Applied: Disable scrolling speed limit
 INFO: Applied: Disable sign in to TV popup
 INFO: Applied: Enable debug logging
 INFO: Applied: Enable gradient loading screen
-Oct 23, 2026 8:40:55 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:22 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Downloads button in You tab" is not supported in this version. Use YouTube 21.39.525.
 INFO: Applied: Feed video actions
 INFO: Applied: Force original audio
-Oct 23, 2026 8:40:55 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:22 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Disable landscape mode" is not supported in this version. Use YouTube versions up to 20.51.
 INFO: Applied: Fullscreen components
 INFO: Applied: Fullscreen video scale
 INFO: Applied: Gemini
 INFO: Applied: GmsCore support
 INFO: Applied: Hide Shorts dimming
-Oct 23, 2026 8:40:58 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:24 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Hide accessibility controls dialog" is not supported in this version. Use YouTube 20.45 or earlier.
 INFO: Applied: Hide accessibility controls dialog
 INFO: Applied: Hide action buttons
@@ -92,7 +94,7 @@ INFO: Applied: Hide ads
 INFO: Applied: Hide comments components
 INFO: Applied: Hide feed components
 INFO: Applied: Hide feed flyout menu
-Oct 23, 2026 8:40:59 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:24 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Disable PiP notification" is not supported in this version. Use YouTube versions up to 20.51.
 INFO: Applied: Hide layout components
 INFO: Applied: Hide player buttons
@@ -146,7 +148,7 @@ INFO: Copied 8093 unchanged extension classes to 2 DEX files
 INFO: Changed 930 of 58344 classes to mutable
 INFO: Writing 930 new classes to new DEX files
 INFO: Processing 930 classes in parallel (4 threads)
-INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792788037339/patcher/patched/newDex
+INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793139370908/patcher/patched/newDex
 INFO: Stripped 881 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -158,12 +160,12 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 66061 of 282162 values in 117 files, 1696 resource files and 0 configurations of patches for com.google.android.youtube
 INFO: Reusing 16111 unchanged archive entries, rebuilding 1698 entries, dropping 87 entries, leaving out 6 replaced entries
-INFO: Resource APK scan: 2.8s write: 1.9s
+INFO: Resource APK scan: 1.5s write: 1.5s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.3-arm64-v8a.apk
-INFO: Patching took 40.4 seconds
+INFO: Patching took 26.2 seconds
 
 --- Salida de Morphe CLI (variante módulo) ---
 
@@ -190,19 +192,20 @@ INFO: Leaving 123 native library files in the input APK
 INFO: Sanitizing unpatched strings
 INFO: Escaping strings
 INFO: Executing patches
+INFO: Building instruction indexes for 58344 classes...
 INFO: Applied: Ambient mode control
 INFO: Applied: App refresh rate
 INFO: Applied: Bypass URL redirects
 INFO: Applied: Bypass image region restrictions
 INFO: Applied: Change form factor
-Oct 23, 2026 8:41:34 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:46 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Change player flyout menu toggles" is not supported in this version. Use YouTube versions up to 21.04.
 INFO: Applied: Change player flyout menu toggles
 INFO: Applied: Change share sheet
 INFO: Applied: Change start page
 INFO: Applied: Copy text
 INFO: Applied: Custom DPI
-Oct 23, 2026 8:41:35 PM app.morphe.util.Utils printInfo$app_morphe_patches
+Oct 27, 2026 10:16:47 PM app.morphe.util.Utils printInfo$app_morphe_patches
 INFO: Custom Shorts action buttons: added 12 drawable aliases, skipped 16 existing aliases.
 INFO: Applied: Custom Shorts action buttons
 INFO: Applied: Custom double tap length
@@ -220,17 +223,17 @@ INFO: Applied: Disable scrolling speed limit
 INFO: Applied: Disable sign in to TV popup
 INFO: Applied: Enable debug logging
 INFO: Applied: Enable gradient loading screen
-Oct 23, 2026 8:41:38 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:50 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Downloads button in You tab" is not supported in this version. Use YouTube 21.39.525.
 INFO: Applied: Feed video actions
 INFO: Applied: Force original audio
-Oct 23, 2026 8:41:39 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:50 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Disable landscape mode" is not supported in this version. Use YouTube versions up to 20.51.
 INFO: Applied: Fullscreen components
 INFO: Applied: Fullscreen video scale
 INFO: Applied: Gemini
 INFO: Applied: Hide Shorts dimming
-Oct 23, 2026 8:41:39 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:50 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Hide accessibility controls dialog" is not supported in this version. Use YouTube 20.45 or earlier.
 INFO: Applied: Hide accessibility controls dialog
 INFO: Applied: Hide action buttons
@@ -238,7 +241,7 @@ INFO: Applied: Hide ads
 INFO: Applied: Hide comments components
 INFO: Applied: Hide feed components
 INFO: Applied: Hide feed flyout menu
-Oct 23, 2026 8:41:40 PM app.morphe.util.Utils printWarn$app_morphe_patches
+Oct 27, 2026 10:16:51 PM app.morphe.util.Utils printWarn$app_morphe_patches
 WARNING: "Disable PiP notification" is not supported in this version. Use YouTube versions up to 20.51.
 INFO: Applied: Hide layout components
 INFO: Applied: Hide player buttons
@@ -292,7 +295,7 @@ INFO: Copied 8093 unchanged extension classes to 2 DEX files
 INFO: Changed 852 of 58344 classes to mutable
 INFO: Writing 852 new classes to new DEX files
 INFO: Processing 852 classes in parallel (4 threads)
-INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792788080819/patcher/patched/newDex
+INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793139399019/patcher/patched/newDex
 INFO: Stripped 803 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -303,18 +306,18 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 66061 of 282162 values in 117 files, 1696 resource files and 0 configurations of patches for com.google.android.youtube
 INFO: Reusing 16111 unchanged archive entries, rebuilding 1698 entries, dropping 87 entries, leaving out 6 replaced entries
-INFO: Resource APK scan: 2.8s write: 1.8s
+INFO: Resource APK scan: 1.4s write: 1.4s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/temp/YouTube-anddea/module.apk
-INFO: Patching took 38.2 seconds
+INFO: Patching took 24.0 seconds
 
 --- Contenido de module.prop ---
 id=youtube-anddea-stable-arm64
 name=YouTube-anddea (anddea)
 version=v21.13.164 (patches v4.4.0-dev.3.mpp)
-versionCode=20261023
+versionCode=2026102722
 author=joelmzj
 description=YouTube-anddea (anddea) module
 updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/youtube-anddea-arm64.json
@@ -323,4 +326,4 @@ updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/y
 --- Fin del parcheo ---
 APK final: build/YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.3-arm64-v8a.apk
 Módulo: build/YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.3-arm64-v8a.zip
-Fecha de fin: 2026-10-23T20:42:07Z
+Fecha de fin: 2026-10-27T22:17:08Z

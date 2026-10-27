@@ -1,5 +1,5 @@
 === Parcheo: Facebook ===
-Fecha: 2026-10-27T01:48:16Z
+Fecha: 2026-10-27T22:11:34Z
 APK version: 584.0.0.51.56
 Patches version: v0.18.1
 Patches source: SysAdminDoc/Hushfacebook
@@ -9,6 +9,7 @@ Arch: arm64-v8a
 Build mode: apk
 Force patch: false
 Inclusive patches: true
+Patches hash: 0cf0ab34038d01c74313fde5f9392e9b1ef87e5f2bcf89602a5b5b1eb7506234
 
 
 --- Argumentos de parches (3) ---
@@ -31,7 +32,7 @@ INFO: Filtering patches for com.facebook.katana v584.0.0.51.56...
 INFO: Applying 102 patches...
 INFO: Deleting existing temporary files directory
 INFO: Decoding the manifest
-INFO: Decoding resources on request, 22063 files can be decoded
+INFO: Decoding resources on request, 22066 files can be decoded
 INFO: Executing patches
 INFO: Building instruction indexes for 215328 classes...
 INFO: Applied: AMOLED black theme
@@ -80,7 +81,7 @@ INFO: Applied: Hide sponsored profile posts
 INFO: Applied: Hide sponsored reels
 INFO: Applied: Hide sponsored search results
 INFO: Applied: Hide sponsored stories
-Oct 27, 2026 1:49:55 AM app.morphe.patches.facebook.misc.extension.PartialTargetsKt handleTargets
+Oct 27, 2026 10:12:53 PM app.morphe.patches.facebook.misc.extension.PartialTargetsKt handleTargets
 INFO: Hide suggested and promoted posts: 6 of the 15 suggested feed unit classes left Facebook before 584.0.0.51.56, which is expected. The patch goes on with the 9 it found.
 INFO: Applied: Hide suggested and promoted posts
 INFO: Applied: Hide suggested stories
@@ -144,25 +145,25 @@ INFO: Copied 1830 unchanged extension classes to 2 DEX files
 INFO: Changed 2954 of 215328 classes to mutable
 INFO: Writing 2954 new classes to new DEX files
 INFO: Processing 2954 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793065762579/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793139150556/patcher/patched/newDex
 INFO: Stripped 2910 modified classes from 20 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
 INFO: Stripped 0 lib files
-INFO: Decoded 13 of 22063 files on request
+INFO: Decoded 13 of 22066 files on request
 INFO: Unescaping strings
 INFO: Processing aapt macros
 INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 3339 of 3339 values in 5 files, 22 resource files and 0 configurations of patches for com.facebook.katana
 INFO: Reusing 21854 unchanged archive entries, rebuilding 24 entries, dropping 0 entries, leaving out 23 replaced entries
-INFO: Resource APK scan: 500ms write: 1.2s
+INFO: Resource APK scan: 300ms write: 1.3s
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Facebook-v584.0.0.51.56-HushFacebook-v0.18.1-arm64-v8a.apk
-INFO: Patching took 84.6 seconds
+INFO: Patching took 57.9 seconds
 
 --- Fin del parcheo ---
 APK final: build/Facebook-v584.0.0.51.56-HushFacebook-v0.18.1-arm64-v8a.apk
-Fecha de fin: 2026-10-27T01:50:48Z
+Fecha de fin: 2026-10-27T22:13:29Z

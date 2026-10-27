@@ -1,5 +1,5 @@
 === Parcheo: Pinterest ===
-Fecha: 2026-10-23T20:31:55Z
+Fecha: 2026-10-27T22:10:09Z
 APK version: 14.41.0
 Patches version: v0.0.13
 Patches source: SysAdminDoc/HushPinterest
@@ -9,6 +9,7 @@ Arch: arm64-v8a
 Build mode: apk
 Force patch: false
 Inclusive patches: true
+Patches hash: 67228732cdc1f2dc2d8ff07bfbb835ed684bcaad11130faa982640be61b56b7e
 
 
 --- Argumentos de parches (2) ---
@@ -34,6 +35,7 @@ INFO: Decoding resources on request, 7073 files can be decoded
 INFO: Executing patches
 INFO: Applied: AMOLED black
 INFO: Applied: Disable analytics
+INFO: Building instruction indexes for 75525 classes...
 INFO: Applied: Disable update nag
 INFO: Applied: Download board
 INFO: Applied: Download pins
@@ -71,7 +73,7 @@ INFO: Copied 632 unchanged extension classes to 2 DEX files
 INFO: Changed 244 of 75525 classes to mutable
 INFO: Writing 244 new classes to new DEX files
 INFO: Processing 244 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1792787531103/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793139043200/patcher/patched/newDex
 INFO: Stripped 231 modified classes from 7 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -83,13 +85,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 18 of 6754 values in 1 files, 0 resource files and 0 configurations of patches for com.pinterest
 INFO: Reusing 7010 unchanged archive entries, rebuilding 2 entries, dropping 0 entries, leaving out 7 replaced entries
-INFO: Resource APK scan: 200ms write: 300ms
+INFO: Resource APK scan: 200ms write: 400ms
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pinterest-v14.41.0-HushPinterest-v0.0.13-arm64-v8a.apk
-INFO: Patching took 22.2 seconds
+INFO: Patching took 14.3 seconds
 
 --- Fin del parcheo ---
 APK final: build/Pinterest-v14.41.0-HushPinterest-v0.0.13-arm64-v8a.apk
-Fecha de fin: 2026-10-23T20:32:34Z
+Fecha de fin: 2026-10-27T22:10:58Z

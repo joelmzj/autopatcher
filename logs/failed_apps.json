@@ -1,1 +1,27 @@
-{}
+{
+  "Telegram": {
+    "first_failed_at": "2026-10-27T22:10:08Z",
+    "last_attempt_at": "2026-10-27T22:10:08Z",
+    "attempts": 1
+  },
+  "YouTube-Tablet-Morphe": {
+    "first_failed_at": "2026-10-27T22:17:20Z",
+    "last_attempt_at": "2026-10-27T22:17:20Z",
+    "attempts": 1
+  },
+  "Waze": {
+    "first_failed_at": "2026-10-27T22:19:03Z",
+    "last_attempt_at": "2026-10-27T22:19:03Z",
+    "attempts": 1
+  },
+  "X": {
+    "first_failed_at": "2026-10-27T22:19:38Z",
+    "last_attempt_at": "2026-10-27T22:19:38Z",
+    "attempts": 1
+  },
+  "Google-Photos": {
+    "first_failed_at": "2026-10-27T22:20:12Z",
+    "last_attempt_at": "2026-10-27T22:20:12Z",
+    "attempts": 1
+  }
+}

@@ -1,7 +1,7 @@
 === Parcheo: YouTube-Morphe ===
-Fecha: 2026-10-27T13:50:21Z
+Fecha: 2026-10-27T22:15:28Z
 APK version: 21.23.492
-Patches version: v1.49.0-dev.8
+Patches version: v1.49.0-dev.9
 Patches source: MorpheApp/morphe-patches
 Channel: dev
 Brand: Morphe
@@ -9,6 +9,7 @@ Arch: arm64-v8a
 Build mode: apk
 Force patch: false
 Inclusive patches: true
+Patches hash: 37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570
 
 
 --- Argumentos de parches (4) ---
@@ -21,10 +22,10 @@ Inclusive patches: true
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/MorpheApp/morphe-patches/dev/patches-bundle.json
-INFO: GitHub: bundle (dev) → v1.49.0-dev.8 @ https://github.com/MorpheApp/morphe-patches/releases/download/v1.49.0-dev.8/patches-1.49.0-dev.8.mpp
-INFO: Latest dev via patches-bundle.json: v1.49.0-dev.8
-INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.49.0-dev.8__patches-1.49.0-dev.8.mpp (13919007 bytes)
-INFO: Resolved patches (v1.49.0-dev.8) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.49.0-dev.8__patches-1.49.0-dev.8.mpp
+INFO: GitHub: bundle (dev) → v1.49.0-dev.9 @ https://github.com/MorpheApp/morphe-patches/releases/download/v1.49.0-dev.9/patches-1.49.0-dev.9.mpp
+INFO: Latest dev via patches-bundle.json: v1.49.0-dev.9
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.49.0-dev.9__patches-1.49.0-dev.9.mpp (14239009 bytes)
+INFO: Resolved patches (v1.49.0-dev.9) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.49.0-dev.9__patches-1.49.0-dev.9.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.google.android.youtube v21.23.492...
@@ -38,7 +39,7 @@ INFO: Deleting existing temporary files directory
 INFO: Decoding the manifest
 INFO: Decoding resources on request, 16706 files can be decoded
 INFO: Executing patches
-INFO: Building instruction indexes for 59971 classes...
+INFO: Building instruction indexes for 59996 classes...
 INFO: Applied: AI channel filter
 INFO: Applied: Add to queue
 INFO: Applied: Ambient mode
@@ -149,12 +150,12 @@ INFO: Applied: Shorts icon style
 INFO: Applied: Player icon style
 INFO: Rebuilding APK...
 INFO: Compiling patched dex files (mode: STRIP_FAST)
-INFO: Copied 8137 unchanged extension classes to 3 DEX files
-INFO: Changed 1179 of 59971 classes to mutable
-INFO: Writing 1179 new classes to new DEX files
-INFO: Processing 1179 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793109035328/patcher/patched/newDex
-INFO: Stripped 1057 modified classes from 7 original DEX files
+INFO: Copied 8162 unchanged extension classes to 3 DEX files
+INFO: Changed 1185 of 59996 classes to mutable
+INFO: Writing 1185 new classes to new DEX files
+INFO: Processing 1185 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793139342713/patcher/patched/newDex
+INFO: Stripped 1063 modified classes from 7 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
 INFO: Stripped 102 lib files
@@ -164,16 +165,16 @@ INFO: Post-processing package name change
 INFO: Processing aapt macros
 INFO: Generating new resource IDs
 INFO: Writing resource APK
-INFO: Encoded 98669 of 98669 values in 74 files, 1268 resource files and 541 configurations of patches for com.google.android.youtube
+INFO: Encoded 106168 of 106168 values in 77 files, 1268 resource files and 541 configurations of patches for com.google.android.youtube
 INFO: Reusing 16227 unchanged archive entries, rebuilding 1270 entries, dropping 102 entries, leaving out 7 replaced entries
-INFO: Resource APK scan: 2s write: 1.4s
+INFO: Resource APK scan: 1.4s write: 1.4s
 INFO: Moving 3 resource files
 INFO: Using compiled resource APK as output base
 INFO: Aligning APK
 INFO: Signing APK
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.8-arm64-v8a.apk
-INFO: Patching took 20.0 seconds
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.9-arm64-v8a.apk
+INFO: Patching took 12.6 seconds
 
 --- Fin del parcheo ---
-APK final: build/YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.8-arm64-v8a.apk
-Fecha de fin: 2026-10-27T13:50:57Z
+APK final: build/YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.9-arm64-v8a.apk
+Fecha de fin: 2026-10-27T22:15:56Z
