@@ -66,18 +66,18 @@
   "Facebook": {
     "patches_source": "SysAdminDoc/Hushfacebook",
     "channel": "stable",
-    "patches_version": "v0.18.0",
+    "patches_version": "v0.18.1",
     "apk_version": "584.0.0.51.56",
     "final_pkg_name": "com.facebook.katana",
     "brand": "HushFacebook",
     "arch": "arm64-v8a",
-    "stable_file": "Facebook-v584.0.0.51.56-HushFacebook-v0.18.0-arm64-v8a.apk",
+    "stable_file": "Facebook-v584.0.0.51.56-HushFacebook-v0.18.1-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Facebook-v584.0.0.51.56-HushFacebook-v0.17.0-arm64-v8a.apk",
+    "snapshot_file": "Facebook-v584.0.0.51.56-HushFacebook-v0.18.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Facebook-v584.0.0.51.56-HushFacebook-v0.17.0-arm64-v8a.apk",
+    "prev_stable_file": "Facebook-v584.0.0.51.56-HushFacebook-v0.18.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-24T19:15:07Z"
+    "timestamp": "2026-10-27T01:50:48Z"
   },
   "TikTok": {
     "patches_source": "SysAdminDoc/hushfeed",
