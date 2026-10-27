@@ -32,6 +32,7 @@ on:
           - "GoogleMaps"
           - "Waze"
           - "X"
+          - "Google-Photos"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset."
