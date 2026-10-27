@@ -687,6 +687,12 @@ for table_name in $(toml_get_table_names); do
 				fi
 			fi
 
+			# 🆕 CRÍTICO: si el parcheo fue OK, salir del bucle ANTES de borrar el APK
+			if [ "$bad_patch" = "false" ]; then
+				final_success=true
+				break
+			fi
+
 			# ---- APK basura: eliminar antes de decidir retry ----
 			rm -f "$patched_apk"
 
