@@ -53,19 +53,19 @@
   "Messenger": {
     "patches_source": "SysAdminDoc/HushMessenger",
     "channel": "stable",
-    "patches_version": "v0.26.0",
-    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "patches_version": "v0.27.0",
+    "patches_hash": "40bf37a1f591c46786907e59d0f2498efabd13159cf0acc1bdec4c6f3c9fd721",
     "apk_version": "584.1.0.61.98",
     "final_pkg_name": "com.facebook.orca",
     "brand": "HushMessenger",
     "arch": "arm64-v8a",
-    "stable_file": "Messenger-v584.1.0.61.98-HushMessenger-v0.26.0-arm64-v8a.apk",
+    "stable_file": "Messenger-v584.1.0.61.98-HushMessenger-v0.27.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Messenger-v584.0.0.49.98-HushMessenger-v0.26.0-arm64-v8a.apk",
+    "snapshot_file": "Messenger-v584.1.0.61.98-HushMessenger-v0.26.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "Messenger-v584.1.0.61.98-HushMessenger-v0.26.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-27T22:11:33Z"
+    "timestamp": "2026-10-28T03:17:26Z"
   },
   "Facebook": {
     "patches_source": "SysAdminDoc/Hushfacebook",
