@@ -4,6 +4,25 @@
      Repo:    crimera/piko-newx
      Pkg:     com.twitter.android
      Canal:   stable  |  Brand: piko-newx  |  Arch: arm64-v8a
-     Inicio:  2026-10-28T17:00:28Z
+     Inicio:  2026-10-28T21:28:25Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: X ===
+Fecha: 2026-10-28T21:28:29Z
+APK version: 12.38.0-prod.01
+Patches version: v3.67.0
+Patches source: crimera/piko-newx
+Channel: stable
+Brand: piko-newx
+Arch: arm64-v8a
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+Patches hash: 6d9e73e83fa14cb1b09ee2cbf9e62c11a8a3b8e69256be4fc985c3cf8dc30bdb
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: X  (23s)
+     Revisa logs/X.log para detalles
 ═══════════════════════════════════════════════════════════════
 

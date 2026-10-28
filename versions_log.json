@@ -257,18 +257,18 @@
   "Google-Photos": {
     "patches_source": "rushiranpise/morphe-patches",
     "channel": "stable",
-    "patches_version": "v1.23.0",
-    "patches_hash": "872d5408261d6b19cf2e38f9010b78e1dfe068c5e5353ed30bfb7af845091f56",
-    "apk_version": "7.97.0.997578476",
+    "patches_version": "v1.23.1",
+    "patches_hash": "1c93643d46f999dd69334f1199b99ffab1d12bdec9b3656eef3a92c1bbdb400a",
+    "apk_version": "7.98.0.1001971222",
     "final_pkg_name": "app.morphe.android.apps.photos",
     "brand": "rushiranpise",
     "arch": "arm64-v8a",
-    "stable_file": "Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk",
+    "stable_file": "Google-Photos-v7.98.0.1001971222-rushiranpise-v1.23.1-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-27T23:50:40Z"
+    "timestamp": "2026-10-28T21:29:35Z"
   }
 }
