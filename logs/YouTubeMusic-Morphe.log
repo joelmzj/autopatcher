@@ -4,6 +4,137 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.apps.youtube.music
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-10-28T03:17:29Z
+     Inicio:  2026-10-28T10:17:42Z
 ═══════════════════════════════════════════════════════════════
 
+=== Parcheo: YouTubeMusic-Morphe ===
+Fecha: 2026-10-28T10:17:44Z
+APK version: 9.20.53
+Patches version: v1.49.0-dev.10
+Patches source: MorpheApp/morphe-patches
+Channel: dev
+Brand: Morphe
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Patches hash: 5ffe9a7ac373bbd679afc98f53742401316b2944d769942e19ae12dfb26b1923
+
+
+--- Argumentos de parches (4) ---
+  -e=Custom branding name for Reddit
+  -e=Hide Reddit search
+  -e=Network proxy
+  -e=Network proxy
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/MorpheApp/morphe-patches/dev/patches-bundle.json
+INFO: GitHub: bundle (dev) → v1.49.0-dev.10 @ https://github.com/MorpheApp/morphe-patches/releases/download/v1.49.0-dev.10/patches-1.49.0-dev.10.mpp
+INFO: Latest dev via patches-bundle.json: v1.49.0-dev.10
+INFO: GitHub: downloading patches-1.49.0-dev.10.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v1.49.0-dev.10/patches-1.49.0-dev.10.mpp
+INFO: GitHub: wrote 14258040 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.49.0-dev.10__patches-1.49.0-dev.10.mpp
+INFO: Resolved patches (v1.49.0-dev.10) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v1.49.0-dev.10__patches-1.49.0-dev.10.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.google.android.apps.youtube.music v9.20.53...
+INFO: Skipping disabled: Clone app (default)
+INFO: Skipping disabled: Change installer source (default)
+INFO: Skipping disabled: Override certificate pinning (default)
+INFO: Skipping disabled: Spoof signature (default)
+INFO: Skipping disabled: Disable Play Store updates (default)
+INFO: Applying 49 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 5436 files can be decoded
+INFO: Executing patches
+INFO: Building instruction indexes for 71313 classes...
+INFO: Applied: Android Auto
+INFO: Applied: App refresh rate
+INFO: Applied: Change header
+INFO: Applied: Change miniplayer color
+INFO: Applied: Change start page
+INFO: Applied: Check watch history domain name resolution
+INFO: Applied: Crossfade
+INFO: Applied: Custom branding
+INFO: Applied: Custom font
+INFO: Applied: Disable DRC audio
+INFO: Applied: Disable QUIC protocol
+INFO: Applied: Disable dislike redirection
+INFO: Applied: Downloads
+INFO: Applied: Enable audio/video switch
+INFO: Applied: Enable debugging
+INFO: Applied: Enable exclusive audio playback
+INFO: Applied: Enable forced miniplayer
+INFO: Applied: Enable swipe to dismiss miniplayer
+INFO: Applied: Force original audio
+INFO: Applied: Force portrait orientation
+INFO: Applied: GmsCore support
+INFO: Applied: Hide ads
+INFO: Applied: Hide buttons
+INFO: Applied: Hide flyout menu components
+INFO: Applied: Hide layout components
+INFO: Applied: Hide music action buttons
+INFO: Applied: Jam queue sharing
+INFO: Applied: Media notification controls
+INFO: Applied: Miniplayer previous and next buttons
+INFO: Applied: Navigation bar
+INFO: Applied: Network proxy
+INFO: Applied: Play albums songs
+INFO: Applied: Playback speed
+INFO: Applied: Playlist track tap action
+INFO: Applied: PoToken provider
+INFO: Applied: Remember repeat state
+INFO: Applied: Remember shuffle state
+INFO: Applied: Remove background playback restrictions
+INFO: Applied: Remove viewer discretion dialog
+INFO: Applied: Return YouTube Dislike
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Scrobbling
+INFO: Applied: Settings menu filter
+INFO: Applied: Skip silence
+INFO: Applied: SponsorBlock
+INFO: Applied: Spoof app version
+INFO: Applied: Spoof video streams
+INFO: Applied: Theme
+INFO: Applied: Third-party lyrics
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 6019 unchanged extension classes to 3 DEX files
+INFO: Changed 390 of 71313 classes to mutable
+INFO: Writing 390 new classes to new DEX files
+INFO: Processing 390 classes (single threaded mode)
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793182673936/patcher/patched/newDex
+INFO: Stripped 339 modified classes from 5 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 0 lib files
+INFO: Decoded 24 of 5436 files on request
+INFO: Unescaping strings
+INFO: Post-processing package name change
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 63034 of 63034 values in 73 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music
+INFO: Reusing 5119 unchanged archive entries, rebuilding 117 entries, dropping 0 entries, leaving out 5 replaced entries
+INFO: Resource APK scan: 1.5s write: 700ms
+INFO: Moving 3 resource files
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.49.0-dev.10-arm64-v8a.apk
+INFO: Patching took 13.6 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: YouTubeMusic-Morphe  (26s)
+     APK:      YouTubeMusic-Morphe-v9.20.53-Morphe-v1.49.0-dev.10-arm64-v8a.apk
+     APK ver:  9.20.53
+     Parches:  v1.49.0-dev.10
+     Hash:     5ffe9a7ac373bbd679afc98f53742401...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/YouTubeMusic-Morphe-v9.20.53-Morphe-v1.49.0-dev.10-arm64-v8a.apk
+Fecha de fin: 2026-10-28T10:18:08Z

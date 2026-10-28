@@ -4,6 +4,204 @@
      Repo:    SysAdminDoc/HushGram
      Pkg:     com.instagram.android
      Canal:   stable  |  Brand: HushGram  |  Arch: arm64-v8a
-     Inicio:  2026-10-28T03:14:28Z
+     Inicio:  2026-10-28T10:13:23Z
 ═══════════════════════════════════════════════════════════════
 
+=== Parcheo: Instagram ===
+Fecha: 2026-10-28T10:13:24Z
+APK version: 453.0.0.55.79
+Patches version: v0.0.17
+Patches source: SysAdminDoc/HushGram
+Channel: stable
+Brand: HushGram
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Patches hash: b078f5ba173b7297880f44e110f7c3e68806795557324fc9a031dd3f0b579be7
+
+
+--- Argumentos de parches (4) ---
+  -d=Install next to Instagram
+  -e=Change version code
+  -e=Pure black dark mode
+  -e=View DM photos and videos anonymously
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/HushGram/main/patches-bundle.json
+INFO: GitHub: bundle (main) → v0.0.17 @ https://github.com/SysAdminDoc/HushGram/releases/download/v0.0.17/patches-0.0.17.mpp
+INFO: Latest stable via patches-bundle.json: v0.0.17
+INFO: GitHub: downloading patches-0.0.17.mpp from https://github.com/SysAdminDoc/HushGram/releases/download/v0.0.17/patches-0.0.17.mpp
+INFO: GitHub: wrote 6576903 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.17__patches-0.0.17.mpp
+INFO: Resolved patches (v0.0.17) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushGram/v0.0.17__patches-0.0.17.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.instagram.android v453.0.0.55.79...
+INFO: Skipping disabled: Install next to Instagram
+INFO: Applying 122 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 24989 files can be decoded
+INFO: Executing patches
+INFO: Building instruction indexes for 220121 classes...
+INFO: Applied: Accent color
+INFO: Applied: Allow screenshots
+INFO: Applied: Ask before a call
+INFO: Applied: Ask before a like
+INFO: Applied: Ask before a refresh
+INFO: Applied: Back leaves Home
+INFO: Applied: Blur the bars around Reels
+INFO: Applied: Change the like animation
+INFO: Applied: Change version code
+INFO: Applied: Clean up Reels
+INFO: Applied: Clear the media cache
+INFO: Applied: Control taps and volume on Reels
+INFO: Applied: Copy comment
+INFO: Applied: Data saver
+INFO: Applied: Default playback quality
+INFO: Applied: Don't report screenshots
+INFO: Applied: Don't save recent searches
+INFO: Applied: Don't send reel watch history
+INFO: Applied: Download any reel
+INFO: Applied: Download any story
+INFO: Applied: Download any video
+INFO: Applied: Download voice messages
+INFO: Applied: Emoji style
+INFO: Applied: Find the reel you came from
+INFO: Applied: Font
+INFO: Applied: Full resolution photos
+INFO: Applied: Full screen Reels and Home
+INFO: Applied: Glass tab bar
+INFO: Applied: Group Instagram's notifications
+INFO: Applied: Hide AI-labeled reels
+INFO: Applied: Hide Follow on feed posts
+INFO: Applied: Hide Follow on stories
+INFO: Applied: Hide Instants
+INFO: Applied: Hide Meta AI
+INFO: Applied: Hide Notes on profile pictures
+INFO: Applied: Hide Reels in the feed
+INFO: Applied: Hide ads
+INFO: Applied: Hide comments
+INFO: Applied: Hide group buttons on the share sheet
+INFO: Applied: Hide highlights
+INFO: Applied: Hide paid partnership Reels
+INFO: Applied: Hide profile tabs
+INFO: Applied: Hide reels by caption words
+INFO: Applied: Hide rows in Instagram's settings
+INFO: Applied: Hide suggested accounts in DMs
+INFO: Applied: Hide suggested accounts in Reels
+INFO: Applied: Hide suggested people on profiles
+INFO: Applied: Hide suggested posts
+INFO: Applied: Hide suggested stories
+INFO: Applied: Hide that you're typing
+INFO: Applied: Hide the Explore grid
+INFO: Applied: Hide the Reels tab
+INFO: Applied: Hide the Repost button
+INFO: Applied: Hide the Share button
+INFO: Applied: Hide the Threads button
+INFO: Applied: Hide the comment emoji row
+INFO: Applied: Hide the home feed
+INFO: Applied: Hide the notes row
+INFO: Applied: Hide the search bar in Messages
+INFO: Applied: Hide your active status
+INFO: Applied: HushGram launch screen
+INFO: Applied: HushGram settings
+INFO: Applied: Keep Reels auto scroll on
+INFO: Applied: Keep a seek bar on Reels
+INFO: Applied: Keep in chat
+INFO: Applied: Keep the reel speed
+INFO: Applied: Keep your place in Home
+INFO: Applied: Lock your messages
+INFO: Applied: Long press to zoom
+INFO: Applied: Loop a story
+INFO: Applied: Message box buttons
+INFO: Applied: Open comments without the keyboard
+INFO: Applied: Open links in external browser
+INFO: Applied: Pick the app icon
+INFO: Applied: Profile posts as a list
+INFO: Applied: Pure black dark mode
+INFO: Applied: Read messages without the seen receipt
+INFO: Applied: Remove build expired popup
+INFO: Applied: Remove the advertising ID
+INFO: Applied: Remove the empty space at the bottom
+INFO: Applied: Restore trust on re-signed builds
+INFO: Applied: Resume long videos
+INFO: Applied: Rounded post corners
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Save comment photo
+INFO: Applied: Save profile picture
+INFO: Applied: Saved on your profile
+INFO: Applied: See who a story mentions
+INFO: Applied: Seek bar on stories
+INFO: Applied: Show a post's exact time
+INFO: Applied: Show a reel's exact time
+INFO: Applied: Show a story's exact time
+INFO: Applied: Show all recent searches
+INFO: Applied: Show hidden like counts
+INFO: Applied: Show if a profile follows you
+INFO: Applied: Show when someone was last active
+INFO: Applied: Spoof location
+INFO: Applied: Start Home on Following
+INFO: Applied: Start feed videos with sound
+INFO: Applied: Start on x86 devices
+INFO: Applied: Start reels with sound
+INFO: Applied: Start stories with sound
+INFO: Applied: Stop Reels scrolling
+INFO: Applied: Stop Story auto-advance
+INFO: Applied: Stop background wake-ups
+INFO: Applied: Stop swipe to create
+INFO: Applied: Stop swipe up to reply
+INFO: Applied: Stop swiping between tabs
+INFO: Applied: Story ring size
+INFO: Applied: Story text fonts
+INFO: Applied: Swipe left to open the profile
+INFO: Applied: Swipe through a chat's reels
+INFO: Applied: Tab bar layout
+INFO: Applied: Tap a feed video to pause it
+INFO: Applied: Tap to play
+INFO: Applied: Thicker story progress bar
+INFO: Applied: Turn off HDR brightness boosts
+INFO: Applied: Turn off double tap to like
+INFO: Applied: Upload stories at full quality
+INFO: Applied: View DM photos and videos anonymously
+INFO: Applied: View live anonymously
+INFO: Applied: View stories anonymously
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 2096 unchanged extension classes to 2 DEX files
+INFO: Changed 780 of 220121 classes to mutable
+INFO: Writing 780 new classes to new DEX files
+INFO: Processing 780 classes in parallel (4 threads)
+INFO: Wrote 3 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793182483864/patcher/patched/newDex
+INFO: Stripped 704 modified classes from 20 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 0 lib files
+INFO: Decoded 14 of 24989 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 5612 of 5612 values in 4 files, 12 resource files and 0 configurations of patches for com.instagram.android
+INFO: Reusing 24740 unchanged archive entries, rebuilding 14 entries, dropping 0 entries, leaving out 23 replaced entries
+INFO: Resource APK scan: 500ms write: 1.1s
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk
+INFO: Patching took 33.2 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: Instagram  (1m55s)
+     APK:      Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk
+     APK ver:  453.0.0.55.79
+     Parches:  v0.0.17
+     Hash:     b078f5ba173b7297880f44e110f7c3e6...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk
+Fecha de fin: 2026-10-28T10:15:18Z
