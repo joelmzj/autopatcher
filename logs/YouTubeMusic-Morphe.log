@@ -4,6 +4,137 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.apps.youtube.music
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-10-29T14:51:01Z
+     Inicio:  2026-10-29T20:00:13Z
 ═══════════════════════════════════════════════════════════════
 
+=== Parcheo: YouTubeMusic-Morphe ===
+Fecha: 2026-10-29T20:00:15Z
+APK version: 9.30.53
+Patches version: v2.0.0-dev.1
+Patches source: MorpheApp/morphe-patches
+Channel: dev
+Brand: Morphe
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Patches hash: dd3d09b71465d59027658e1d442efd0347efc2576f8ccc6a7fdb72b6253e3428
+
+
+--- Argumentos de parches (4) ---
+  -e=Custom branding name for Reddit
+  -e=Hide Reddit search
+  -e=Network proxy
+  -e=Network proxy
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/MorpheApp/morphe-patches/dev/patches-bundle.json
+INFO: GitHub: bundle (dev) → v2.0.0-dev.1 @ https://github.com/MorpheApp/morphe-patches/releases/download/v2.0.0-dev.1/patches-2.0.0-dev.1.mpp
+INFO: Latest dev via patches-bundle.json: v2.0.0-dev.1
+INFO: GitHub: downloading patches-2.0.0-dev.1.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v2.0.0-dev.1/patches-2.0.0-dev.1.mpp
+INFO: GitHub: wrote 15237821 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.0.0-dev.1__patches-2.0.0-dev.1.mpp
+INFO: Resolved patches (v2.0.0-dev.1) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.0.0-dev.1__patches-2.0.0-dev.1.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.google.android.apps.youtube.music v9.30.53...
+INFO: Skipping disabled: Clone app (default)
+INFO: Skipping disabled: Change installer source (default)
+INFO: Skipping disabled: Override certificate pinning (default)
+INFO: Skipping disabled: Spoof signature (default)
+INFO: Skipping disabled: Disable Play Store updates (default)
+INFO: Applying 49 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 5367 files can be decoded
+INFO: Executing patches
+INFO: Building instruction indexes for 72718 classes...
+INFO: Applied: Android Auto
+INFO: Applied: App refresh rate
+INFO: Applied: Change header
+INFO: Applied: Change miniplayer color
+INFO: Applied: Change start page
+INFO: Applied: Check watch history domain name resolution
+INFO: Applied: Crossfade
+INFO: Applied: Custom branding
+INFO: Applied: Custom font
+INFO: Applied: Disable DRC audio
+INFO: Applied: Disable QUIC protocol
+INFO: Applied: Disable dislike redirection
+INFO: Applied: Downloads
+INFO: Applied: Enable audio/video switch
+INFO: Applied: Enable debugging
+INFO: Applied: Enable exclusive audio playback
+INFO: Applied: Enable forced miniplayer
+INFO: Applied: Enable swipe to dismiss miniplayer
+INFO: Applied: Force original audio
+INFO: Applied: Force portrait orientation
+INFO: Applied: GmsCore support
+INFO: Applied: Hide ads
+INFO: Applied: Hide buttons
+INFO: Applied: Hide flyout menu components
+INFO: Applied: Hide layout components
+INFO: Applied: Hide music action buttons
+INFO: Applied: Jam queue sharing
+INFO: Applied: Media notification controls
+INFO: Applied: Miniplayer previous and next buttons
+INFO: Applied: Navigation bar
+INFO: Applied: Network proxy
+INFO: Applied: Play albums songs
+INFO: Applied: Playback speed
+INFO: Applied: Playlist track tap action
+INFO: Applied: PoToken provider
+INFO: Applied: Remember repeat state
+INFO: Applied: Remember shuffle state
+INFO: Applied: Remove background playback restrictions
+INFO: Applied: Remove viewer discretion dialog
+INFO: Applied: Return YouTube Dislike
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Scrobbling
+INFO: Applied: Settings menu filter
+INFO: Applied: Skip silence
+INFO: Applied: SponsorBlock
+INFO: Applied: Spoof app version
+INFO: Applied: Spoof video streams
+INFO: Applied: Theme
+INFO: Applied: Third-party lyrics
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 6048 unchanged extension classes to 3 DEX files
+INFO: Changed 391 of 72718 classes to mutable
+INFO: Writing 391 new classes to new DEX files
+INFO: Processing 391 classes (single threaded mode)
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793304026549/patcher/patched/newDex
+INFO: Stripped 340 modified classes from 5 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 0 lib files
+INFO: Decoded 24 of 5367 files on request
+INFO: Unescaping strings
+INFO: Post-processing package name change
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 77630 of 77630 values in 70 files, 115 resource files and 271 configurations of patches for com.google.android.apps.youtube.music
+INFO: Reusing 5048 unchanged archive entries, rebuilding 117 entries, dropping 0 entries, leaving out 5 replaced entries
+INFO: Resource APK scan: 1s write: 700ms
+INFO: Moving 3 resource files
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.30.53-Morphe-v2.0.0-dev.1-arm64-v8a.apk
+INFO: Patching took 12.1 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: YouTubeMusic-Morphe  (26s)
+     APK:      YouTubeMusic-Morphe-v9.30.53-Morphe-v2.0.0-dev.1-arm64-v8a.apk
+     APK ver:  9.30.53
+     Parches:  v2.0.0-dev.1
+     Hash:     dd3d09b71465d59027658e1d442efd03...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/YouTubeMusic-Morphe-v9.30.53-Morphe-v2.0.0-dev.1-arm64-v8a.apk
+Fecha de fin: 2026-10-29T20:00:39Z
