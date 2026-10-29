@@ -138,19 +138,19 @@
   "YouTube-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v1.49.0-dev.10",
-    "patches_hash": "d4e595139807d9daec3895b45c71d10547e13e22b95e1e4d12b504a7a8106441",
-    "apk_version": "21.23.492",
+    "patches_version": "v1.49.0-dev.11",
+    "patches_hash": "bca205be33601acacf01eeec6753c4d11383e1a8615b48d4391f324651761573",
+    "apk_version": "21.30.216",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.10-arm64-v8a.apk",
+    "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v1.49.0-dev.11-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.9-arm64-v8a.apk",
+    "snapshot_file": "YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.10-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.9-arm64-v8a.apk",
+    "prev_stable_file": "YouTube-Morphe-v21.23.492-Morphe-v1.49.0-dev.10-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-28T10:18:46Z"
+    "timestamp": "2026-10-29T14:51:42Z"
   },
   "YouTube-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -172,19 +172,19 @@
   "YouTube-Tablet-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v1.49.0-dev.9",
-    "patches_hash": "d4e595139807d9daec3895b45c71d10547e13e22b95e1e4d12b504a7a8106441",
+    "patches_version": "v1.49.0-dev.11",
+    "patches_hash": "bca205be33601acacf01eeec6753c4d11383e1a8615b48d4391f324651761573",
     "apk_version": "20.21.37",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.9-arm64-v8a.apk",
+    "stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.11-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.8-arm64-v8a.apk",
+    "snapshot_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.9-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.8-arm64-v8a.apk",
+    "prev_stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v1.49.0-dev.9-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-27T23:48:14Z"
+    "timestamp": "2026-10-29T14:52:13Z"
   },
   "YouTube-Tablet-anddea": {
     "patches_source": "anddea/revanced-patches",
