@@ -240,19 +240,19 @@
   "X": {
     "patches_source": "crimera/piko-newx",
     "channel": "stable",
-    "patches_version": "v3.65.0",
-    "patches_hash": "de32efb1d5914660218c57cd453ae1c716b92ea63c1705761876c8570a2d66bc",
-    "apk_version": "12.37.2-prod.01",
+    "patches_version": "v3.72.3",
+    "patches_hash": "c5e23f96ef7eeb1a2db62aacf163df89945521edf56f7d7bd744cb9037cda450",
+    "apk_version": "12.38.1-prod.01",
     "final_pkg_name": "com.twitter.android",
     "brand": "piko-newx",
     "arch": "arm64-v8a",
-    "stable_file": "X-v12.37.2-prod.01-piko-newx-v3.65.0-arm64-v8a.apk",
+    "stable_file": "X-v12.38.1-prod.01-piko-newx-v3.72.3-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "X-v12.37.2-prod.01-piko-newx-v3.64.1-arm64-v8a.apk",
+    "snapshot_file": "X-v12.37.2-prod.01-piko-newx-v3.65.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "X-v12.37.2-prod.01-piko-newx-v3.64.1-arm64-v8a.apk",
+    "prev_stable_file": "X-v12.37.2-prod.01-piko-newx-v3.65.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-27T23:49:57Z"
+    "timestamp": "2026-10-29T23:53:21Z"
   },
   "Google-Photos": {
     "patches_source": "rushiranpise/morphe-patches",
