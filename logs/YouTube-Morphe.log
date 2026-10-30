@@ -4,6 +4,197 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-10-30T03:42:27Z
+     Inicio:  2026-10-30T10:38:42Z
 ═══════════════════════════════════════════════════════════════
 
+=== Parcheo: YouTube-Morphe ===
+Fecha: 2026-10-30T10:38:44Z
+APK version: 21.30.216
+Patches version: v2.0.0-dev.3
+Patches source: MorpheApp/morphe-patches
+Channel: dev
+Brand: Morphe
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Patches hash: 71ea27cf1bd7080b244ca57995d40a16373c06c434352ac0366bd2ff24224f2d
+
+
+--- Argumentos de parches (4) ---
+  -e=Custom branding name for Reddit
+  -e=Hide Reddit search
+  -e=Network proxy
+  -e=Network proxy
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/MorpheApp/morphe-patches/dev/patches-bundle.json
+INFO: GitHub: bundle (dev) → v2.0.0-dev.3 @ https://github.com/MorpheApp/morphe-patches/releases/download/v2.0.0-dev.3/patches-2.0.0-dev.3.mpp
+INFO: Latest dev via patches-bundle.json: v2.0.0-dev.3
+INFO: GitHub: downloading patches-2.0.0-dev.3.mpp from https://github.com/MorpheApp/morphe-patches/releases/download/v2.0.0-dev.3/patches-2.0.0-dev.3.mpp
+INFO: GitHub: wrote 15379004 bytes to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.0.0-dev.3__patches-2.0.0-dev.3.mpp
+INFO: Resolved patches (v2.0.0-dev.3) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.0.0-dev.3__patches-2.0.0-dev.3.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.google.android.youtube v21.30.216...
+INFO: Skipping disabled: Clone app (default)
+INFO: Skipping disabled: Change installer source (default)
+INFO: Skipping disabled: Override certificate pinning (default)
+INFO: Skipping disabled: Spoof signature (default)
+INFO: Skipping disabled: Disable Play Store updates (default)
+INFO: Applying 109 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 16965 files can be decoded
+INFO: Executing patches
+INFO: Building instruction indexes for 63255 classes...
+INFO: Applied: AI channel filter
+INFO: Applied: Add to queue
+INFO: Applied: Ambient mode
+INFO: Applied: App refresh rate
+INFO: Applied: Ask flyout menu
+INFO: Applied: Bypass image region restrictions
+INFO: Applied: Bypass link redirects
+INFO: Applied: Captions
+INFO: Applied: Change form factor
+INFO: Applied: Change header
+INFO: Applied: Change start page
+INFO: Applied: Channel search
+INFO: Applied: Channel whitelist
+INFO: Applied: Check watch history domain name resolution
+INFO: Applied: Copy text
+INFO: Applied: Copy video link
+INFO: Applied: Custom branding
+INFO: Applied: Custom font
+INFO: Applied: Custom player overlay opacity
+INFO: Applied: DeArrow
+INFO: Applied: Disable DRC audio
+INFO: Applied: Disable QUIC protocol
+INFO: Applied: Disable Shorts resuming on startup
+INFO: Applied: Disable auto feed refresh
+INFO: Applied: Disable continue watching prompt
+INFO: Applied: Disable double tap actions
+INFO: Applied: Disable fullscreen gestures
+INFO: Applied: Disable haptic feedback
+INFO: Applied: Disable layout updates
+INFO: Applied: Disable player popup panels
+INFO: Applied: Disable playlist autoplay
+INFO: Applied: Disable rolling number animations
+INFO: Applied: Disable scrolling speed limit
+INFO: Applied: Disable sign in to TV popup
+INFO: Applied: Disable video codecs
+INFO: Applied: Double tap to seek
+INFO: Applied: Download post images
+INFO: Applied: Downloads
+INFO: Applied: Enable debugging
+INFO: Applied: Exit fullscreen mode
+INFO: Applied: Feed card layout
+INFO: Applied: Feed video actions
+INFO: Applied: Feed view count
+INFO: Applied: Force animations
+INFO: Applied: Force fullscreen landscape
+INFO: Applied: Force original audio
+INFO: Applied: Fullscreen video scale
+INFO: Applied: GmsCore support
+INFO: Applied: Hide Shorts components
+INFO: Applied: Hide ads
+INFO: Applied: Hide autoplay preview
+INFO: Applied: Hide end screen cards
+INFO: Applied: Hide end screen suggested video
+INFO: Applied: Hide info cards
+INFO: Applied: Hide layout components
+INFO: Applied: Hide player flyout menu components
+INFO: Applied: Hide player overlay buttons
+INFO: Applied: Hide related video overlay
+INFO: Applied: Hide related videos
+INFO: Applied: Hide status bar
+INFO: Applied: Hide timestamp
+INFO: Applied: Hide video action buttons
+INFO: Applied: Loop video
+INFO: Applied: Media notification controls
+INFO: Applied: Miniplayer
+INFO: Applied: Mute button
+INFO: Applied: Navigation bar
+INFO: Applied: Network proxy
+INFO: Applied: Niconico comments
+INFO: Applied: Open Shorts in regular player
+INFO: Applied: Open channel of live avatar
+INFO: Applied: Open links externally
+INFO: Applied: Open system share sheet
+INFO: Applied: Open videos fullscreen
+INFO: Applied: Override YouTube Music buttons
+INFO: Applied: Picture-in-picture button
+INFO: Applied: Play all
+INFO: Applied: Playback buffer
+INFO: Applied: Playback in feeds
+INFO: Applied: Playback speed
+INFO: Applied: PoToken provider
+INFO: Applied: Reload video
+INFO: Applied: Remember live stream playback position
+INFO: Applied: Remove background playback restrictions
+INFO: Applied: Remove viewer discretion dialog
+INFO: Applied: Restore original titles
+INFO: Applied: Return YouTube Dislike
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Save to Watch later
+INFO: Applied: Search comments
+INFO: Applied: Seekbar
+INFO: Applied: Series tracking
+INFO: Applied: Settings menu filter
+INFO: Applied: Shorts autoplay
+INFO: Applied: Skip live Shorts
+INFO: Applied: Skip silence
+INFO: Applied: SponsorBlock
+INFO: Applied: Spoof app version
+INFO: Applied: Spoof device dimensions
+INFO: Applied: Spoof video streams
+INFO: Applied: Swipe controls
+INFO: Applied: Theme
+INFO: Applied: Translate posts
+INFO: Applied: Video delay
+INFO: Applied: Video quality
+INFO: Applied: Voice over translation
+INFO: Applied: Wide search bar
+INFO: Applied: Shorts icon style
+INFO: Applied: Player icon style
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 8305 unchanged extension classes to 3 DEX files
+INFO: Changed 1289 of 63255 classes to mutable
+INFO: Writing 1289 new classes to new DEX files
+INFO: Processing 1289 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793356737854/patcher/patched/newDex
+INFO: Stripped 1164 modified classes from 7 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 108 lib files
+INFO: Decoded 181 of 16965 files on request
+INFO: Unescaping strings
+INFO: Post-processing package name change
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 131831 of 131831 values in 74 files, 1276 resource files and 541 configurations of patches for com.google.android.youtube
+INFO: Reusing 16488 unchanged archive entries, rebuilding 1278 entries, dropping 108 entries, leaving out 7 replaced entries
+INFO: Resource APK scan: 2.4s write: 1.6s
+INFO: Moving 3 resource files
+INFO: Using compiled resource APK as output base
+INFO: Aligning APK
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Morphe-v21.30.216-Morphe-v2.0.0-dev.3-arm64-v8a.apk
+INFO: Patching took 22.8 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: YouTube-Morphe  (40s)
+     APK:      YouTube-Morphe-v21.30.216-Morphe-v2.0.0-dev.3-arm64-v8a.apk
+     APK ver:  21.30.216
+     Parches:  v2.0.0-dev.3
+     Hash:     71ea27cf1bd7080b244ca57995d40a16...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/YouTube-Morphe-v21.30.216-Morphe-v2.0.0-dev.3-arm64-v8a.apk
+Fecha de fin: 2026-10-30T10:39:22Z
