@@ -19,19 +19,19 @@
   "Telegram": {
     "patches_source": "SysAdminDoc/HushTelegram",
     "channel": "stable",
-    "patches_version": "v0.0.21",
-    "patches_hash": "7972c3ce16186366f38bcf46f931aa209fa22ea654546722f14a683fcc66c57f",
+    "patches_version": "v0.0.22",
+    "patches_hash": "261c178ed8fa62a4129c9b1ddbc4c08a15bdc92c3e24110df11a2b0ad328cd55",
     "apk_version": "13.1.0",
     "final_pkg_name": "org.telegram.messenger.web",
     "brand": "HushTelegram",
     "arch": "arm64-v8a",
-    "stable_file": "Telegram-v13.1.0-HushTelegram-v0.0.21-arm64-v8a.apk",
+    "stable_file": "Telegram-v13.1.0-HushTelegram-v0.0.22-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Telegram-v13.1.0-HushTelegram-v0.0.20-arm64-v8a.apk",
+    "snapshot_file": "Telegram-v13.1.0-HushTelegram-v0.0.21-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Telegram-v13.1.0-HushTelegram-v0.0.20-arm64-v8a.apk",
+    "prev_stable_file": "Telegram-v13.1.0-HushTelegram-v0.0.21-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-27T23:47:17Z"
+    "timestamp": "2026-10-31T01:19:30Z"
   },
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
@@ -223,19 +223,19 @@
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.7.4",
-    "patches_hash": "4c94de3b3bb724ad79d63e8d95ff25a58f1af0c431fe7962f36a6571765ca2ac",
+    "patches_version": "v2.7.6",
+    "patches_hash": "cf6a2c5df7a5a1316fffb8d830992e3acc04aa257ed3611f649b2692d85c30fa",
     "apk_version": "5.24.5.0",
     "final_pkg_name": "com.waze",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.7.4-arm64-v8a.zip",
+    "stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.7.6-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.7.2-arm64-v8a.zip",
-    "timestamp": "2026-10-28T17:00:27Z"
+    "prev_stable_zip": "Waze-v5.24.5.0-bearinmindcat-v2.7.4-arm64-v8a.zip",
+    "timestamp": "2026-10-31T01:21:24Z"
   },
   "X": {
     "patches_source": "crimera/piko-newx",
