@@ -206,19 +206,19 @@
   "GoogleMaps": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.7.4",
-    "patches_hash": "48ebb047430fc8f13fdc5470eace4df22969a2ca4fff5eeedef8b03e87e00134",
+    "patches_version": "v2.7.6",
+    "patches_hash": "f4c5251957fa324da36cc86fac007aa54c503f6156bccb6a1e813f79deb78149",
     "apk_version": "26.36.04.973607363",
     "final_pkg_name": "com.google.android.apps.maps",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.7.4-arm64-v8a.zip",
+    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.7.6-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.7.2-arm64-v8a.zip",
-    "timestamp": "2026-10-28T16:59:53Z"
+    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.7.4-arm64-v8a.zip",
+    "timestamp": "2026-10-31T07:50:37Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
