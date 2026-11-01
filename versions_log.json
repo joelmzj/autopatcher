@@ -2,19 +2,19 @@
   "Instagram": {
     "patches_source": "SysAdminDoc/HushGram",
     "channel": "stable",
-    "patches_version": "v0.0.17",
-    "patches_hash": "b078f5ba173b7297880f44e110f7c3e68806795557324fc9a031dd3f0b579be7",
-    "apk_version": "453.0.0.55.79",
+    "patches_version": "v0.0.18",
+    "patches_hash": "b631ccf42ff794ed8bc758d423de4d7709b45c72ebc646860a09562a664ed73d",
+    "apk_version": "453.0.0.57.79",
     "final_pkg_name": "com.instagram.android",
     "brand": "HushGram",
     "arch": "arm64-v8a",
-    "stable_file": "Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk",
+    "stable_file": "Instagram-v453.0.0.57.79-HushGram-v0.0.18-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Instagram-v452.1.0.53.64-HushGram-v0.0.16-arm64-v8a.apk",
+    "snapshot_file": "Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Instagram-v452.1.0.53.64-HushGram-v0.0.16-arm64-v8a.apk",
+    "prev_stable_file": "Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-10-28T10:15:18Z"
+    "timestamp": "2026-11-01T01:45:23Z"
   },
   "Telegram": {
     "patches_source": "SysAdminDoc/HushTelegram",
