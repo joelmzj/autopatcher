@@ -4,11 +4,11 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-02T21:10:08Z
+     Inicio:  2026-11-03T03:13:58Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTube-Tablet-Morphe ===
-Fecha: 2026-11-02T21:10:09Z
+Fecha: 2026-11-03T03:13:59Z
 APK version: 20.21.37
 Patches version: v2.1.0-dev.6
 Patches source: MorpheApp/morphe-patches
@@ -169,7 +169,7 @@ INFO: Copied 8622 unchanged extension classes to 3 DEX files
 INFO: Changed 108 of 54733 classes to mutable
 INFO: Writing 108 new classes to new DEX files
 INFO: Processing 108 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793653823078/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793675655158/patcher/patched/newDex
 INFO: Stripped 71 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -179,15 +179,15 @@ INFO: Unescaping strings
 INFO: Processing aapt macros
 INFO: Generating new resource IDs
 INFO: Writing resource APK
-WARN: WARNING: Encoding the changed resources into the resource table failed, rebuilding the table: com.reandroid.arsc.coder.xml.XmlEncodeException: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793653823078/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
+WARN: WARNING: Encoding the changed resources into the resource table failed, rebuilding the table: com.reandroid.arsc.coder.xml.XmlEncodeException: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793675655158/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
 Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
 INFO: Unescaping strings
-INFO: Patching took 15.4 seconds
-ERROR: Patching aborted: Rebuilding APK failed: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793653823078/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
+INFO: Patching took 8.8 seconds
+ERROR: Patching aborted: Rebuilding APK failed: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793675655158/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
 Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
-ERROR: app.morphe.patcher.patch.PatchException: The patch "AI channel filter" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.misc.fix.padding.FeedListPaddingFingerprint@5ba616aa
+ERROR: app.morphe.patcher.patch.PatchException: The patch "AI channel filter" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.misc.fix.padding.FeedListPaddingFingerprint@6dcc16af
 	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1407)
 	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1442)
 	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1635)
@@ -195,11 +195,11 @@ Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerpr
 	at app.morphe.patcher.patch.Patch.execute(Patch.kt:145)
 	at app.morphe.patcher.patch.BytecodePatch.execute$morphe_patcher(Patch.kt:296)
 
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Add to queue" depends on "BytecodePatch@114484737", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@114484737" depends on "BytecodePatch@1023018481", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1023018481" depends on "BytecodePatch@1385071475", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1385071475" depends on "BytecodePatch@1129614672", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.video.playerresponse.PlayerParameterBuilder2026Fingerprint@da4c1ad
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Add to queue" depends on "BytecodePatch@1007032379", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1007032379" depends on "BytecodePatch@41863102", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@41863102" depends on "BytecodePatch@1881303858", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1881303858" depends on "BytecodePatch@1689123090", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.video.playerresponse.PlayerParameterBuilder2026Fingerprint@62bbf914
 	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1407)
 	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1442)
 	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1635)
@@ -207,445 +207,445 @@ Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerpr
 	at app.morphe.patcher.patch.Patch.execute(Patch.kt:145)
 	at app.morphe.patcher.patch.BytecodePatch.execute$morphe_patcher(Patch.kt:296)
 
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Ambient mode" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "App refresh rate" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Ask flyout menu" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Bypass image region restrictions" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Bypass link redirects" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Captions" depends on "BytecodePatch@1411781364", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1411781364" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Change form factor" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Change picture-in-picture actions" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Change start page" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Channel search" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Channel whitelist" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Copy text" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Copy video link" depends on "ResourcePatch@1759848049", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1759848049" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom branding" depends on "BytecodePatch@444386205", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@444386205" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom font" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom player overlay opacity" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "DeArrow" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable DRC audio" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable QUIC protocol" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable Shorts resuming on startup" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable auto feed refresh" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable continue watching prompt" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable double tap actions" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable fullscreen gestures" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable haptic feedback" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable layout updates" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable player popup panels" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable playlist autoplay" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable rolling number animations" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable scrolling speed limit" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable sign in to TV popup" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable video codecs" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Download post images" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Downloads" depends on "ResourcePatch@1493902776", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1493902776" depends on "BytecodePatch@1076705881", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1076705881" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Enable debugging" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Exit fullscreen mode" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed card layout" depends on "BytecodePatch@1253862228", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1253862228" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed video actions" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed view count" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Force animations" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Force fullscreen landscape" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Force original audio" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Fullscreen video scale" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "GmsCore support" depends on "ResourcePatch@18524473", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@18524473" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide Shorts components" depends on "ResourcePatch@1019741478", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1019741478" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide ads" depends on "ResourcePatch@313087613", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@313087613" depends on "BytecodePatch@66170206", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@66170206" depends on "BytecodePatch@1606715597", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1606715597" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide autoplay preview" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide end screen cards" depends on "ResourcePatch@984830585", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@984830585" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide info cards" depends on "BytecodePatch@66170206", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@66170206" depends on "BytecodePatch@1606715597", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1606715597" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide layout components" depends on "BytecodePatch@66170206", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@66170206" depends on "BytecodePatch@1606715597", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1606715597" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide player flyout menu components" depends on "BytecodePatch@66170206", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@66170206" depends on "BytecodePatch@1606715597", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1606715597" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide player overlay buttons" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide related video overlay" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide related videos" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide status bar" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide timestamp" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide video action buttons" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Loop video" depends on "BytecodePatch@191085418", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@191085418" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Media notification controls" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Miniplayer" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Mute button" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Navigation bar" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Network proxy" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Niconico comments" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open Shorts in regular player" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open channel of live avatar" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open system share sheet" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open videos fullscreen" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Override YouTube Music buttons" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Picture-in-picture button" depends on "ResourcePatch@718463633", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@718463633" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Play all" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback buffer" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback in feeds" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback speed" depends on "BytecodePatch@1882946763", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1882946763" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Player icon style" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Reload video" depends on "ResourcePatch@1960415008", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1960415008" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Remember live stream playback position" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Remove background playback restrictions" depends on "BytecodePatch@1023018481", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1023018481" depends on "BytecodePatch@1385071475", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1385071475" depends on "BytecodePatch@1129614672", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1129614672' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Remove viewer discretion dialog" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Restore original titles" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Return YouTube Dislike" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Sanitize sharing links" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Save to Watch later" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Search comments" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Seekbar" depends on "BytecodePatch@1900412930", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1900412930" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Series tracking" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Settings menu filter" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Shorts autoplay" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Shorts icon style" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Skip live Shorts" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Skip silence" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "SponsorBlock" depends on "BytecodePatch@1385071475", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1385071475" depends on "BytecodePatch@1129614672", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1129614672' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof app version" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof device dimensions" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof video streams" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Swipe controls" depends on "ResourcePatch@1915628194", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1915628194" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Theme" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Translate live chat" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Translate posts" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Video delay" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Video quality" depends on "BytecodePatch@1203987504", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1203987504" depends on "BytecodePatch@1023018481", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1023018481" depends on "BytecodePatch@1385071475", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1385071475" depends on "BytecodePatch@1129614672", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1129614672' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Voice over translation" depends on "BytecodePatch@1023018481", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1023018481" depends on "BytecodePatch@1385071475", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1385071475" depends on "BytecodePatch@1129614672", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1129614672' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Wide search bar" depends on "BytecodePatch@815752356", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@815752356" depends on "BytecodePatch@1134667522", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1134667522' failed previously
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Ambient mode" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "App refresh rate" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Ask flyout menu" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Bypass image region restrictions" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Bypass link redirects" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Captions" depends on "BytecodePatch@461248974", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@461248974" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Change form factor" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Change picture-in-picture actions" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Change start page" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Channel search" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Channel whitelist" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Copy text" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Copy video link" depends on "ResourcePatch@1519415758", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1519415758" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom branding" depends on "BytecodePatch@168223244", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@168223244" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom font" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom player overlay opacity" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "DeArrow" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable DRC audio" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable QUIC protocol" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable Shorts resuming on startup" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable auto feed refresh" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable continue watching prompt" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable double tap actions" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable fullscreen gestures" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable haptic feedback" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable layout updates" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable player popup panels" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable playlist autoplay" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable rolling number animations" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable scrolling speed limit" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable sign in to TV popup" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable video codecs" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Download post images" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Downloads" depends on "ResourcePatch@713494706", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@713494706" depends on "BytecodePatch@238119745", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@238119745" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Enable debugging" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Exit fullscreen mode" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed card layout" depends on "BytecodePatch@2118284117", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@2118284117" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed video actions" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed view count" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Force animations" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Force fullscreen landscape" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Force original audio" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Fullscreen video scale" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "GmsCore support" depends on "ResourcePatch@216906639", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@216906639" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide Shorts components" depends on "ResourcePatch@669410924", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@669410924" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide ads" depends on "ResourcePatch@651591541", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@651591541" depends on "BytecodePatch@569485620", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@569485620" depends on "BytecodePatch@1759797432", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1759797432" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide autoplay preview" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide end screen cards" depends on "ResourcePatch@1256271302", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1256271302" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide info cards" depends on "BytecodePatch@569485620", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@569485620" depends on "BytecodePatch@1759797432", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1759797432" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide layout components" depends on "BytecodePatch@569485620", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@569485620" depends on "BytecodePatch@1759797432", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1759797432" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide player flyout menu components" depends on "BytecodePatch@569485620", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@569485620" depends on "BytecodePatch@1759797432", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1759797432" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide player overlay buttons" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide related video overlay" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide related videos" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide status bar" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide timestamp" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide video action buttons" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Loop video" depends on "BytecodePatch@102094371", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@102094371" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Media notification controls" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Miniplayer" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Mute button" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Navigation bar" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Network proxy" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Niconico comments" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Open Shorts in regular player" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Open channel of live avatar" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Open system share sheet" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Open videos fullscreen" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Override YouTube Music buttons" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Picture-in-picture button" depends on "ResourcePatch@1328927564", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1328927564" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Play all" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback buffer" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback in feeds" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback speed" depends on "BytecodePatch@1557739138", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1557739138" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Player icon style" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Reload video" depends on "ResourcePatch@226604246", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@226604246" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Remember live stream playback position" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Remove background playback restrictions" depends on "BytecodePatch@41863102", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@41863102" depends on "BytecodePatch@1881303858", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1881303858" depends on "BytecodePatch@1689123090", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1689123090' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Remove viewer discretion dialog" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Restore original titles" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Return YouTube Dislike" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Sanitize sharing links" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Save to Watch later" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Search comments" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Seekbar" depends on "BytecodePatch@1365063473", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1365063473" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Series tracking" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Settings menu filter" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Shorts autoplay" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Shorts icon style" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Skip live Shorts" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Skip silence" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "SponsorBlock" depends on "BytecodePatch@1881303858", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1881303858" depends on "BytecodePatch@1689123090", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1689123090' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof app version" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof device dimensions" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof video streams" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Swipe controls" depends on "ResourcePatch@1543443451", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "ResourcePatch@1543443451" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Theme" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Translate live chat" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Translate posts" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Video delay" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Video quality" depends on "BytecodePatch@1099008840", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1099008840" depends on "BytecodePatch@41863102", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@41863102" depends on "BytecodePatch@1881303858", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1881303858" depends on "BytecodePatch@1689123090", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1689123090' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Voice over translation" depends on "BytecodePatch@41863102", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@41863102" depends on "BytecodePatch@1881303858", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1881303858" depends on "BytecodePatch@1689123090", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1689123090' failed previously
+
+ERROR: app.morphe.patcher.patch.PatchException: The patch "Wide search bar" depends on "BytecodePatch@1699454420", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch "BytecodePatch@1699454420" depends on "BytecodePatch@1802458193", which raised an exception
+Caused by: app.morphe.patcher.patch.PatchException: The patch 'BytecodePatch@1802458193' failed previously
 
 ERROR: app.morphe.patcher.patch.PatchException: lateinit property locales has not been initialized
 Caused by: kotlin.UninitializedPropertyAccessException: lateinit property locales has not been initialized
@@ -656,7 +656,7 @@ Caused by: kotlin.UninitializedPropertyAccessException: lateinit property locale
 
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: YouTube-Tablet-Morphe  (30s)
+  ❌ FALLÓ: YouTube-Tablet-Morphe  (26s)
      Revisa logs/YouTube-Tablet-Morphe.log para detalles
 ═══════════════════════════════════════════════════════════════
 
