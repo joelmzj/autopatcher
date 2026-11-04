@@ -138,19 +138,19 @@
   "YouTube-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.1.0-dev.7",
-    "patches_hash": "3a31a2ffa666bcafb4965d5328a9e7ef49789ac705890e2fc9832311f830329a",
+    "patches_version": "v2.1.0-dev.8",
+    "patches_hash": "50878af9006b762d137f42e76bfc3d5fe1a46c9703628a6193c10bb86d995597",
     "apk_version": "21.30.216",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.7-arm64-v8a.apk",
+    "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.8-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.6-arm64-v8a.apk",
+    "snapshot_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.7-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.6-arm64-v8a.apk",
+    "prev_stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.7-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-03T11:31:49Z"
+    "timestamp": "2026-11-04T12:43:30Z"
   },
   "YouTube-anddea": {
     "patches_source": "anddea/revanced-patches",
