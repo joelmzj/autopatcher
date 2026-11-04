@@ -4,6 +4,25 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.apps.youtube.music
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-04T12:42:53Z
+     Inicio:  2026-11-04T20:13:23Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: YouTubeMusic-Morphe ===
+Fecha: 2026-11-04T20:13:25Z
+APK version: 9.30.53
+Patches version: v2.1.0-dev.10
+Patches source: MorpheApp/morphe-patches
+Channel: dev
+Brand: Morphe
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Patches hash: 8ede0a460e617f157bc2b7f6c934358eebee56e8df1da37746cc789421b334b3
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: YouTubeMusic-Morphe  (1m2s)
+     Revisa logs/YouTubeMusic-Morphe.log para detalles
 ═══════════════════════════════════════════════════════════════
 
