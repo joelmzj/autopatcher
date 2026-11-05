@@ -104,19 +104,19 @@
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.1.0-dev.7",
-    "patches_hash": "8d5194e587e8714aba144b3802e69333013739d47dadbaa37d178583d0863d70",
+    "patches_version": "v2.1.0-dev.10",
+    "patches_hash": "8ede0a460e617f157bc2b7f6c934358eebee56e8df1da37746cc789421b334b3",
     "apk_version": "9.30.53",
     "final_pkg_name": "app.morphe.android.apps.youtube.music",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.7-arm64-v8a.apk",
+    "stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.10-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.6-arm64-v8a.apk",
+    "snapshot_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.7-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.6-arm64-v8a.apk",
+    "prev_stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.7-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-03T11:31:19Z"
+    "timestamp": "2026-11-05T01:13:57Z"
   },
   "YouTubeMusic-anddea": {
     "patches_source": "anddea/revanced-patches",

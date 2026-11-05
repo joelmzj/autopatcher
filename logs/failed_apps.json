@@ -1,12 +1,7 @@
 {
   "YouTube-Tablet-Morphe": {
     "first_failed_at": "2026-10-30T10:39:50Z",
-    "last_attempt_at": "2026-11-04T20:15:19Z",
-    "attempts": 24
-  },
-  "YouTubeMusic-Morphe": {
-    "first_failed_at": "2026-11-04T20:14:25Z",
-    "last_attempt_at": "2026-11-04T20:14:25Z",
-    "attempts": 1
+    "last_attempt_at": "2026-11-05T01:14:25Z",
+    "attempts": 25
   }
 }
