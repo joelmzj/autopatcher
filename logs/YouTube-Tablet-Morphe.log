@@ -4,11 +4,11 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-06T03:00:57Z
+     Inicio:  2026-11-06T10:29:41Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTube-Tablet-Morphe ===
-Fecha: 2026-11-06T03:00:57Z
+Fecha: 2026-11-06T10:29:43Z
 APK version: 20.21.37
 Patches version: v2.1.0-dev.11
 Patches source: MorpheApp/morphe-patches
@@ -171,7 +171,7 @@ INFO: Copied 8769 unchanged extension classes to 3 DEX files
 INFO: Changed 109 of 54880 classes to mutable
 INFO: Writing 109 new classes to new DEX files
 INFO: Processing 109 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793934070269/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793960991243/patcher/patched/newDex
 INFO: Stripped 72 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -181,33 +181,33 @@ INFO: Unescaping strings
 INFO: Processing aapt macros
 INFO: Generating new resource IDs
 INFO: Writing resource APK
-WARN: Encoding the changed resources into the resource table failed, rebuilding the table: com.reandroid.arsc.coder.xml.XmlEncodeException: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793934070269/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
+WARN: Encoding the changed resources into the resource table failed, rebuilding the table: com.reandroid.arsc.coder.xml.XmlEncodeException: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793960991243/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
 Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
 INFO: Unescaping strings
-INFO: Patching took 15.2 seconds
-ERROR: Patching aborted: Rebuilding APK failed: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793934070269/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
+INFO: Patching took 8.8 seconds
+ERROR: Patching aborted: Rebuilding APK failed: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1793960991243/patcher/apk/resources/package_1/res/values/arrays.xml [line = 74]
 Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
 ERROR: app.morphe.patcher.patch.PatchException: The patch "AI channel filter" depends on "SettingsPatch.settingsPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.misc.fix.padding.FeedListPaddingFingerprint@230798b7
-	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1409)
-	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1444)
-	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1637)
+Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.misc.fix.padding.FeedListPaddingFingerprint@2401f956
+	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1400)
+	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1434)
+	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1748)
 	at app.morphe.patches.youtube.misc.fix.padding.FixPagePaddingPatchKt.fixPagePaddingPatch$lambda$0$0(FixPagePaddingPatch.kt:74)
-	at app.morphe.patcher.patch.Patch.execute(Patch.kt:150)
-	at app.morphe.patcher.patch.BytecodePatch.execute$morphe_patcher(Patch.kt:308)
+	at app.morphe.patcher.patch.Patch.execute(Patch.kt:160)
+	at app.morphe.patcher.patch.BytecodePatch.execute$morphe_patcher(Patch.kt:357)
 
 ERROR: app.morphe.patcher.patch.PatchException: The patch "Add to queue" depends on "FlyoutPatch.flyoutPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "FlyoutPatch.flyoutPatch" depends on "VideoInformationPatch.videoInformationPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoInformationPatch.videoInformationPatch" depends on "VideoIdPatch.videoIdPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoIdPatch.videoIdPatch" depends on "PlayerResponseMethodHookPatch.playerResponseMethodHookPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.video.playerresponse.PlayerParameterBuilder2026Fingerprint@c4077ba
-	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1409)
-	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1444)
-	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1637)
+Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.video.playerresponse.PlayerParameterBuilder2026Fingerprint@1a328dd
+	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1400)
+	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1434)
+	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1748)
 	at app.morphe.patches.youtube.video.playerresponse.PlayerResponseMethodHookPatchKt.playerResponseMethodHookPatch$lambda$0$0(PlayerResponseMethodHookPatch.kt:62)
-	at app.morphe.patcher.patch.Patch.execute(Patch.kt:150)
-	at app.morphe.patcher.patch.BytecodePatch.execute$morphe_patcher(Patch.kt:308)
+	at app.morphe.patcher.patch.Patch.execute(Patch.kt:160)
+	at app.morphe.patcher.patch.BytecodePatch.execute$morphe_patcher(Patch.kt:357)
 
 ERROR: app.morphe.patcher.patch.PatchException: The patch "Ambient mode" depends on "SettingsPatch.settingsPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
@@ -661,12 +661,12 @@ ERROR: app.morphe.patcher.patch.PatchException: lateinit property locales has no
 Caused by: kotlin.UninitializedPropertyAccessException: lateinit property locales has not been initialized
 	at app.morphe.patches.all.misc.resources.AddResourcesPatchKt.getLocales(AddResourcesPatch.kt:265)
 	at app.morphe.patches.all.misc.resources.AddResourcesPatchKt.addResourcesPatch$lambda$0$0(AddResourcesPatch.kt:456)
-	at app.morphe.patcher.patch.Patch.finalize(Patch.kt:166)
-	at app.morphe.patcher.patch.ResourcePatch.finalize$morphe_patcher(Patch.kt:445)
+	at app.morphe.patcher.patch.Patch.finalize(Patch.kt:179)
+	at app.morphe.patcher.patch.ResourcePatch.finalize$morphe_patcher(Patch.kt:502)
 
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: YouTube-Tablet-Morphe  (28s)
+  ❌ FALLÓ: YouTube-Tablet-Morphe  (19s)
      Revisa logs/YouTube-Tablet-Morphe.log para detalles
 ═══════════════════════════════════════════════════════════════
 
