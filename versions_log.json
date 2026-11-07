@@ -223,19 +223,19 @@
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.8.8",
-    "patches_hash": "d3cb985bb8ecdd5ab4b8fe553a8a073baeac0ea8c81ed29a8fd0f2743c724806",
+    "patches_version": "v2.8.9",
+    "patches_hash": "d9fc178b9b97ed2e95bb0ae7bd519ab62ef1c2b69c6ff7e0113dd5116bcebd11",
     "apk_version": "5.27.0.1",
     "final_pkg_name": "com.waze",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.8.8-arm64-v8a.zip",
+    "stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.8.9-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.8.7-arm64-v8a.zip",
-    "timestamp": "2026-11-06T22:38:10Z"
+    "prev_stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.8.8-arm64-v8a.zip",
+    "timestamp": "2026-11-07T02:30:47Z"
   },
   "X": {
     "patches_source": "crimera/piko-newx",
