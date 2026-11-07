@@ -2,19 +2,19 @@
   "Instagram": {
     "patches_source": "SysAdminDoc/HushGram",
     "channel": "stable",
-    "patches_version": "v0.0.18",
-    "patches_hash": "b631ccf42ff794ed8bc758d423de4d7709b45c72ebc646860a09562a664ed73d",
-    "apk_version": "453.0.0.57.79",
+    "patches_version": "v0.0.19",
+    "patches_hash": "244e112ab382a1899b516ed76b822d024cbf954645641a49adb4efa5bdcd83a8",
+    "apk_version": "454.0.0.54.77",
     "final_pkg_name": "com.instagram.android",
     "brand": "HushGram",
     "arch": "arm64-v8a",
-    "stable_file": "Instagram-v453.0.0.57.79-HushGram-v0.0.18-arm64-v8a.apk",
+    "stable_file": "Instagram-v454.0.0.54.77-HushGram-v0.0.19-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk",
+    "snapshot_file": "Instagram-v453.0.0.57.79-HushGram-v0.0.18-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Instagram-v453.0.0.55.79-HushGram-v0.0.17-arm64-v8a.apk",
+    "prev_stable_file": "Instagram-v453.0.0.57.79-HushGram-v0.0.18-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-01T01:45:23Z"
+    "timestamp": "2026-11-07T09:29:58Z"
   },
   "Telegram": {
     "patches_source": "SysAdminDoc/HushTelegram",
@@ -104,19 +104,19 @@
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.1.0-dev.12",
-    "patches_hash": "d5745c95b4a8f403238324517de49f2be798f6c1d7774c4a911b6e2f323ea937",
+    "patches_version": "v2.2.0-dev.1",
+    "patches_hash": "2a6af4ea259834c2590207709033f12d3c37e0d2f5005e589a607402ca7a9a12",
     "apk_version": "9.30.53",
     "final_pkg_name": "app.morphe.android.apps.youtube.music",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.12-arm64-v8a.apk",
+    "stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.2.0-dev.1-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.10-arm64-v8a.apk",
+    "snapshot_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.12-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.10-arm64-v8a.apk",
+    "prev_stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.1.0-dev.12-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-06T17:49:01Z"
+    "timestamp": "2026-11-07T09:30:30Z"
   },
   "YouTubeMusic-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -138,19 +138,19 @@
   "YouTube-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.1.0-dev.11",
-    "patches_hash": "c590971baa1d9038e606ff07ada532dda7e2aa9ce18281cdc955174d98d88de4",
+    "patches_version": "v2.2.0-dev.1",
+    "patches_hash": "20f30608c3ca60ae81ec603ffccd39a951891ca6af73fa537a44df63090bb81e",
     "apk_version": "21.30.216",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.11-arm64-v8a.apk",
+    "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.2.0-dev.1-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.8-arm64-v8a.apk",
+    "snapshot_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.11-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.8-arm64-v8a.apk",
+    "prev_stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.1.0-dev.11-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-05T08:49:34Z"
+    "timestamp": "2026-11-07T09:30:59Z"
   },
   "YouTube-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -206,19 +206,19 @@
   "GoogleMaps": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.8.8",
-    "patches_hash": "0bb458ee68b81f56fe89f1f07e794386a6c1452d336d311a6e2a6c80f8b63e1f",
+    "patches_version": "v2.8.10",
+    "patches_hash": "ec674e3e4c7429feaec73d6bec1aaaeabe7dddbb97aebe1a82332d918061840a",
     "apk_version": "26.36.04.973607363",
     "final_pkg_name": "com.google.android.apps.maps",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.8.8-arm64-v8a.zip",
+    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.8.10-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.8.7-arm64-v8a.zip",
-    "timestamp": "2026-11-06T22:37:36Z"
+    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.8.8-arm64-v8a.zip",
+    "timestamp": "2026-11-07T09:32:21Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
