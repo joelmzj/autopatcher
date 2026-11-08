@@ -4,11 +4,11 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-07T23:24:15Z
+     Inicio:  2026-11-08T03:35:22Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTube-Tablet-Morphe ===
-Fecha: 2026-11-07T23:24:16Z
+Fecha: 2026-11-08T03:35:22Z
 APK version: 20.21.37
 Patches version: v2.2.0-dev.1
 Patches source: MorpheApp/morphe-patches
@@ -172,7 +172,7 @@ INFO: Copied 8810 unchanged extension classes to 3 DEX files
 INFO: Changed 116 of 54927 classes to mutable
 INFO: Writing 116 new classes to new DEX files
 INFO: Processing 116 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794093866859/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794108932114/patcher/patched/newDex
 INFO: Stripped 73 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -184,12 +184,12 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 WARN: Encoding the changed resources into the resource table failed, rebuilding the table: com.reandroid.arsc.coder.xml.XmlEncodeException: Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
 INFO: Unescaping strings
-INFO: Patching took 13.6 seconds
-ERROR: Patching aborted: Rebuilding APK failed: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794093866859/patcher/apk/resources/package_1/res/values/arrays.xml [line = 237]
+INFO: Patching took 10.4 seconds
+ERROR: Patching aborted: Rebuilding APK failed: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794108932114/patcher/apk/resources/package_1/res/values/arrays.xml [line = 237]
 Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
 ERROR: app.morphe.patcher.patch.PatchException: The patch "AI channel filter" depends on "SettingsPatch.settingsPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.misc.fix.padding.FeedListPaddingFingerprint@e249027
+Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.misc.fix.padding.FeedListPaddingFingerprint@444abd33
 	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1400)
 	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1434)
 	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1611)
@@ -203,7 +203,7 @@ ERROR: app.morphe.patcher.patch.PatchException: The patch "Add to queue" depends
 Caused by: app.morphe.patcher.patch.PatchException: The patch "FlyoutPatch.flyoutPatch" depends on "VideoInformationPatch.videoInformationPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoInformationPatch.videoInformationPatch" depends on "VideoIdPatch.videoIdPatch", which raised an exception
 Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoIdPatch.videoIdPatch" depends on "PlayerResponseMethodHookPatch.playerResponseMethodHookPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.video.playerresponse.PlayerParameterBuilder2026Fingerprint@75ae3626
+Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.video.playerresponse.PlayerParameterBuilder2026Fingerprint@6e2af0c0
 	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1400)
 	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1434)
 	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1611)
@@ -672,7 +672,7 @@ Caused by: kotlin.UninitializedPropertyAccessException: lateinit property locale
 
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: YouTube-Tablet-Morphe  (25s)
+  ❌ FALLÓ: YouTube-Tablet-Morphe  (20s)
      Revisa logs/YouTube-Tablet-Morphe.log para detalles
 ═══════════════════════════════════════════════════════════════
 
