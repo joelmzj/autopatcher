@@ -205,7 +205,7 @@ version = "20.21.37"
 force-patch = true
 enable-patches = []
 exclude-patches = ["Custom double tap length"]
-apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube/youtube-20-21-37-release/"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube/youtube-20-26-46-release/"
 
 [YouTube-Tablet-anddea]
 enabled = true
