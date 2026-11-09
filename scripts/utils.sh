@@ -617,39 +617,72 @@ dl_apkmirror() {
     pr "Descargando APK final..."
     mkdir -p "$(dirname "$output")"
 
-    local CURL_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    # 🆕 Fix 1: UA unificado (mismo que los scripts Python que navegan)
+    local CURL_UA="$DEFAULT_UA"
 
-    # Intento 1: curl con headers completos y cookie jar
-    if curl -L -f -s -S --retry 3 --retry-delay 5 \
-        --connect-timeout 30 --max-time 1800 \
-        -A "$CURL_UA" \
-        -e "$download_url" \
-        -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" \
-        -H "Accept-Language: en-US,en;q=0.5" \
-        -H "Accept-Encoding: gzip, deflate, br" \
-        -H "Connection: keep-alive" \
-        -H "Upgrade-Insecure-Requests: 1" \
-        -H "Sec-Fetch-Dest: document" \
-        -H "Sec-Fetch-Mode: navigate" \
-        -H "Sec-Fetch-Site: same-origin" \
-        -b "$TEMP_DIR/cookie.txt" \
-        -c "$TEMP_DIR/cookie.txt" \
-        -o "$output" "$final_url"; then
-        if [ -f "$output" ] && [ -s "$output" ]; then
-            pr "APK descargada y verificada: $output"
-            return 0
+    # 🆕 Función interna para intentar la descarga con curl y fallback a cf_get.py
+    _try_download_apkmirror() {
+        local target_url="$1"
+        local referer_url="$2"
+
+        # Intento 1: curl
+        if curl -L -f -s -S --retry 3 --retry-delay 5 \
+            --connect-timeout 30 --max-time 1800 \
+            -A "$CURL_UA" \
+            -e "$referer_url" \
+            -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" \
+            -H "Accept-Language: en-US,en;q=0.5" \
+            -H "Accept-Encoding: gzip, deflate, br" \
+            -H "Connection: keep-alive" \
+            -H "Upgrade-Insecure-Requests: 1" \
+            -H "Sec-Fetch-Dest: document" \
+            -H "Sec-Fetch-Mode: navigate" \
+            -H "Sec-Fetch-Site: same-origin" \
+            -b "$TEMP_DIR/cookie.txt" \
+            -c "$TEMP_DIR/cookie.txt" \
+            -o "$output" "$target_url"; then
+            if [ -f "$output" ] && [ -s "$output" ]; then
+                return 0
+            fi
+        fi
+
+        # Intento 2: cf_get.py (solver CF)
+        pr "Curl falló, reintentando con cf_get.py..."
+        if python3 "$cf_py" download "$target_url" "$output" "$referer_url" "$TEMP_DIR/cookie.txt"; then
+            if [ -f "$output" ] && [ -s "$output" ]; then
+                return 0
+            fi
+        fi
+        return 1
+    }
+
+    # Intento inicial con la URL que ya tenemos
+    if _try_download_apkmirror "$final_url" "$download_url"; then
+        pr "APK descargada y verificada: $output"
+        return 0
+    fi
+
+    # 🆕 Fix 2: Si falla, refrescar la página intermedia para obtener una key fresca
+    pr "Descarga falló. Refrescando key de descarga y reintentando..."
+    sleep 3   # margen para que el rate-limit de APKMirror se relaje
+
+    local fresh_step2_html fresh_final
+    fresh_step2_html=$(python3 "$cf_py" "$download_url" 2>/dev/null) || true
+
+    if [ -n "$fresh_step2_html" ]; then
+        fresh_final=$(echo "$fresh_step2_html" | python3 "$search_py" final 2>/dev/null)
+        if [ -n "$fresh_final" ] && [[ "$fresh_final" == http* ]] && [ "$fresh_final" != "$final_url" ]; then
+            pr "Nuevo enlace final obtenido: $fresh_final"
+            if _try_download_apkmirror "$fresh_final" "$download_url"; then
+                pr "APK descargada (retry con key fresca): $output"
+                return 0
+            fi
+        else
+            pr "No se pudo obtener una key nueva (mismo enlace o vacío)"
         fi
     fi
 
-    # Intento 2: Si curl sigue fallando, usar cf_get.py
-    pr "Curl falló, reintentando con cf_get.py..."
-    if python3 "$cf_py" download "$final_url" "$output" "$download_url" "$TEMP_DIR/cookie.txt"; then
-        if [ -f "$output" ] && [ -s "$output" ]; then
-            pr "APK descargada y verificada: $output"
-            return 0
-        fi
-    fi
-    
+    epr "No se pudo descargar la APK tras múltiples intentos (CF/403)"
     return 1
 }
 

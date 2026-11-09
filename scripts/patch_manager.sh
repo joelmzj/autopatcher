@@ -57,20 +57,7 @@ get_latest_remote_tag() {
 # ==============================================================================
 # Decisión de compilación (keyed por app, sin colisiones)
 #
-# Firma: should_build_app TABLE_NAME PATCH_REPO CHANNEL APK_VERSION BRAND ARCH PKG_NAME NEW_PATCHES_HASH
-#
-# Compara campos contra versions_log.json:
-#   1. patches_version  → ¿cambió el tag del release de parches?
-#      ↳ Si cambió, se compara `patches_hash` (hash del subconjunto de parches
-#        aplicables al paquete). Si el hash es idéntico, el bundle nuevo NO
-#        trae cambios para esta app → se omite la compilación.
-#   2. brand            → ¿cambió la marca configurada?
-#   3. arch             → ¿cambió la arquitectura?
-#
-# ⚠️ NOTA IMPORTANTE: Ya NO se compara `apk_version` porque el JSON de `main` 
-# puede estar desincronizado (skew) con el `.mpp` real del release. Eso causaba
-# rebuilds infinitos. Si necesitas forzar una compilación sin cambiar de tag,
-# usa la variable REBUILD_APPS.
+# Firma: should_build_app TABLE_NAME PATCH_REPO CHANNEL APK_VERSION BRAND ARCH PKG_NAME NEW_PATCHES_HASH IS_SINGLE_APP NEW_MPP_SIZE NEW_MPP_UPDATED_AT
 #
 # Retorna 0 → compilar, 1 → omitir
 # ==============================================================================
@@ -81,8 +68,11 @@ should_build_app() {
     local current_apk_ver="$4"
     local current_brand="${5:-}"
     local current_arch="${6:-}"
-    local pkg_name="${7:-}"               # 🆕 paquete Android (para diagnóstico)
-    local new_patches_hash="${8:-}"       # 🆕 hash de parches aplicables al paquete
+    local pkg_name="${7:-}"
+    local new_patches_hash="${8:-}"
+    local is_single_app="${9:-false}"
+    local new_mpp_size="${10:-}"
+    local new_mpp_updated_at="${11:-}"
 
     if [ ! -f "$VERSIONS_LOG_FILE" ]; then
         echo '{}' > "$VERSIONS_LOG_FILE"
@@ -99,31 +89,51 @@ should_build_app() {
 
     # Leer estado guardado para esta app
     local cached_patch_ver cached_apk_ver cached_brand cached_arch cached_patches_hash
+    local cached_mpp_size cached_mpp_updated_at
     cached_patch_ver=$(jq -r --arg app "$table_name" '.[$app].patches_version // ""' "$VERSIONS_LOG_FILE")
     cached_apk_ver=$(jq -r --arg app "$table_name" '.[$app].apk_version // ""' "$VERSIONS_LOG_FILE")
     cached_brand=$(jq -r --arg app "$table_name" '.[$app].brand // ""' "$VERSIONS_LOG_FILE")
     cached_arch=$(jq -r --arg app "$table_name" '.[$app].arch // ""' "$VERSIONS_LOG_FILE")
     cached_patches_hash=$(jq -r --arg app "$table_name" '.[$app].patches_hash // ""' "$VERSIONS_LOG_FILE")
+    cached_mpp_size=$(jq -r --arg app "$table_name" '.[$app].mpp_size // ""' "$VERSIONS_LOG_FILE")
+    cached_mpp_updated_at=$(jq -r --arg app "$table_name" '.[$app].mpp_updated_at // ""' "$VERSIONS_LOG_FILE")
 
     # Condición 1: nueva versión de parches
     if [ "$latest_patch_ver" != "$cached_patch_ver" ]; then
-        # 🆕 Filtro por hash: el tag es nuevo, pero ¿afecta realmente a esta app?
-        if [ -z "$new_patches_hash" ]; then
-            echo -e "\033[0;31m[✗] Tag nuevo ($cached_patch_ver -> $latest_patch_ver) pero sin hash de parches para $table_name ($pkg_name). Omitiendo; revisar JSON/CLI.\033[0m" >&2
-            return 1
+
+        # 🆕 Opción 3 (KISS): Single-app bundle -> cualquier tag nuevo requiere compilar
+        if [ "$is_single_app" = "true" ]; then
+            echo -e "\033[0;32m[+] Tag nuevo en bundle single-app para $table_name. Compilando.\033[0m" >&2
+            return 0
         fi
 
-        if [ -n "$cached_patches_hash" ] && [ "$new_patches_hash" = "$cached_patches_hash" ]; then
-            echo -e "\033[0;33m[!] Tag nuevo ($cached_patch_ver -> $latest_patch_ver) sin cambios en parches para $table_name ($pkg_name). Omitiendo compilación.\033[0m" >&2
-            return 1
+        # 🆕 Filtro 1: ¿Cambió el hash del JSON filtrado por CLI?
+        if [ -n "$cached_patches_hash" ] && [ "$new_patches_hash" != "$cached_patches_hash" ]; then
+            echo -e "\033[0;32m[+] Hash de parches cambió para $table_name. Compilando.\033[0m" >&2
+            return 0
         fi
 
-        if [ -z "$cached_patches_hash" ]; then
-            echo -e "\033[0;32m[+] ¡Nueva versión de parches detectada para $table_name! [$cached_patch_ver -> $latest_patch_ver] (sin hash previo)\033[0m" >&2
-        else
-            echo -e "\033[0;32m[+] ¡Nueva versión de parches con cambios para $table_name! [$cached_patch_ver -> $latest_patch_ver] (hash: ${cached_patches_hash:0:12}… -> ${new_patches_hash:0:12}…)\033[0m" >&2
+        # 🆕 Filtro 2: ¿Cambió el peso o la fecha del .mpp? (Detección de fixes silenciosos)
+        local mpp_changed=false
+        if [ -n "$new_mpp_size" ] && [ -n "$cached_mpp_size" ] && [ "$new_mpp_size" != "$cached_mpp_size" ]; then
+            mpp_changed=true
         fi
-        return 0
+        if [ -n "$new_mpp_updated_at" ] && [ -n "$cached_mpp_updated_at" ] && [ "$new_mpp_updated_at" != "$cached_mpp_updated_at" ]; then
+            mpp_changed=true
+        fi
+        # Si no tenemos caché previa del .mpp, lo tratamos como cambio para forzar la siembra
+        if [ -z "$cached_mpp_size" ] || [ -z "$cached_mpp_updated_at" ]; then
+            mpp_changed=true
+        fi
+
+        if [ "$mpp_changed" = "true" ]; then
+            echo -e "\033[0;32m[+] Peso/Fecha del .mpp cambió para $table_name. Compilando.\033[0m" >&2
+            return 0
+        fi
+
+        # Si llegamos aquí, el tag cambió pero ni el JSON ni el .mpp cambiaron
+        echo -e "\033[0;33m[!] Tag nuevo ($cached_patch_ver -> $latest_patch_ver) pero sin cambios en JSON ni .mpp para $table_name. Omitiendo.\033[0m" >&2
+        return 1
     fi
 
     # Condición 2: cambió brand
