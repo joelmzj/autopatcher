@@ -4,11 +4,11 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-09T21:22:47Z
+     Inicio:  2026-11-09T21:39:59Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTube-Tablet-Morphe ===
-Fecha: 2026-11-09T21:22:50Z
+Fecha: 2026-11-09T21:40:02Z
 APK version: 20.21.37
 Patches version: v2.2.0-dev.4
 Patches source: MorpheApp/morphe-patches
@@ -38,7 +38,7 @@ INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morph
 INFO: Resolved patches (v2.2.0-dev.4) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.2.0-dev.4__patches-2.2.0-dev.4.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
-INFO: Filtering patches for com.google.android.youtube v20.21.37...
+INFO: Filtering patches for com.google.android.youtube v20.26.46...
 INFO: Skipping disabled: Clone app (default)
 INFO: Skipping disabled: Change installer source (default)
 INFO: Skipping disabled: Override certificate pinning (default)
@@ -49,635 +49,160 @@ INFO: Deleting existing temporary files directory
 INFO: Executing patches
 INFO: Extracting raw resources on request
 INFO: Decoding the manifest
-INFO: Decoding resources on request, 13088 files can be decoded
-INFO: Building instruction indexes for 55296 classes...
-ERROR: Failed: AI channel filter
-ERROR: Failed: Add to queue
-ERROR: Failed: Ambient mode
-ERROR: Failed: App refresh rate
-ERROR: Failed: Ask flyout menu
-ERROR: Failed: Bypass image region restrictions
-ERROR: Failed: Bypass link redirects
-ERROR: Failed: Captions
-ERROR: Failed: Change form factor
+INFO: Decoding resources on request, 13355 files can be decoded
+INFO: Building instruction indexes for 55830 classes...
+INFO: Applied: AI channel filter
+INFO: Applied: Add to queue
+INFO: Applied: Ambient mode
+INFO: Applied: App refresh rate
+WARN: 'Ask flyout menu' requires YouTube 21.16+
+INFO: Applied: Ask flyout menu
+INFO: Applied: Bypass image region restrictions
+INFO: Applied: Bypass link redirects
+WARN: Stable caption blocks requires YouTube 21.15+
+INFO: Applied: Captions
+INFO: Applied: Change form factor
 INFO: Applied: Change header
-ERROR: Failed: Change picture-in-picture actions
-ERROR: Failed: Change start page
-ERROR: Failed: Channel search
-ERROR: Failed: Channel whitelist
+INFO: Applied: Change picture-in-picture actions
+INFO: Applied: Change start page
+INFO: Applied: Channel search
+INFO: Applied: Channel whitelist
 INFO: Applied: Check watch history domain name resolution
-ERROR: Failed: Copy text
-ERROR: Failed: Copy video link
-ERROR: Failed: Custom branding
-ERROR: Failed: Custom font
-ERROR: Failed: Custom player overlay opacity
-ERROR: Failed: DeArrow
-ERROR: Failed: Disable DRC audio
-ERROR: Failed: Disable QUIC protocol
-ERROR: Failed: Disable Shorts resuming on startup
-ERROR: Failed: Disable auto feed refresh
-ERROR: Failed: Disable continue watching prompt
-ERROR: Failed: Disable double tap actions
-ERROR: Failed: Disable fullscreen gestures
-ERROR: Failed: Disable haptic feedback
-ERROR: Failed: Disable layout updates
-ERROR: Failed: Disable player popup panels
-ERROR: Failed: Disable playlist autoplay
-ERROR: Failed: Disable rolling number animations
-ERROR: Failed: Disable scrolling speed limit
-ERROR: Failed: Disable sign in to TV popup
-ERROR: Failed: Disable video codecs
+INFO: Applied: Copy text
+INFO: Applied: Copy video link
+INFO: Applied: Custom branding
+INFO: Applied: Custom font
+INFO: Applied: Custom player overlay opacity
+INFO: Applied: DeArrow
+INFO: Applied: Disable DRC audio
+INFO: Applied: Disable QUIC protocol
+INFO: Applied: Disable Shorts resuming on startup
+INFO: Applied: Disable auto feed refresh
+INFO: Applied: Disable continue watching prompt
+INFO: Applied: Disable double tap actions
+INFO: Applied: Disable fullscreen gestures
+INFO: Applied: Disable haptic feedback
+INFO: Applied: Disable layout updates
+INFO: Applied: Disable player popup panels
+INFO: Applied: Disable playlist autoplay
+INFO: Applied: Disable rolling number animations
+INFO: Applied: Disable scrolling speed limit
+INFO: Applied: Disable sign in to TV popup
+INFO: Applied: Disable video codecs
 INFO: Applied: Double tap to seek
-ERROR: Failed: Download post images
-ERROR: Failed: Downloads
-ERROR: Failed: Enable debugging
-ERROR: Failed: Exit fullscreen mode
-ERROR: Failed: Feed card layout
-ERROR: Failed: Feed video actions
-ERROR: Failed: Feed view count
-ERROR: Failed: Force animations
-ERROR: Failed: Force fullscreen landscape
-ERROR: Failed: Force original audio
-ERROR: Failed: Fullscreen video scale
-ERROR: Failed: GmsCore support
-ERROR: Failed: Hide Shorts components
-ERROR: Failed: Hide ads
-ERROR: Failed: Hide autoplay preview
-ERROR: Failed: Hide end screen cards
+INFO: Applied: Download post images
+INFO: Applied: Downloads
+INFO: Applied: Enable debugging
+INFO: Applied: Exit fullscreen mode
+INFO: Applied: Feed card layout
+INFO: Applied: Feed video actions
+INFO: Applied: Feed view count
+INFO: Applied: Force animations
+INFO: Applied: Force fullscreen landscape
+INFO: Applied: Force original audio
+INFO: Applied: Fullscreen video scale
+INFO: Applied: GmsCore support
+INFO: Applied: Hide Shorts components
+INFO: Applied: Hide ads
+INFO: Applied: Hide autoplay preview
+INFO: Applied: Hide end screen cards
 INFO: Applied: Hide end screen suggested video
-ERROR: Failed: Hide info cards
-ERROR: Failed: Hide layout components
-ERROR: Failed: Hide player flyout menu components
-ERROR: Failed: Hide player overlay buttons
-ERROR: Failed: Hide related video overlay
-ERROR: Failed: Hide related videos
-ERROR: Failed: Hide status bar
-ERROR: Failed: Hide timestamp
-ERROR: Failed: Hide video action buttons
-ERROR: Failed: Loop video
-ERROR: Failed: Media notification controls
-ERROR: Failed: Miniplayer
-ERROR: Failed: Mute button
-ERROR: Failed: Navigation bar
-ERROR: Failed: Network proxy
-ERROR: Failed: Niconico comments
-ERROR: Failed: On-the-go player
-ERROR: Failed: Open Shorts in regular player
-ERROR: Failed: Open channel of live avatar
+INFO: Applied: Hide info cards
+INFO: Applied: Hide layout components
+INFO: Applied: Hide player flyout menu components
+INFO: Applied: Hide player overlay buttons
+INFO: Applied: Hide related video overlay
+INFO: Applied: Hide related videos
+INFO: Applied: Hide status bar
+INFO: Applied: Hide timestamp
+INFO: Applied: Hide video action buttons
+INFO: Applied: Loop video
+INFO: Applied: Media notification controls
+INFO: Applied: Miniplayer
+INFO: Applied: Mute button
+WARN: Network proxy requires YouTube 20.47.62 or newer.
+INFO: Applied: Network proxy
+INFO: Applied: Niconico comments
+INFO: Applied: On-the-go player
+INFO: Applied: Open Shorts in regular player
+INFO: Applied: Open channel of live avatar
 INFO: Applied: Open links externally
-ERROR: Failed: Open system share sheet
-ERROR: Failed: Open videos fullscreen
-ERROR: Failed: Override YouTube Music buttons
-ERROR: Failed: Picture-in-picture button
-ERROR: Failed: Play all
-ERROR: Failed: Playback buffer
-ERROR: Failed: Playback in feeds
-ERROR: Failed: Playback speed
-ERROR: Failed: Player icon style
-ERROR: Failed: Playlist improvements
-INFO: PoToken provider is not required for root installation. No changes applied.
+INFO: Applied: Open system share sheet
+INFO: Applied: Open videos fullscreen
+INFO: Applied: Override YouTube Music buttons
+INFO: Applied: Picture-in-picture button
+INFO: Applied: Play all
+INFO: Applied: Playback buffer
+INFO: Applied: Playback in feeds
+INFO: Applied: Playback speed
+INFO: Applied: Playlist improvements
 INFO: Applied: PoToken provider
-ERROR: Failed: Reload video
-ERROR: Failed: Remember live stream playback position
-ERROR: Failed: Remove background playback restrictions
-ERROR: Failed: Remove viewer discretion dialog
-ERROR: Failed: Restore original titles
-ERROR: Failed: Return YouTube Dislike
-ERROR: Failed: Sanitize sharing links
-ERROR: Failed: Save to Watch later
-ERROR: Failed: Search comments
-ERROR: Failed: Seekbar
-ERROR: Failed: Series tracking
-ERROR: Failed: Settings menu filter
-ERROR: Failed: Shorts autoplay
-ERROR: Failed: Shorts icon style
-ERROR: Failed: Skip live Shorts
-ERROR: Failed: Skip silence
-ERROR: Failed: Snackbar
-ERROR: Failed: SponsorBlock
-ERROR: Failed: Spoof app version
-ERROR: Failed: Spoof device dimensions
-ERROR: Failed: Spoof video streams
-ERROR: Failed: Swipe controls
-ERROR: Failed: Theme
-ERROR: Failed: Translate live chat
-ERROR: Failed: Translate posts
-ERROR: Failed: Video delay
-ERROR: Failed: Video quality
-ERROR: Failed: Voice over translation
-ERROR: Failed: Wide search bar
-ERROR: Failed: AddResourcesPatch.addResourcesPatch
+INFO: Applied: Reload video
+INFO: Applied: Remember live stream playback position
+INFO: Applied: Remove background playback restrictions
+INFO: Applied: Remove viewer discretion dialog
+INFO: Applied: Restore original titles
+INFO: Applied: Return YouTube Dislike
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Save to Watch later
+INFO: Applied: Search comments
+INFO: Applied: Seekbar
+WARN: 'Series tracking' requires YouTube 21.02+
+INFO: Applied: Series tracking
+INFO: Applied: Settings menu filter
+INFO: Applied: Shorts autoplay
+INFO: Applied: Skip live Shorts
+WARN: 'Skip silence' does not support older legacy app targets.
+INFO: Applied: Skip silence
+INFO: Applied: Snackbar
+INFO: Applied: SponsorBlock
+INFO: Applied: Spoof app version
+INFO: Applied: Spoof device dimensions
+INFO: Applied: Spoof video streams
+INFO: Applied: Swipe controls
+INFO: Applied: Theme
+INFO: Applied: Translate live chat
+INFO: Applied: Translate posts
+INFO: Applied: Video delay
+INFO: Applied: Video quality
+INFO: Applied: Voice over translation
+INFO: Applied: Wide search bar
+INFO: Applied: Shorts icon style
+INFO: Applied: Player icon style
+INFO: Applied: Navigation bar
 INFO: Rebuilding APK...
 INFO: Compiling patched dex files (mode: STRIP_FAST)
-INFO: Copied 9185 unchanged extension classes to 3 DEX files
-INFO: Changed 110 of 55296 classes to mutable
-INFO: Writing 110 new classes to new DEX files
-INFO: Processing 110 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794259379471/patcher/patched/newDex
-INFO: Stripped 73 modified classes from 6 original DEX files
+INFO: Copied 9087 unchanged extension classes to 3 DEX files
+INFO: Changed 1080 of 55830 classes to mutable
+INFO: Writing 1080 new classes to new DEX files
+INFO: Processing 1080 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794260413080/patcher/patched/newDex
+INFO: Stripped 945 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
 INFO: Stripped 81 lib files
-INFO: Decoded 0 of 13088 files on request
+INFO: Decoded 60 of 13355 files on request
 INFO: Unescaping strings
+INFO: Post-processing package name change
 INFO: Processing aapt macros
 INFO: Generating new resource IDs
 INFO: Writing resource APK
-WARN: Encoding the changed resources into the resource table failed, rebuilding the table: com.reandroid.arsc.coder.xml.XmlEncodeException: Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
-INFO: Unescaping strings
-INFO: Patching took 11.6 seconds
-ERROR: Patching aborted: Rebuilding APK failed: at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794259379471/patcher/apk/resources/package_1/res/values/arrays.xml [line = 237]
-Unexpected array value: <item>@string/morphe_double_tap_length_3s</item>
-ERROR: app.morphe.patcher.patch.PatchException: The patch "AI channel filter" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.misc.fix.padding.FeedListPaddingFingerprint@7214037
-	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1400)
-	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1434)
-	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1611)
-	at app.morphe.patches.youtube.misc.fix.padding.FixPagePaddingPatchKt.fixPagePaddingPatch$lambda$0$0(FixPagePaddingPatch.kt:79)
-	at app.morphe.patcher.patch.ContextFreeBlock.invoke(Patch.kt:1006)
-	at app.morphe.patcher.patch.ContextFreeBlock.invoke(Patch.kt:1005)
-	at app.morphe.patcher.patch.Patch.execute(Patch.kt:160)
-	at app.morphe.patcher.patch.Patch.execute$morphe_patcher(Patch.kt:151)
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Add to queue" depends on "FlyoutPatch.flyoutPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "FlyoutPatch.flyoutPatch" depends on "VideoInformationPatch.videoInformationPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoInformationPatch.videoInformationPatch" depends on "VideoIdPatch.videoIdPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoIdPatch.videoIdPatch" depends on "PlayerResponseMethodHookPatch.playerResponseMethodHookPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: Failed to match the fingerprint: app.morphe.patches.youtube.video.playerresponse.PlayerParameterBuilder2026Fingerprint@31542109
-	at app.morphe.patcher.Fingerprint.patchException(Fingerprint.kt:1400)
-	at app.morphe.patcher.Fingerprint.match(Fingerprint.kt:1434)
-	at app.morphe.patcher.Fingerprint.getMethod(Fingerprint.kt:1611)
-	at app.morphe.patches.youtube.video.playerresponse.PlayerResponseMethodHookPatchKt.playerResponseMethodHookPatch$lambda$0$0(PlayerResponseMethodHookPatch.kt:62)
-	at app.morphe.patcher.patch.ContextFreeBlock.invoke(Patch.kt:1006)
-	at app.morphe.patcher.patch.ContextFreeBlock.invoke(Patch.kt:1005)
-	at app.morphe.patcher.patch.Patch.execute(Patch.kt:160)
-	at app.morphe.patcher.patch.Patch.execute$morphe_patcher(Patch.kt:151)
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Ambient mode" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "App refresh rate" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Ask flyout menu" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Bypass image region restrictions" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Bypass link redirects" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Captions" depends on "AutoCaptionsPatch.autoCaptionsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "AutoCaptionsPatch.autoCaptionsPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Change form factor" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Change picture-in-picture actions" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Change start page" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Channel search" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Channel whitelist" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Copy text" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Copy video link" depends on "CopyVideoLinkButtonPatch.copyVideoLinkButtonResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "CopyVideoLinkButtonPatch.copyVideoLinkButtonResourcePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom branding" depends on "SplashAnimationPatch.splashAnimationPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SplashAnimationPatch.splashAnimationPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom font" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Custom player overlay opacity" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "DeArrow" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable DRC audio" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable QUIC protocol" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable Shorts resuming on startup" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable auto feed refresh" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable continue watching prompt" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable double tap actions" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable fullscreen gestures" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable haptic feedback" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable layout updates" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable player popup panels" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable playlist autoplay" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable rolling number animations" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable scrolling speed limit" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable sign in to TV popup" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Disable video codecs" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Download post images" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Downloads" depends on "DownloadsPatch.downloadsResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "DownloadsPatch.downloadsResourcePatch" depends on "LegacyPlayerControlsPatch.legacyPlayerControlsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "LegacyPlayerControlsPatch.legacyPlayerControlsPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Enable debugging" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Exit fullscreen mode" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed card layout" depends on "OpenVideoIntentPatch.openVideoIntentPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "OpenVideoIntentPatch.openVideoIntentPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed video actions" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Feed view count" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Force animations" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Force fullscreen landscape" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Force original audio" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Fullscreen video scale" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "GmsCore support" depends on "GmsCoreSupportPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "GmsCoreSupportPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide Shorts components" depends on "HideShortsComponentsPatch.hideShortsComponentsResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "HideShortsComponentsPatch.hideShortsComponentsResourcePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide ads" depends on "HideAdsPatch.hideAdsResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "HideAdsPatch.hideAdsResourcePatch" depends on "LithoFilterPatch.lithoFilterPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "LithoFilterPatch.lithoFilterPatch" depends on "FixBackToExitGesturePatch.fixBackToExitGesturePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "FixBackToExitGesturePatch.fixBackToExitGesturePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide autoplay preview" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide end screen cards" depends on "HideEndScreenCardsPatch.hideEndScreenCardsResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "HideEndScreenCardsPatch.hideEndScreenCardsResourcePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide info cards" depends on "LithoFilterPatch.lithoFilterPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "LithoFilterPatch.lithoFilterPatch" depends on "FixBackToExitGesturePatch.fixBackToExitGesturePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "FixBackToExitGesturePatch.fixBackToExitGesturePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide layout components" depends on "LithoFilterPatch.lithoFilterPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "LithoFilterPatch.lithoFilterPatch" depends on "FixBackToExitGesturePatch.fixBackToExitGesturePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "FixBackToExitGesturePatch.fixBackToExitGesturePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide player flyout menu components" depends on "LithoFilterPatch.lithoFilterPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "LithoFilterPatch.lithoFilterPatch" depends on "FixBackToExitGesturePatch.fixBackToExitGesturePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "FixBackToExitGesturePatch.fixBackToExitGesturePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide player overlay buttons" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide related video overlay" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide related videos" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide status bar" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide timestamp" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Hide video action buttons" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Loop video" depends on "LoopVideoButtonPatch.loopVideoButtonPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "LoopVideoButtonPatch.loopVideoButtonPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Media notification controls" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Miniplayer" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Mute button" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Navigation bar" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Network proxy" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Niconico comments" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "On-the-go player" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open Shorts in regular player" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open channel of live avatar" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open system share sheet" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Open videos fullscreen" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Override YouTube Music buttons" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Picture-in-picture button" depends on "PictureinPictureButtonPatch.pictureinPictureButtonResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "PictureinPictureButtonPatch.pictureinPictureButtonResourcePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Play all" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback buffer" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback in feeds" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Playback speed" depends on "CustomPlaybackSpeedPatch.customPlaybackSpeedPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "CustomPlaybackSpeedPatch.customPlaybackSpeedPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Player icon style" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Playlist improvements" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Reload video" depends on "ReloadVideoButtonPatch.reloadVideoButtonResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "ReloadVideoButtonPatch.reloadVideoButtonResourcePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Remember live stream playback position" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Remove background playback restrictions" depends on "VideoInformationPatch.videoInformationPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoInformationPatch.videoInformationPatch" depends on "VideoIdPatch.videoIdPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoIdPatch.videoIdPatch" depends on "PlayerResponseMethodHookPatch.playerResponseMethodHookPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'PlayerResponseMethodHookPatch.playerResponseMethodHookPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Remove viewer discretion dialog" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Restore original titles" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Return YouTube Dislike" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Sanitize sharing links" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Save to Watch later" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Search comments" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Seekbar" depends on "CustomSeekbarThumbPatch.customSeekbarThumbPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "CustomSeekbarThumbPatch.customSeekbarThumbPatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Series tracking" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Settings menu filter" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Shorts autoplay" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Shorts icon style" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Skip live Shorts" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Skip silence" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Snackbar" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "SponsorBlock" depends on "VideoIdPatch.videoIdPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoIdPatch.videoIdPatch" depends on "PlayerResponseMethodHookPatch.playerResponseMethodHookPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'PlayerResponseMethodHookPatch.playerResponseMethodHookPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof app version" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof device dimensions" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Spoof video streams" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Swipe controls" depends on "SwipeControlsPatch.swipeControlsResourcePatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SwipeControlsPatch.swipeControlsResourcePatch" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Theme" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Translate live chat" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Translate posts" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Video delay" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Video quality" depends on "RememberVideoQualityPatch.rememberVideoQualityPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "RememberVideoQualityPatch.rememberVideoQualityPatch" depends on "VideoInformationPatch.videoInformationPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoInformationPatch.videoInformationPatch" depends on "VideoIdPatch.videoIdPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoIdPatch.videoIdPatch" depends on "PlayerResponseMethodHookPatch.playerResponseMethodHookPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'PlayerResponseMethodHookPatch.playerResponseMethodHookPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Voice over translation" depends on "VideoInformationPatch.videoInformationPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoInformationPatch.videoInformationPatch" depends on "VideoIdPatch.videoIdPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "VideoIdPatch.videoIdPatch" depends on "PlayerResponseMethodHookPatch.playerResponseMethodHookPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'PlayerResponseMethodHookPatch.playerResponseMethodHookPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: The patch "Wide search bar" depends on "SettingsPatch.settingsPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch "SettingsPatch.settingsPatch" depends on "FixPagePaddingPatch.fixPagePaddingPatch", which raised an exception
-Caused by: app.morphe.patcher.patch.PatchException: The patch 'FixPagePaddingPatch.fixPagePaddingPatch' failed previously
-
-ERROR: app.morphe.patcher.patch.PatchException: lateinit property locales has not been initialized
-Caused by: kotlin.UninitializedPropertyAccessException: lateinit property locales has not been initialized
-	at app.morphe.patches.all.misc.resources.AddResourcesPatchKt.getLocales(AddResourcesPatch.kt:267)
-	at app.morphe.patches.all.misc.resources.AddResourcesPatchKt.addResourcesPatch$lambda$0$0(AddResourcesPatch.kt:404)
-	at app.morphe.patcher.patch.ContextFreeBlock.invoke(Patch.kt:1006)
-	at app.morphe.patcher.patch.ContextFreeBlock.invoke(Patch.kt:1005)
-	at app.morphe.patcher.patch.Patch.finalize(Patch.kt:179)
-	at app.morphe.patcher.patch.Patch.finalize$morphe_patcher(Patch.kt:169)
-
+INFO: Encoded 139644 of 139644 values in 82 files, 1188 resource files and 541 configurations of patches for com.google.android.youtube
+INFO: Reusing 12961 unchanged archive entries, rebuilding 1190 entries, dropping 81 entries, leaving out 6 replaced entries
+INFO: Resource APK scan: 1.6s write: 1.8s
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v2.2.0-dev.4-arm64-v8a.apk
+INFO: Patching took 15.3 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: YouTube-Tablet-Morphe  (24s)
-     Revisa logs/YouTube-Tablet-Morphe.log para detalles
+  ✅ ÉXITO: YouTube-Tablet-Morphe  (30s)
+     APK:      YouTube-Tablet-Morphe-v20.21.37-Morphe-v2.2.0-dev.4-arm64-v8a.apk
+     APK ver:  20.21.37
+     Parches:  v2.2.0-dev.4
+     Hash:     aaf0daee2d4cd86c5f0cd1ef78a45f4f...
 ═══════════════════════════════════════════════════════════════
 
+
+--- Fin del parcheo ---
+APK final: build/YouTube-Tablet-Morphe-v20.21.37-Morphe-v2.2.0-dev.4-arm64-v8a.apk
+Fecha de fin: 2026-11-09T21:40:29Z
