@@ -178,17 +178,17 @@
     "patches_hash": "aaf0daee2d4cd86c5f0cd1ef78a45f4f0123136b1235d1b5e0eab6cb9ce6c68a",
     "mpp_size": 16845430,
     "mpp_updated_at": "2026-11-09T13:47:43Z",
-    "apk_version": "20.21.37",
+    "apk_version": "20.26.46",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v2.2.0-dev.4-arm64-v8a.apk",
+    "stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.2.0-dev.4-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v2.0.0-dev.1-arm64-v8a.apk",
+    "snapshot_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v2.2.0-dev.4-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Tablet-Morphe-v20.21.37-Morphe-v2.0.0-dev.1-arm64-v8a.apk",
+    "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-09T21:40:29Z"
+    "timestamp": "2026-11-09T21:45:54Z"
   },
   "YouTube-Tablet-anddea": {
     "patches_source": "anddea/revanced-patches",
