@@ -1,0 +1,17 @@
+name: Test Assets
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar assets
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          ls -la bin/
+          test -f bin/ic_launcher.png && echo "✅ ic_launcher.png OK" || echo "❌ FALTA"
+          test -f bin/app_banner.png && echo "✅ app_banner.png OK" || echo "❌ FALTA"
+          file bin/ic_launcher.png bin/app_banner.png || true

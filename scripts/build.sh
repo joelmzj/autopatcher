@@ -74,7 +74,6 @@ parse_patches_source() {
         esac
         PATCHES_CLI_URL="$src"
     else
-        # GitHub short format (e.g., "user/repo")
         PATCHES_HOST="github"
         PATCHES_PATH="$src"
         PATCHES_CLI_URL="https://github.com/${src}"
@@ -306,6 +305,7 @@ for table_name in $(toml_get_table_names); do
 		app_args[force_patch]=$(toml_get "$t" force-patch) || app_args[force_patch]="false"
 		app_args[patches_list_in_release]=$(toml_get "$t" "patches-list-in-release") || app_args[patches_list_in_release]="false"
 		app_args[single_app_bundle]=$(toml_get "$t" "single-app-bundle") || app_args[single_app_bundle]="false"
+		app_args[dlurl]=$(toml_get "$t" "dlurl") || app_args[dlurl]=""
 
 		patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
 		parse_patches_source "$patch_repo"
@@ -328,6 +328,15 @@ for table_name in $(toml_get_table_names); do
 			pr "Parches universales a habilitar para $table_name: ${enable_patches[*]}"
 		fi
 
+		# 🆕 Options: líneas CLI completas (pueden contener -e y -O)
+		mapfile -t app_options < <(
+			jq -r --arg t "$table_name" \
+				'.[$t]["options"] // [] | .[]' <<<"$__TOML__"
+		)
+		if [ "${#app_options[@]}" -gt 0 ]; then
+			pr "Opciones CLI extra para $table_name: ${app_options[*]}"
+		fi
+
 		mkdir -p "$TEMP_DIR/$table_name"
 		raw_apk="$TEMP_DIR/$table_name/raw.apk"
 
@@ -345,13 +354,11 @@ for table_name in $(toml_get_table_names); do
 		fi
 		pr "  Tag de parches remoto: $latest_applied_tag (canal: ${app_args[channel]})"
 
-		# ¿Es un bundle de una sola app? (según config.toml)
 		is_single_app="${app_args[single_app_bundle]}"
 		if [ "$is_single_app" = "true" ]; then
 			pr "  Bundle single-app declarado en config (omitirá verificación de .mpp)"
 		fi
 
-		# Obtener metadatos del asset .mpp (solo si no es single-app)
 		mpp_size=""
 		mpp_updated_at=""
 		if [ "$is_single_app" = "false" ] && [ "$latest_applied_tag" != "unknown" ]; then
@@ -385,7 +392,6 @@ for table_name in $(toml_get_table_names); do
 			pr "  Metadatos .mpp: size=${mpp_size:-?} updated_at=${mpp_updated_at:-?}"
 		fi
 
-		# Generar JSON vía CLI (siempre filtrado por el paquete)
 		json_is_valid=false
 		pr "  → Generando patches-list.json vía CLI (repo: $patch_repo, pkg: ${app_args[pkg_name]})"
 		generated_json="$TEMP_DIR/$table_name/generated_patches.json"
@@ -421,9 +427,6 @@ for table_name in $(toml_get_table_names); do
 		fi
 		pr "  Hash de parches para ${app_args[pkg_name]}: $new_patches_hash"
 
-		# ==================================================================
-		# 2a. Resolver la versión objetivo
-		# ==================================================================
 		if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
 			pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
 			resolved_ver=$(resolve_target_version_from_bundle "$patches_json_url" "${app_args[pkg_name]}" "$target_apk_ver")
@@ -435,9 +438,6 @@ for table_name in $(toml_get_table_names); do
 			fi
 		fi
 
-		# ==================================================================
-		# 2b. should_build_app
-		# ==================================================================
 		_force_this=false
 		if [ -n "${REBUILD_APPS:-}" ]; then
 			_rebuild_lower=$(echo "${REBUILD_APPS}" | tr '[:upper:]' '[:lower:]')
@@ -463,7 +463,6 @@ for table_name in $(toml_get_table_names); do
 			exit 0
 		fi
 
-		# 2c. Nombre del APK
 		apk_filename=$(python3 "$(dirname "${BASH_SOURCE[0]}")/naming.py" \
 			"$table_name" \
 			"$target_apk_ver" \
@@ -474,7 +473,6 @@ for table_name in $(toml_get_table_names); do
 		patched_apk="$BUILD_DIR/$apk_filename"
 		pr "Nombre del APK: $apk_filename"
 
-		# 2d. Init log
 		{
 			echo "=== Parcheo: $table_name ==="
 			echo "Fecha: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -491,6 +489,7 @@ for table_name in $(toml_get_table_names); do
 			echo "Patches hash: $new_patches_hash"
 			echo "Mpp size: ${mpp_size:-—}"
 			echo "Mpp updated_at: ${mpp_updated_at:-—}"
+			echo "DL URL: ${app_args[dlurl]:-—}"
 			echo ""
 		} >> "$app_log"
 
@@ -506,7 +505,7 @@ for table_name in $(toml_get_table_names); do
 			pr "  Canal 'dev': forzando parches pre-release (--prerelease)"
 		fi
 
-		if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
+		if [ -z "${app_args[dlurl]:-}" ] && [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
 			get_apkmirror_resp "${app_args[apkmirror_dlurl]}" || {
 				wpr "No se pudo conectar a APKMirror para $table_name"
 				exit 1
@@ -543,7 +542,7 @@ for table_name in $(toml_get_table_names); do
 			log_size_before=$(wc -c < "$app_log" 2>/dev/null || echo 0)
 
 			version_codes_whitelist=""
-			if [ -n "$json_for_whitelist" ]; then
+			if [ -z "${app_args[dlurl]:-}" ] && [ -n "$json_for_whitelist" ]; then
 				pl_json=""
 				if [ -f "$json_for_whitelist" ]; then
 					pl_json=$(cat "$json_for_whitelist")
@@ -564,7 +563,15 @@ for table_name in $(toml_get_table_names); do
 				pr "  (sin whitelist de versionCodes)"
 			fi
 
-			if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
+			if [ -n "${app_args[dlurl]:-}" ]; then
+				pr "Descargando APK desde dlurl: ${app_args[dlurl]}"
+				if ! dl_from_release_page "${app_args[dlurl]}" "$raw_apk" "${app_args[arch]}"; then
+					wpr "Falló la descarga desde ${app_args[dlurl]}"
+					exit 1
+				fi
+				pr "APK descargada desde release: $raw_apk"
+				downloaded_via_fallback=true
+			elif [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
 				pr "Descargando versión $target_apk_ver para $table_name desde APKMirror..."
 
 				if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist"; then
@@ -618,8 +625,12 @@ for table_name in $(toml_get_table_names); do
 				fi
 
 				if [ "$real_ver" != "$target_apk_ver" ]; then
-					wpr "La versión del APK ($real_ver) no coincide con $target_apk_ver"
-					exit 1
+					if [ -n "${app_args[dlurl]:-}" ]; then
+						wpr "  Versión descargada ($real_ver) difiere del bundle ($target_apk_ver) — tolerado por dlurl"
+					else
+						wpr "La versión del APK ($real_ver) no coincide con $target_apk_ver"
+						exit 1
+					fi
 				fi
 				pr "Verificación exitosa."
 			fi
@@ -656,6 +667,18 @@ for table_name in $(toml_get_table_names); do
 				[ -z "$pname" ] && continue
 				morphe_patch_args+=( "-e=$pname" )
 			done
+
+			# 🆕 Options: cada línea se evalúa para respetar comillas internas
+			if [ "${#app_options[@]}" -gt 0 ]; then
+				for opt_line in "${app_options[@]}"; do
+					[ -z "$opt_line" ] && continue
+					if eval "morphe_patch_args+=( ${opt_line} )" 2>/dev/null; then
+						pr "  Argumentos extra desde 'options': $opt_line"
+					else
+						wpr "  ⚠️  Falló el parseo de 'options': $opt_line"
+					fi
+				done
+			fi
 
 			if [ "${app_args[inclusive_patches]}" = "true" ]; then
 				pr "  Leyendo lista de parches para forzar disabled-by-default..."

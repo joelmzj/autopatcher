@@ -268,6 +268,119 @@ source_release_pick_from_list() {
     esac
 }
 
+# ==============================================================================
+# 🆕 DESCARGA DE APKs DESDE RELEASES DE GITHUB / GITLAB
+# ------------------------------------------------------------------------------
+# Firma: dl_from_release_page URL OUTPUT [ARCH]
+#   URL    : "https://github.com/user/repo/releases"
+#            "https://gitlab.com/user/repo/-/releases"
+#            "https://algo.com/cualquier-cosa.apk" (URL directa)
+#   OUTPUT : ruta local del archivo destino (ej. temp/App/raw.apk)
+#   ARCH   : arquitectura preferida (default: arm64-v8a)
+#
+# Comportamiento:
+#   - URL directa .apk  → descarga simple (sin tocar la API).
+#   - URL de releases   → busca el último release; elige el asset .apk
+#                          que mejor matchee la arquitectura o "universal".
+# ==============================================================================
+dl_from_release_page() {
+    local url="$1"
+    local output="$2"
+    local arch="${3:-arm64-v8a}"
+
+    mkdir -p "$(dirname "$output")"
+
+    # Caso 1: URL directa a un .apk → descarga simple
+    if [[ "$url" =~ \.apk(\?|$) ]]; then
+        pr "  Descarga directa: $url"
+        if [[ "$url" == *github.com/* ]]; then
+            gh_req "$url" "$output" >/dev/null || return 1
+        else
+            req "$url" "$output" >/dev/null || return 1
+        fi
+        [ -s "$output" ]
+        return $?
+    fi
+
+    # Caso 2: URL de página de releases → parsear host + path
+    local host path
+    if [[ "$url" =~ ^https://github\.com/([^/]+)/([^/]+)/releases/?$ ]]; then
+        host="github"
+        path="${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+    elif [[ "$url" =~ ^https://gitlab\.com/(.+?)/-/releases/?$ ]]; then
+        host="gitlab"
+        path="${BASH_REMATCH[1]}"
+    else
+        epr "URL de releases no reconocida: $url"
+        return 1
+    fi
+
+    # Obtener último release
+    local list_url resp release_json
+    list_url=$(source_release_list_url "$host" "$path") || return 1
+    resp=$(source_release_req "$host" "$list_url" -) || return 1
+    release_json=$(source_release_pick_from_list "$host" stable <<<"$resp")
+
+    if [ -z "$release_json" ] || [ "$release_json" = "null" ]; then
+        epr "No hay releases en $host/$path"
+        return 1
+    fi
+
+    # Mapear arch a regex de tokens habituales (ARMv8, ARM64, aarch64…)
+    local arch_regex
+    case "${arch,,}" in
+        arm64-v8a)   arch_regex="arm64|armv8|aarch64|arm[-_]?v?8" ;;
+        armeabi-v7a) arch_regex="armv7|armeabi|arm[-_]?v?7" ;;
+        x86_64)      arch_regex="x86_64|x64" ;;
+        x86)         arch_regex="x86" ;;
+        *)           arch_regex="${arch,,}" ;;
+    esac
+
+    # Elegir asset con prioridad: 0=match arch, 1=universal, 2=resto
+    local asset_url
+    case "$host" in
+        github)
+            asset_url=$(echo "$release_json" | jq -r --arg re "$arch_regex" '
+                [.assets[]? | select(.name | endswith(".apk"))
+                 | {url: .browser_download_url, prio: (
+                     if (.name | ascii_downcase | test($re)) then 0
+                     elif (.name | ascii_downcase | contains("universal")) then 1
+                     else 2 end
+                 )}]
+                | sort_by(.prio)
+                | .[0].url // empty
+            ')
+            ;;
+        gitlab)
+            asset_url=$(echo "$release_json" | jq -r --arg re "$arch_regex" '
+                [.assets.links[]? | select(.name | endswith(".apk"))
+                 | {url: .direct_asset_url, prio: (
+                     if (.name | ascii_downcase | test($re)) then 0
+                     elif (.name | ascii_downcase | contains("universal")) then 1
+                     else 2 end
+                 )}]
+                | sort_by(.prio)
+                | .[0].url // empty
+            ')
+            ;;
+    esac
+
+    if [ -z "$asset_url" ] || [ "$asset_url" = "null" ]; then
+        epr "No hay assets .apk en el release de $host/$path"
+        return 1
+    fi
+
+    pr "  Asset elegido: $asset_url"
+
+    if [ "$host" = "github" ]; then
+        gh_req "$asset_url" "$output" >/dev/null || return 1
+    else
+        req "$asset_url" "$output" >/dev/null || return 1
+    fi
+
+    [ -s "$output" ]
+}
+
 get_apkeditor() {
     if [ -f "$TEMP_DIR/apkeditor.jar" ]; then return 0; fi
     local api_resp dl_url
