@@ -53,6 +53,8 @@ on:
           - "X"
           - "Google-Photos"
           - "Projectivy-Launcher"
+          - "TizenTube-reemplaza-app-original"
+          - "Spotify"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset. '*' = todas."
