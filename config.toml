@@ -304,7 +304,7 @@ enable-patches = []
 exclude-patches = []
 apkmirror-dlurl = "https://www.apkmirror.com/apk/spocky/projectivy-launcher-android-tv/"
 
-[TizenTube-reemplaza-app-original]
+[TizenTube-Youtube-original]
 enabled = true
 pkg-name = "io.gh.reisxd.tizentube.cobalt"
 app-name = "TizenTube-Youtube-original"
@@ -327,7 +327,7 @@ options = [
 ]
 single-app-bundle = true
 
-[Spotify]
+[Spotify-myspoti]
 enabled = true
 pkg-name = "app.myspoti.stable"
 app-name = "Spotify (myspoti)"
@@ -341,5 +341,9 @@ build-mode = "apk"
 version = "auto"
 force-patch = true
 enable-patches = []
-exclude-patches = []
+exclude-patches = ["Gearslip personal library"]
+options = [
+  '-e "Android Auto Up next" -O "allowedHostPackages="',
+  '-e "Custom branding" -O "customName=Spotify" -O "appIcon=classic_green"'
+]
 single-app-bundle = false
