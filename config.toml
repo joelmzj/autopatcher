@@ -307,7 +307,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/spocky/projectivy-launcher-andr
 [TizenTube-reemplaza-app-original]
 enabled = true
 pkg-name = "io.gh.reisxd.tizentube.cobalt"
-app-name = "TizenTube"
+app-name = "TizenTube-Youtube-original"
 patches-source = "MOD-PROD/Morphe-Patches-by-Modprod"
 dlurl = "https://github.com/reisxd/TizenTubeCobalt/releases"
 brand = "ModProd"
@@ -323,7 +323,7 @@ options = [
   '-e "Change app name" -O "appName=YouTube"',
   '-e "Clone app" -O "packageName=com.google.android.youtube.tv" -O "updatePermissions=true" -O "updateProviders=true"',
   '-e "Inject Adblocker Userscript" -O "userscriptFile="',
-  
+  '-e "MOD Icon and Banner" -O "customIconFile=/home/runner/work/autopatcher/autopatcher/bin/ic_launcher.png" -O "customBannerFile=/home/runner/work/autopatcher/autopatcher/bin/app_banner.png"'
 ]
 single-app-bundle = true
 
