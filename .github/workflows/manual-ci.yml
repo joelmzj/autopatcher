@@ -33,6 +33,7 @@ on:
           - "Waze"
           - "X"
           - "Google-Photos"
+          - "Projectivy-Launcher"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset."
