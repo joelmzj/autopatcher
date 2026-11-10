@@ -194,7 +194,6 @@ source_release_api_base() {
     local host=${1,,} src=$2 encoded
     case "$host" in
         github) echo "https://api.github.com/repos/${src}/releases" ;;
-        codeberg) echo "https://codeberg.org/api/v1/repos/${src}/releases" ;;
         gitlab)
             encoded=$(jq -nr --arg v "$src" '$v | @uri')
             echo "https://gitlab.com/api/v4/projects/${encoded}/releases"
@@ -207,7 +206,6 @@ source_release_list_url() {
     local host=${1,,} src=$2 base
     base=$(source_release_api_base "$host" "$src") || return 1
     case "$host" in
-    codeberg) echo "${base}?limit=50" ;;
     *) echo "${base}?per_page=100" ;;
     esac
 }
@@ -216,7 +214,6 @@ source_release_web_url() {
     local host=${1,,} src=$2 tag=$3
     case "$host" in
         github) echo "https://github.com/${src}/releases/tag/${tag}" ;;
-        codeberg) echo "https://codeberg.org/${src}/releases/tag/${tag}" ;;
         gitlab) echo "https://gitlab.com/${src}/-/releases/${tag}" ;;
         *) return 1 ;;
     esac
@@ -226,7 +223,7 @@ source_release_tag_api() {
     local host=${1,,} src=$2 tag=$3 base
     base=$(source_release_api_base "$host" "$src") || return 1
     case "$host" in
-        github | codeberg) echo "${base}/tags/${tag}" ;;
+        github) echo "${base}/tags/${tag}" ;;
         gitlab) echo "${base}/${tag}" ;;
         *) return 1 ;;
     esac
@@ -235,7 +232,7 @@ source_release_tag_api() {
 source_release_assets_json() {
     local host=${1,,}
     case "$host" in
-        github | codeberg) jq -e '[.assets[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
+        github) jq -e '[.assets[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
         gitlab) jq -e '[.assets.links[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
         *) return 1 ;;
     esac
@@ -245,7 +242,6 @@ source_release_asset_url() {
     local host=${1,,}
     case "$host" in
         github) jq -r '.url' ;;
-        codeberg) jq -r '.browser_download_url // .url' ;;
         gitlab) jq -r '.direct_asset_url // .url' ;;
         *) return 1 ;;
     esac
@@ -254,7 +250,7 @@ source_release_asset_url() {
 source_release_pick_from_list() {
     local host=${1,,} mode=$2
     case "$host" in
-        github | codeberg)
+        github)
             if [ "$mode" = beta ] || [ "$mode" = dev ]; then
                 jq -e -c 'map(select(.prerelease == true and .draft != true and .tag_name != null and .tag_name != "")) | sort_by(.published_at // .created_at // "") | reverse | .[0] // empty'
             else
@@ -617,10 +613,8 @@ dl_apkmirror() {
     pr "Descargando APK final..."
     mkdir -p "$(dirname "$output")"
 
-    # 🆕 Fix 1: UA unificado (mismo que los scripts Python que navegan)
     local CURL_UA="$DEFAULT_UA"
 
-    # 🆕 Función interna para intentar la descarga con curl y fallback a cf_get.py
     _try_download_apkmirror() {
         local target_url="$1"
         local referer_url="$2"
@@ -662,7 +656,7 @@ dl_apkmirror() {
         return 0
     fi
 
-    # 🆕 Fix 2: Si falla, refrescar la página intermedia para obtener una key fresca
+    # Si falla, refrescar la página intermedia para obtener una key fresca
     pr "Descarga falló. Refrescando key de descarga y reintentando..."
     sleep 3   # margen para que el rate-limit de APKMirror se relaje
 
@@ -688,19 +682,7 @@ dl_apkmirror() {
 
 # ==============================================================================
 # RESOLUCIÓN INTELIGENTE DE VERSIONES DESDE EL BUNDLE DE PARCHES
-# ------------------------------------------------------------------------------
-# Firma: resolve_target_version_from_bundle <json_source> <pkg_name> <mode>
-#   mode: "auto" | "experimental" | (cualquier otro → tratado como estable)
-#
-# Reglas:
-#   1. Filtra SIEMPRE por packageName == pkg_name (no contamina con otros paquetes).
-#   2. Prioriza `compatibility[]` (tiene packageName + flag experimental).
-#   3. Fallback a `compatiblePackages[]` (soporta array ReVanced/Morphe y dict Hush).
-#   4. Respeta `experimental`/`isExperimental` de cada target.
-#   5. auto/stable → prefiere estables; cae a exp si no hay estables.
-#      experimental → prefiere exp; cae a estable si no hay exp.
 # ==============================================================================
-
 resolve_target_version_from_bundle() {
     local json_source="$1"
     local pkg_name="$2"

@@ -22,7 +22,7 @@ source_release_req() {
                 _req "$url" "$op" "${headers[@]}"
             fi
             ;;
-        codeberg | gitlab)
+        gitlab)
             _req "$url" "$op"
             ;;
         *)
@@ -73,7 +73,7 @@ should_build_app() {
     local is_single_app="${9:-false}"
     local new_mpp_size="${10:-}"
     local new_mpp_updated_at="${11:-}"
-    local patches_host="${12:-github}"   # 🆕 Host del repo (github, gitlab, codeberg)
+    local patches_host="${12:-github}"   # Host del repo (github, gitlab)
 
     if [ ! -f "$VERSIONS_LOG_FILE" ]; then
         echo '{}' > "$VERSIONS_LOG_FILE"
@@ -102,19 +102,19 @@ should_build_app() {
     # Condición 1: nueva versión de parches
     if [ "$latest_patch_ver" != "$cached_patch_ver" ]; then
 
-        # 🆕 Opción 3 (KISS): Single-app bundle -> cualquier tag nuevo requiere compilar
+        # Opción 3 (KISS): Single-app bundle -> cualquier tag nuevo requiere compilar
         if [ "$is_single_app" = "true" ]; then
             echo -e "\033[0;32m[+] Tag nuevo en bundle single-app para $table_name. Compilando.\033[0m" >&2
             return 0
         fi
 
-        # 🆕 Filtro 1: ¿Cambió el hash del JSON filtrado por CLI?
+        # Filtro 1: ¿Cambió el hash del JSON filtrado por CLI?
         if [ -n "$cached_patches_hash" ] && [ "$new_patches_hash" != "$cached_patches_hash" ]; then
             echo -e "\033[0;32m[+] Hash de parches cambió para $table_name. Compilando.\033[0m" >&2
             return 0
         fi
 
-        # 🆕 Filtro 2: ¿Cambió el peso o la fecha del .mpp? (Detección de fixes silenciosos)
+        # Filtro 2: ¿Cambió el peso o la fecha del .mpp? (Detección de fixes silenciosos)
         local mpp_changed=false
         if [ -n "$new_mpp_size" ] && [ -n "$cached_mpp_size" ] && [ "$new_mpp_size" != "$cached_mpp_size" ]; then
             mpp_changed=true

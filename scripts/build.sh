@@ -55,9 +55,9 @@ compute_patches_hash_for_pkg() {
 # ==============================================================================
 parse_patches_source() {
     local src="$1"
-    PATCHES_HOST="github"
-    PATCHES_PATH="$src"
-    PATCHES_CLI_URL="https://github.com/${src}"
+    PATCHES_HOST=""
+    PATCHES_PATH=""
+    PATCHES_CLI_URL=""
 
     if [[ "$src" == http://* || "$src" == https://* ]]; then
         local no_proto="${src#*://}"
@@ -66,10 +66,18 @@ parse_patches_source() {
 
         case "$no_proto" in
             gitlab.com/*)   PATCHES_HOST="gitlab" ;;
-            codeberg.org/*) PATCHES_HOST="codeberg" ;;
-            *)              PATCHES_HOST="unknown" ;;
+            github.com/*)   PATCHES_HOST="github" ;;
+            *)
+                epr "Unsupported host in patches-source: $src"
+                abort "Only GitHub (short format) and GitLab (full URL) are supported."
+                ;;
         esac
         PATCHES_CLI_URL="$src"
+    else
+        # GitHub short format (e.g., "user/repo")
+        PATCHES_HOST="github"
+        PATCHES_PATH="$src"
+        PATCHES_CLI_URL="https://github.com/${src}"
     fi
 }
 
@@ -300,7 +308,7 @@ for table_name in $(toml_get_table_names); do
 		app_args[single_app_bundle]=$(toml_get "$t" "single-app-bundle") || app_args[single_app_bundle]="false"
 
 		patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
-		parse_patches_source "$patch_repo"   # 🆕 Parsear host, path y URL del CLI
+		parse_patches_source "$patch_repo"
 		
 		target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
 
@@ -331,7 +339,7 @@ for table_name in $(toml_get_table_names); do
 		# ==================================================================
 		# 2. Tag, JSON vía CLI y metadatos del .mpp
 		# ==================================================================
-		latest_applied_tag=$(get_latest_remote_tag "$PATCHES_HOST" "$PATCHES_PATH" "${app_args[channel]}")   # 🆕 Usar variables parseadas
+		latest_applied_tag=$(get_latest_remote_tag "$PATCHES_HOST" "$PATCHES_PATH" "${app_args[channel]}")
 		if [ -z "$latest_applied_tag" ]; then
 			latest_applied_tag="unknown"
 		fi
