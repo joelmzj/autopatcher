@@ -51,6 +51,29 @@ compute_patches_hash_for_pkg() {
 }
 
 # ==============================================================================
+# 🧭 Helper: normaliza patches-source para GitHub (formato corto) o GitLab (URL)
+# ==============================================================================
+parse_patches_source() {
+    local src="$1"
+    PATCHES_HOST="github"
+    PATCHES_PATH="$src"
+    PATCHES_CLI_URL="https://github.com/${src}"
+
+    if [[ "$src" == http://* || "$src" == https://* ]]; then
+        local no_proto="${src#*://}"
+        local host_and_path="${no_proto#*/}"
+        PATCHES_PATH="$host_and_path"
+
+        case "$no_proto" in
+            gitlab.com/*)   PATCHES_HOST="gitlab" ;;
+            codeberg.org/*) PATCHES_HOST="codeberg" ;;
+            *)              PATCHES_HOST="unknown" ;;
+        esac
+        PATCHES_CLI_URL="$src"
+    fi
+}
+
+# ==============================================================================
 # 🎨 Helpers de log con banners visibles (stdout + logfile opcional)
 # ==============================================================================
 _BANNER_LINE="═══════════════════════════════════════════════════════════════"
@@ -277,6 +300,8 @@ for table_name in $(toml_get_table_names); do
 		app_args[single_app_bundle]=$(toml_get "$t" "single-app-bundle") || app_args[single_app_bundle]="false"
 
 		patch_repo=$(toml_get "$t" "patches-source") || abort "Falta la clave 'patches-source' en la sección '$table_name' del config.toml"
+		parse_patches_source "$patch_repo"   # 🆕 Parsear host, path y URL del CLI
+		
 		target_apk_ver=$(toml_get "$t" version) || target_apk_ver="auto"
 
 		mapfile -t exclude_patches < <(
@@ -306,7 +331,7 @@ for table_name in $(toml_get_table_names); do
 		# ==================================================================
 		# 2. Tag, JSON vía CLI y metadatos del .mpp
 		# ==================================================================
-		latest_applied_tag=$(get_latest_remote_tag "github" "$patch_repo" "${app_args[channel]}")
+		latest_applied_tag=$(get_latest_remote_tag "$PATCHES_HOST" "$PATCHES_PATH" "${app_args[channel]}")   # 🆕 Usar variables parseadas
 		if [ -z "$latest_applied_tag" ]; then
 			latest_applied_tag="unknown"
 		fi
@@ -322,13 +347,33 @@ for table_name in $(toml_get_table_names); do
 		mpp_size=""
 		mpp_updated_at=""
 		if [ "$is_single_app" = "false" ] && [ "$latest_applied_tag" != "unknown" ]; then
-			release_api="https://api.github.com/repos/${patch_repo}/releases/tags/${latest_applied_tag}"
-			release_resp=$(gh_req "$release_api" - 2>/dev/null) || release_resp=""
-			if [ -n "$release_resp" ]; then
-				mpp_meta=$(echo "$release_resp" | jq -r '.assets[]? | select(.name | endswith(".mpp")) | "\(.size)|\(.updated_at)"' | head -1)
-				mpp_size="${mpp_meta%%|*}"
-				mpp_updated_at="${mpp_meta##*|}"
-			fi
+			mpp_meta=""
+			case "$PATCHES_HOST" in
+				github)
+					release_api="https://api.github.com/repos/${PATCHES_PATH}/releases/tags/${latest_applied_tag}"
+					mpp_meta=$(gh_req "$release_api" - 2>/dev/null \
+						| jq -r '.assets[]? | select(.name | endswith(".mpp")) | "\(.size)|\(.updated_at)"' \
+						| head -1)
+					if [ -n "$mpp_meta" ]; then
+						mpp_size="${mpp_meta%%|*}"
+						mpp_updated_at="${mpp_meta##*|}"
+					fi
+					;;
+				gitlab)
+					encoded_repo=$(printf '%s' "$PATCHES_PATH" | jq -sRr @uri)
+					release_api="https://gitlab.com/api/v4/projects/${encoded_repo}/releases/${latest_applied_tag}"
+					mpp_url=$(gh_req "$release_api" - 2>/dev/null \
+						| jq -r '.assets.links[]? | select(.name | endswith(".mpp")) | .url' \
+						| head -1)
+					if [ -n "$mpp_url" ]; then
+						mpp_size="$(printf '%s' "$mpp_url" | sha256sum | cut -c1-16)"
+						mpp_updated_at="$latest_applied_tag"
+					fi
+					;;
+				*)
+					wpr "  Host desconocido para metadatos .mpp; se omite verificación .mpp"
+					;;
+			esac
 			pr "  Metadatos .mpp: size=${mpp_size:-?} updated_at=${mpp_updated_at:-?}"
 		fi
 
@@ -342,7 +387,7 @@ for table_name in $(toml_get_table_names); do
 		fi
 
 		if java -jar "$MORPHE_CLI_JAR" list-patches \
-			--patches="https://github.com/$patch_repo" \
+			--patches="$PATCHES_CLI_URL" \
 			$rel_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
 			python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json" \
 			&& jq -e 'type == "object" and has("patches")' "$generated_json" >/dev/null 2>&1; then
@@ -401,10 +446,10 @@ for table_name in $(toml_get_table_names); do
 			pr "  REBUILD_APPS activo: forzando recompilación de $table_name"
 		elif [ "$was_failed_before" = "true" ]; then
 			pr "  Reintentando por fallo previo (ignorando comparación de versiones)"
-		elif ! should_build_app "$table_name" "$patch_repo" "${app_args[channel]}" \
+		elif ! should_build_app "$table_name" "$PATCHES_PATH" "${app_args[channel]}" \
 			"$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}" \
 			"${app_args[pkg_name]}" "$new_patches_hash" \
-			"$is_single_app" "$mpp_size" "$mpp_updated_at"; then
+			"$is_single_app" "$mpp_size" "$mpp_updated_at" "$PATCHES_HOST"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
 			print_app_skipped "$table_name" "sin cambios"
 			exit 0
@@ -667,7 +712,7 @@ for table_name in $(toml_get_table_names); do
 
 			pr "Aplicando parches con Morphe CLI..."
 			java -jar "$MORPHE_CLI_JAR" patch \
-				-p="https://github.com/$patch_repo" \
+				-p="$PATCHES_CLI_URL" \
 				"${channel_flag[@]}" \
 				--continue-on-error \
 				-o="$patched_apk" \
@@ -743,7 +788,7 @@ for table_name in $(toml_get_table_names); do
 			if [ "${app_args[channel]}" = "dev" ]; then rel_flag="--prerelease"; fi
 
 			if ! java -jar "$MORPHE_CLI_JAR" list-patches \
-				--patches="https://github.com/$patch_repo" \
+				--patches="$PATCHES_CLI_URL" \
 				$rel_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
 				python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$validation_json"; then
 				wpr "  ❌ Falló la validación vía CLI"
@@ -825,7 +870,7 @@ for table_name in $(toml_get_table_names); do
 				} >> "$app_log"
 
 				if java -jar "$MORPHE_CLI_JAR" patch \
-					-p="https://github.com/$patch_repo" \
+					-p="$PATCHES_CLI_URL" \
 					"${channel_flag[@]}" \
 					--continue-on-error \
 					-o="$module_apk_tmp" \

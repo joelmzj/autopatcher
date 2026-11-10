@@ -57,7 +57,7 @@ get_latest_remote_tag() {
 # ==============================================================================
 # Decisión de compilación (keyed por app, sin colisiones)
 #
-# Firma: should_build_app TABLE_NAME PATCH_REPO CHANNEL APK_VERSION BRAND ARCH PKG_NAME NEW_PATCHES_HASH IS_SINGLE_APP NEW_MPP_SIZE NEW_MPP_UPDATED_AT
+# Firma: should_build_app TABLE_NAME PATCH_REPO CHANNEL APK_VERSION BRAND ARCH PKG_NAME NEW_PATCHES_HASH IS_SINGLE_APP NEW_MPP_SIZE NEW_MPP_UPDATED_AT PATCHES_HOST
 #
 # Retorna 0 → compilar, 1 → omitir
 # ==============================================================================
@@ -73,14 +73,15 @@ should_build_app() {
     local is_single_app="${9:-false}"
     local new_mpp_size="${10:-}"
     local new_mpp_updated_at="${11:-}"
+    local patches_host="${12:-github}"   # 🆕 Host del repo (github, gitlab, codeberg)
 
     if [ ! -f "$VERSIONS_LOG_FILE" ]; then
         echo '{}' > "$VERSIONS_LOG_FILE"
     fi
 
-    # Consultar última versión remota de parches
+    # Consultar última versión remota de parches (usando el host correcto)
     local latest_patch_ver
-    latest_patch_ver=$(get_latest_remote_tag "github" "$repo" "$channel")
+    latest_patch_ver=$(get_latest_remote_tag "$patches_host" "$repo" "$channel")
 
     if [ -z "$latest_patch_ver" ]; then
         echo -e "\033[0;33m[!] No se pudo consultar la versión remota para $repo. Forzando compilación por seguridad.\033[0m" >&2
