@@ -299,5 +299,43 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-11-10T19:47:05Z"
+  },
+  "TizenTube-reemplaza-app-original": {
+    "patches_source": "MOD-PROD/Morphe-Patches-by-Modprod",
+    "channel": "stable",
+    "patches_version": "v1.5.0",
+    "patches_hash": "a0fac7fc7db31f7fc64fe884883c20cc4024c18a2d29ca272c756a40a89f709d",
+    "mpp_size": null,
+    "mpp_updated_at": null,
+    "apk_version": "2.0.3",
+    "final_pkg_name": "com.google.android.youtube.tv",
+    "brand": "ModProd",
+    "arch": "arm64-v8a",
+    "stable_file": "TizenTube-reemplaza-app-original-v2.0.3-ModProd-v1.5.0-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-11-10T23:27:36Z"
+  },
+  "Spotify": {
+    "patches_source": "https://gitlab.com/johninnld/nl-morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.60.0",
+    "patches_hash": "54b07a24628b46ab785d71e9359e8a5cd4948ec9ca13f706d3b32488f7a0cbc6",
+    "mpp_size": "40c1f0d6f8a992a6",
+    "mpp_updated_at": "v1.60.0",
+    "apk_version": "2.4.0",
+    "final_pkg_name": "app.myspoti.stable",
+    "brand": "myspoti",
+    "arch": "arm64-v8a",
+    "stable_file": "Spotify-v2.4.0-myspoti-v1.60.0-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-11-10T23:27:48Z"
   }
 }
