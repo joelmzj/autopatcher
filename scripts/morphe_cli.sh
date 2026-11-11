@@ -46,11 +46,7 @@ get_morphe_desktop_cli() {
     fi
 
     pr "Descargando Morphe Desktop CLI ($tag_name) desde: $dl_url"
-    if declare -f gh_dl >/dev/null; then
-        gh_dl "$cli_jar" "$dl_url" || curl -L -s -S "$dl_url" -o "$cli_jar" || return 1
-    else
-        curl -L -s -S "$dl_url" -o "$cli_jar" || return 1
-    fi
+    curl -L -s -S "$dl_url" -o "$cli_jar" || return 1
 
     echo "$cli_jar"
 }

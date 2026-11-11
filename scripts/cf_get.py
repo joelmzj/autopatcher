@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 import sys
 import os
-import time
 
 try:
     from curl_cffi import requests
-    from curl_cffi.requests import Response
 except ImportError:
     # Exit 2: curl_cffi not installed, caller should fall back to curl/solver
     sys.exit(2)
@@ -129,17 +127,6 @@ def save_cookies(session, cookie_file: str, user_agent: str = ""):
             with open(os.path.join(temp_dir, "cf_ua.txt"), "w", encoding="utf-8") as f:
                 f.write(user_agent)
 
-        if hasattr(session.cookies, "items"):
-            cookie_header = "; ".join(
-                f"{k}={v}" for k, v in session.cookies.items())
-        elif jar is not None:
-            cookie_header = "; ".join(
-                f"{c.name}={c.value}" for c in jar if hasattr(c, "name"))
-        else:
-            cookie_header = ""
-        if cookie_header:
-            with open(os.path.join(temp_dir, "cf_cookies.txt"), "w", encoding="utf-8") as f:
-                f.write(cookie_header)
     except Exception:
         pass
 
@@ -150,18 +137,6 @@ def effective_url(resp, fallback: str) -> str:
     except Exception:
         u = ""
     return u or fallback
-
-
-def html_interstitial(head: bytes, headers) -> bool:
-    ct = ""
-    try:
-        ct = (headers.get("content-type") or "").lower()
-    except Exception:
-        pass
-    if "text/html" in ct or "application/xml" in ct:
-        return True
-    probe = (head or b"")[:64].lstrip()
-    return probe[:1] == b"<"
 
 
 def solve_challenge(url: str, session) -> tuple[bool, str]:

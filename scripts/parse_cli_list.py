@@ -69,20 +69,15 @@ def parse_morphe_cli(text):
                             except ValueError:
                                 pass
 
-                    if codes_dict:
-                        # 1) Formato estándar: compatibility[].targets[].versionCodes
-                        if pkg_current:
-                            for comp in current["compatibility"]:
-                                if comp.get("packageName") == pkg_current:
-                                    comp["targets"].append({
-                                        "version": version,
-                                        "versionCodes": codes_dict
-                                    })
-                                    break
-                        # 2) Formato plano por versión (backward compat)
-                        if "versionCodesByVersion" not in current:
-                            current["versionCodesByVersion"] = {}
-                        current["versionCodesByVersion"][version] = codes_dict
+                    if codes_dict and pkg_current:
+                        # Formato estándar: compatibility[].targets[].versionCodes
+                        for comp in current["compatibility"]:
+                            if comp.get("packageName") == pkg_current:
+                                comp["targets"].append({
+                                    "version": version,
+                                    "versionCodes": codes_dict
+                                })
+                                break
             elif re.match(r'^\d+\.\d+', stripped):
                 if pkg_current:
                     current["compatiblePackages"][pkg_current].append(stripped)

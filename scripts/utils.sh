@@ -18,17 +18,15 @@ OS=$(uname -o)
 DEFAULT_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36"
 
 RVB_KEYSTORE="${RVB_KEYSTORE-}"
-RVB_KEYSTORE_P12="${RVB_KEYSTORE_P12-}"
 RVB_KEYSTORE_PASS="${RVB_KEYSTORE_PASS-}"
 RVB_KEY_ALIAS="${RVB_KEY_ALIAS-}"
 
 require_signing_identity() {
     local bad=0 v
-    for v in RVB_KEYSTORE RVB_KEYSTORE_P12 RVB_KEYSTORE_PASS RVB_KEY_ALIAS; do
+    for v in RVB_KEYSTORE RVB_KEYSTORE_PASS RVB_KEY_ALIAS; do
         if [ -z "${!v-}" ]; then epr "$v is not set"; bad=1; fi
     done
     if [ -n "${RVB_KEYSTORE-}" ] && [ ! -f "$RVB_KEYSTORE" ]; then epr "keystore not found: $RVB_KEYSTORE"; bad=1; fi
-    if [ -n "${RVB_KEYSTORE_P12-}" ] && [ ! -f "$RVB_KEYSTORE_P12" ]; then epr "keystore not found: $RVB_KEYSTORE_P12"; bad=1; fi
     if [ -n "${RVB_KEYSTORE_PASS-}" ] && [[ "$RVB_KEYSTORE_PASS" =~ [^0-9A-Za-z] ]]; then
         epr "RVB_KEYSTORE_PASS must be alphanumeric"
         bad=1

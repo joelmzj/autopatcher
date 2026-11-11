@@ -913,7 +913,6 @@ for table_name in $(toml_get_table_names); do
 					"${app_args[pkg_name]}" \
 					"$target_apk_ver" \
 					"$pkg_version_code" \
-					"${app_args[brand]}" \
 					"${app_args[arch]}" \
 					"$latest_applied_tag" \
 					"${RELEASE_TAG:-stable}"; then

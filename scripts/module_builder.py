@@ -18,7 +18,7 @@
 # Uso:
 #   module_builder.py <template_dir> <stock_src> <patched_apk> <output_zip> \
 #                     <module_id> <module_name> <pkg_name> <pkg_version> \
-#                     <pkg_version_code> <brand> <arch> <latest_applied_tag> <channel>
+#                     <pkg_version_code> <arch> <latest_applied_tag> <channel>
 
 import os
 import sys
@@ -77,7 +77,6 @@ def create_magisk_module(
     pkg_name: str,
     pkg_version: str,
     pkg_version_code: str,
-    brand: str,
     arch: str,
     latest_applied_tag: str = "",
     channel: str = "stable",
@@ -236,12 +235,12 @@ def create_magisk_module(
 
 
 def main():
-    # script + 13 args = 14
-    if len(sys.argv) != 14:
+    # script + 12 args = 13
+    if len(sys.argv) != 13:
         print(
             "Uso: module_builder.py <template_dir> <stock_src> <patched_apk> <output_zip> "
             "<module_id> <module_name> <pkg_name> <pkg_version> <pkg_version_code> "
-            "<brand> <arch> <latest_applied_tag> <channel>",
+            "<arch> <latest_applied_tag> <channel>",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -256,10 +255,9 @@ def main():
         pkg_name           = sys.argv[7],
         pkg_version        = sys.argv[8],
         pkg_version_code   = sys.argv[9],
-        brand              = sys.argv[10],
-        arch               = sys.argv[11],
-        latest_applied_tag = sys.argv[12],
-        channel            = sys.argv[13],
+        arch               = sys.argv[10],
+        latest_applied_tag = sys.argv[11],
+        channel            = sys.argv[12],
     )
 
 
