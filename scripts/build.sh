@@ -346,7 +346,7 @@ for table_name in $(toml_get_table_names); do
 		print_app_header "$table_name" "$patch_repo" "${app_args[channel]}" "${app_args[pkg_name]}" "${app_args[brand]}" "${app_args[arch]}" "$app_log"
 
 		# ==================================================================
-		# 2. Tag, JSON vía CLI y metadatos del .mpp
+		# 2. Tag y JSON vía CLI
 		# ==================================================================
 		latest_applied_tag=$(get_latest_remote_tag "$PATCHES_HOST" "$PATCHES_PATH" "${app_args[channel]}")
 		if [ -z "$latest_applied_tag" ]; then
@@ -356,40 +356,7 @@ for table_name in $(toml_get_table_names); do
 
 		is_single_app="${app_args[single_app_bundle]}"
 		if [ "$is_single_app" = "true" ]; then
-			pr "  Bundle single-app declarado en config (omitirá verificación de .mpp)"
-		fi
-
-		mpp_size=""
-		mpp_updated_at=""
-		if [ "$is_single_app" = "false" ] && [ "$latest_applied_tag" != "unknown" ]; then
-			mpp_meta=""
-			case "$PATCHES_HOST" in
-				github)
-					release_api="https://api.github.com/repos/${PATCHES_PATH}/releases/tags/${latest_applied_tag}"
-					mpp_meta=$(gh_req "$release_api" - 2>/dev/null \
-						| jq -r '.assets[]? | select(.name | endswith(".mpp")) | "\(.size)|\(.updated_at)"' \
-						| head -1)
-					if [ -n "$mpp_meta" ]; then
-						mpp_size="${mpp_meta%%|*}"
-						mpp_updated_at="${mpp_meta##*|}"
-					fi
-					;;
-				gitlab)
-					encoded_repo=$(printf '%s' "$PATCHES_PATH" | jq -sRr @uri)
-					release_api="https://gitlab.com/api/v4/projects/${encoded_repo}/releases/${latest_applied_tag}"
-					mpp_url=$(gh_req "$release_api" - 2>/dev/null \
-						| jq -r '.assets.links[]? | select(.name | endswith(".mpp")) | .url' \
-						| head -1)
-					if [ -n "$mpp_url" ]; then
-						mpp_size="$(printf '%s' "$mpp_url" | sha256sum | cut -c1-16)"
-						mpp_updated_at="$latest_applied_tag"
-					fi
-					;;
-				*)
-					wpr "  Host desconocido para metadatos .mpp; se omite verificación .mpp"
-					;;
-			esac
-			pr "  Metadatos .mpp: size=${mpp_size:-?} updated_at=${mpp_updated_at:-?}"
+			pr "  Bundle single-app declarado en config (cualquier tag nuevo compila)"
 		fi
 
 		json_is_valid=false
@@ -457,7 +424,7 @@ for table_name in $(toml_get_table_names); do
 		elif ! should_build_app "$table_name" "$PATCHES_PATH" "${app_args[channel]}" \
 			"$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}" \
 			"${app_args[pkg_name]}" "$new_patches_hash" \
-			"$is_single_app" "$mpp_size" "$mpp_updated_at" "$PATCHES_HOST"; then
+			"$is_single_app" "$PATCHES_HOST"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
 			print_app_skipped "$table_name" "sin cambios"
 			exit 0
@@ -487,8 +454,6 @@ for table_name in $(toml_get_table_names); do
 			echo "Inclusive patches: ${app_args[inclusive_patches]}"
 			echo "Single-app bundle: $is_single_app"
 			echo "Patches hash: $new_patches_hash"
-			echo "Mpp size: ${mpp_size:-—}"
-			echo "Mpp updated_at: ${mpp_updated_at:-—}"
 			echo "DL URL: ${app_args[dlurl]:-—}"
 			echo ""
 		} >> "$app_log"
@@ -1006,8 +971,6 @@ for table_name in $(toml_get_table_names); do
 		   --arg ch "${app_args[channel]}" \
 		   --arg patch_ver "$latest_applied_tag" \
 		   --arg patches_hash "$new_patches_hash" \
-		   --arg mpp_size "$mpp_size" \
-		   --arg mpp_updated_at "$mpp_updated_at" \
 		   --arg apk_ver "$target_apk_ver" \
 		   --arg final_pkg "$final_pkg_name" \
 		   --arg brand "${app_args[brand]}" \
@@ -1024,8 +987,6 @@ for table_name in $(toml_get_table_names); do
 				channel: $ch,
 				patches_version: $patch_ver,
 				patches_hash: $patches_hash,
-				mpp_size: (if $mpp_size == "" then null else ($mpp_size | tonumber? // $mpp_size) end),
-				mpp_updated_at: (if $mpp_updated_at == "" then null else $mpp_updated_at end),
 				apk_version: $apk_ver,
 				final_pkg_name: $final_pkg,
 				brand: $brand,

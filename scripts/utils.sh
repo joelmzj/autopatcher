@@ -210,43 +210,6 @@ source_release_list_url() {
     esac
 }
 
-source_release_web_url() {
-    local host=${1,,} src=$2 tag=$3
-    case "$host" in
-        github) echo "https://github.com/${src}/releases/tag/${tag}" ;;
-        gitlab) echo "https://gitlab.com/${src}/-/releases/${tag}" ;;
-        *) return 1 ;;
-    esac
-}
-
-source_release_tag_api() {
-    local host=${1,,} src=$2 tag=$3 base
-    base=$(source_release_api_base "$host" "$src") || return 1
-    case "$host" in
-        github) echo "${base}/tags/${tag}" ;;
-        gitlab) echo "${base}/${tag}" ;;
-        *) return 1 ;;
-    esac
-}
-
-source_release_assets_json() {
-    local host=${1,,}
-    case "$host" in
-        github) jq -e '[.assets[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
-        gitlab) jq -e '[.assets.links[]? | select(.name | (endswith("asc") or endswith("json")) | not)]' ;;
-        *) return 1 ;;
-    esac
-}
-
-source_release_asset_url() {
-    local host=${1,,}
-    case "$host" in
-        github) jq -r '.url' ;;
-        gitlab) jq -r '.direct_asset_url // .url' ;;
-        *) return 1 ;;
-    esac
-}
-
 source_release_pick_from_list() {
     local host=${1,,} mode=$2
     case "$host" in
@@ -269,7 +232,7 @@ source_release_pick_from_list() {
 }
 
 # ==============================================================================
-# 🆕 DESCARGA DE APKs DESDE RELEASES DE GITHUB / GITLAB
+# DESCARGA DE APKs DESDE RELEASES DE GITHUB / GITLAB
 # ------------------------------------------------------------------------------
 # Firma: dl_from_release_page URL OUTPUT [ARCH]
 #   URL    : "https://github.com/user/repo/releases"
@@ -277,11 +240,6 @@ source_release_pick_from_list() {
 #            "https://algo.com/cualquier-cosa.apk" (URL directa)
 #   OUTPUT : ruta local del archivo destino (ej. temp/App/raw.apk)
 #   ARCH   : arquitectura preferida (default: arm64-v8a)
-#
-# Comportamiento:
-#   - URL directa .apk  → descarga simple (sin tocar la API).
-#   - URL de releases   → busca el último release; elige el asset .apk
-#                          que mejor matchee la arquitectura o "universal".
 # ==============================================================================
 dl_from_release_page() {
     local url="$1"
