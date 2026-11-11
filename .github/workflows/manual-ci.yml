@@ -36,6 +36,8 @@ on:
           - "Projectivy-Launcher"
           - "TizenTube-Youtube-original"
           - "Spotify-myspoti"
+          - "Stremio-TV"
+          - "Stremio-Phone"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset."
