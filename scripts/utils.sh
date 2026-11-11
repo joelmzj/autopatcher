@@ -446,59 +446,6 @@ get_apkmirror_resp() {
     set -u
 }
 
-get_apkmirror_vers() {
-    local vers apkm_resp
-    apkm_resp=$(_cf_get "https://www.apkmirror.com/uploads/?appcategory=${__APKMIRROR_CAT__}") || return 1
-    if [ -z "$apkm_resp" ]; then
-        epr "Respuesta vacía de APKMirror para categoría: ${__APKMIRROR_CAT__}"
-        return 1
-    fi
-
-    local py_cmd=""
-    if command -v python3 >/dev/null 2>&1; then
-        py_cmd="python3"
-    elif command -v python >/dev/null 2>&1; then
-        py_cmd="python"
-    fi
-
-    local py_script="${CWD}/scripts/apkmirror_search.py"
-    [ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ] && py_script="$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py"
-
-    local allow_all="${__AAV__:-false}"
-    if [ -n "$py_cmd" ] && [ -f "$py_script" ]; then
-        local py_vers
-        if py_vers=$("$py_cmd" "$py_script" vers "$allow_all" <<<"$apkm_resp") && [ -n "$py_vers" ]; then
-            echo "$py_vers"
-            return 0
-        fi
-    fi
-    echo ""
-}
-
-_apkmirror_html_pkg_name() {
-    local resp="$1"
-    local py_cmd=""
-    if command -v python3 >/dev/null 2>&1; then
-        py_cmd="python3"
-    elif command -v python >/dev/null 2>&1; then
-        py_cmd="python"
-    fi
-    local py_script="${CWD}/scripts/apkmirror_search.py"
-    [ ! -f "$py_script" ] && [ -n "${BASH_SOURCE[0]:-}" ] && py_script="$(dirname "${BASH_SOURCE[0]}")/apkmirror_search.py"
-    if [ -n "$py_cmd" ] && [ -f "$py_script" ]; then
-        local py_pkg
-        if py_pkg=$("$py_cmd" "$py_script" pkg <<<"$resp") && [ -n "$py_pkg" ]; then
-            echo "$py_pkg"
-            return 0
-        fi
-    fi
-    echo ""
-}
-
-get_apkmirror_pkg_name() {
-    _apkmirror_html_pkg_name "$__APKMIRROR_RESP__"
-}
-
 dl_apkmirror() {
     local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-}
 
