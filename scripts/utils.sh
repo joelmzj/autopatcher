@@ -699,6 +699,39 @@ dl_apkmirror() {
 # ==============================================================================
 # RESOLUCIÓN INTELIGENTE DE VERSIONES DESDE EL BUNDLE DE PARCHES
 # ==============================================================================
+# ==============================================================================
+# FALLBACK: Obtener la última versión desde APKMirror (útil para parches con version=null)
+# ==============================================================================
+get_latest_apkmirror_version() {
+    local url="${1:-}"
+    if [ -z "$url" ]; then return 1; fi
+
+    local cf_py="${CWD}/scripts/cf_get.py"
+    local search_py="${CWD}/scripts/apkmirror_search.py"
+    local log_stderr="${TEMP_DIR}/search_stderr_latest.log"
+
+    # 1. Obtener página base
+    local base_html
+    base_html=$(python3 "$cf_py" "$url" 2>/dev/null) || return 1
+    if [ -z "$base_html" ]; then return 1; fi
+
+    # 2. Extraer URL de uploads
+    local uploads_url
+    uploads_url=$(echo "$base_html" | python3 "$search_py" uploads 2>"$log_stderr")
+    if [ -z "$uploads_url" ] || [[ "$uploads_url" != http* ]]; then return 1; fi
+
+    # 3. Obtener HTML de uploads (solo la primera página)
+    local uploads_html
+    uploads_html=$(python3 "$cf_py" "$uploads_url" 2>/dev/null) || return 1
+    if [ -z "$uploads_html" ]; then return 1; fi
+
+    # 4. Parsear la primera versión de la lista (la más reciente)
+    local latest_ver
+    latest_ver=$(echo "$uploads_html" | python3 "$search_py" list true 2>/dev/null | head -n 1 | cut -f 1)
+
+    echo "$latest_ver"
+}
+
 resolve_target_version_from_bundle() {
     local json_source="$1"
     local pkg_name="$2"

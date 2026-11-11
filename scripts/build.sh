@@ -401,7 +401,19 @@ for table_name in $(toml_get_table_names); do
 				target_apk_ver="$resolved_ver"
 				pr "Versión resuelta exitosamente desde patches-list.json: $target_apk_ver"
 			else
-				abort "No se pudo resolver la versión desde patches-list.json para $table_name (paquete: ${app_args[pkg_name]})."
+				# Fallback: si el JSON no tiene versión (ej. version=null), buscar la última en APKMirror
+				if [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
+					pr "No hay versión fija en el JSON. Consultando la versión más reciente en APKMirror..."
+					resolved_ver=$(get_latest_apkmirror_version "${app_args[apkmirror_dlurl]}")
+					if [ -n "$resolved_ver" ]; then
+						target_apk_ver="$resolved_ver"
+						pr "Versión resuelta desde APKMirror: $target_apk_ver"
+					else
+						abort "No se pudo resolver la versión desde APKMirror para $table_name."
+					fi
+				else
+					abort "No se pudo resolver la versión para $table_name (JSON sin versión y sin apkmirror-dlurl)."
+				fi
 			fi
 		fi
 
