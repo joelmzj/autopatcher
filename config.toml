@@ -313,7 +313,7 @@ dlurl = "https://github.com/reisxd/TizenTubeCobalt/releases"
 brand = "ModProd"
 arch = "armeabi-v7a"
 channel = "stable"
-inclusive-patches = false
+inclusive-patches = true
 build-mode = "apk"
 version = "auto"
 force-patch = true
@@ -336,7 +336,7 @@ dlurl = "https://github.com/kota-zo/myspoti/releases"
 brand = "johninnld"
 arch = "arm64-v8a"
 channel = "stable"
-inclusive-patches = false
+inclusive-patches = true
 build-mode = "apk"
 version = "auto"
 force-patch = true
@@ -347,3 +347,39 @@ options = [
   '-e "Custom branding" -O "customName=Spotify" -O "appIcon=classic_green"'
 ]
 single-app-bundle = false
+
+[Stremio-TV]
+enabled = true
+pkg-name = "com.stremio.one"
+app-name = "Stremio-TV"
+patches-source = "tikkamasalla/stremio-morphe-patches"
+brand = "tikkamasalla"
+arch = "armeabi-v7a"
+channel = "stable"
+inclusive-patches = true
+build-mode = "apk"
+version = "auto"
+force-patch = true
+enable-patches = []
+exclude-patches = ["Side-by-side install"]
+options = []
+single-app-bundle = false
+apkmirror-dlurl = "https://www.apkmirror.com/apk/stremio/stremio-android-tv/"
+
+[Stremio-Phone]
+enabled = true
+pkg-name = "com.stremio.one"
+app-name = "Stremio"
+patches-source = "tikkamasalla/stremio-morphe-patches"
+brand = "tikkamasalla"
+arch = "arm64-v8a"
+channel = "stable"
+inclusive-patches = true
+build-mode = "apk"
+version = "auto"
+force-patch = true
+enable-patches = []
+exclude-patches = ["Side-by-side install"]
+options = []
+single-app-bundle = false
+apkmirror-dlurl = "https://www.apkmirror.com/apk/stremio/stremio-2/"
