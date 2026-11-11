@@ -349,10 +349,9 @@ def cmd_list():
         low = clean.lower()
         if not allow_all and any(k in low for k in ("beta", "alpha", "secondary")):
             continue
-        
-        # 🆕 Uso de la nueva función _extract_version
+
         ver = _extract_version(clean)
-        
+
         if ver and ver not in seen:
             seen.add(ver)
             full_url = _abs_url(_unescape(href))
@@ -364,52 +363,6 @@ def cmd_list():
 
     if out:
         print("\n".join(out))
-        sys.exit(0)
-    sys.exit(1)
-
-
-# ---------------------------------------------------------------------------
-# Modo: vers (legacy)
-# ---------------------------------------------------------------------------
-
-def cmd_vers():
-    allow_all = (sys.argv[2].lower() == "true") if len(sys.argv) > 2 else False
-    html = sys.stdin.read()
-    if not html:
-        print("ERROR: HTML vacío en stdin", file=sys.stderr)
-        sys.exit(1)
-
-    content = html
-    m = re.search(r'(?:id="primary"|class="[^"]*listWidget[^"]*")(.*)', html, re.DOTALL)
-    if m:
-        content = m.group(1)
-
-    all_anchors = re.findall(r'<a\b([^>]*)>(.*?)</a>', content, re.DOTALL)
-
-    seen = set()
-    versions = []
-    for attrs, text in all_anchors:
-        if "fontBlack" not in attrs:
-            continue
-        if not re.search(r'href="[^"]*-release/"', attrs):
-            continue
-
-        clean = _clean_text(text)
-        if not clean:
-            continue
-        low = clean.lower()
-        if not allow_all and any(k in low for k in ("beta", "alpha", "secondary")):
-            continue
-        
-        # 🆕 Uso de la nueva función _extract_version
-        ver = _extract_version(clean)
-        
-        if ver and ver not in seen:
-            seen.add(ver)
-            versions.append(ver)
-
-    if versions:
-        print("\n".join(versions))
         sys.exit(0)
     sys.exit(1)
 
@@ -574,23 +527,6 @@ def cmd_versioncodes():
 
 
 # ---------------------------------------------------------------------------
-# Modo: pkg
-# ---------------------------------------------------------------------------
-
-def cmd_pkg():
-    html = sys.stdin.read()
-    m = re.search(r'play\.google\.com/store/apps/details\?id=([a-zA-Z0-9_.]+)', html)
-    if m:
-        print(m.group(1))
-        sys.exit(0)
-    m = re.search(r'id=([a-zA-Z0-9_.]+)"\s+class="[^"]*accent_color', html)
-    if m:
-        print(m.group(1))
-        sys.exit(0)
-    sys.exit(1)
-
-
-# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -611,14 +547,10 @@ def main():
         cmd_uploads()
     elif modo == "list":
         cmd_list()
-    elif modo == "vers":
-        cmd_vers()
     elif modo == "next":
         cmd_next()
     elif modo == "versioncodes":
         cmd_versioncodes()
-    elif modo == "pkg":
-        cmd_pkg()
     else:
         print(f"ERROR: modo desconocido '{modo}'", file=sys.stderr)
         sys.exit(1)
