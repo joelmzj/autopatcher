@@ -335,5 +335,39 @@
     "prev_stable_file": "Spotify-myspoti-v2.4.0-myspoti-v1.65.0-arm64-v8a.apk",
     "prev_stable_zip": null,
     "timestamp": "2026-11-11T22:55:08Z"
+  },
+  "Stremio-TV": {
+    "patches_source": "tikkamasalla/stremio-morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.8.1",
+    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "apk_version": "1.12.1",
+    "final_pkg_name": "com.stremio.one",
+    "brand": "tikkamasalla",
+    "arch": "armeabi-v7a",
+    "stable_file": "Stremio-TV-v1.12.1-tikkamasalla-v1.8.1-armeabi-v7a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-11-11T23:54:01Z"
+  },
+  "Stremio-Phone": {
+    "patches_source": "tikkamasalla/stremio-morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.8.1",
+    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "apk_version": "2.5.1",
+    "final_pkg_name": "com.stremio.one",
+    "brand": "tikkamasalla",
+    "arch": "arm64-v8a",
+    "stable_file": "Stremio-Phone-v2.5.1-tikkamasalla-v1.8.1-arm64-v8a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-11-11T23:55:07Z"
   }
 }
