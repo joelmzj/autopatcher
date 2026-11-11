@@ -291,14 +291,14 @@
     "apk_version": "4.72",
     "final_pkg_name": "com.spocky.projengmenu",
     "brand": "dhrubonai",
-    "arch": "arm64-v8a",
-    "stable_file": "Projectivy-Launcher-v4.72-dhrubonai-v1.35.0-arm64-v8a.apk",
+    "arch": "armeabi-v7a",
+    "stable_file": "Projectivy-Launcher-v4.72-dhrubonai-v1.35.0-armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": "Projectivy-Launcher-v4.72-johninnld-v1.35.0-arm64-v8a.apk",
+    "snapshot_file": "Projectivy-Launcher-v4.72-dhrubonai-v1.35.0-arm64-v8a.apk",
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-10T19:47:05Z"
+    "timestamp": "2026-11-11T04:03:23Z"
   },
   "TizenTube-Youtube-original": {
     "patches_source": "MOD-PROD/Morphe-Patches-by-Modprod",
@@ -310,32 +310,32 @@
     "apk_version": "2.0.3",
     "final_pkg_name": "com.google.android.youtube.tv",
     "brand": "ModProd",
-    "arch": "arm64-v8a",
-    "stable_file": "TizenTube-Youtube-original-v2.0.3-ModProd-v1.5.0-arm64-v8a.apk",
+    "arch": "armeabi-v7a",
+    "stable_file": "TizenTube-Youtube-original-v2.0.3-ModProd-v1.5.0-armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "TizenTube-Youtube-original-v2.0.3-ModProd-v1.5.0-arm64-v8a.apk",
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-10T23:47:57Z"
+    "timestamp": "2026-11-11T04:03:32Z"
   },
   "Spotify-myspoti": {
     "patches_source": "https://gitlab.com/johninnld/nl-morphe-patches",
     "channel": "stable",
-    "patches_version": "v1.60.0",
+    "patches_version": "v1.61.0",
     "patches_hash": "54b07a24628b46ab785d71e9359e8a5cd4948ec9ca13f706d3b32488f7a0cbc6",
-    "mpp_size": "40c1f0d6f8a992a6",
-    "mpp_updated_at": "v1.60.0",
+    "mpp_size": "3d2d6248fd0ba77a",
+    "mpp_updated_at": "v1.61.0",
     "apk_version": "2.4.0",
     "final_pkg_name": "app.myspoti.stable",
     "brand": "myspoti",
     "arch": "arm64-v8a",
-    "stable_file": "Spotify-myspoti-v2.4.0-myspoti-v1.60.0-arm64-v8a.apk",
+    "stable_file": "Spotify-myspoti-v2.4.0-myspoti-v1.61.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "Spotify-myspoti-v2.4.0-myspoti-v1.60.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": null,
+    "prev_stable_file": "Spotify-myspoti-v2.4.0-myspoti-v1.60.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-10T23:48:06Z"
+    "timestamp": "2026-11-11T04:03:42Z"
   }
 }
