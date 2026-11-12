@@ -743,7 +743,9 @@ for table_name in $(toml_get_table_names); do
 
 			declare -a strip_libs_flag=()
 			if [ "${app_args[tv_version]}" != "true" ]; then
-				strip_libs_flag=("--striplibs=${app_args[arch]}")
+				# Morphe CLI espera comas, no el símbolo '+', para múltiples arquitecturas
+				safe_arch="${app_args[arch]// + /,}"
+				strip_libs_flag=("--striplibs=${safe_arch}")
 			else
 				pr "  TV version: se omite --striplibs para conservar todas las arquitecturas."
 			fi
