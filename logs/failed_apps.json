@@ -1,7 +1,12 @@
 {
   "Telegram": {
     "first_failed_at": "2026-11-12T17:28:11Z",
-    "last_attempt_at": "2026-11-12T17:28:11Z",
+    "last_attempt_at": "2026-11-12T20:58:51Z",
+    "attempts": 2
+  },
+  "TikTok": {
+    "first_failed_at": "2026-11-12T20:59:18Z",
+    "last_attempt_at": "2026-11-12T20:59:18Z",
     "attempts": 1
   }
 }
