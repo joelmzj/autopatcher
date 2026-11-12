@@ -4,11 +4,11 @@
      Repo:    tikkamasalla/stremio-morphe-patches
      Pkg:     com.stremio.one
      Canal:   stable  |  Brand: tikkamasalla  |  Arch: arm64-v8a
-     Inicio:  2026-11-12T22:52:54Z
+     Inicio:  2026-11-12T23:20:29Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: Stremio-Phone ===
-Fecha: 2026-11-12T22:53:08Z
+Fecha: 2026-11-12T23:20:45Z
 APK version: 2.5.1
 Patches version: v1.8.2
 Patches source: tikkamasalla/stremio-morphe-patches
@@ -49,34 +49,34 @@ INFO: Executing patches
 INFO: Applied: Auto-pick best stream
 INFO: Building instruction indexes for 14794 classes...
 INFO: Applied: Avoid SDH subtitles
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
+Nov 12, 2026 11:21:35 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
 WARNING: optional hook OpenInExternalPlayer not found on this Stremio build: media identity and subtitle hand-off are skipped; progress and binge still apply
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
+Nov 12, 2026 11:21:35 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
 WARNING: optional hook onExternalPlayerResult not found: completed episodes will not be force-marked watched
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
+Nov 12, 2026 11:21:35 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
 WARNING: optional hook playerTimeChanged not found: progress log disabled
 INFO: Applied: Binge with external players
 INFO: Applied: External player progress
 INFO: Applied: External player progress manifest
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.introskip.IntroSkipPatchKt introSkipPatch$lambda$0$0
+Nov 12, 2026 11:21:35 PM app.tikkamasalla.stremio.introskip.IntroSkipPatchKt introSkipPatch$lambda$0$0
 WARNING: PlayerFragment view factory not found: the Compose skip host is off
 INFO: Applied: Intro Skip
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.ModSettingsPatchKt modSettingsPatch$lambda$0$0
+Nov 12, 2026 11:21:36 PM app.tikkamasalla.stremio.ModSettingsPatchKt modSettingsPatch$lambda$0$0
 INFO: TV SettingsFragment view factory not found: no Settings entry row in this build
 INFO: Applied: Mod settings
 INFO: Applied: Mod settings manifest
 INFO: Applied: Remember tracks per show
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+Nov 12, 2026 11:21:36 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
 INFO: ExoPlayer wrapper constructor not found: the stock buffer stays in this build
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+Nov 12, 2026 11:21:36 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
 INFO: createPlayer frame-rate call not found: the stock Media3 frame-rate hint stays in this build
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+Nov 12, 2026 11:21:36 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
 INFO: Subtitle gate anchors not found: the stock subtitle re-open stays in this build
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+Nov 12, 2026 11:21:36 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
 INFO: 1.12.0 player effects / engines not resolved: no silent frame-rate switch in this build
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+Nov 12, 2026 11:21:36 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
 INFO: FrameRateMatcher / PlaybackManager methods not found: no silent frame-rate switch in this build
-Nov 12, 2026 10:53:51 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+Nov 12, 2026 11:21:36 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
 INFO: PlayerFragment display-mode methods not found: no silent frame-rate switch in this build
 INFO: Applied: Smoother playback
 INFO: Rebuilding APK...
@@ -85,7 +85,7 @@ INFO: Copied 1589 unchanged extension classes to 1 DEX files
 INFO: Changed 18 of 14794 classes to mutable
 INFO: Writing 18 new classes to new DEX files
 INFO: Processing 18 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794524029649/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794525693618/patcher/patched/newDex
 INFO: Stripped 14 modified classes from 2 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -95,13 +95,13 @@ INFO: Processing aapt macros
 INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Reusing 563 unchanged archive entries, rebuilding 2 entries, dropping 78 entries, leaving out 2 replaced entries
-INFO: Resource APK scan: 100ms write: 500ms
+INFO: Resource APK scan: 200ms write: 200ms
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Stremio-Phone-v2.5.1-tikkamasalla-v1.8.2-arm64-v8a.apk
-INFO: Patching took 3.7 seconds
+INFO: Patching took 4.0 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ✅ ÉXITO: Stremio-Phone  (59s)
+  ✅ ÉXITO: Stremio-Phone  (1m9s)
      APK:      Stremio-Phone-v2.5.1-tikkamasalla-v1.8.2-arm64-v8a.apk
      APK ver:  2.5.1
      Parches:  v1.8.2
@@ -111,4 +111,4 @@ INFO: Patching took 3.7 seconds
 
 --- Fin del parcheo ---
 APK final: build/Stremio-Phone-v2.5.1-tikkamasalla-v1.8.2-arm64-v8a.apk
-Fecha de fin: 2026-11-12T22:53:53Z
+Fecha de fin: 2026-11-12T23:21:38Z

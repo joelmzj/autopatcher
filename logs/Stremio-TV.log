@@ -4,6 +4,107 @@
      Repo:    tikkamasalla/stremio-morphe-patches
      Pkg:     com.stremio.one
      Canal:   stable  |  Brand: tikkamasalla  |  Arch: arm64-v8a + armeabi-v7a
-     Inicio:  2026-11-12T22:52:41Z
+     Inicio:  2026-11-12T23:19:20Z
 ═══════════════════════════════════════════════════════════════
 
+=== Parcheo: Stremio-TV ===
+Fecha: 2026-11-12T23:19:38Z
+APK version: 1.12.1
+Patches version: v1.8.2
+Patches source: tikkamasalla/stremio-morphe-patches
+Channel: stable
+Brand: tikkamasalla
+Arch: arm64-v8a + armeabi-v7a
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+Single-app bundle: false
+Patches hash: 37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570
+DL URL: —
+
+
+--- Argumentos de parches (1) ---
+  -d=Side-by-side install
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/tikkamasalla/stremio-morphe-patches/main/patches-bundle.json
+INFO: GitHub: bundle (main) → v1.8.2 @ https://github.com/tikkamasalla/stremio-morphe-patches/releases/download/v1.8.2/patches-1.8.2.mpp
+INFO: Latest stable via patches-bundle.json: v1.8.2
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/tikkamasalla-stremio-morphe-patches/v1.8.2__patches-1.8.2.mpp (1434649 bytes)
+INFO: Resolved patches (v1.8.2) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/tikkamasalla-stremio-morphe-patches/v1.8.2__patches-1.8.2.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.stremio.one v1.12.1...
+INFO: Skipping disabled: Side-by-side install
+INFO: Skipping disabled: Hide spoilers (default)
+INFO: Applying 10 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding all resources
+INFO: Leaving 55 native library files in the input APK
+INFO: Sanitizing unpatched strings
+INFO: Escaping strings
+INFO: Executing patches
+INFO: Applied: Auto-pick best stream
+INFO: Building instruction indexes for 15199 classes...
+INFO: Applied: Avoid SDH subtitles
+Nov 12, 2026 11:20:26 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
+WARNING: optional hook OpenInExternalPlayer not found on this Stremio build: media identity and subtitle hand-off are skipped; progress and binge still apply
+Nov 12, 2026 11:20:26 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
+WARNING: optional hook onExternalPlayerResult not found: completed episodes will not be force-marked watched
+Nov 12, 2026 11:20:26 PM app.tikkamasalla.stremio.progress.ExternalProgressPatchKt externalPlayerProgressPatch$lambda$0$0
+WARNING: optional hook playerTimeChanged not found: progress log disabled
+INFO: Applied: Binge with external players
+INFO: Applied: External player progress
+INFO: Applied: External player progress manifest
+INFO: Applied: Intro Skip
+Nov 12, 2026 11:20:27 PM app.tikkamasalla.stremio.ModSettingsPatchKt modSettingsPatch$lambda$0$0
+INFO: Phone MainActivity.onCreate not found: no launcher shortcut in this build
+INFO: Applied: Mod settings
+INFO: Applied: Mod settings manifest
+INFO: Applied: Remember tracks per show
+Nov 12, 2026 11:20:27 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+INFO: ExoPlayer wrapper constructor not found: the stock buffer stays in this build
+Nov 12, 2026 11:20:27 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+INFO: createPlayer frame-rate call not found: the stock Media3 frame-rate hint stays in this build
+Nov 12, 2026 11:20:27 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+INFO: Subtitle gate anchors not found: the stock subtitle re-open stays in this build
+Nov 12, 2026 11:20:27 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+INFO: FrameRateMatcher / PlaybackManager methods not found: no silent frame-rate switch in this build
+Nov 12, 2026 11:20:27 PM app.tikkamasalla.stremio.tuning.PlayerTuningPatchKt playerTuningPatch$lambda$0$0
+INFO: PlayerFragment display-mode methods not found: no silent frame-rate switch in this build
+INFO: Applied: Smoother playback
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 1589 unchanged extension classes to 1 DEX files
+INFO: Changed 22 of 15199 classes to mutable
+INFO: Writing 22 new classes to new DEX files
+INFO: Processing 22 classes (single threaded mode)
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794525624149/patcher/patched/newDex
+INFO: Stripped 18 modified classes from 2 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures armeabi-v7a)
+INFO: Stripped 26 lib files
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Reusing 761 unchanged archive entries, rebuilding 2 entries, dropping 26 entries, leaving out 2 replaced entries
+INFO: Resource APK scan: 200ms write: 200ms
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Stremio-TV-v1.12.1-tikkamasalla-v1.8.2-arm64-v8a_armeabi-v7a.apk
+INFO: Patching took 4.7 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: Stremio-TV  (1m9s)
+     APK:      Stremio-TV-v1.12.1-tikkamasalla-v1.8.2-arm64-v8a_armeabi-v7a.apk
+     APK ver:  1.12.1
+     Parches:  v1.8.2
+     Hash:     37517e5f3dc66819f61f5a7bb8ace192...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/Stremio-TV-v1.12.1-tikkamasalla-v1.8.2-arm64-v8a_armeabi-v7a.apk
+Fecha de fin: 2026-11-12T23:20:29Z
