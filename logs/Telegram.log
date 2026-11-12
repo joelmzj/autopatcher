@@ -4,6 +4,27 @@
      Repo:    SysAdminDoc/HushTelegram
      Pkg:     org.telegram.messenger.web
      Canal:   stable  |  Brand: HushTelegram  |  Arch: arm64-v8a
-     Inicio:  2026-11-12T09:00:46Z
+     Inicio:  2026-11-12T17:27:56Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: Telegram ===
+Fecha: 2026-11-12T17:27:59Z
+APK version: 13.2.1
+Patches version: v0.0.25
+Patches source: SysAdminDoc/HushTelegram
+Channel: stable
+Brand: HushTelegram
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Single-app bundle: true
+Patches hash: ed99f9a22e0c68d246b944dfd5a318f583f874e22e5efef3ec3adbcab05ed8fe
+DL URL: —
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: Telegram  (15s)
+     Revisa logs/Telegram.log para detalles
 ═══════════════════════════════════════════════════════════════
 
