@@ -445,7 +445,7 @@ get_apkmirror_resp() {
 }
 
 dl_apkmirror() {
-    local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-}
+    local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-} fallback_arch=${8:-}
 
     if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
     local clean_version="${version//[^0-9.]/}"
@@ -563,21 +563,33 @@ dl_apkmirror() {
     }
 
     pr "Buscando variante (arch='$arch')..."
-    local variant_page_url
+    local variant_output
+    local real_arch=""
+    
     if [ -n "$version_code" ]; then
         pr "  Con whitelist de versionCodes: $version_code"
-        variant_page_url=$(echo "$release_html" | python3 "$search_py" variant "$arch" "$version_code" 2>"$log_stderr")
+        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$arch" "$version_code" "$fallback_arch" 2>"$log_stderr")
     else
-        variant_page_url=$(echo "$release_html" | python3 "$search_py" variant "$arch" 2>"$log_stderr")
+        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$arch" "" "$fallback_arch" 2>"$log_stderr")
     fi
+    
     if [ -s "$log_stderr" ]; then
         pr "--- diagnóstico paso 1 ---"; cat "$log_stderr" >&2; pr "--- fin diagnóstico ---"
     fi
+
+    # Extraer URL y arquitectura real (separadas por tabulación)
+    local variant_page_url=$(echo "$variant_output" | head -n 1 | cut -f 1)
+    real_arch=$(echo "$variant_output" | head -n 1 | cut -f 2)
+
     if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
         epr "Paso 1 falló: no se encontró variante para arch='$arch'"
         return 1
     fi
     pr "Variante elegida: $variant_page_url"
+
+    if [ -n "$real_arch" ]; then
+        echo "$real_arch" > "${output}.arch.txt"
+    fi
 
     # ------------------------------------------------------------------
     # Paso 2: variante HTML → URL del botón de descarga
@@ -687,12 +699,10 @@ dl_apkmirror() {
                 pr "APK descargada (retry con key fresca): $output"
                 return 0
             fi
-        else
-            pr "No se pudo obtener una key nueva (mismo enlace o vacío)"
         fi
     fi
 
-    epr "No se pudo descargar la APK tras múltiples intentos (CF/403)"
+    epr "No se pudo descargar la APK tras varios intentos (CF/403)"
     return 1
 }
 

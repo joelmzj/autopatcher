@@ -166,6 +166,8 @@ def cmd_variant():
     if len(sys.argv) > 3 and sys.argv[3]:
         priority_vcs = set(v.strip() for v in sys.argv[3].split(",") if v.strip())
 
+    fallback_arch = sys.argv[4] if len(sys.argv) > 4 else ""
+
     html = sys.stdin.read()
     if not html:
         print("ERROR: HTML vacío en stdin", file=sys.stderr)
@@ -189,6 +191,10 @@ def cmd_variant():
 
     pasan = [v for v in variantes if _arch_pasa(v["arch"], arch)]
 
+    if not pasan and fallback_arch:
+        print(f"WARN: No se encontró variante para '{arch}'. Aplicando fallback a '{fallback_arch}'...", file=sys.stderr)
+        pasan = [v for v in variantes if _arch_pasa(v["arch"], fallback_arch)]
+
     if priority_vcs:
         con_vc = [v for v in pasan if v["vc"] in priority_vcs]
         if con_vc:
@@ -203,7 +209,7 @@ def cmd_variant():
         print("INFO: sin whitelist, sin filtro por versionCode", file=sys.stderr)
 
     if not pasan:
-        print(f"ERROR: ninguna variante sirve para arch='{arch}'", file=sys.stderr)
+        print(f"ERROR: ninguna variante sirve para arch='{arch}' ni fallback='{fallback_arch}'", file=sys.stderr)
         sys.exit(1)
 
     mejor = _elegir_mejor(pasan, use_vc_priority=bool(priority_vcs))
@@ -212,7 +218,8 @@ def cmd_variant():
         sys.exit(1)
 
     print(f"INFO: elegida {mejor['tipo']} arch={mejor['arch']} dpi={mejor['dpi']} splits={mejor['splits']} vc={mejor['vc']}", file=sys.stderr)
-    print(mejor["url"])
+    # Imprime URL y arquitectura real separadas por tabulación para el script de Bash
+    print(f"{mejor['url']}\t{mejor['arch']}")
 
 
 # ---------------------------------------------------------------------------
@@ -411,21 +418,25 @@ def cmd_versioncodes():
     target_ver = sys.argv[3]
     raw_arch = sys.argv[4].lower()
 
-    arch_variants = {
-        raw_arch,
-        raw_arch.replace("-", "_"),
-        raw_arch.replace("-", ""),
-        raw_arch.replace("-", "").upper(),
-        raw_arch.replace("-", "_").upper(),
-    }
-    if raw_arch == "arm64-v8a":
-        arch_variants |= {"arm64", "ARM64", "ARM64_V8A", "arm64_v8a", "ARM64V8A"}
-    elif raw_arch == "armeabi-v7a":
-        arch_variants |= {"arm", "ARM", "ARMEABI_V7A", "armeabi_v7a"}
-    elif raw_arch == "x86_64":
-        arch_variants |= {"x64", "X64", "X86_64", "x86_64"}
-    elif raw_arch == "x86":
-        arch_variants |= {"x86", "X86"}
+    arch_variants = set()
+    # Dividimos por '+' para soportar arquitecturas combinadas (Android TV)
+    for a in raw_arch.split("+"):
+        a = a.strip()
+        arch_variants.update({
+            a,
+            a.replace("-", "_"),
+            a.replace("-", ""),
+            a.replace("-", "").upper(),
+            a.replace("-", "_").upper(),
+        })
+        if a == "arm64-v8a":
+            arch_variants.update({"arm64", "ARM64", "ARM64_V8A", "arm64_v8a", "ARM64V8A"})
+        elif a == "armeabi-v7a":
+            arch_variants.update({"arm", "ARM", "ARMEABI_V7A", "armeabi_v7a"})
+        elif a == "x86_64":
+            arch_variants.update({"x64", "X64", "X86_64", "x86_64"})
+        elif a == "x86":
+            arch_variants.update({"x86", "X86"})
 
     raw = sys.stdin.read()
     if not raw:

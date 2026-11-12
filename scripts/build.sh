@@ -297,7 +297,25 @@ for table_name in $(toml_get_table_names); do
 		app_args[telegram_download_url]=$(toml_get "$t" "telegram-download-url") || app_args[telegram_download_url]=""
 		app_args[pkg_name]=$(toml_get "$t" pkg-name) || app_args[pkg_name]=""
 		app_args[app_name]=$(toml_get "$t" app-name) || app_args[app_name]=$table_name
-		app_args[arch]=$(toml_get "$t" arch) || app_args[arch]="arm64-v8a"
+		
+		app_args[tv_version]=$(toml_get "$t" "tv-version") || app_args[tv_version]="false"
+
+		# Asignar arquitectura (con default especial para TV si no se define)
+		if ! app_args[arch]=$(toml_get "$t" arch); then
+			if [ "${app_args[tv_version]}" = "true" ]; then
+				app_args[arch]="armeabi-v7a"
+			else
+				app_args[arch]="arm64-v8a"
+			fi
+		fi
+		
+		app_args[arch_original]="${app_args[arch]}"
+
+		if [ "${app_args[tv_version]}" = "true" ]; then
+			app_args[arch]="arm64-v8a + armeabi-v7a"
+			pr "TV version activada: buscando universal. Fallback (default o definido): ${app_args[arch_original]}"
+		fi
+
 		app_args[brand]=$(toml_get "$t" brand) || app_args[brand]="Patched"
 		app_args[channel]=$(toml_get "$t" channel) || app_args[channel]="stable"
 		app_args[inclusive_patches]=$(toml_get "$t" inclusive-patches) || app_args[inclusive_patches]="false"
@@ -551,7 +569,7 @@ for table_name in $(toml_get_table_names); do
 			elif [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
 				pr "Descargando versión $target_apk_ver para $table_name desde APKMirror..."
 
-				if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist"; then
+				if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist" "${app_args[arch_original]}"; then
 					if [ -n "${app_args[telegram_download_url]:-}" ]; then
 						wpr "Fallo en APKMirror. Usando fallback directo desde Telegram..."
 						if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
@@ -566,6 +584,11 @@ for table_name in $(toml_get_table_names); do
 					fi
 				else
 					pr "APK descargada desde APKMirror: $raw_apk"
+					# Leer la arquitectura real usada (por si hubo fallback)
+					if [ -f "${raw_apk}.arch.txt" ]; then
+						app_args[arch]=$(cat "${raw_apk}.arch.txt")
+						pr "  Arquitectura real descargada: ${app_args[arch]}"
+					fi
 				fi
 			elif [ -n "${app_args[telegram_download_url]:-}" ]; then
 				pr "Descargando APK directamente desde Telegram..."
@@ -718,6 +741,13 @@ for table_name in $(toml_get_table_names); do
 				echo ""
 			} >> "$app_log"
 
+			declare -a strip_libs_flag=()
+			if [ "${app_args[tv_version]}" != "true" ]; then
+				strip_libs_flag=("--striplibs=${app_args[arch]}")
+			else
+				pr "  TV version: se omite --striplibs para conservar todas las arquitecturas."
+			fi
+
 			pr "Aplicando parches con Morphe CLI..."
 			java -jar "$MORPHE_CLI_JAR" patch \
 				-p="$PATCHES_CLI_URL" \
@@ -729,7 +759,7 @@ for table_name in $(toml_get_table_names); do
 				--keystore-entry-alias="$RVB_KEY_ALIAS" \
 				--keystore-entry-password="$RVB_KEYSTORE_PASS" \
 				--signer="Morphe" \
-				--striplibs="${app_args[arch]}" \
+				"${strip_libs_flag[@]}" \
 				"${force_flag[@]}" \
 				"${morphe_patch_args[@]}" \
 				"$raw_apk" \
@@ -887,7 +917,7 @@ for table_name in $(toml_get_table_names); do
 					--keystore-entry-alias="$RVB_KEY_ALIAS" \
 					--keystore-entry-password="$RVB_KEYSTORE_PASS" \
 					--signer="Morphe" \
-					--striplibs="${app_args[arch]}" \
+					"${strip_libs_flag[@]}" \
 					"${force_flag[@]}" \
 					"${morphe_patch_args[@]}" \
 					-d="GmsCore support" \

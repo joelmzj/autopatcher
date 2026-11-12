@@ -18,8 +18,11 @@ def generate_apk_filename(app_name: str, apk_version: str, brand: str,
     """
     v_apk = apk_version if apk_version.startswith("v") else f"v{apk_version}"
     v_patches = patches_version if patches_version.startswith("v") else f"v{patches_version}"
+    
+    # Limpiar la arquitectura para URLs seguras (ej. "arm64-v8a + armeabi-v7a" -> "arm64-v8a_armeabi-v7a")
+    clean_arch = arch.replace(" + ", "_").replace("+", "_").replace(" ", "_")
 
-    return f"{app_name}-{v_apk}-{brand}-{v_patches}-{arch}.apk"
+    return f"{app_name}-{v_apk}-{brand}-{v_patches}-{clean_arch}.apk"
 
 
 def main():
