@@ -452,7 +452,7 @@ for table_name in $(toml_get_table_names); do
 		elif [ "$was_failed_before" = "true" ]; then
 			pr "  Reintentando por fallo previo (ignorando comparación de versiones)"
 		elif ! should_build_app "$table_name" "$PATCHES_PATH" "${app_args[channel]}" \
-			"$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}" \
+			"$target_apk_ver" "${app_args[brand]}" "${app_args[arch_original]}" \
 			"${app_args[pkg_name]}" "$new_patches_hash" \
 			"$is_single_app" "$PATCHES_HOST"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
@@ -1011,7 +1011,7 @@ for table_name in $(toml_get_table_names); do
 		   --arg apk_ver "$target_apk_ver" \
 		   --arg final_pkg "$final_pkg_name" \
 		   --arg brand "${app_args[brand]}" \
-		   --arg arch "${app_args[arch]}" \
+		   --arg arch "${app_args[arch_original]}" \
 		   --arg stable_file "$final_stable_file" \
 		   --arg stable_zip "$final_stable_zip" \
 		   --arg snapshot_file "$prev_snapshot_file" \
