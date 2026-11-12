@@ -88,7 +88,7 @@
     "patches_source": "SysAdminDoc/hushfeed",
     "channel": "stable",
     "patches_version": "v0.82.0",
-    "patches_hash": "e267d28a66022324d37219d0ac9a16f5a4173bd16a45d346216d8434d51a3408",
+    "patches_hash": "24050cdc3b9a4012970f204652e52f42c11d156a3408170594500fb11f1c2d78",
     "apk_version": "47.7.3",
     "final_pkg_name": "com.zhiliaoapp.musically",
     "brand": "HushFeed",
@@ -97,9 +97,9 @@
     "stable_zip": null,
     "snapshot_file": "TikTok-v47.7.2-HushFeed-v0.81.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "TikTok-v47.7.2-HushFeed-v0.81.0-arm64-v8a.apk",
+    "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T21:16:03Z"
+    "timestamp": "2026-11-12T21:28:58Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",

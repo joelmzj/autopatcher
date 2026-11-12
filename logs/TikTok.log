@@ -4,11 +4,11 @@
      Repo:    SysAdminDoc/hushfeed
      Pkg:     com.zhiliaoapp.musically
      Canal:   stable  |  Brand: HushFeed  |  Arch: arm64-v8a
-     Inicio:  2026-11-12T21:15:03Z
+     Inicio:  2026-11-12T21:28:02Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: TikTok ===
-Fecha: 2026-11-12T21:15:07Z
+Fecha: 2026-11-12T21:28:07Z
 APK version: 47.7.3
 Patches version: v0.82.0
 Patches source: SysAdminDoc/hushfeed
@@ -19,7 +19,7 @@ Build mode: apk
 Force patch: false
 Inclusive patches: true
 Single-app bundle: true
-Patches hash: e267d28a66022324d37219d0ac9a16f5a4173bd16a45d346216d8434d51a3408
+Patches hash: 24050cdc3b9a4012970f204652e52f42c11d156a3408170594500fb11f1c2d78
 DL URL: —
 
 
@@ -235,7 +235,7 @@ INFO: Copied 4238 unchanged extension classes to 2 DEX files
 INFO: Changed 2419 of 486196 classes to mutable
 INFO: Writing 2419 new classes to new DEX files
 INFO: Processing 2419 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794518116426/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794518895094/patcher/patched/newDex
 INFO: Stripped 2386 modified classes from 43 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a, armeabi-v7a)
@@ -247,20 +247,20 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 12085 of 12085 values in 19 files, 1 resource files and 0 configurations of patches for com.zhiliaoapp.musically
 INFO: Reusing 26801 unchanged archive entries, rebuilding 3 entries, dropping 40 entries, leaving out 46 replaced entries
-INFO: Resource APK scan: 1.1s write: 5s
+INFO: Resource APK scan: 600ms write: 6.6s
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/TikTok-v47.7.3-HushFeed-v0.82.0-arm64-v8a.apk
-INFO: Patching took 45.0 seconds
+INFO: Patching took 41.2 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ✅ ÉXITO: TikTok  (1m0s)
+  ✅ ÉXITO: TikTok  (56s)
      APK:      TikTok-v47.7.3-HushFeed-v0.82.0-arm64-v8a.apk
      APK ver:  47.7.3
      Parches:  v0.82.0
-     Hash:     e267d28a66022324d37219d0ac9a16f5...
+     Hash:     24050cdc3b9a4012970f204652e52f42...
 ═══════════════════════════════════════════════════════════════
 
 
 --- Fin del parcheo ---
 APK final: build/TikTok-v47.7.3-HushFeed-v0.82.0-arm64-v8a.apk
-Fecha de fin: 2026-11-12T21:16:03Z
+Fecha de fin: 2026-11-12T21:28:58Z
