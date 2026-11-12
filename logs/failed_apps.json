@@ -1,12 +1,7 @@
 {
   "Telegram": {
     "first_failed_at": "2026-11-12T17:28:11Z",
-    "last_attempt_at": "2026-11-12T21:27:52Z",
-    "attempts": 4
-  },
-  "YouTube-Morphe": {
-    "first_failed_at": "2026-11-12T21:29:19Z",
-    "last_attempt_at": "2026-11-12T21:29:19Z",
-    "attempts": 1
+    "last_attempt_at": "2026-11-12T22:03:29Z",
+    "attempts": 5
   }
 }

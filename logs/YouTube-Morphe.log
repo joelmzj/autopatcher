@@ -4,11 +4,11 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-12T21:29:07Z
+     Inicio:  2026-11-12T22:04:56Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTube-Morphe ===
-Fecha: 2026-11-12T21:29:09Z
+Fecha: 2026-11-12T22:04:59Z
 APK version: 21.30.216
 Patches version: v2.3.0-dev.2
 Patches source: MorpheApp/morphe-patches
@@ -29,122 +29,174 @@ DL URL: —
 --- Salida de Morphe CLI (APK principal) ---
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
-Invalid architecture "universal" in --striplibs. Valid values are: armeabi-v7a, arm64-v8a, x86, x86_64, armeabi, mips, mips64
-Usage: morphe-desktop patch [-f] [--continue-on-error] [--disable-purge]
-                            [--exclusive] [--mount] [--options-update]
-                            [--prerelease] [--unsigned] [--validate] [-i
-                            [=<deviceSerial>]] [--verify-with-sdk
-                            [=<sdkToolsPath>]] [--bytecode-mode=<bytecodeMode>]
-                            [--keystore=<keyStoreFilePath>]
-                            [--keystore-entry-alias=<keyStoreEntryAlias>]
-                            [--keystore-entry-password=<keyStoreEntryPassword>]
-                            [--keystore-password=<keyStorePassword>]
-                            [-o=<outputFilePath>]
-                            [--options-file=<optionsFilePath>]
-                            [-r=<patchingResultOutputFilePath>]
-                            [--signer=<signer>] [-t=<temporaryFilesPath>]
-                            [--striplibs=<stripLibs>[,<stripLibs>...]]...
-                            (-p=<patchesFile> [[[-O=<String=Object>]...
-                            (-e=<name> | --ei=<index>)] [(-d=<name> |
-                            --di=<index>)]]...)... <apk>
-Patch an APK file.
-      <apk>                 APK file to patch.
-      --bytecode-mode=<bytecodeMode>
-                            Set bytecode mode. Valid options are FULL,
-                              STRIP_SAFE, and STRIP_FAST (the default).
-                              Default: null
-      --continue-on-error   Continue patching even if a patch fails. By
-                              default, patching stops on the first error.
-                              Default: false
-  -d, --disable=<name>      Name of the patch.
-      --di=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --disable-purge       Keep THIS run's scratch files instead of deleting
-                              them after patching. By default the scratch files
-                              are purged once patching finishes; this keeps
-                              them (e.g. for debugging a failed patch). Does
-                              not affect cached patches, other sessions, or
-                              config.
-                              Default: false
-  -e, --enable=<name>       Name of the patch.
-      --ei=<index>          Index of the patch in the combined list of the
-                              supplied MPP files.
-      --exclusive           Disable all patches except the ones enabled.
-                              Default: false
-  -f, --force               Don't check for compatibility with the supplied
-                              APK's version.
-                              Default: false
-  -i, --install[=<deviceSerial>]
-                            Serial of the ADB device to install to. If not
-                              specified, the first connected device will be
-                              used.
-      --keystore=<keyStoreFilePath>
-                            Path to the keystore file containing a private key
-                              and certificate pair to sign the patched APK file
-                              with. Defaults to the same directory as the
-                              supplied APK file.
-      --keystore-entry-alias=<keyStoreEntryAlias>
-                            Alias of the private key and certificate pair
-                              keystore entry.
-                              Default: Morphe
-      --keystore-entry-password=<keyStoreEntryPassword>
-                            Password of the keystore entry.
-      --keystore-password=<keyStorePassword>
-                            Password of the keystore. Defaults to the entry
-                              password, or none for a BKS keystore.
-      --mount               Install the patched APK file by mounting.
-                              Default: false
-  -o, --out=<outputFilePath>
-                            Path to save the patched APK file to. If omitted,
-                              it is saved next to the input APK in a subfolder
-                              named after the app.
-  -O, --options=<String=Object>
-                            Option values keyed by option keys.
-      --options-file=<optionsFilePath>
-                            Path to an options JSON file to read patch
-                              enable/disable and option values from.
-      --options-update      Auto-update the options JSON file after patching to
-                              reflect the current patches. Without this flag,
-                              the file is left unchanged.
-                              Default: false
-  -p, --patches=<patchesFile>
-                            Path to a MPP file or a GitHub/Gitlab repo url such
-                              as https://github.com/MorpheApp/morphe-patches
-                              (Supports multiple patch files)
-      --prerelease          Fetch the latest dev pre-release instead of the
-                              stable main release from the repo provided in
-                              --patches.
-                              Default: false
-  -r, --result-file=<patchingResultOutputFilePath>
-                            Path to write a JSON report of the patching run to.
-                              The report lists the package name and version,
-                              whether patching succeeded, each patching step's
-                              result, etc. (Can be used for scripts and CI.)
-      --signer=<signer>     The name of the signer to sign the patched APK file
-                              with.
-                              Default: Morphe
-      --striplibs=<stripLibs>[,<stripLibs>...]
-                            Architectures to keep, comma-separated (e.g.
-                              arm64-v8a,x86). Strips all other native
-                              architectures.
-  -t, --temporary-files-path=<temporaryFilesPath>
-                            Path to store temporary files.
-      --unsigned            Disable signing of the final apk.
-      --validate            Validate that each fingerprint matched with match()
-                              matches only one method, the same as using
-                              matchSingle(). Usage of matchAll() is unaffected.
-                              Patching is slower and this is intended for
-                              developer verification before release.
-                              Default: false
-      --verify-with-sdk[=<sdkToolsPath>]
-                            Verify the patched DEX and APK files using the
-                              provided Android SDK. If not specified, the
-                              patched files will not be verified. Verification
-                              may throw false positives and is for patch
-                              developer use only.
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/MorpheApp/morphe-patches/dev/patches-bundle.json
+INFO: GitHub: bundle (dev) → v2.3.0-dev.2 @ https://github.com/MorpheApp/morphe-patches/releases/download/v2.3.0-dev.2/patches-2.3.0-dev.2.mpp
+INFO: Latest dev via patches-bundle.json: v2.3.0-dev.2
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.3.0-dev.2__patches-2.3.0-dev.2.mpp (17045006 bytes)
+INFO: Resolved patches (v2.3.0-dev.2) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.3.0-dev.2__patches-2.3.0-dev.2.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.google.android.youtube v21.30.216...
+INFO: Skipping disabled: Clone app (default)
+INFO: Skipping disabled: Change installer source (default)
+INFO: Skipping disabled: Override certificate pinning (default)
+INFO: Skipping disabled: Spoof signature (default)
+INFO: Skipping disabled: Disable Play Store updates (default)
+INFO: Applying 115 patches...
+INFO: Deleting existing temporary files directory
+INFO: Executing patches
+INFO: Extracting raw resources on request
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 16965 files can be decoded
+INFO: Building instruction indexes for 64257 classes...
+INFO: Applied: AI channel filter
+INFO: Applied: Add to queue
+INFO: Applied: Ambient mode
+INFO: Applied: App refresh rate
+INFO: Applied: Ask flyout menu
+INFO: Applied: Bypass image region restrictions
+INFO: Applied: Bypass link redirects
+INFO: Applied: Captions
+INFO: Applied: Change form factor
+INFO: Applied: Change header
+INFO: Applied: Change picture-in-picture actions
+INFO: Applied: Change start page
+INFO: Applied: Channel search
+INFO: Applied: Channel whitelist
+INFO: Applied: Check watch history domain name resolution
+INFO: Applied: Copy text
+INFO: Applied: Copy video link
+INFO: Applied: Custom branding
+INFO: Applied: Custom font
+INFO: Applied: Custom player overlay opacity
+INFO: Applied: DeArrow
+INFO: Applied: Disable DRC audio
+INFO: Applied: Disable QUIC protocol
+INFO: Applied: Disable Shorts resuming on startup
+INFO: Applied: Disable auto feed refresh
+INFO: Applied: Disable continue watching prompt
+INFO: Applied: Disable double tap actions
+INFO: Applied: Disable fullscreen gestures
+INFO: Applied: Disable haptic feedback
+INFO: Applied: Disable layout updates
+INFO: Applied: Disable player popup panels
+INFO: Applied: Disable playlist autoplay
+INFO: Applied: Disable rolling number animations
+INFO: Applied: Disable scrolling speed limit
+INFO: Applied: Disable sign in to TV popup
+INFO: Applied: Disable video codecs
+INFO: Applied: Double tap to seek
+INFO: Applied: Download post images
+INFO: Applied: Downloads
+INFO: Applied: Enable debugging
+INFO: Applied: Exit fullscreen mode
+INFO: Applied: Feed card layout
+INFO: Applied: Feed video actions
+INFO: Applied: Feed view count
+INFO: Applied: Force animations
+INFO: Applied: Force fullscreen landscape
+INFO: Applied: Force original audio
+INFO: Applied: Fullscreen video scale
+INFO: Applied: GmsCore support
+INFO: Applied: Hide Shorts components
+INFO: Applied: Hide ads
+INFO: Applied: Hide autoplay preview
+INFO: Applied: Hide end screen cards
+INFO: Applied: Hide end screen suggested video
+INFO: Applied: Hide info cards
+INFO: Applied: Hide layout components
+INFO: Applied: Hide player flyout menu components
+INFO: Applied: Hide player overlay buttons
+INFO: Applied: Hide related video overlay
+INFO: Applied: Hide related videos
+INFO: Applied: Hide status bar
+INFO: Applied: Hide timestamp
+INFO: Applied: Hide video action buttons
+INFO: Applied: Loop count
+INFO: Applied: Loop video
+INFO: Applied: Media notification controls
+INFO: Applied: Miniplayer
+INFO: Applied: Mute button
+INFO: Applied: Network proxy
+INFO: Applied: Niconico comments
+INFO: Applied: On-the-go player
+INFO: Applied: Open Shorts in regular player
+INFO: Applied: Open channel of live avatar
+INFO: Applied: Open links externally
+INFO: Applied: Open system share sheet
+INFO: Applied: Open videos fullscreen
+INFO: Applied: Override YouTube Music buttons
+INFO: Applied: Picture-in-picture button
+INFO: Applied: Play all
+INFO: Applied: Playback buffer
+INFO: Applied: Playback in feeds
+INFO: Applied: Playback speed
+INFO: Applied: Playlist improvements
+INFO: Applied: PoToken provider
+INFO: Applied: Reload video
+INFO: Applied: Remember live stream playback position
+INFO: Applied: Remove background playback restrictions
+INFO: Applied: Remove viewer discretion dialog
+INFO: Applied: Restore original titles
+INFO: Applied: Return YouTube Dislike
+INFO: Applied: Sanitize sharing links
+INFO: Applied: Save to Watch later
+INFO: Applied: Search comments
+INFO: Applied: Seekbar
+INFO: Applied: Series tracking
+INFO: Applied: Settings menu filter
+INFO: Applied: Shorts autoplay
+INFO: Applied: Skip live Shorts
+INFO: Applied: Skip silence
+INFO: Applied: Snackbar
+INFO: Applied: SponsorBlock
+INFO: Applied: Spoof app version
+INFO: Applied: Spoof device dimensions
+INFO: Applied: Spoof video streams
+INFO: Applied: Swipe controls
+INFO: Applied: Theme
+INFO: Applied: Translate live chat
+INFO: Applied: Translate posts
+INFO: Applied: Video delay
+INFO: Applied: Video quality
+INFO: Applied: Voice over translation
+INFO: Applied: Wide search bar
+INFO: Applied: Shorts icon style
+INFO: Applied: Player icon style
+INFO: Applied: Navigation bar
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 9276 unchanged extension classes to 3 DEX files
+INFO: Changed 1365 of 64257 classes to mutable
+INFO: Writing 1365 new classes to new DEX files
+INFO: Processing 1365 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794521109606/patcher/patched/newDex
+INFO: Stripped 1209 modified classes from 7 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 108 lib files
+INFO: Decoded 140 of 16965 files on request
+INFO: Unescaping strings
+INFO: Post-processing package name change
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 142534 of 142534 values in 80 files, 1276 resource files and 541 configurations of patches for com.google.android.youtube
+INFO: Reusing 16491 unchanged archive entries, rebuilding 1278 entries, dropping 108 entries, leaving out 7 replaced entries
+INFO: Resource APK scan: 1.7s write: 1.8s
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Morphe-v21.30.216-Morphe-v2.3.0-dev.2-arm64-v8a.apk
+INFO: Patching took 20.0 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: YouTube-Morphe  (12s)
-     Revisa logs/YouTube-Morphe.log para detalles
+  ✅ ÉXITO: YouTube-Morphe  (36s)
+     APK:      YouTube-Morphe-v21.30.216-Morphe-v2.3.0-dev.2-arm64-v8a.apk
+     APK ver:  21.30.216
+     Parches:  v2.3.0-dev.2
+     Hash:     2c1222f7bc2ae1f1f9d48c8d339205b6...
 ═══════════════════════════════════════════════════════════════
 
+
+--- Fin del parcheo ---
+APK final: build/YouTube-Morphe-v21.30.216-Morphe-v2.3.0-dev.2-arm64-v8a.apk
+Fecha de fin: 2026-11-12T22:05:31Z
