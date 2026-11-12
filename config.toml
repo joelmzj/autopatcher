@@ -386,3 +386,22 @@ exclude-patches = ["Side-by-side install"]
 options = []
 single-app-bundle = false
 apkmirror-dlurl = "https://www.apkmirror.com/apk/stremio/stremio-2/"
+
+[AnExplorer-TV]
+enabled = true
+pkg-name = "dev.dworks.apps.anexplorer"
+app-name = "AnExplorer-TV"
+patches-source = "rushiranpise/morphe-patches"
+brand = "rushiranpise"
+arch = "aarmeabi-v7a"
+tv-version = true
+channel = "stable"
+inclusive-patches = true
+build-mode = "apk"
+version = "auto"
+force-patch = true
+enable-patches = []
+exclude-patches = []
+options = []
+single-app-bundle = false
+apkmirror-dlurl = "https://www.apkmirror.com/apk/dworks/anexplorer-tv-file-manager-android-tv/"
