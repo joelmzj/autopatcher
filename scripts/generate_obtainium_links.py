@@ -53,10 +53,20 @@ def generate_markdown():
     lines = [
         "## 📲 Instalar con Obtainium",
         "",
-        "Añade cualquiera de estas apps a Obtainium con un solo toque.",
+        "Añade cualquiera de estas apps a Obtainium con un solo toque (móvil) o manualmente (TV).",
+        "",
+        "### 📺 Añadir manualmente (especial para Android TV)",
+        "Los enlaces directos (`obtainium://`) no siempre funcionan en Android TV. Para añadir una app manualmente:",
+        "1. Abre Obtainium en tu TV y pulsa **+** (Añadir App).",
+        f"2. Pega esta URL como fuente: `{REPO_URL}`",
+        "3. Selecciona la fuente **GitHub**.",
+        "4. Desplázate hasta **Filter APKs by regular expression** (Filtrar APKs por regex).",
+        "5. Pega la **cadena regex** que se muestra debajo del nombre de cada app.",
         "",
         "> **Nota:** Si notas que un ID de paquete ha cambiado repentinamente (por ejemplo, por un nuevo parche de clonación), "
         "significa que el desarrollador ha modificado el paquete base. Revisa la configuración de esa app.",
+        "",
+        "---",
         "",
     ]
 
@@ -70,7 +80,7 @@ def generate_markdown():
 
         app_name = table_name
         
-        # 🆕 Obtener el ID real (del versions_log si existe, o del TOML por defecto)
+        # Obtener el ID real (del versions_log si existe, o del TOML por defecto)
         app_vlog = vlog.get(table_name, {})
         pkg_name = app_vlog.get("final_pkg_name") or app_config.get("pkg-name")
         
@@ -78,18 +88,21 @@ def generate_markdown():
             print(f"⚠️ Advertencia: {table_name} no tiene pkg-name, se omite.")
             continue
         
+        # La regex que usamos tanto para el deep link como para la configuración manual
         apk_prefix = f"^{table_name}-"
         
         link = build_link(pkg_name, app_name, apk_prefix)
         
-        # 🆕 Imprimir el ID en el README
-        lines.append(f"- **{app_name}** (`{pkg_name}`) → [Añadir a Obtainium]({link})")
+        lines.append(f"### {app_name} (`{pkg_name}`)")
+        lines.append(f"- **Enlace directo (móvil):** [Añadir a Obtainium]({link})")
+        lines.append(f"- **Cadena regex (manual):** `{apk_prefix}`")
+        lines.append("")
 
-    lines.append("")
-    lines.append("> **Nota:** Solo se instalan los APKs.")
+    lines.append("---")
+    lines.append("> **Nota:** Solo se instalan los APKs (no los módulos).")
     return "\n".join(lines)
 
 if __name__ == "__main__":
     md = generate_markdown()
     Path("OBTAINIUM_LINKS.md").write_text(md, encoding="utf-8")
-    print("✅ Generado OBTAINIUM_LINKS.md dinámicamente")
+    print("✅ Generado OBTAINIUM_LINKS.md dinámicamente (con soporte para TV y configuración manual)")
