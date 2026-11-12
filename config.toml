@@ -108,7 +108,7 @@ inclusive-patches = true
 build-mode = "apk"
 force-patch = false
 enable-patches = []
-exclude-patches = []
+exclude-patches = ["Clone install under another package name"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/facebook-2/facebook"
 
 [TikTok]
