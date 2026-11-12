@@ -171,9 +171,10 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "chore: update versions_log.json + logs [skip ci]"
             
-            # 🔥 FIX BUG 2: Sincronizar con el remoto antes de subir para evitar rechazos
-            git pull --rebase origin main || true
+            # Limpiar cambios no rastreados (permisos, archivos temporales) antes del rebase
+            git reset --hard HEAD
             
+            git pull --rebase origin main || true
             git push
             echo "[+] Estado y logs commiteados exitosamente"
           else
@@ -293,6 +294,9 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "chore: publish module update.json [skip ci]"
             
+            # Limpiar cambios no rastreados antes del rebase
+            git reset --hard HEAD
+            
             # 🔥 FIX BUG 3: Sincronizar con el remoto antes de subir
             git pull --rebase origin update || true
             
@@ -341,6 +345,10 @@ jobs:
           
           if ! git diff --staged --quiet; then
             git commit -m "docs: update Obtainium links [skip ci]"
+            
+            # Limpiar cambios no rastreados antes del rebase
+            git reset --hard HEAD
+            
             git pull --rebase origin main || true
             git push
             echo "[+] Enlaces de Obtainium actualizados en README.md"
