@@ -4,11 +4,11 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-12T22:23:53Z
+     Inicio:  2026-11-12T22:51:06Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTube-Morphe ===
-Fecha: 2026-11-12T22:23:56Z
+Fecha: 2026-11-12T22:51:09Z
 APK version: 21.30.216
 Patches version: v2.3.0-dev.2
 Patches source: MorpheApp/morphe-patches
@@ -170,7 +170,7 @@ INFO: Copied 9276 unchanged extension classes to 3 DEX files
 INFO: Changed 1365 of 64257 classes to mutable
 INFO: Writing 1365 new classes to new DEX files
 INFO: Processing 1365 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794522249583/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794523886597/patcher/patched/newDex
 INFO: Stripped 1209 modified classes from 7 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -183,13 +183,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 142534 of 142534 values in 80 files, 1276 resource files and 541 configurations of patches for com.google.android.youtube
 INFO: Reusing 16491 unchanged archive entries, rebuilding 1278 entries, dropping 108 entries, leaving out 7 replaced entries
-INFO: Resource APK scan: 1.4s write: 1.8s
+INFO: Resource APK scan: 1.7s write: 1.9s
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Morphe-v21.30.216-Morphe-v2.3.0-dev.2-arm64-v8a.apk
-INFO: Patching took 13.3 seconds
+INFO: Patching took 16.3 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ✅ ÉXITO: YouTube-Morphe  (31s)
+  ✅ ÉXITO: YouTube-Morphe  (38s)
      APK:      YouTube-Morphe-v21.30.216-Morphe-v2.3.0-dev.2-arm64-v8a.apk
      APK ver:  21.30.216
      Parches:  v2.3.0-dev.2
@@ -199,4 +199,4 @@ INFO: Patching took 13.3 seconds
 
 --- Fin del parcheo ---
 APK final: build/YouTube-Morphe-v21.30.216-Morphe-v2.3.0-dev.2-arm64-v8a.apk
-Fecha de fin: 2026-11-12T22:24:24Z
+Fecha de fin: 2026-11-12T22:51:44Z

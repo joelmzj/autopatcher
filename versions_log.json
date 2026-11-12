@@ -73,22 +73,22 @@
     "patches_version": "v0.22.0",
     "patches_hash": "d50f70ce12d203bb532975df21cb7cc72f95234f5228e6e8201b8f5b731eaa02",
     "apk_version": "586.0.0.52.53",
-    "final_pkg_name": "com.facebook.katana.hush",
+    "final_pkg_name": "com.facebook.katana",
     "brand": "HushFacebook",
     "arch": "arm64-v8a",
     "stable_file": "Facebook-v586.0.0.52.53-HushFacebook-v0.22.0-arm64-v8a.apk",
     "stable_zip": null,
     "snapshot_file": "Facebook-v585.0.0.47.54-HushFacebook-v0.21.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Facebook-v585.0.0.47.54-HushFacebook-v0.21.0-arm64-v8a.apk",
+    "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T22:22:50Z"
+    "timestamp": "2026-11-12T22:49:56Z"
   },
   "TikTok": {
     "patches_source": "SysAdminDoc/hushfeed",
     "channel": "stable",
     "patches_version": "v0.82.0",
-    "patches_hash": "6a4bf02233ce6f86a4c56ff6740e847e566675f8a1d460418881b164464e3c1a",
+    "patches_hash": "24050cdc3b9a4012970f204652e52f42c11d156a3408170594500fb11f1c2d78",
     "apk_version": "47.7.3",
     "final_pkg_name": "com.zhiliaoapp.musically",
     "brand": "HushFeed",
@@ -99,7 +99,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T22:23:46Z"
+    "timestamp": "2026-11-12T22:50:59Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
@@ -150,7 +150,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T22:24:24Z"
+    "timestamp": "2026-11-12T22:51:44Z"
   },
   "YouTube-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -182,9 +182,9 @@
     "stable_zip": null,
     "snapshot_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.1-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.1-arm64-v8a.apk",
+    "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T22:24:52Z"
+    "timestamp": "2026-11-12T22:52:16Z"
   },
   "YouTube-Tablet-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -356,8 +356,8 @@
     "stable_zip": null,
     "snapshot_file": "Stremio-Phone-v2.5.1-tikkamasalla-v1.8.1-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Stremio-Phone-v2.5.1-tikkamasalla-v1.8.1-arm64-v8a.apk",
+    "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T22:27:06Z"
+    "timestamp": "2026-11-12T22:53:53Z"
   }
 }

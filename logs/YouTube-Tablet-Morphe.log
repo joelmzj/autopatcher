@@ -4,11 +4,11 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-12T22:24:27Z
+     Inicio:  2026-11-12T22:51:47Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTube-Tablet-Morphe ===
-Fecha: 2026-11-12T22:24:29Z
+Fecha: 2026-11-12T22:51:50Z
 APK version: 20.26.46
 Patches version: v2.3.0-dev.2
 Patches source: MorpheApp/morphe-patches
@@ -176,7 +176,7 @@ INFO: Copied 9283 unchanged extension classes to 3 DEX files
 INFO: Changed 1114 of 56041 classes to mutable
 INFO: Writing 1114 new classes to new DEX files
 INFO: Processing 1114 classes in parallel (4 threads)
-INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794522279209/patcher/patched/newDex
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794523920236/patcher/patched/newDex
 INFO: Stripped 964 modified classes from 6 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -189,13 +189,13 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 142524 of 142524 values in 82 files, 1190 resource files and 541 configurations of patches for com.google.android.youtube
 INFO: Reusing 12961 unchanged archive entries, rebuilding 1192 entries, dropping 81 entries, leaving out 6 replaced entries
-INFO: Resource APK scan: 1.3s write: 1.4s
+INFO: Resource APK scan: 1.4s write: 1.8s
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.2-arm64-v8a.apk
-INFO: Patching took 12.0 seconds
+INFO: Patching took 14.8 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ✅ ÉXITO: YouTube-Tablet-Morphe  (25s)
+  ✅ ÉXITO: YouTube-Tablet-Morphe  (29s)
      APK:      YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.2-arm64-v8a.apk
      APK ver:  20.26.46
      Parches:  v2.3.0-dev.2
@@ -205,4 +205,4 @@ INFO: Patching took 12.0 seconds
 
 --- Fin del parcheo ---
 APK final: build/YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.2-arm64-v8a.apk
-Fecha de fin: 2026-11-12T22:24:52Z
+Fecha de fin: 2026-11-12T22:52:16Z
