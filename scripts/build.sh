@@ -741,14 +741,8 @@ for table_name in $(toml_get_table_names); do
 				echo ""
 			} >> "$app_log"
 
-			declare -a strip_libs_flag=()
-			if [ "${app_args[tv_version]}" != "true" ]; then
-				# Morphe CLI espera comas, no el símbolo '+', para múltiples arquitecturas
-				safe_arch="${app_args[arch]// + /,}"
-				strip_libs_flag=("--striplibs=${safe_arch}")
-			else
-				pr "  TV version: se omite --striplibs para conservar todas las arquitecturas."
-			fi
+			# El striplibs SIEMPRE se toma del config.toml original
+			declare -a strip_libs_flag=("--striplibs=${app_args[arch_original]}")
 
 			pr "Aplicando parches con Morphe CLI..."
 			java -jar "$MORPHE_CLI_JAR" patch \
@@ -957,7 +951,7 @@ for table_name in $(toml_get_table_names); do
 					"${app_args[pkg_name]}" \
 					"$target_apk_ver" \
 					"$pkg_version_code" \
-					"${app_args[arch]}" \
+					"${app_args[arch_original]}" \
 					"$latest_applied_tag" \
 					"${RELEASE_TAG:-stable}"; then
 					pr "Módulo generado: $module_zip"
