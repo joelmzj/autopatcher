@@ -423,4 +423,4 @@ enable-patches = []
 exclude-patches = []
 options = []
 single-app-bundle = false
-apkmirror-dlurl = "https://www.apkmirror.com/apk/univision-communications-inc/vix-cine-y-tv-en-espanol-android-tv/"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/yablio/send-files-to-tv/"
