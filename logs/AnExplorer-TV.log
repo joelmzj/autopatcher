@@ -4,11 +4,11 @@
      Repo:    rushiranpise/morphe-patches
      Pkg:     dev.dworks.apps.anexplorer
      Canal:   stable  |  Brand: rushiranpise  |  Arch: arm64-v8a + armeabi-v7a
-     Inicio:  2026-11-13T18:51:21Z
+     Inicio:  2026-11-13T19:15:20Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: AnExplorer-TV ===
-Fecha: 2026-11-13T18:51:26Z
+Fecha: 2026-11-13T19:15:24Z
 APK version: 6.0.9
 Patches version: v1.23.1
 Patches source: rushiranpise/morphe-patches
@@ -55,10 +55,10 @@ INFO: Stripping libs (keeping architectures armeabi-v7a)
 INFO: Stripped 33 lib files
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/AnExplorer-TV-v6.0.9-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk
-INFO: Patching took 1.4 seconds
+INFO: Patching took 1.5 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ✅ ÉXITO: AnExplorer-TV  (20s)
+  ✅ ÉXITO: AnExplorer-TV  (18s)
      APK:      AnExplorer-TV-v6.0.9-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk
      APK ver:  6.0.9
      Parches:  v1.23.1
@@ -68,4 +68,4 @@ INFO: Patching took 1.4 seconds
 
 --- Fin del parcheo ---
 APK final: build/AnExplorer-TV-v6.0.9-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk
-Fecha de fin: 2026-11-13T18:51:41Z
+Fecha de fin: 2026-11-13T19:15:38Z
