@@ -377,6 +377,36 @@ for table_name in $(toml_get_table_names); do
 			pr "  Bundle single-app declarado en config (cualquier tag nuevo compila)"
 		fi
 
+		# 🆕 Calcular _force_this antes del fast-path
+		_force_this=false
+		if [ -n "${REBUILD_APPS:-}" ]; then
+			_rebuild_lower=$(echo "${REBUILD_APPS}" | tr '[:upper:]' '[:lower:]')
+			_table_lower=$(echo "${table_name}" | tr '[:upper:]' '[:lower:]')
+
+			if [ "${_rebuild_lower}" = "*" ]; then
+				_force_this=true
+			elif echo ",${_rebuild_lower}," | grep -qF ",${_table_lower},"; then
+				_force_this=true
+			fi
+		fi
+
+		# ==================================================================
+		# 🚀 FAST PATH: Para single-app-bundle, omitir antes de generar el JSON
+		# ==================================================================
+		if [ "$is_single_app" = "true" ] && [ "$_force_this" != "true" ] && [ "$was_failed_before" != "true" ]; then
+			cached_patch_ver=$(jq -r --arg app "$table_name" '.[$app].patches_version // ""' versions_log.json)
+			cached_brand=$(jq -r --arg app "$table_name" '.[$app].brand // ""' versions_log.json)
+			cached_arch=$(jq -r --arg app "$table_name" '.[$app].arch // ""' versions_log.json)
+
+			if [ "$latest_applied_tag" = "$cached_patch_ver" ] && \
+			   [ "${app_args[brand]}" = "$cached_brand" ] && \
+			   [ "${app_args[arch_original]}" = "$cached_arch" ]; then
+				pr "  Bundle single-app sin cambios (tag, brand y arch coinciden). Omitiendo sin generar JSON."
+				print_app_skipped "$table_name" "sin cambios (single-app)"
+				exit 0
+			fi
+		fi
+
 		json_is_valid=false
 		pr "  → Generando patches-list.json vía CLI (repo: $patch_repo, pkg: ${app_args[pkg_name]})"
 		generated_json="$TEMP_DIR/$table_name/generated_patches.json"
@@ -391,27 +421,14 @@ for table_name in $(toml_get_table_names); do
 			exp_flag="-x"
 		fi
 
-		# Capturar la salida cruda del CLI en una variable
-		cli_raw_output=$(java -jar "$MORPHE_CLI_JAR" list-patches \
+		if java -jar "$MORPHE_CLI_JAR" list-patches \
 			--patches="$PATCHES_CLI_URL" \
-			$rel_flag $exp_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null)
-
-		# Imprimir la salida cruda en el log de GitHub para debug
-		echo "--- [DEBUG] INICIO SALIDA CLI CRUDA ---" >&2
-		echo "$cli_raw_output" >&2
-		echo "--- [DEBUG] FIN SALIDA CLI CRUDA ---" >&2
-
-		if echo "$cli_raw_output" | python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json" \
+			$rel_flag $exp_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
+			python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json" \
 			&& jq -e 'type == "object" and has("patches")' "$generated_json" >/dev/null 2>&1; then
-			
 			patches_json_url="$generated_json"
 			json_is_valid=true
 			pr "    ✓ JSON generado exitosamente en: $patches_json_url"
-			
-			# Imprimir el JSON resultante en el log de GitHub
-			echo "--- [DEBUG] INICIO JSON PARSEADO ---" >&2
-			jq -c '.' "$generated_json" >&2
-			echo "--- [DEBUG] FIN JSON PARSEADO ---" >&2
 		else
 			wpr "    ✗ Falló la generación del JSON desde el CLI"
 		fi
@@ -423,13 +440,19 @@ for table_name in $(toml_get_table_names); do
 			exit 1
 		fi
 
-		new_patches_hash=$(compute_patches_hash_for_pkg "$patches_json_url" "${app_args[pkg_name]}") || new_patches_hash=""
-		if [ -z "$new_patches_hash" ]; then
-			wpr "  ❌ No se pudo calcular el hash de parches para $table_name"
-			echo "${table_name}|${app_args[pkg_name]}|${patch_repo}|${app_args[channel]}|hash_failed" >> "$JSON_FAILURES_FILE"
-			exit 1
+		# 🆕 Para single-app-bundle, el hash es innecesario (la decisión depende solo del tag)
+		if [ "$is_single_app" = "true" ]; then
+			new_patches_hash=""
+			pr "  Bundle single-app: se omite el cálculo del hash (la decisión depende del tag)"
+		else
+			new_patches_hash=$(compute_patches_hash_for_pkg "$patches_json_url" "${app_args[pkg_name]}") || new_patches_hash=""
+			if [ -z "$new_patches_hash" ]; then
+				wpr "  ❌ No se pudo calcular el hash de parches para $table_name"
+				echo "${table_name}|${app_args[pkg_name]}|${patch_repo}|${app_args[channel]}|hash_failed" >> "$JSON_FAILURES_FILE"
+				exit 1
+			fi
+			pr "  Hash de parches para ${app_args[pkg_name]}: $new_patches_hash"
 		fi
-		pr "  Hash de parches para ${app_args[pkg_name]}: $new_patches_hash"
 
 		if [ "$target_apk_ver" = "auto" ] || [ "$target_apk_ver" = "experimental" ]; then
 			pr "Analizando parches en $patch_repo para resolver versión en modo [$target_apk_ver]..."
@@ -451,18 +474,6 @@ for table_name in $(toml_get_table_names); do
 				else
 					abort "No se pudo resolver la versión para $table_name (JSON sin versión y sin apkmirror-dlurl)."
 				fi
-			fi
-		fi
-
-		_force_this=false
-		if [ -n "${REBUILD_APPS:-}" ]; then
-			_rebuild_lower=$(echo "${REBUILD_APPS}" | tr '[:upper:]' '[:lower:]')
-			_table_lower=$(echo "${table_name}" | tr '[:upper:]' '[:lower:]')
-
-			if [ "${_rebuild_lower}" = "*" ]; then
-				_force_this=true
-			elif echo ",${_rebuild_lower}," | grep -qF ",${_table_lower},"; then
-				_force_this=true
 			fi
 		fi
 
@@ -797,15 +808,15 @@ for table_name in $(toml_get_table_names); do
 
 			new_log=$(tail -c +$((log_size_before + 1)) "$app_log" 2>/dev/null || echo "")
 			
-			# Corregido: Contar éxitos reales (INFO: Applied:), no intentos
+			# Contar éxitos reales (INFO: Applied:), no intentos
 			applied=$(echo "$new_log" | grep -c 'INFO: Applied:' || true)
 			applied=${applied:-0}
 			
-			# Corregido: Ignorar mayúsculas/minúsculas para Skipping
+			# Ignorar mayúsculas/minúsculas para Skipping
 			skipped=$(echo "$new_log" | grep -c 'WARNING: Skipping' || true)
 			skipped=${skipped:-0}
 			
-			# Corregido: Detectar 'ERROR: Failed' (con F mayúscula)
+			# Detectar 'ERROR: Failed' (con F mayúscula)
 			failed=$(echo "$new_log" | grep -c 'ERROR: Failed' || true)
 			failed=${failed:-0}
 			
@@ -949,7 +960,7 @@ for table_name in $(toml_get_table_names); do
 					if [ -f "$module_apk_tmp" ]; then
 						module_log_content=$(tail -c +$((module_log_marker + 1)) "$app_log" 2>/dev/null || echo "")
 						
-						# Corregido: Contar éxitos reales en la variante del módulo
+						# Contar éxitos reales en la variante del módulo
 						module_applied=$(echo "$module_log_content" | grep -c 'INFO: Applied:' || true)
 						module_applied=${module_applied:-0}
 
