@@ -1,7 +1,12 @@
 {
   "Telegram": {
     "first_failed_at": "2026-11-12T17:28:11Z",
-    "last_attempt_at": "2026-11-13T21:29:07Z",
-    "attempts": 19
+    "last_attempt_at": "2026-11-13T22:09:13Z",
+    "attempts": 20
+  },
+  "SendFilesToTV-TV": {
+    "first_failed_at": "2026-11-13T22:10:41Z",
+    "last_attempt_at": "2026-11-13T22:10:41Z",
+    "attempts": 1
   }
 }

@@ -356,21 +356,21 @@
     "prev_stable_zip": null,
     "timestamp": "2026-11-13T20:58:08Z"
   },
-  "AnExplorer-TV": {
-    "patches_source": "rushiranpise/morphe-patches",
+  "Vix-TV": {
+    "patches_source": "ajstrick81/morphe-androidtv-patches",
     "channel": "stable",
-    "patches_version": "v1.23.1",
-    "patches_hash": "c6e6fcb909d96cb6610b223253563efb4496c6db3a0977b8e020eabbb9d84973",
-    "apk_version": "6.0.6",
-    "final_pkg_name": "dev.dworks.apps.anexplorer",
-    "brand": "rushiranpise",
+    "patches_version": "v1.54.0",
+    "patches_hash": "79291fd522e14680e30e7c9e5fb13fdd5fd4ad82454b28a4168452ba2ad9e473",
+    "apk_version": "4.52.0_tv",
+    "final_pkg_name": "com.univision.prendetv",
+    "brand": "ajstrick81",
     "arch": "armeabi-v7a",
-    "stable_file": "AnExplorer-TV-v6.0.6-rushiranpise-v1.23.1-armeabi-v7a.apk",
+    "stable_file": "Vix-TV-v4.52.0_tv-ajstrick81-v1.54.0-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": "AnExplorer-TV-v6.0.9-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk",
+    "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-13T20:58:25Z"
+    "timestamp": "2026-11-13T22:10:34Z"
   }
 }
