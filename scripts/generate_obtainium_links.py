@@ -17,6 +17,7 @@ COMMON_SETTINGS = {
     "useLatestAssetDateAsReleaseDate": True,
     "releaseDateAsVersion": True,
     "versionDetection": False,
+    "autoApkFilterByArch": True,
 }
 
 def build_link(app_id: str, app_name: str, apk_prefix: str) -> str:
@@ -42,7 +43,6 @@ def generate_markdown():
         
     data = toml.load(config_path)
     
-    # Cargar versions_log.json para leer los IDs reales extraídos por build.sh
     vlog = {}
     if vlog_path.exists():
         try:
@@ -50,6 +50,7 @@ def generate_markdown():
         except Exception as e:
             print(f"⚠️ Advertencia: No se pudo leer versions_log.json: {e}")
 
+    # 🆕 Instrucciones para Android TV (con bloques de código para el botón copiar)
     lines = [
         "## 📲 Instalar con Obtainium",
         "",
@@ -58,10 +59,18 @@ def generate_markdown():
         "### 📺 Añadir manualmente (especial para Android TV)",
         "Los enlaces directos (`obtainium://`) no siempre funcionan en Android TV. Para añadir una app manualmente:",
         "1. Abre Obtainium en tu TV y pulsa **+** (Añadir App).",
-        f"2. Pega esta URL como fuente: `{REPO_URL}`",
+        "2. Pega esta URL como fuente:",
+        "```text",
+        REPO_URL,
+        "```",
         "3. Selecciona la fuente **GitHub**.",
-        "4. Desplázate hasta **Filter APKs by regular expression** (Filtrar APKs por regex).",
-        "5. Pega la **cadena regex** que se muestra debajo del nombre de cada app.",
+        "4. Ve a **Ajustes Avanzados** de la app y configura lo siguiente:",
+        "   - **Filter APKs by regular expression**: Pega la cadena regex específica de la app (ver tabla abajo).",
+        "   - **Version detection**: Desactivado (OFF).",
+        "   - **Release date as version**: Activado (ON).",
+        "   - **Use latest asset upload date as release date**: Activado (ON).",
+        "   - **Attempt to filter APKs by CPU architecture if possible**: Activado (ON).",
+        "5. Guarda la app.",
         "",
         "> **Nota:** Si notas que un ID de paquete ha cambiado repentinamente (por ejemplo, por un nuevo parche de clonación), "
         "significa que el desarrollador ha modificado el paquete base. Revisa la configuración de esa app.",
@@ -80,7 +89,6 @@ def generate_markdown():
 
         app_name = table_name
         
-        # Obtener el ID real (del versions_log si existe, o del TOML por defecto)
         app_vlog = vlog.get(table_name, {})
         pkg_name = app_vlog.get("final_pkg_name") or app_config.get("pkg-name")
         
@@ -88,14 +96,16 @@ def generate_markdown():
             print(f"⚠️ Advertencia: {table_name} no tiene pkg-name, se omite.")
             continue
         
-        # La regex que usamos tanto para el deep link como para la configuración manual
         apk_prefix = f"^{table_name}-"
         
         link = build_link(pkg_name, app_name, apk_prefix)
         
         lines.append(f"### {app_name} (`{pkg_name}`)")
         lines.append(f"- **Enlace directo (móvil):** [Añadir a Obtainium]({link})")
-        lines.append(f"- **Cadena regex (manual):** `{apk_prefix}`")
+        lines.append("- **Cadena regex (manual):**")
+        lines.append("```text")
+        lines.append(apk_prefix)
+        lines.append("```")
         lines.append("")
 
     lines.append("---")

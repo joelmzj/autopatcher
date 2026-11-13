@@ -387,10 +387,29 @@ options = []
 single-app-bundle = false
 apkmirror-dlurl = "https://www.apkmirror.com/apk/stremio/stremio-2/"
 
-[AnExplorer-TV]
+[Vix-TV]
 enabled = true
-pkg-name = "dev.dworks.apps.anexplorer"
-app-name = "AnExplorer-TV"
+pkg-name = "com.univision.prendetv"
+app-name = "Vix-TV"
+patches-source = "ajstrick81/morphe-androidtv-patches"
+brand = "ajstrick81"
+arch = "armeabi-v7a"
+tv-version = true
+channel = "stable"
+inclusive-patches = true
+build-mode = "apk"
+version = "auto"
+force-patch = true
+enable-patches = []
+exclude-patches = []
+options = []
+single-app-bundle = false
+apkmirror-dlurl = "https://www.apkmirror.com/apk/univision-communications-inc/vix-cine-y-tv-en-espanol-android-tv/"
+
+[SendFilesToTV-TV]
+enabled = true
+pkg-name = "com.yablio.sendfilestotv"
+app-name = "SendFilesToTV-TV"
 patches-source = "rushiranpise/morphe-patches"
 brand = "rushiranpise"
 arch = "armeabi-v7a"
@@ -404,4 +423,4 @@ enable-patches = []
 exclude-patches = []
 options = []
 single-app-bundle = false
-apkmirror-dlurl = "https://www.apkmirror.com/apk/dworks/anexplorer-share-file-manager"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/univision-communications-inc/vix-cine-y-tv-en-espanol-android-tv/"
