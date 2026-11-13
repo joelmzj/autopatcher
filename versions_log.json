@@ -225,21 +225,19 @@
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.9.4",
-    "patches_hash": "5b1b9e69cf1b2031a94f4babde4c6e5efaa098c47c76a99493fc97eac10489b8",
-    "mpp_size": 9712329,
-    "mpp_updated_at": "2026-11-07T23:55:21Z",
+    "patches_version": "v2.9.5",
+    "patches_hash": "c8a28f2f547bbb26e0294fcec6da6352d6e42c517bdf502d97dd512fe7a63e7d",
     "apk_version": "5.27.0.1",
     "final_pkg_name": "com.waze",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.9.4-arm64-v8a.zip",
+    "stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.9.5-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.8.9-arm64-v8a.zip",
-    "timestamp": "2026-11-09T21:10:54Z"
+    "prev_stable_zip": "Waze-v5.27.0.1-bearinmindcat-v2.9.4-arm64-v8a.zip",
+    "timestamp": "2026-11-13T00:29:36Z"
   },
   "X": {
     "patches_source": "crimera/piko-newx",
@@ -359,5 +357,22 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-11-12T23:21:38Z"
+  },
+  "AnExplorer-TV": {
+    "patches_source": "rushiranpise/morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.23.1",
+    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "apk_version": "6.0.9",
+    "final_pkg_name": "dev.dworks.apps.anexplorer",
+    "brand": "rushiranpise",
+    "arch": "armeabi-v7a",
+    "stable_file": "AnExplorer-TV-v6.0.9-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-11-13T00:30:41Z"
   }
 }
