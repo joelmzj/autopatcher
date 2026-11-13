@@ -310,19 +310,19 @@
   "Spotify-myspoti": {
     "patches_source": "https://gitlab.com/johninnld/nl-morphe-patches",
     "channel": "stable",
-    "patches_version": "v1.66.0",
-    "patches_hash": "8381cd8fbfc8acd5117f22b5f72f58de5c7028a705425a97436a425a351f8c84",
-    "apk_version": "2.4.0",
+    "patches_version": "v1.76.0",
+    "patches_hash": "12cb043fb4dd636e5f7dd269446c82969152cbdf315f01f075f1a67da960e762",
+    "apk_version": "2.4.1",
     "final_pkg_name": "app.myspoti.stable",
     "brand": "johninnld",
     "arch": "arm64-v8a",
-    "stable_file": "Spotify-myspoti-v2.4.0-johninnld-v1.66.0-arm64-v8a.apk",
+    "stable_file": "Spotify-myspoti-v2.4.1-johninnld-v1.76.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Spotify-myspoti-v2.4.0-myspoti-v1.65.0-arm64-v8a.apk",
+    "snapshot_file": "Spotify-myspoti-v2.4.0-johninnld-v1.66.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Spotify-myspoti-v2.4.0-myspoti-v1.65.0-arm64-v8a.apk",
+    "prev_stable_file": "Spotify-myspoti-v2.4.0-johninnld-v1.66.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-11T22:55:08Z"
+    "timestamp": "2026-11-13T11:47:34Z"
   },
   "Stremio-TV": {
     "patches_source": "tikkamasalla/stremio-morphe-patches",
