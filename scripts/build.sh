@@ -385,10 +385,16 @@ for table_name in $(toml_get_table_names); do
 			rel_flag="--prerelease"
 		fi
 
+		# 🆕 Incluir parches experimentales si force-patch está activo
+		exp_flag=""
+		if [ "${app_args[force_patch]}" = "true" ]; then
+			exp_flag="-x"
+		fi
+
 		# Capturar la salida cruda del CLI en una variable
 		cli_raw_output=$(java -jar "$MORPHE_CLI_JAR" list-patches \
 			--patches="$PATCHES_CLI_URL" \
-			$rel_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null)
+			$rel_flag $exp_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null)
 
 		# Imprimir la salida cruda en el log de GitHub para debug
 		echo "--- [DEBUG] INICIO SALIDA CLI CRUDA ---" >&2

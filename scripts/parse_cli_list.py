@@ -12,6 +12,8 @@ def parse_morphe_cli(text):
 
     for line in text.splitlines():
         stripped = line.strip()
+        if stripped.startswith("INFO: "):
+            stripped = stripped[6:]
         if not stripped:
             continue
 
