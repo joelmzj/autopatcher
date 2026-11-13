@@ -206,21 +206,19 @@
   "GoogleMaps": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.9.4",
-    "patches_hash": "e222870de3acc381eeff2453b1cc4986ec60bd05d03973cf583040d1983f7f17",
-    "mpp_size": 9712329,
-    "mpp_updated_at": "2026-11-07T23:55:21Z",
+    "patches_version": "v2.9.6",
+    "patches_hash": "acc78ee346e88a9e2b19b6430c55a27c471e74db067acf60af8faf6ed692de78",
     "apk_version": "26.36.04.973607363",
     "final_pkg_name": "com.google.android.apps.maps",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.4-arm64-v8a.zip",
+    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.6-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.8.10-arm64-v8a.zip",
-    "timestamp": "2026-11-09T21:10:12Z"
+    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.4-arm64-v8a.zip",
+    "timestamp": "2026-11-13T20:55:30Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
@@ -276,19 +274,19 @@
   "Projectivy-Launcher": {
     "patches_source": "https://gitlab.com/johninnld/nl-morphe-patches",
     "channel": "stable",
-    "patches_version": "v1.71.2",
-    "patches_hash": "c4fd6a830a3af5f46a954232e9e17c1794943d490bc023d9e4213a20785f04da",
+    "patches_version": "v1.80.0",
+    "patches_hash": "4aa51ddf8d93dc77e31cb114e8efbe52fc8c3a53ebda25c9e1c22e63086e637f",
     "apk_version": "4.73",
     "final_pkg_name": "com.spocky.projengmenu",
     "brand": "johninnld",
-    "arch": "arm64-v8a + armeabi-v7a",
-    "stable_file": "Projectivy-Launcher-v4.73-johninnld-v1.71.2-arm64-v8a_armeabi-v7a.apk",
+    "arch": "armeabi-v7a",
+    "stable_file": "Projectivy-Launcher-v4.73-johninnld-v1.80.0-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": "Projectivy-Launcher-v4.72-dhrubonai-v1.35.0-armeabi-v7a.apk",
+    "snapshot_file": "Projectivy-Launcher-v4.73-johninnld-v1.71.2-arm64-v8a_armeabi-v7a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Projectivy-Launcher-v4.72-dhrubonai-v1.35.0-armeabi-v7a.apk",
+    "prev_stable_file": "Projectivy-Launcher-v4.73-johninnld-v1.71.2-arm64-v8a_armeabi-v7a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T21:00:12Z"
+    "timestamp": "2026-11-13T20:55:52Z"
   },
   "TizenTube-Youtube-original": {
     "patches_source": "MOD-PROD/Morphe-Patches-by-Modprod",
@@ -310,25 +308,25 @@
   "Spotify-myspoti": {
     "patches_source": "https://gitlab.com/johninnld/nl-morphe-patches",
     "channel": "stable",
-    "patches_version": "v1.76.0",
-    "patches_hash": "12cb043fb4dd636e5f7dd269446c82969152cbdf315f01f075f1a67da960e762",
+    "patches_version": "v1.80.0",
+    "patches_hash": "3f315f21dd36a0791b53eeca263c84eddae6d52f5069744fc0593ca47a5aeed3",
     "apk_version": "2.4.1",
     "final_pkg_name": "app.myspoti.stable",
     "brand": "johninnld",
     "arch": "arm64-v8a",
-    "stable_file": "Spotify-myspoti-v2.4.1-johninnld-v1.76.0-arm64-v8a.apk",
+    "stable_file": "Spotify-myspoti-v2.4.1-johninnld-v1.80.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Spotify-myspoti-v2.4.0-johninnld-v1.66.0-arm64-v8a.apk",
+    "snapshot_file": "Spotify-myspoti-v2.4.1-johninnld-v1.76.0-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "Spotify-myspoti-v2.4.0-johninnld-v1.66.0-arm64-v8a.apk",
+    "prev_stable_file": "Spotify-myspoti-v2.4.1-johninnld-v1.76.0-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-13T11:47:34Z"
+    "timestamp": "2026-11-13T20:56:05Z"
   },
   "Stremio-TV": {
     "patches_source": "tikkamasalla/stremio-morphe-patches",
     "channel": "stable",
     "patches_version": "v1.8.2",
-    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "patches_hash": "637eb8a027f1d9ce84fd097450b81dc587adabe646287f812c9ec6f8c0a5cfb2",
     "apk_version": "1.12.1",
     "final_pkg_name": "com.stremio.one",
     "brand": "tikkamasalla",
@@ -339,13 +337,13 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T23:20:29Z"
+    "timestamp": "2026-11-13T20:57:07Z"
   },
   "Stremio-Phone": {
     "patches_source": "tikkamasalla/stremio-morphe-patches",
     "channel": "stable",
     "patches_version": "v1.8.2",
-    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "patches_hash": "637eb8a027f1d9ce84fd097450b81dc587adabe646287f812c9ec6f8c0a5cfb2",
     "apk_version": "2.5.1",
     "final_pkg_name": "com.stremio.one",
     "brand": "tikkamasalla",
@@ -356,23 +354,23 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-12T23:21:38Z"
+    "timestamp": "2026-11-13T20:58:08Z"
   },
   "AnExplorer-TV": {
     "patches_source": "rushiranpise/morphe-patches",
     "channel": "stable",
     "patches_version": "v1.23.1",
-    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
-    "apk_version": "6.0.9",
+    "patches_hash": "c6e6fcb909d96cb6610b223253563efb4496c6db3a0977b8e020eabbb9d84973",
+    "apk_version": "6.0.6",
     "final_pkg_name": "dev.dworks.apps.anexplorer",
     "brand": "rushiranpise",
     "arch": "armeabi-v7a",
-    "stable_file": "AnExplorer-TV-v6.0.9-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk",
+    "stable_file": "AnExplorer-TV-v6.0.6-rushiranpise-v1.23.1-armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
+    "snapshot_file": "AnExplorer-TV-v6.0.9-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk",
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-13T19:15:38Z"
+    "timestamp": "2026-11-13T20:58:25Z"
   }
 }
