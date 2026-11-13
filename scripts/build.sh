@@ -385,14 +385,27 @@ for table_name in $(toml_get_table_names); do
 			rel_flag="--prerelease"
 		fi
 
-		if java -jar "$MORPHE_CLI_JAR" list-patches \
+		# Capturar la salida cruda del CLI en una variable
+		cli_raw_output=$(java -jar "$MORPHE_CLI_JAR" list-patches \
 			--patches="$PATCHES_CLI_URL" \
-			$rel_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null | \
-			python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json" \
+			$rel_flag -p -v -f "${app_args[pkg_name]}" 2>/dev/null)
+
+		# Imprimir la salida cruda en el log de GitHub para debug
+		echo "--- [DEBUG] INICIO SALIDA CLI CRUDA ---" >&2
+		echo "$cli_raw_output" >&2
+		echo "--- [DEBUG] FIN SALIDA CLI CRUDA ---" >&2
+
+		if echo "$cli_raw_output" | python3 "$(dirname "${BASH_SOURCE[0]}")/parse_cli_list.py" > "$generated_json" \
 			&& jq -e 'type == "object" and has("patches")' "$generated_json" >/dev/null 2>&1; then
+			
 			patches_json_url="$generated_json"
 			json_is_valid=true
 			pr "    ✓ JSON generado exitosamente en: $patches_json_url"
+			
+			# Imprimir el JSON resultante en el log de GitHub
+			echo "--- [DEBUG] INICIO JSON PARSEADO ---" >&2
+			jq -c '.' "$generated_json" >&2
+			echo "--- [DEBUG] FIN JSON PARSEADO ---" >&2
 		else
 			wpr "    ✗ Falló la generación del JSON desde el CLI"
 		fi
@@ -777,12 +790,19 @@ for table_name in $(toml_get_table_names); do
 		pr "  ID del paquete final (instalado): $final_pkg_name"
 
 			new_log=$(tail -c +$((log_size_before + 1)) "$app_log" 2>/dev/null || echo "")
-			applied=$(echo "$new_log" | grep -oP 'INFO: Applying \K\d+(?= patches)' | tail -1)
+			
+			# Corregido: Contar éxitos reales (INFO: Applied:), no intentos
+			applied=$(echo "$new_log" | grep -c 'INFO: Applied:' || true)
 			applied=${applied:-0}
-			skipped=$(echo "$new_log" | grep -c 'WARNING: Skipping "' || true)
+			
+			# Corregido: Ignorar mayúsculas/minúsculas para Skipping
+			skipped=$(echo "$new_log" | grep -c 'WARNING: Skipping' || true)
 			skipped=${skipped:-0}
-			failed=$(echo "$new_log" | grep -c 'ERROR: FAILED:' || true)
+			
+			# Corregido: Detectar 'ERROR: Failed' (con F mayúscula)
+			failed=$(echo "$new_log" | grep -c 'ERROR: Failed' || true)
 			failed=${failed:-0}
+			
 			total=$((applied + skipped))
 
 			if [ "$failed" -gt 0 ]; then
@@ -790,9 +810,9 @@ for table_name in $(toml_get_table_names); do
 			fi
 
 			bad_patch=false
-			if [ "$applied" -eq 0 ] && [ "$skipped" -gt 0 ]; then
+			if [ "$applied" -eq 0 ]; then
 				bad_patch=true
-				pr "  ⚠️  Morphe aplicó 0 parches ($skipped skipped) → posible skew"
+				pr "  ⚠️  Morphe aplicó 0 parches (skipped=$skipped, failed=$failed) → APK sin cambios reales"
 			elif [ "$applied" -eq "$failed" ] && [ "$failed" -gt 0 ]; then
 				bad_patch=true
 				pr "  ⚠️  Todos los $failed parches fallaron → APK sin cambios reales"
@@ -922,7 +942,9 @@ for table_name in $(toml_get_table_names); do
 
 					if [ -f "$module_apk_tmp" ]; then
 						module_log_content=$(tail -c +$((module_log_marker + 1)) "$app_log" 2>/dev/null || echo "")
-						module_applied=$(echo "$module_log_content" | grep -oP 'INFO: Applying \K\d+(?= patches)' | tail -1)
+						
+						# Corregido: Contar éxitos reales en la variante del módulo
+						module_applied=$(echo "$module_log_content" | grep -c 'INFO: Applied:' || true)
 						module_applied=${module_applied:-0}
 
 						if [ "$module_applied" -gt 0 ]; then
