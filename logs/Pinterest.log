@@ -4,6 +4,120 @@
      Repo:    SysAdminDoc/HushPinterest
      Pkg:     com.pinterest
      Canal:   stable  |  Brand: HushPinterest  |  Arch: arm64-v8a
-     Inicio:  2026-11-14T14:41:46Z
+     Inicio:  2026-11-14T19:38:42Z
 ═══════════════════════════════════════════════════════════════
 
+=== Parcheo: Pinterest ===
+Fecha: 2026-11-14T19:38:45Z
+APK version: 14.44.0
+Patches version: v0.0.14
+Patches source: SysAdminDoc/HushPinterest
+Channel: stable
+Brand: HushPinterest
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Single-app bundle: true
+Patches hash: 
+DL URL: —
+
+
+--- Argumentos de parches (3) ---
+  -e=Change package name
+  -e=GmsCore support
+  -e=Spoof signature for Google sign-in
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/HushPinterest/main/patches-bundle.json
+INFO: GitHub: bundle (main) → v0.0.14 @ https://github.com/SysAdminDoc/HushPinterest/releases/download/v0.0.14/patches-0.0.14.mpp
+INFO: Latest stable via patches-bundle.json: v0.0.14
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushPinterest/v0.0.14__patches-0.0.14.mpp (1954131 bytes)
+INFO: Resolved patches (v0.0.14) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushPinterest/v0.0.14__patches-0.0.14.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.pinterest v14.44.0...
+INFO: Applying 36 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 7565 files can be decoded
+INFO: Executing patches
+INFO: Applied: AMOLED black
+INFO: Building instruction indexes for 75911 classes...
+Nov 14, 2026 7:39:31 PM app.morphe.patches.pinterest.coexist.ChangePackageNamePatchKt changePackageNamePatch$lambda$0$4
+INFO: Change package name: 1 of Pinterest's own provider addresses now follow the running package.
+INFO: Applied: Change package name
+INFO: Applied: Disable analytics
+INFO: Applied: Disable update nag
+INFO: Applied: Download board
+INFO: Applied: Download pins
+INFO: Applied: Filter feed
+INFO: Applied: Filter pin menu
+INFO: Applied: Fix push notifications
+INFO: Applied: GmsCore support
+INFO: Applied: Hide AI-labeled pins
+INFO: Applied: Hide Assistant
+INFO: Applied: Hide Inbox updates
+INFO: Applied: Hide ads
+INFO: Applied: Hide advertising ID
+INFO: Applied: Hide closeup buttons
+INFO: Applied: Hide comments
+INFO: Applied: Hide header buttons
+INFO: Applied: Hide navigation buttons
+INFO: Applied: Hide save toasts
+INFO: Applied: Hide search history
+INFO: Applied: Hide shopping and product pins
+INFO: Applied: Hide survey prompts
+INFO: Applied: Hide topic suggestions
+INFO: Applied: HushPinterest settings
+INFO: Applied: Keep Home feed
+INFO: Applied: Long-press download
+INFO: Applied: No screenshot share menu
+INFO: Applied: Open links in your browser
+INFO: Applied: Original-quality images
+INFO: Applied: Quiet email reminders
+INFO: Applied: Remove ad tracking permissions
+INFO: Applied: Show posted date
+INFO: Applied: Spoof signature for Google sign-in
+INFO: Applied: Strip link tracking
+INFO: Applied: System share sheet
+Nov 14, 2026 7:39:45 PM app.morphe.patches.pinterest.coexist.ChangePackageNamePatchKt renameCopy
+INFO: Change package name: the package is now com.pinterest.hushpinterest. 2 permission declaration(s), 3 mention(s) of them and 4 provider authorities moved with it. The app is called "HushPinterest" (2 label(s)).
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 682 unchanged extension classes to 2 DEX files
+INFO: Changed 1077 of 75911 classes to mutable
+INFO: Writing 1077 new classes to new DEX files
+INFO: Processing 1077 classes in parallel (4 threads)
+INFO: Wrote 4 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794685163594/patcher/patched/newDex
+INFO: Stripped 1062 modified classes from 7 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 51 lib files
+INFO: Decoded 1 of 7565 files on request
+INFO: Unescaping strings
+INFO: Post-processing package name change
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 18 of 6830 values in 1 files, 0 resource files and 0 configurations of patches for com.pinterest
+INFO: Reusing 7360 unchanged archive entries, rebuilding 2 entries, dropping 51 entries, leaving out 7 replaced entries
+INFO: Resource APK scan: 600ms write: 1.2s
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pinterest-v14.44.0-HushPinterest-v0.0.14-arm64-v8a.apk
+INFO: Patching took 26.5 seconds
+
+═══════════════════════════════════════════════════════════════
+  ✅ ÉXITO: Pinterest  (1m9s)
+     APK:      Pinterest-v14.44.0-HushPinterest-v0.0.14-arm64-v8a.apk
+     APK ver:  14.44.0
+     Parches:  v0.0.14
+     Hash:     ...
+═══════════════════════════════════════════════════════════════
+
+
+--- Fin del parcheo ---
+APK final: build/Pinterest-v14.44.0-HushPinterest-v0.0.14-arm64-v8a.apk
+Fecha de fin: 2026-11-14T19:39:51Z
