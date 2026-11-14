@@ -40,6 +40,7 @@ on:
           - "Stremio-Phone"
           - "Vix-TV"
           - "SendFilesToTV-TV"
+          - "AnExplorer-TV"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset."
