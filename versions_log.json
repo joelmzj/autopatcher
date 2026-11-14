@@ -172,19 +172,19 @@
   "YouTube-Tablet-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.3.0-dev.3",
-    "patches_hash": "0b45667d57aa26d1b95de4862854b5cf9a9a7d9d2e7bc56cb1ccea4b297887f9",
+    "patches_version": "v2.3.0-dev.5",
+    "patches_hash": "6c4873dd26666a46a49914dc8bcae5b30e071d0ec7b55fa38288852a233aea63",
     "apk_version": "20.26.46",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.3-arm64-v8a.apk",
+    "stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.5-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.2-arm64-v8a.apk",
+    "snapshot_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.3-arm64-v8a.apk",
     "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.2-arm64-v8a.apk",
+    "prev_stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.3.0-dev.3-arm64-v8a.apk",
     "prev_stable_zip": null,
-    "timestamp": "2026-11-13T18:49:38Z"
+    "timestamp": "2026-11-14T12:34:34Z"
   },
   "YouTube-Tablet-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -389,5 +389,22 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-11-14T00:16:51Z"
+  },
+  "AnExplorer-TV": {
+    "patches_source": "rushiranpise/morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.23.1",
+    "patches_hash": "c6e6fcb909d96cb6610b223253563efb4496c6db3a0977b8e020eabbb9d84973",
+    "apk_version": "6.0.6",
+    "final_pkg_name": "dev.dworks.apps.anexplorer",
+    "brand": "rushiranpise",
+    "arch": "armeabi-v7a",
+    "stable_file": "AnExplorer-TV-v6.0.6-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-11-14T12:35:40Z"
   }
 }
