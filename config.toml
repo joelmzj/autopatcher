@@ -424,3 +424,22 @@ exclude-patches = []
 options = []
 single-app-bundle = false
 apkmirror-dlurl = "https://www.apkmirror.com/apk/yablio/send-files-to-tv/"
+
+[AnExplorer-TV]
+enabled = true
+pkg-name = "dev.dworks.apps.anexplorer"
+app-name = "AnExplorer-TV"
+patches-source = "rushiranpise/morphe-patches"
+brand = "rushiranpise"
+arch = "armeabi-v7a"
+tv-version = true
+channel = "stable"
+inclusive-patches = true
+build-mode = "apk"
+version = "auto"
+force-patch = true
+enable-patches = []
+exclude-patches = []
+options = []
+single-app-bundle = false
+apkmirror-dlurl = "https://www.apkmirror.com/apk/dworks/anexplorer-share-file-manager"
