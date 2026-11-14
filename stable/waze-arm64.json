@@ -1,6 +1,6 @@
 {
-  "version": "v5.27.0.1 (patches v2.9.6.mpp)",
-  "versionCode": 2026111303,
-  "zipUrl": "https://github.com/joelmzj/autopatcher/releases/download/stable/Waze-v5.27.0.1-bearinmindcat-v2.9.6-arm64-v8a.zip",
-  "changelog": "https://raw.githubusercontent.com/joelmzj/autopatcher/update/changelogs/2026111303.md"
+  "version": "v5.27.0.1 (patches v2.9.7.mpp)",
+  "versionCode": 2026111407,
+  "zipUrl": "https://github.com/joelmzj/autopatcher/releases/download/stable/Waze-v5.27.0.1-bearinmindcat-v2.9.7-arm64-v8a.zip",
+  "changelog": "https://raw.githubusercontent.com/joelmzj/autopatcher/update/changelogs/2026111407.md"
 }
