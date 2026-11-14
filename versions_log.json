@@ -372,5 +372,22 @@
     "prev_stable_file": null,
     "prev_stable_zip": null,
     "timestamp": "2026-11-13T22:10:34Z"
+  },
+  "SendFilesToTV-TV": {
+    "patches_source": "rushiranpise/morphe-patches",
+    "channel": "stable",
+    "patches_version": "v1.23.1",
+    "patches_hash": "ffe64109355575b5e48b0dbf7f115460e17cdf49d3807f9d93e0506a395d6fb4",
+    "apk_version": "1.4.22",
+    "final_pkg_name": "com.yablio.sendfilestotv",
+    "brand": "rushiranpise",
+    "arch": "armeabi-v7a",
+    "stable_file": "SendFilesToTV-TV-v1.4.22-rushiranpise-v1.23.1-armeabi-v7a.apk",
+    "stable_zip": null,
+    "snapshot_file": null,
+    "snapshot_zip": null,
+    "prev_stable_file": null,
+    "prev_stable_zip": null,
+    "timestamp": "2026-11-14T00:16:51Z"
   }
 }
