@@ -48,7 +48,7 @@
     "snapshot_zip": null,
     "prev_stable_file": null,
     "prev_stable_zip": null,
-    "timestamp": "2026-11-15T12:12:28Z"
+    "timestamp": "2026-11-15T18:20:03Z"
   },
   "Messenger": {
     "patches_source": "SysAdminDoc/HushMessenger",
@@ -206,19 +206,19 @@
   "GoogleMaps": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.9.8",
-    "patches_hash": "86602c9e5cff45754a183265e84adf3390c5e3fd57bf54f1009683c23c7f18ed",
-    "apk_version": "26.36.04.973607363",
+    "patches_version": "v2.9.10",
+    "patches_hash": "f6f40103bc2193091c9ec9a8ba8245fa0f6891b3ef4504ce26291003bf49d851",
+    "apk_version": "26.44.06.1006895251",
     "final_pkg_name": "com.google.android.apps.maps",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.8-arm64-v8a.zip",
+    "stable_zip": "GoogleMaps-v26.44.06.1006895251-bearinmindcat-v2.9.10-arm64-v8a.zip",
     "snapshot_file": null,
     "snapshot_zip": null,
     "prev_stable_file": null,
-    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.7-arm64-v8a.zip",
-    "timestamp": "2026-11-15T04:00:19Z"
+    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.8-arm64-v8a.zip",
+    "timestamp": "2026-11-15T18:21:47Z"
   },
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",

@@ -4,11 +4,11 @@
      Repo:    bearinmindcat/morphe-patches
      Pkg:     com.google.android.apps.maps
      Canal:   stable  |  Brand: bearinmindcat  |  Arch: arm64-v8a
-     Inicio:  2026-11-15T16:27:02Z
+     Inicio:  2026-11-15T18:20:28Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: GoogleMaps ===
-Fecha: 2026-11-15T16:27:06Z
+Fecha: 2026-11-15T18:20:31Z
 APK version: 26.44.06.1006895251
 Patches version: v2.9.10
 Patches source: bearinmindcat/morphe-patches
@@ -23,8 +23,111 @@ Patches hash: f6f40103bc2193091c9ec9a8ba8245fa0f6891b3ef4504ce26291003bf49d851
 DL URL: —
 
 
+--- Argumentos de parches (5) ---
+  -d=Change app name
+  -d=Change package name
+  -d=Legacy icon
+  -d=Add original microG support
+  -d=Add microG-RE support
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/bearinmindcat/morphe-patches/main/patches-bundle.json
+INFO: GitHub: bundle (main) → v2.9.10 @ https://github.com/bearinmindcat/morphe-patches/releases/download/v2.9.10/patches-2.9.10.mpp
+INFO: Latest stable via patches-bundle.json: v2.9.10
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.9.10__patches-2.9.10.mpp (10719142 bytes)
+INFO: Resolved patches (v2.9.10) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.9.10__patches-2.9.10.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.google.android.apps.maps v26.44.06.1006895251...
+INFO: Skipping disabled: Add microG-RE support
+INFO: Skipping disabled: Add original microG support
+INFO: Skipping disabled: Change app name
+INFO: Skipping disabled: Change package name
+INFO: Skipping disabled: Legacy icon
+INFO: Applying 29 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 9148 files can be decoded
+INFO: Executing patches
+INFO: Building instruction indexes for 72939 classes...
+INFO: Applied: 120 refresh rate
+INFO: Applied: Account sheet cleanup
+INFO: Applied: Any media app
+INFO: Applied: Avoid Flock cameras
+INFO: Applied: Better offline maps
+Nov 15, 2026 6:20:59 PM org.ungoogled.patches.maps.ui.SharedUiPatchesKt shapeShimsPatch$lambda$0$0
+INFO: Shape/colour shims: 1386 call sites in 702 methods; avatars kept round: [Lbuns;, Lcom/google/android/libraries/onegoogle/account/disc/AvatarView;, Lcom/google/android/libraries/onegoogle/account/disc/SimpleAvatarView;, Lcvel;]
+INFO: Applied: Black theme
+INFO: Applied: Blue pin
+INFO: Applied: Bypass Play Services checks
+INFO: Applied: Customization screen
+INFO: Applied: Flock cameras
+INFO: Applied: Follow playing media
+INFO: Applied: Hide ads and clutter
+INFO: Applied: Light map
+INFO: Applied: Location provider toggle
+INFO: Applied: Map region
+INFO: Applied: Media panel can be closed
+INFO: Applied: Offline saved places
+INFO: Applied: Proxy
+Nov 15, 2026 6:21:19 PM org.ungoogled.patches.maps.ui.rectangle.RectangleShapesPatchKt rectangleShapesResourcePatch$lambda$0$0
+INFO: Rectangle shapes: 77 dimens, 76 styles, 111 drawables, 8 masks in 4 densities
+INFO: Applied: Rectangle shapes
+INFO: Applied: Remove permissions
+INFO: Applied: Remove sign-in prompts
+INFO: Applied: Remove telemetry
+INFO: Applied: Review counts in navigation search
+INFO: Applied: Speed cameras
+INFO: Applied: Speeding chime
+INFO: Applied: Trim account menu
+INFO: Applied: Waze alerts
+INFO: Applied: Zoom controls in navigation
+INFO: Applied: Power saving mode
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 346 unchanged extension classes to 1 DEX files
+INFO: Changed 620 of 72939 classes to mutable
+INFO: Writing 620 new classes to new DEX files
+INFO: Processing 620 classes in parallel (4 threads)
+INFO: Wrote 2 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794766843673/patcher/patched/newDex
+INFO: Stripped 606 modified classes from 8 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 57 lib files
+INFO: Decoded 6302 of 9148 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 0 of 0 values in 0 files, 475 resource files and 13 configurations of patches for com.google.android.apps.maps
+INFO: Reusing 8752 unchanged archive entries, rebuilding 477 entries, dropping 68 entries, leaving out 10 replaced entries
+INFO: Resource APK scan: 600ms write: 1.2s
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/GoogleMaps-v26.44.06.1006895251-bearinmindcat-v2.9.10-arm64-v8a.apk
+INFO: Patching took 42.2 seconds
+
+--- Contenido de module.prop ---
+id=googlemaps-stable-arm64
+name=GoogleMaps (bearinmindcat)
+version=v26.44.06.1006895251 (patches v2.9.10.mpp)
+versionCode=2026111518
+author=joelmzj
+description=GoogleMaps (bearinmindcat) module
+updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/googlemaps-arm64.json
+--------------------------------
+
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: GoogleMaps  (1m11s)
-     Revisa logs/GoogleMaps.log para detalles
+  ✅ ÉXITO: GoogleMaps  (1m19s)
+     APK:      GoogleMaps-v26.44.06.1006895251-bearinmindcat-v2.9.10-arm64-v8a.apk
+     APK ver:  26.44.06.1006895251
+     Parches:  v2.9.10
+     Hash:     f6f40103bc2193091c9ec9a8ba8245fa...
 ═══════════════════════════════════════════════════════════════
 
+
+--- Fin del parcheo ---
+APK final: build/GoogleMaps-v26.44.06.1006895251-bearinmindcat-v2.9.10-arm64-v8a.apk
+Módulo: build/GoogleMaps-v26.44.06.1006895251-bearinmindcat-v2.9.10-arm64-v8a.zip
+Fecha de fin: 2026-11-15T18:21:47Z
