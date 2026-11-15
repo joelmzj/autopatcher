@@ -76,7 +76,7 @@ inclusive-patches = true
 build-mode = "apk"
 force-patch = false
 enable-patches = []
-exclude-patches = []
+exclude-patches = ["Change package name"]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/pinterest/pinterest-one-destination-for-a-world-of-inspiration"
 
 [Messenger]
