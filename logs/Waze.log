@@ -4,13 +4,13 @@
      Repo:    bearinmindcat/morphe-patches
      Pkg:     com.waze
      Canal:   stable  |  Brand: bearinmindcat  |  Arch: arm64-v8a
-     Inicio:  2026-11-15T04:00:19Z
+     Inicio:  2026-11-15T11:46:23Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: Waze ===
-Fecha: 2026-11-15T04:00:23Z
+Fecha: 2026-11-15T11:46:26Z
 APK version: 5.27.0.1
-Patches version: v2.9.8
+Patches version: v2.9.9
 Patches source: bearinmindcat/morphe-patches
 Channel: stable
 Brand: bearinmindcat
@@ -19,7 +19,7 @@ Build mode: module
 Force patch: true
 Inclusive patches: true
 Single-app bundle: false
-Patches hash: e6812ada56a0bf55d7d1f76cf6c35d382946b2dc54905b73f4ae3660073500a9
+Patches hash: 83fdc603cbf9b3b784889a3eb359d73e85ccf8e9b37ea795333e6b01cb362e1d
 DL URL: —
 
 
@@ -42,10 +42,10 @@ DL URL: —
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/bearinmindcat/morphe-patches/main/patches-bundle.json
-INFO: GitHub: bundle (main) → v2.9.8 @ https://github.com/bearinmindcat/morphe-patches/releases/download/v2.9.8/patches-2.9.8.mpp
-INFO: Latest stable via patches-bundle.json: v2.9.8
-INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.9.8__patches-2.9.8.mpp (10575525 bytes)
-INFO: Resolved patches (v2.9.8) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.9.8__patches-2.9.8.mpp
+INFO: GitHub: bundle (main) → v2.9.9 @ https://github.com/bearinmindcat/morphe-patches/releases/download/v2.9.9/patches-2.9.9.mpp
+INFO: Latest stable via patches-bundle.json: v2.9.9
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.9.9__patches-2.9.9.mpp (10582372 bytes)
+INFO: Resolved patches (v2.9.9) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/bearinmindcat-morphe-patches/v2.9.9__patches-2.9.9.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.waze v5.27.0.1...
@@ -87,7 +87,7 @@ INFO: Copied 59 unchanged extension classes to 1 DEX files
 INFO: Changed 22 of 61310 classes to mutable
 INFO: Writing 22 new classes to new DEX files
 INFO: Processing 22 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794715238618/patcher/patched/newDex
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1794743201697/patcher/patched/newDex
 INFO: Stripped 20 modified classes from 3 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
@@ -99,31 +99,31 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 90 of 90 values in 1 files, 1 resource files and 0 configurations of patches for com.waze
 INFO: Reusing 5147 unchanged archive entries, rebuilding 3 entries, dropping 0 entries, leaving out 3 replaced entries
-INFO: Resource APK scan: 200ms write: 600ms
+INFO: Resource APK scan: 100ms write: 1.3s
 INFO: Signing APK
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Waze-v5.27.0.1-bearinmindcat-v2.9.8-arm64-v8a.apk
-INFO: Patching took 6.3 seconds
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Waze-v5.27.0.1-bearinmindcat-v2.9.9-arm64-v8a.apk
+INFO: Patching took 5.8 seconds
 
 --- Contenido de module.prop ---
 id=waze-stable-arm64
 name=Waze (bearinmindcat)
-version=v5.27.0.1 (patches v2.9.8.mpp)
-versionCode=2026111503
+version=v5.27.0.1 (patches v2.9.9.mpp)
+versionCode=2026111511
 author=joelmzj
 description=Waze (bearinmindcat) module
 updateJson=https://raw.githubusercontent.com/joelmzj/autopatcher/update/stable/waze-arm64.json
 --------------------------------
 
 ═══════════════════════════════════════════════════════════════
-  ✅ ÉXITO: Waze  (39s)
-     APK:      Waze-v5.27.0.1-bearinmindcat-v2.9.8-arm64-v8a.apk
+  ✅ ÉXITO: Waze  (35s)
+     APK:      Waze-v5.27.0.1-bearinmindcat-v2.9.9-arm64-v8a.apk
      APK ver:  5.27.0.1
-     Parches:  v2.9.8
-     Hash:     e6812ada56a0bf55d7d1f76cf6c35d38...
+     Parches:  v2.9.9
+     Hash:     83fdc603cbf9b3b784889a3eb359d73e...
 ═══════════════════════════════════════════════════════════════
 
 
 --- Fin del parcheo ---
-APK final: build/Waze-v5.27.0.1-bearinmindcat-v2.9.8-arm64-v8a.apk
-Módulo: build/Waze-v5.27.0.1-bearinmindcat-v2.9.8-arm64-v8a.zip
-Fecha de fin: 2026-11-15T04:00:58Z
+APK final: build/Waze-v5.27.0.1-bearinmindcat-v2.9.9-arm64-v8a.apk
+Módulo: build/Waze-v5.27.0.1-bearinmindcat-v2.9.9-arm64-v8a.zip
+Fecha de fin: 2026-11-15T11:46:58Z
