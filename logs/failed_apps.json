@@ -1,7 +1,17 @@
 {
   "Telegram": {
     "first_failed_at": "2026-11-12T17:28:11Z",
-    "last_attempt_at": "2026-11-15T12:11:16Z",
-    "attempts": 31
+    "last_attempt_at": "2026-11-15T16:25:31Z",
+    "attempts": 32
+  },
+  "Pinterest": {
+    "first_failed_at": "2026-11-15T16:26:39Z",
+    "last_attempt_at": "2026-11-15T16:26:39Z",
+    "attempts": 1
+  },
+  "GoogleMaps": {
+    "first_failed_at": "2026-11-15T16:28:13Z",
+    "last_attempt_at": "2026-11-15T16:28:13Z",
+    "attempts": 1
   }
 }

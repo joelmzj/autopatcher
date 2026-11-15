@@ -4,6 +4,27 @@
      Repo:    bearinmindcat/morphe-patches
      Pkg:     com.google.android.apps.maps
      Canal:   stable  |  Brand: bearinmindcat  |  Arch: arm64-v8a
-     Inicio:  2026-11-15T12:12:51Z
+     Inicio:  2026-11-15T16:27:02Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: GoogleMaps ===
+Fecha: 2026-11-15T16:27:06Z
+APK version: 26.44.06.1006895251
+Patches version: v2.9.10
+Patches source: bearinmindcat/morphe-patches
+Channel: stable
+Brand: bearinmindcat
+Arch: arm64-v8a
+Build mode: module
+Force patch: true
+Inclusive patches: true
+Single-app bundle: false
+Patches hash: f6f40103bc2193091c9ec9a8ba8245fa0f6891b3ef4504ce26291003bf49d851
+DL URL: —
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: GoogleMaps  (1m11s)
+     Revisa logs/GoogleMaps.log para detalles
 ═══════════════════════════════════════════════════════════════
 
