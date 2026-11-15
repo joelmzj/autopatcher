@@ -1,6 +1,6 @@
 {
-  "version": "v26.36.04.973607363 (patches v2.9.8.mpp)",
-  "versionCode": 2026111503,
-  "zipUrl": "https://github.com/joelmzj/autopatcher/releases/download/stable/GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.8-arm64-v8a.zip",
-  "changelog": "https://raw.githubusercontent.com/joelmzj/autopatcher/update/changelogs/2026111503.md"
+  "version": "v26.44.06.1006895251 (patches v2.9.10.mpp)",
+  "versionCode": 2026111518,
+  "zipUrl": "https://github.com/joelmzj/autopatcher/releases/download/stable/GoogleMaps-v26.44.06.1006895251-bearinmindcat-v2.9.10-arm64-v8a.zip",
+  "changelog": "https://raw.githubusercontent.com/joelmzj/autopatcher/update/changelogs/2026111518.md"
 }
