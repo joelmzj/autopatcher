@@ -4,6 +4,27 @@
      Repo:    https://gitlab.com/johninnld/nl-morphe-patches
      Pkg:     app.myspoti.stable
      Canal:   stable  |  Brand: johninnld  |  Arch: arm64-v8a
-     Inicio:  2026-11-17T14:03:15Z
+     Inicio:  2026-11-17T22:11:24Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: Spotify-myspoti ===
+Fecha: 2026-11-17T22:11:27Z
+APK version: 2.4.1
+Patches version: v1.92.0
+Patches source: https://gitlab.com/johninnld/nl-morphe-patches
+Channel: stable
+Brand: johninnld
+Arch: arm64-v8a
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+Single-app bundle: false
+Patches hash: 6a3e6c2966e21b0d46fa624a31880adb230b8abf2fcc7485b678f26d11da8edf
+DL URL: https://github.com/kota-zo/myspoti/releases
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: Spotify-myspoti  (5s)
+     Revisa logs/Spotify-myspoti.log para detalles
 ═══════════════════════════════════════════════════════════════
 
