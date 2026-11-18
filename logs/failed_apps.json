@@ -1,32 +1,7 @@
 {
   "Spotify-myspoti": {
     "first_failed_at": "2026-11-17T22:11:29Z",
-    "last_attempt_at": "2026-11-18T12:51:34Z",
-    "attempts": 3
-  },
-  "Instagram": {
-    "first_failed_at": "2026-11-18T12:45:37Z",
-    "last_attempt_at": "2026-11-18T12:45:37Z",
-    "attempts": 1
-  },
-  "TikTok": {
-    "first_failed_at": "2026-11-18T12:46:47Z",
-    "last_attempt_at": "2026-11-18T12:46:47Z",
-    "attempts": 1
-  },
-  "YouTubeMusic-Morphe": {
-    "first_failed_at": "2026-11-18T12:48:01Z",
-    "last_attempt_at": "2026-11-18T12:48:01Z",
-    "attempts": 1
-  },
-  "YouTube-Morphe": {
-    "first_failed_at": "2026-11-18T12:50:09Z",
-    "last_attempt_at": "2026-11-18T12:50:09Z",
-    "attempts": 1
-  },
-  "YouTube-Tablet-Morphe": {
-    "first_failed_at": "2026-11-18T12:51:11Z",
-    "last_attempt_at": "2026-11-18T12:51:11Z",
-    "attempts": 1
+    "last_attempt_at": "2026-11-18T21:06:22Z",
+    "attempts": 4
   }
 }
