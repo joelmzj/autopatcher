@@ -4,6 +4,27 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-18T04:03:34Z
+     Inicio:  2026-11-18T12:48:05Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: YouTube-Morphe ===
+Fecha: 2026-11-18T12:48:09Z
+APK version: 21.30.216
+Patches version: v2.4.0-dev.2
+Patches source: MorpheApp/morphe-patches
+Channel: dev
+Brand: Morphe
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Single-app bundle: false
+Patches hash: ed15252725c1483ee2d628c8a065fb9b49e1670291a1fe17d21602daa77c8c2e
+DL URL: —
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: YouTube-Morphe  (2m4s)
+     Revisa logs/YouTube-Morphe.log para detalles
 ═══════════════════════════════════════════════════════════════
 
