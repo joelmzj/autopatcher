@@ -1,17 +1,7 @@
 {
-  "Telegram": {
-    "first_failed_at": "2026-11-12T17:28:11Z",
-    "last_attempt_at": "2026-11-17T22:09:47Z",
-    "attempts": 40
-  },
-  "YouTube-Tablet-Morphe": {
-    "first_failed_at": "2026-11-17T22:11:05Z",
-    "last_attempt_at": "2026-11-17T22:11:05Z",
-    "attempts": 1
-  },
   "Spotify-myspoti": {
     "first_failed_at": "2026-11-17T22:11:29Z",
-    "last_attempt_at": "2026-11-17T22:11:29Z",
-    "attempts": 1
+    "last_attempt_at": "2026-11-18T04:04:28Z",
+    "attempts": 2
   }
 }
