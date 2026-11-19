@@ -233,19 +233,6 @@
     "stable_zip": null,
     "timestamp": "2026-11-12T23:19:17Z"
   },
-  "Spotify-myspoti": {
-    "patches_source": "https://gitlab.com/johninnld/nl-morphe-patches",
-    "channel": "stable",
-    "patches_version": "v1.80.0",
-    "patches_hash": "3f315f21dd36a0791b53eeca263c84eddae6d52f5069744fc0593ca47a5aeed3",
-    "apk_version": "2.4.1",
-    "final_pkg_name": "app.myspoti.stable",
-    "brand": "johninnld",
-    "arch": "arm64-v8a",
-    "stable_file": "Spotify-myspoti-v2.4.1-johninnld-v1.80.0-arm64-v8a.apk",
-    "stable_zip": null,
-    "timestamp": "2026-11-13T20:56:05Z"
-  },
   "Stremio-TV": {
     "patches_source": "tikkamasalla/stremio-morphe-patches",
     "channel": "stable",
