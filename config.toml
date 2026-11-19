@@ -466,22 +466,3 @@ exclude-patches = []
 options = []
 single-app-bundle = false
 apkmirror-dlurl = "https://www.apkmirror.com/apk/pluto-inc/pluto-tv-android-tv/"
-
-[Crunchyroll]
-enabled = true
-pkg-name = "com.crunchyroll.crunchyroid"
-app-name = "Crunchyroll"
-patches-source = "Ikuradachi/Kageroll"
-brand = "Ikuradachi"
-arch = "armeabi-v7a"
-tv-version = false
-channel = "dev"
-inclusive-patches = true
-build-mode = "apk"
-version = "auto"
-force-patch = true
-enable-patches = []
-exclude-patches = ["Proxy token requests"]
-options = []
-single-app-bundle = true
-apkmirror-dlurl = "https://www.apkmirror.com/apk/crunchyroll-llc-2/crunchyroll/"
