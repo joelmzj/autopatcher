@@ -10,10 +10,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Instagram-v456.0.0.53.78-HushGram-v0.0.21-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Instagram-v454.0.0.54.77-HushGram-v0.0.20-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "Instagram-v454.0.0.54.77-HushGram-v0.0.20-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-18T21:03:33Z"
   },
   "Telegram": {
@@ -27,10 +23,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Telegram-v13.2.2-HushTelegram-v0.0.26-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Telegram-v13.2.0-HushTelegram-v0.0.24-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "Telegram-v13.2.0-HushTelegram-v0.0.24-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-18T04:01:09Z"
   },
   "Pinterest": {
@@ -44,10 +36,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Pinterest-v14.44.0-HushPinterest-v0.0.14-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Pinterest-v14.41.0-HushPinterest-v0.0.13-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-15T18:20:03Z"
   },
   "Messenger": {
@@ -61,10 +49,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Messenger-v587.0.0.54.96-HushMessenger-v0.30.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Messenger-v586.0.0.55.92-HushMessenger-v0.29.0-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "Messenger-v586.0.0.55.92-HushMessenger-v0.29.0-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-14T23:35:15Z"
   },
   "Facebook": {
@@ -78,10 +62,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Facebook-v587.0.0.39.55-HushFacebook-v0.23.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Facebook-v586.0.0.52.53-HushFacebook-v0.22.0-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "Facebook-v586.0.0.52.53-HushFacebook-v0.22.0-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-18T04:03:26Z"
   },
   "TikTok": {
@@ -95,10 +75,6 @@
     "arch": "arm64-v8a",
     "stable_file": "TikTok-v47.8.3-HushFeed-v0.83.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "TikTok-v47.7.3-HushFeed-v0.82.0-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "TikTok-v47.7.3-HushFeed-v0.82.0-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-18T21:04:28Z"
   },
   "YouTubeMusic-Morphe": {
@@ -112,10 +88,6 @@
     "arch": "arm64-v8a",
     "stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.5-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.3-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.3-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-19T14:37:42Z"
   },
   "YouTubeMusic-anddea": {
@@ -129,10 +101,6 @@
     "arch": "arm64-v8a",
     "stable_file": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.7-arm64-v8a.apk",
     "stable_zip": "YouTubeMusic-anddea-v9.15.51-anddea-v4.4.0-dev.7-arm64-v8a.zip",
-    "snapshot_file": "YouTubeMusic-anddea-v9.40.51-anddea-v4.4.0-dev.6-arm64-v8a.apk",
-    "snapshot_zip": "YouTubeMusic-anddea-v9.40.51-anddea-v4.4.0-dev.6-arm64-v8a.zip",
-    "prev_stable_file": "YouTubeMusic-anddea-v9.40.51-anddea-v4.4.0-dev.6-arm64-v8a.apk",
-    "prev_stable_zip": "YouTubeMusic-anddea-v9.40.51-anddea-v4.4.0-dev.6-arm64-v8a.zip",
     "timestamp": "2026-11-13T18:46:47Z"
   },
   "YouTube-Morphe": {
@@ -146,10 +114,6 @@
     "arch": "arm64-v8a",
     "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.4.0-dev.5-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Morphe-v21.30.216-Morphe-v2.4.0-dev.2-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.4.0-dev.2-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-19T14:38:18Z"
   },
   "YouTube-anddea": {
@@ -163,10 +127,6 @@
     "arch": "arm64-v8a",
     "stable_file": "YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.7-arm64-v8a.apk",
     "stable_zip": "YouTube-anddea-v21.13.164-anddea-v4.4.0-dev.7-arm64-v8a.zip",
-    "snapshot_file": "YouTube-anddea-v21.39.525-anddea-v4.4.0-dev.6-arm64-v8a.apk",
-    "snapshot_zip": "YouTube-anddea-v21.39.525-anddea-v4.4.0-dev.6-arm64-v8a.zip",
-    "prev_stable_file": "YouTube-anddea-v21.39.525-anddea-v4.4.0-dev.6-arm64-v8a.apk",
-    "prev_stable_zip": "YouTube-anddea-v21.39.525-anddea-v4.4.0-dev.6-arm64-v8a.zip",
     "timestamp": "2026-11-13T18:49:08Z"
   },
   "YouTube-Tablet-Morphe": {
@@ -180,10 +140,6 @@
     "arch": "arm64-v8a",
     "stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.4.0-dev.5-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.4.0-dev.2-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.4.0-dev.2-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-19T14:38:46Z"
   },
   "YouTube-Tablet-anddea": {
@@ -197,10 +153,6 @@
     "arch": "arm64-v8a",
     "stable_file": "YouTube-Tablet-anddea-v20.21.37-anddea-v4.4.0-dev.7-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "YouTube-Tablet-anddea-v20.21.37-anddea-v4.4.0-dev.6-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "YouTube-Tablet-anddea-v20.21.37-anddea-v4.4.0-dev.6-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-13T18:50:19Z"
   },
   "GoogleMaps": {
@@ -214,10 +166,6 @@
     "arch": "arm64-v8a",
     "stable_file": null,
     "stable_zip": "GoogleMaps-v26.44.06.1006895251-bearinmindcat-v2.9.10-arm64-v8a.zip",
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": "GoogleMaps-v26.36.04.973607363-bearinmindcat-v2.9.8-arm64-v8a.zip",
     "timestamp": "2026-11-15T18:21:47Z"
   },
   "Waze": {
@@ -231,10 +179,6 @@
     "arch": "arm64-v8a",
     "stable_file": null,
     "stable_zip": "Waze-v5.27.5.0-bearinmindcat-v2.10.0-arm64-v8a.zip",
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": "Waze-v5.27.5.0-bearinmindcat-v2.9.11-arm64-v8a.zip",
     "timestamp": "2026-11-16T12:28:28Z"
   },
   "X": {
@@ -248,10 +192,6 @@
     "arch": "arm64-v8a",
     "stable_file": "X-v12.41.0-prod.01-piko-newx-v3.75.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "X-v12.40.1-prod.01-piko-newx-v3.74.0-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-09T18:05:50Z"
   },
   "Google-Photos": {
@@ -265,10 +205,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Google-Photos-v7.98.0.1001971222-rushiranpise-v1.23.1-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "Google-Photos-v7.97.0.997578476-rushiranpise-v1.23.0-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-10-28T21:29:35Z"
   },
   "Projectivy-Launcher": {
@@ -282,10 +218,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "Projectivy-Launcher-v4.73-johninnld-v1.80.0-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": "Projectivy-Launcher-v4.73-johninnld-v1.71.2-arm64-v8a_armeabi-v7a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "Projectivy-Launcher-v4.73-johninnld-v1.71.2-arm64-v8a_armeabi-v7a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-13T20:55:52Z"
   },
   "TizenTube-Youtube-original": {
@@ -299,10 +231,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "TizenTube-Youtube-original-v2.0.3-ModProd-v1.5.0-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": "TizenTube-Youtube-original-v2.0.3-ModProd-v1.5.0-armeabi-v7a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-12T23:19:17Z"
   },
   "Spotify-myspoti": {
@@ -316,10 +244,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Spotify-myspoti-v2.4.1-johninnld-v1.80.0-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Spotify-myspoti-v2.4.1-johninnld-v1.76.0-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": "Spotify-myspoti-v2.4.1-johninnld-v1.76.0-arm64-v8a.apk",
-    "prev_stable_zip": null,
     "timestamp": "2026-11-13T20:56:05Z"
   },
   "Stremio-TV": {
@@ -333,10 +257,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "Stremio-TV-v1.12.1-tikkamasalla-v1.8.2-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": "Stremio-TV-v1.12.1-tikkamasalla-v1.8.1-armeabi-v7a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-13T20:57:07Z"
   },
   "Stremio-Phone": {
@@ -350,10 +270,6 @@
     "arch": "arm64-v8a",
     "stable_file": "Stremio-Phone-v2.5.1-tikkamasalla-v1.8.2-arm64-v8a.apk",
     "stable_zip": null,
-    "snapshot_file": "Stremio-Phone-v2.5.1-tikkamasalla-v1.8.1-arm64-v8a.apk",
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-13T20:58:08Z"
   },
   "Vix-TV": {
@@ -367,10 +283,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "Vix-TV-v4.52.0_tv-ajstrick81-v1.54.0-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-13T22:10:34Z"
   },
   "SendFilesToTV-TV": {
@@ -384,10 +296,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "SendFilesToTV-TV-v1.4.22-rushiranpise-v1.23.1-armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-14T00:16:51Z"
   },
   "AnExplorer-TV": {
@@ -401,10 +309,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "AnExplorer-TV-v6.0.6-rushiranpise-v1.23.1-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-14T12:35:40Z"
   },
   "Tubi-TV": {
@@ -418,10 +322,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "Tubi-TV-v10.46.5000-semicoloncolonel-v1.2.0-dev.14-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-19T14:40:33Z"
   },
   "Pluto-TV": {
@@ -435,10 +335,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.14-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-19T14:40:50Z"
   },
   "Crunchyroll": {
@@ -452,10 +348,6 @@
     "arch": "armeabi-v7a",
     "stable_file": "Crunchyroll-v3.129.1-Ikuradachi-v1.6.0-dev.2-armeabi-v7a.apk",
     "stable_zip": null,
-    "snapshot_file": null,
-    "snapshot_zip": null,
-    "prev_stable_file": null,
-    "prev_stable_zip": null,
     "timestamp": "2026-11-19T14:41:48Z"
   }
 }
