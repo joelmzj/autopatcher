@@ -4,13 +4,13 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.apps.youtube.music
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-19T10:58:01Z
+     Inicio:  2026-11-19T14:37:15Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: YouTubeMusic-Morphe ===
-Fecha: 2026-11-19T10:58:05Z
+Fecha: 2026-11-19T14:37:21Z
 APK version: 9.30.53
-Patches version: v2.4.0-dev.3
+Patches version: v2.4.0-dev.5
 Patches source: MorpheApp/morphe-patches
 Channel: dev
 Brand: Morphe
@@ -18,8 +18,8 @@ Arch: arm64-v8a
 Build mode: apk
 Force patch: false
 Inclusive patches: true
-Single-app bundle: false
-Patches hash: 9f33de5b36b2c81d30fb46cfd3e81206656fb96424ced0eb2d5f364d502e5298
+Single-app bundle: true
+Patches hash: 
 DL URL: —
 
 
@@ -30,10 +30,10 @@ DL URL: —
 
 INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
 INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/MorpheApp/morphe-patches/dev/patches-bundle.json
-INFO: GitHub: bundle (dev) → v2.4.0-dev.3 @ https://github.com/MorpheApp/morphe-patches/releases/download/v2.4.0-dev.3/patches-2.4.0-dev.3.mpp
-INFO: Latest dev via patches-bundle.json: v2.4.0-dev.3
-INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.4.0-dev.3__patches-2.4.0-dev.3.mpp (17243196 bytes)
-INFO: Resolved patches (v2.4.0-dev.3) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.4.0-dev.3__patches-2.4.0-dev.3.mpp
+INFO: GitHub: bundle (dev) → v2.4.0-dev.5 @ https://github.com/MorpheApp/morphe-patches/releases/download/v2.4.0-dev.5/patches-2.4.0-dev.5.mpp
+INFO: Latest dev via patches-bundle.json: v2.4.0-dev.5
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.4.0-dev.5__patches-2.4.0-dev.5.mpp (17243250 bytes)
+INFO: Resolved patches (v2.4.0-dev.5) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/MorpheApp-morphe-patches/v2.4.0-dev.5__patches-2.4.0-dev.5.mpp
 INFO: Initializing patcher...
 INFO: Loading patches from 1 bundle(s)...
 INFO: Filtering patches for com.google.android.apps.youtube.music v9.30.53...
@@ -74,7 +74,7 @@ INFO: Applied: Enable swipe to dismiss miniplayer
 INFO: Applied: Force original audio
 INFO: Applied: Force portrait orientation
 INFO: Applied: GmsCore support
-ERROR: Failed: Hide ads
+INFO: Applied: Hide ads
 INFO: Applied: Hide flyout menu components
 INFO: Applied: Hide layout components
 INFO: Applied: Hide music action buttons
@@ -110,11 +110,11 @@ INFO: Applied: Third-party lyrics
 INFO: Rebuilding APK...
 INFO: Compiling patched dex files (mode: STRIP_FAST)
 INFO: Copied 7433 unchanged extension classes to 3 DEX files
-INFO: Changed 462 of 74113 classes to mutable
-INFO: Writing 462 new classes to new DEX files
-INFO: Processing 462 classes (single threaded mode)
-INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1795085893226/patcher/patched/newDex
-INFO: Stripped 401 modified classes from 5 original DEX files
+INFO: Changed 463 of 74113 classes to mutable
+INFO: Writing 463 new classes to new DEX files
+INFO: Processing 463 classes (single threaded mode)
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1795099050503/patcher/patched/newDex
+INFO: Stripped 402 modified classes from 5 original DEX files
 INFO: Compiling modified resources
 INFO: Stripping libs (keeping architectures arm64-v8a)
 INFO: Stripped 0 lib files
@@ -126,20 +126,20 @@ INFO: Generating new resource IDs
 INFO: Writing resource APK
 INFO: Encoded 1861 of 1861 values in 83 files, 122 resource files and 271 configurations of patches for com.google.android.apps.youtube.music
 INFO: Reusing 5048 unchanged archive entries, rebuilding 124 entries, dropping 0 entries, leaving out 5 replaced entries
-INFO: Resource APK scan: 600ms write: 700ms
+INFO: Resource APK scan: 500ms write: 700ms
 INFO: Signing APK
-INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.3-arm64-v8a.apk
-INFO: Patching took 10.5 seconds
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.5-arm64-v8a.apk
+INFO: Patching took 10.2 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ✅ ÉXITO: YouTubeMusic-Morphe  (24s)
-     APK:      YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.3-arm64-v8a.apk
+  ✅ ÉXITO: YouTubeMusic-Morphe  (27s)
+     APK:      YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.5-arm64-v8a.apk
      APK ver:  9.30.53
-     Parches:  v2.4.0-dev.3
-     Hash:     9f33de5b36b2c81d30fb46cfd3e81206...
+     Parches:  v2.4.0-dev.5
+     Hash:     ...
 ═══════════════════════════════════════════════════════════════
 
 
 --- Fin del parcheo ---
-APK final: build/YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.3-arm64-v8a.apk
-Fecha de fin: 2026-11-19T10:58:25Z
+APK final: build/YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.5-arm64-v8a.apk
+Fecha de fin: 2026-11-19T14:37:42Z
