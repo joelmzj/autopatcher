@@ -323,18 +323,5 @@
     "stable_file": "Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.14-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
     "timestamp": "2026-11-19T14:40:50Z"
-  },
-  "Crunchyroll": {
-    "patches_source": "Ikuradachi/Kageroll",
-    "channel": "dev",
-    "patches_version": "v1.6.0-dev.2",
-    "patches_hash": "",
-    "apk_version": "3.129.1",
-    "final_pkg_name": "com.crunchyroll.crunchyroid",
-    "brand": "Ikuradachi",
-    "arch": "armeabi-v7a",
-    "stable_file": "Crunchyroll-v3.129.1-Ikuradachi-v1.6.0-dev.2-armeabi-v7a.apk",
-    "stable_zip": null,
-    "timestamp": "2026-11-19T14:41:48Z"
   }
 }
