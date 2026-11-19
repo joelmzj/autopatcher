@@ -213,10 +213,6 @@ pr "Limpiando directorio de build..."
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-SNAPSHOT_TAG="snapshot"
-export SNAPSHOT_TAG
-pr "Tag de snapshot (fijo): $SNAPSHOT_TAG"
-
 LOGS_DIR="logs"
 mkdir -p "$LOGS_DIR"
 export LOGS_DIR
@@ -1011,26 +1007,6 @@ for table_name in $(toml_get_table_names); do
 			fi
 		fi
 
-		prev_snapshot_file=""
-		prev_snapshot_zip=""
-		prev_stable_file=""
-		prev_stable_zip=""
-		prev_patch_ver=""
-
-		if [ -f "versions_log.json" ]; then
-			prev_snapshot_file=$(jq -r --arg app "$table_name" '.[$app].snapshot_file // ""' versions_log.json)
-			prev_snapshot_zip=$(jq -r --arg app "$table_name" '.[$app].snapshot_zip // ""' versions_log.json)
-			prev_stable_file=$(jq -r --arg app "$table_name" '.[$app].stable_file // .[$app].file // ""' versions_log.json)
-			prev_stable_zip=$(jq -r --arg app "$table_name" '.[$app].stable_zip // ""' versions_log.json)
-			prev_patch_ver=$(jq -r --arg app "$table_name" '.[$app].patches_version // ""' versions_log.json)
-		fi
-
-		if [ "$latest_applied_tag" == "$prev_patch_ver" ]; then
-			pr "  La versión de parches no cambió ($latest_applied_tag). No se moverá a snapshot."
-			prev_stable_file=""
-			prev_stable_zip=""
-		fi
-
 		final_stable_file="$apk_filename"
 		final_stable_zip="$module_zip_filename"
 
@@ -1053,10 +1029,6 @@ for table_name in $(toml_get_table_names); do
 		   --arg arch "${app_args[arch_original]}" \
 		   --arg stable_file "$final_stable_file" \
 		   --arg stable_zip "$final_stable_zip" \
-		   --arg snapshot_file "$prev_snapshot_file" \
-		   --arg snapshot_zip "$prev_snapshot_zip" \
-		   --arg prev_stable_file "$prev_stable_file" \
-		   --arg prev_stable_zip "$prev_stable_zip" \
 		   --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
 		   '.[$app] = {
 				patches_source: $src,
@@ -1069,10 +1041,6 @@ for table_name in $(toml_get_table_names); do
 				arch: $arch,
 				stable_file: (if $stable_file == "" then null else $stable_file end),
 				stable_zip: (if $stable_zip == "" then null else $stable_zip end),
-				snapshot_file: (if $snapshot_file == "" then null else $snapshot_file end),
-				snapshot_zip: (if $snapshot_zip == "" then null else $snapshot_zip end),
-				prev_stable_file: (if $prev_stable_file == "" then null else $prev_stable_file end),
-				prev_stable_zip: (if $prev_stable_zip == "" then null else $prev_stable_zip end),
 				timestamp: $ts
 			}' \
 			versions_log.json > "$tmp_vlog" && mv "$tmp_vlog" versions_log.json
