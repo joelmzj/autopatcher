@@ -242,6 +242,22 @@ rm -f "$JSON_FAILURES_FILE"
 touch "$JSON_FAILURES_FILE"
 export JSON_FAILURES_FILE
 
+# ==============================================================================
+# 🧹 LIMPIEZA: Eliminar de failed_apps.json las apps que ya no están en config.toml
+# ==============================================================================
+if [ -f "$FAILED_APPS_FILE" ]; then
+    valid_apps=$(toml_get_table_names | grep -v "^Morphe-Desktop$" || true)
+
+    if [ -n "$valid_apps" ]; then
+        valid_apps_json=$(echo "$valid_apps" | jq -R . | jq -s .)
+        tmp_failed=$(mktemp)
+        jq --argjson valid "$valid_apps_json" \
+           'with_entries(select(.key as $k | $valid | index($k)))' \
+           "$FAILED_APPS_FILE" > "$tmp_failed" && mv "$tmp_failed" "$FAILED_APPS_FILE"
+        pr "  Limpieza de failed_apps.json completada (apps huérfanas eliminadas)"
+    fi
+fi
+
 if [ "$(jq 'length' "$FAILED_APPS_FILE" 2>/dev/null || echo 0)" -gt 0 ]; then
 	wpr "Apps pendientes de reintento del run anterior:"
 	jq -r 'to_entries[] | "  - \(.key) (\(.value.attempts) intento(s))"' "$FAILED_APPS_FILE"
