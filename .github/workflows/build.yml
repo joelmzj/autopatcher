@@ -61,7 +61,6 @@ on:
           - "AnExplorer-TV"
           - "Tubi-TV"
           - "Pluto-TV"
-          - "Crunchyroll"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset. '*' = todas."
