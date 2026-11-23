@@ -1,12 +1,1 @@
-{
-  "Facebook": {
-    "first_failed_at": "2026-11-22T23:03:33Z",
-    "last_attempt_at": "2026-11-22T23:03:33Z",
-    "attempts": 1
-  },
-  "TikTok": {
-    "first_failed_at": "2026-11-22T23:04:41Z",
-    "last_attempt_at": "2026-11-22T23:04:41Z",
-    "attempts": 1
-  }
-}
+{}
