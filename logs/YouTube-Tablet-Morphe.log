@@ -4,6 +4,27 @@
      Repo:    MorpheApp/morphe-patches
      Pkg:     com.google.android.youtube
      Canal:   dev  |  Brand: Morphe  |  Arch: arm64-v8a
-     Inicio:  2026-11-24T01:27:40Z
+     Inicio:  2026-11-24T11:57:04Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: YouTube-Tablet-Morphe ===
+Fecha: 2026-11-24T11:57:07Z
+APK version: 20.26.46
+Patches version: v2.4.0-dev.11
+Patches source: MorpheApp/morphe-patches
+Channel: dev
+Brand: Morphe
+Arch: arm64-v8a
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+Single-app bundle: true
+Patches hash: 
+DL URL: —
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: YouTube-Tablet-Morphe  (1m3s)
+     Revisa logs/YouTube-Tablet-Morphe.log para detalles
 ═══════════════════════════════════════════════════════════════
 
