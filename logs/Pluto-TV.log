@@ -4,6 +4,27 @@
      Repo:    semicoloncolonel/tv-morphe-patches
      Pkg:     tv.pluto.android
      Canal:   dev  |  Brand: semicoloncolonel  |  Arch: arm64-v8a + armeabi-v7a
-     Inicio:  2026-11-24T11:58:47Z
+     Inicio:  2026-11-24T21:52:34Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: Pluto-TV ===
+Fecha: 2026-11-24T21:52:36Z
+APK version: 17.4.0
+Patches version: v1.2.0-dev.18
+Patches source: semicoloncolonel/tv-morphe-patches
+Channel: dev
+Brand: semicoloncolonel
+Arch: arm64-v8a + armeabi-v7a
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+Single-app bundle: false
+Patches hash: 234f029c1647763eecac8a559eb3a7f5fa70aaebddd8f2e671d21ec7524b58f9
+DL URL: —
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: Pluto-TV  (1m9s)
+     Revisa logs/Pluto-TV.log para detalles
 ═══════════════════════════════════════════════════════════════
 
