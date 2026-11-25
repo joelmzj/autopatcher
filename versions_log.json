@@ -15,15 +15,15 @@
   "Telegram": {
     "patches_source": "SysAdminDoc/HushTelegram",
     "channel": "stable",
-    "patches_version": "v0.0.26",
+    "patches_version": "v0.0.27",
     "patches_hash": "",
-    "apk_version": "13.2.2",
+    "apk_version": "13.3.1",
     "final_pkg_name": "org.telegram.messenger.web",
     "brand": "HushTelegram",
     "arch": "arm64-v8a",
-    "stable_file": "Telegram-v13.2.2-HushTelegram-v0.0.26-arm64-v8a.apk",
+    "stable_file": "Telegram-v13.3.1-HushTelegram-v0.0.27-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-18T04:01:09Z"
+    "timestamp": "2026-11-25T15:16:11Z"
   },
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",

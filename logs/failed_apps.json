@@ -1,22 +1,37 @@
 {
   "YouTubeMusic-Morphe": {
     "first_failed_at": "2026-11-24T11:55:31Z",
-    "last_attempt_at": "2026-11-25T04:45:13Z",
-    "attempts": 3
+    "last_attempt_at": "2026-11-25T15:21:12Z",
+    "attempts": 4
   },
   "YouTube-Morphe": {
     "first_failed_at": "2026-11-24T11:57:03Z",
-    "last_attempt_at": "2026-11-25T04:46:46Z",
-    "attempts": 3
+    "last_attempt_at": "2026-11-25T15:22:44Z",
+    "attempts": 4
   },
   "YouTube-Tablet-Morphe": {
     "first_failed_at": "2026-11-24T11:58:07Z",
-    "last_attempt_at": "2026-11-25T04:47:47Z",
-    "attempts": 3
+    "last_attempt_at": "2026-11-25T15:23:47Z",
+    "attempts": 4
   },
   "Pluto-TV": {
     "first_failed_at": "2026-11-24T21:53:43Z",
-    "last_attempt_at": "2026-11-25T04:49:36Z",
-    "attempts": 2
+    "last_attempt_at": "2026-11-25T15:26:15Z",
+    "attempts": 3
+  },
+  "Messenger": {
+    "first_failed_at": "2026-11-25T15:17:27Z",
+    "last_attempt_at": "2026-11-25T15:17:27Z",
+    "attempts": 1
+  },
+  "Facebook": {
+    "first_failed_at": "2026-11-25T15:18:44Z",
+    "last_attempt_at": "2026-11-25T15:18:44Z",
+    "attempts": 1
+  },
+  "TikTok": {
+    "first_failed_at": "2026-11-25T15:19:55Z",
+    "last_attempt_at": "2026-11-25T15:19:55Z",
+    "attempts": 1
   }
 }
