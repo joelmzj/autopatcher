@@ -1,22 +1,22 @@
 {
   "YouTubeMusic-Morphe": {
     "first_failed_at": "2026-11-24T11:55:31Z",
-    "last_attempt_at": "2026-11-24T21:49:16Z",
-    "attempts": 2
+    "last_attempt_at": "2026-11-25T04:45:13Z",
+    "attempts": 3
   },
   "YouTube-Morphe": {
     "first_failed_at": "2026-11-24T11:57:03Z",
-    "last_attempt_at": "2026-11-24T21:50:46Z",
-    "attempts": 2
+    "last_attempt_at": "2026-11-25T04:46:46Z",
+    "attempts": 3
   },
   "YouTube-Tablet-Morphe": {
     "first_failed_at": "2026-11-24T11:58:07Z",
-    "last_attempt_at": "2026-11-24T21:51:49Z",
-    "attempts": 2
+    "last_attempt_at": "2026-11-25T04:47:47Z",
+    "attempts": 3
   },
   "Pluto-TV": {
     "first_failed_at": "2026-11-24T21:53:43Z",
-    "last_attempt_at": "2026-11-24T21:53:43Z",
-    "attempts": 1
+    "last_attempt_at": "2026-11-25T04:49:36Z",
+    "attempts": 2
   }
 }
