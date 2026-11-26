@@ -4,11 +4,11 @@
      Repo:    SysAdminDoc/hushfeed
      Pkg:     com.zhiliaoapp.musically
      Canal:   stable  |  Brand: HushFeed  |  Arch: arm64-v8a
-     Inicio:  2026-11-25T15:18:44Z
+     Inicio:  2026-11-26T00:00:55Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: TikTok ===
-Fecha: 2026-11-25T15:18:48Z
+Fecha: 2026-11-26T00:00:58Z
 APK version: 47.9.3
 Patches version: v0.85.0
 Patches source: SysAdminDoc/hushfeed
@@ -24,7 +24,7 @@ DL URL: —
 
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: TikTok  (1m11s)
+  ❌ FALLÓ: TikTok  (1m9s)
      Revisa logs/TikTok.log para detalles
 ═══════════════════════════════════════════════════════════════
 

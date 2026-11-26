@@ -4,11 +4,11 @@
      Repo:    SysAdminDoc/HushMessenger
      Pkg:     com.facebook.orca
      Canal:   stable  |  Brand: HushMessenger  |  Arch: arm64-v8a
-     Inicio:  2026-11-25T15:16:11Z
+     Inicio:  2026-11-25T23:58:30Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: Messenger ===
-Fecha: 2026-11-25T15:16:14Z
+Fecha: 2026-11-25T23:58:32Z
 APK version: 588.1.0.66.98
 Patches version: v0.31.0
 Patches source: SysAdminDoc/HushMessenger
@@ -24,7 +24,7 @@ DL URL: —
 
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: Messenger  (1m16s)
+  ❌ FALLÓ: Messenger  (1m14s)
      Revisa logs/Messenger.log para detalles
 ═══════════════════════════════════════════════════════════════
 

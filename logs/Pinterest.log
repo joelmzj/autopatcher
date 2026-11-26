@@ -4,6 +4,27 @@
      Repo:    SysAdminDoc/HushPinterest
      Pkg:     com.pinterest
      Canal:   stable  |  Brand: HushPinterest  |  Arch: arm64-v8a
-     Inicio:  2026-11-25T15:16:11Z
+     Inicio:  2026-11-25T23:57:21Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: Pinterest ===
+Fecha: 2026-11-25T23:57:25Z
+APK version: 14.45.0
+Patches version: v0.0.15
+Patches source: SysAdminDoc/HushPinterest
+Channel: stable
+Brand: HushPinterest
+Arch: arm64-v8a
+Build mode: apk
+Force patch: false
+Inclusive patches: true
+Single-app bundle: true
+Patches hash: 
+DL URL: —
+
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: Pinterest  (1m9s)
+     Revisa logs/Pinterest.log para detalles
 ═══════════════════════════════════════════════════════════════
 
