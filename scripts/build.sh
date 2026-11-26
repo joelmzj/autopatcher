@@ -162,7 +162,10 @@ print_app_failure() {
 }
 
 if [ "${1-}" = "clean" ]; then
-	rm -r "$TEMP_DIR" "$BUILD_DIR" build.md
+	# 🔧 FIX H: `-f` para que no falle si algún path no existe.
+	# Con `rm -r` y `set -e` activo, si `build/` o `build.md` no existen,
+	# el script aborta antes del `exit 0` dejando estado inconsistente.
+	rm -rf "$TEMP_DIR" "$BUILD_DIR" build.md
 	exit 0
 fi
 
