@@ -4,11 +4,11 @@
      Repo:    SysAdminDoc/HushPinterest
      Pkg:     com.pinterest
      Canal:   stable  |  Brand: HushPinterest  |  Arch: arm64-v8a
-     Inicio:  2026-11-25T23:57:21Z
+     Inicio:  2026-11-26T06:05:42Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: Pinterest ===
-Fecha: 2026-11-25T23:57:25Z
+Fecha: 2026-11-26T06:05:45Z
 APK version: 14.45.0
 Patches version: v0.0.15
 Patches source: SysAdminDoc/HushPinterest
@@ -23,8 +23,121 @@ Patches hash:
 DL URL: —
 
 
+--- Argumentos de parches (3) ---
+  -d=Change package name
+  -e=GmsCore support
+  -e=Spoof signature for Google sign-in
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/SysAdminDoc/HushPinterest/main/patches-bundle.json
+INFO: GitHub: bundle (main) → v0.0.15 @ https://github.com/SysAdminDoc/HushPinterest/releases/download/v0.0.15/patches-0.0.15.mpp
+INFO: Latest stable via patches-bundle.json: v0.0.15
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushPinterest/v0.0.15__patches-0.0.15.mpp (2686762 bytes)
+INFO: Resolved patches (v0.0.15) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/SysAdminDoc-HushPinterest/v0.0.15__patches-0.0.15.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for com.pinterest v14.45.0...
+INFO: Skipping disabled: Change package name
+INFO: Applying 58 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 6979 files can be decoded
+INFO: Executing patches
+INFO: Building instruction indexes for 76690 classes...
+INFO: Applied: AMOLED black
+INFO: Applied: Best video quality
+INFO: Applied: Board order when saving
+INFO: Applied: Custom font
+INFO: Applied: Custom save sound
+Nov 26, 2026 6:06:39 AM app.morphe.patches.pinterest.ui.CustomSplashLogoPatchKt addSplashLogo
+INFO: Custom splash logo: HushPinterest's mark, 512 by 512 png, added as HushPinterestSplashLogo.
+INFO: Applied: Custom splash logo
+INFO: Applied: Customize board tabs
+INFO: Applied: Disable analytics
+INFO: Applied: Disable update nag
+INFO: Applied: Download board
+INFO: Applied: Download pins
+INFO: Applied: Expand board list
+INFO: Applied: Filter feed
+INFO: Applied: Filter pin menu
+INFO: Applied: Fix push notifications
+INFO: Applied: Fold related pins
+INFO: Applied: Full-size profile photos
+INFO: Applied: GmsCore support
+INFO: Applied: Hide AI-labeled pins
+INFO: Applied: Hide Assistant
+INFO: Applied: Hide Inbox updates
+INFO: Applied: Hide ads
+INFO: Applied: Hide advertising ID
+INFO: Applied: Hide blue highlight ring
+INFO: Applied: Hide closeup buttons
+INFO: Applied: Hide comments
+INFO: Applied: Hide creator name on pins
+INFO: Applied: Hide header buttons
+INFO: Applied: Hide navigation buttons
+INFO: Applied: Hide pin author
+INFO: Applied: Hide pin title and description
+INFO: Applied: Hide pop-up banners
+INFO: Applied: Hide related pins
+INFO: Applied: Hide save toasts
+INFO: Applied: Hide search history
+INFO: Applied: Hide shopping and product pins
+INFO: Applied: Hide suggested boards
+INFO: Applied: Hide survey prompts
+INFO: Applied: Hide topic suggestions
+INFO: Applied: Hide visual search thumbnails
+INFO: Applied: HushPinterest settings
+INFO: Applied: Keep Home feed
+INFO: Applied: Let the screen sleep
+INFO: Applied: Like and comment history
+INFO: Applied: Long-press download
+INFO: Applied: No screenshot share menu
+INFO: Applied: Open links in your browser
+INFO: Applied: Original-quality images
+INFO: Applied: Pin video playback
+INFO: Applied: Pinch to zoom only
+INFO: Applied: Quiet email reminders
+INFO: Applied: Remove ad tracking permissions
+INFO: Applied: Show image size
+INFO: Applied: Show posted date
+INFO: Applied: Spoof signature for Google sign-in
+INFO: Applied: Strip link tracking
+INFO: Applied: Swipe down to close pins
+INFO: Applied: System share sheet
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 831 unchanged extension classes to 2 DEX files
+INFO: Changed 399 of 76690 classes to mutable
+INFO: Writing 399 new classes to new DEX files
+INFO: Processing 399 classes (single threaded mode)
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1795673187767/patcher/patched/newDex
+INFO: Stripped 380 modified classes from 7 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 51 lib files
+INFO: Decoded 2 of 6979 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Encoded 1468 of 8420 values in 2 files, 2 resource files and 0 configurations of patches for com.pinterest
+INFO: Reusing 6774 unchanged archive entries, rebuilding 4 entries, dropping 51 entries, leaving out 7 replaced entries
+INFO: Resource APK scan: 700ms write: 500ms
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pinterest-v14.45.0-HushPinterest-v0.0.15-arm64-v8a.apk
+INFO: Patching took 34.7 seconds
+
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: Pinterest  (1m9s)
-     Revisa logs/Pinterest.log para detalles
+  ✅ ÉXITO: Pinterest  (1m23s)
+     APK:      Pinterest-v14.45.0-HushPinterest-v0.0.15-arm64-v8a.apk
+     APK ver:  14.45.0
+     Parches:  v0.0.15
+     Hash:     ...
 ═══════════════════════════════════════════════════════════════
 
+
+--- Fin del parcheo ---
+APK final: build/Pinterest-v14.45.0-HushPinterest-v0.0.15-arm64-v8a.apk
+Fecha de fin: 2026-11-26T06:07:04Z

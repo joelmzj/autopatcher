@@ -4,13 +4,13 @@
      Repo:    semicoloncolonel/tv-morphe-patches
      Pkg:     tv.pluto.android
      Canal:   dev  |  Brand: semicoloncolonel  |  Arch: arm64-v8a + armeabi-v7a
-     Inicio:  2026-11-26T00:06:28Z
+     Inicio:  2026-11-26T06:14:45Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: Pluto-TV ===
-Fecha: 2026-11-26T00:06:29Z
+Fecha: 2026-11-26T06:14:47Z
 APK version: 17.4.0
-Patches version: v1.2.0-dev.18
+Patches version: v1.2.0-dev.19
 Patches source: semicoloncolonel/tv-morphe-patches
 Channel: dev
 Brand: semicoloncolonel
@@ -23,8 +23,67 @@ Patches hash: 234f029c1647763eecac8a559eb3a7f5fa70aaebddd8f2e671d21ec7524b58f9
 DL URL: —
 
 
+--- Argumentos de parches (3) ---
+  -e=Block analytics & tracking
+  -e=Disable auto-updates
+  -e=Hide device identifiers
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitHub: fetching patches-bundle.json from https://raw.githubusercontent.com/semicoloncolonel/tv-morphe-patches/dev/patches-bundle.json
+INFO: GitHub: bundle (dev) → v1.2.0-dev.19 @ https://github.com/semicoloncolonel/tv-morphe-patches/releases/download/v1.2.0-dev.19/patches-1.2.0-dev.19.mpp
+INFO: Latest dev via patches-bundle.json: v1.2.0-dev.19
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/semicoloncolonel-tv-morphe-patches/v1.2.0-dev.19__patches-1.2.0-dev.19.mpp (1243411 bytes)
+INFO: Resolved patches (v1.2.0-dev.19) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/semicoloncolonel-tv-morphe-patches/v1.2.0-dev.19__patches-1.2.0-dev.19.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for tv.pluto.android v17.4.0...
+INFO: Applying 8 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 1389 files can be decoded
+INFO: Executing patches
+INFO: Applied: Block analytics & tracking
+INFO: Applied: Disable auto-updates
+INFO: Applied: Hide device identifiers
+INFO: Applied: Hide rating prompt
+INFO: Building instruction indexes for 26112 classes...
+INFO: Applied: Mask live ad breaks
+INFO: Applied: Skip ads
+INFO: Applied: Skip launch video
+INFO: Applied: Translate ad break screen
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Copied 47 unchanged extension classes to 1 DEX files
+INFO: Changed 56 of 26112 classes to mutable
+INFO: Writing 56 new classes to new DEX files
+INFO: Processing 56 classes (single threaded mode)
+INFO: Wrote 1 dex files to /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/tmp/patching-1795673698709/patcher/patched/newDex
+INFO: Stripped 55 modified classes from 3 original DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures armeabi-v7a)
+INFO: Stripped 4 lib files
+INFO: Decoded 0 of 1389 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Reusing 1236 unchanged archive entries, rebuilding 2 entries, dropping 4 entries, leaving out 3 replaced entries
+INFO: Resource APK scan: 100ms write: 300ms
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.19-arm64-v8a_armeabi-v7a.apk
+INFO: Patching took 4.9 seconds
+
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: Pluto-TV  (1m7s)
-     Revisa logs/Pluto-TV.log para detalles
+  ✅ ÉXITO: Pluto-TV  (19s)
+     APK:      Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.19-arm64-v8a_armeabi-v7a.apk
+     APK ver:  17.4.0
+     Parches:  v1.2.0-dev.19
+     Hash:     234f029c1647763eecac8a559eb3a7f5...
 ═══════════════════════════════════════════════════════════════
 
+
+--- Fin del parcheo ---
+APK final: build/Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.19-arm64-v8a_armeabi-v7a.apk
+Fecha de fin: 2026-11-26T06:15:04Z

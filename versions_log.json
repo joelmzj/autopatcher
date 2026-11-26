@@ -28,67 +28,67 @@
   "Pinterest": {
     "patches_source": "SysAdminDoc/HushPinterest",
     "channel": "stable",
-    "patches_version": "v0.0.14",
+    "patches_version": "v0.0.15",
     "patches_hash": "",
-    "apk_version": "14.44.0",
+    "apk_version": "14.45.0",
     "final_pkg_name": "com.pinterest",
     "brand": "HushPinterest",
     "arch": "arm64-v8a",
-    "stable_file": "Pinterest-v14.44.0-HushPinterest-v0.0.14-arm64-v8a.apk",
+    "stable_file": "Pinterest-v14.45.0-HushPinterest-v0.0.15-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-15T18:20:03Z"
+    "timestamp": "2026-11-26T06:07:04Z"
   },
   "Messenger": {
     "patches_source": "SysAdminDoc/HushMessenger",
     "channel": "stable",
-    "patches_version": "v0.30.0",
+    "patches_version": "v0.31.0",
     "patches_hash": "",
-    "apk_version": "587.0.0.54.96",
+    "apk_version": "588.1.0.66.98",
     "final_pkg_name": "com.facebook.orca",
     "brand": "HushMessenger",
     "arch": "arm64-v8a",
-    "stable_file": "Messenger-v587.0.0.54.96-HushMessenger-v0.30.0-arm64-v8a.apk",
+    "stable_file": "Messenger-v588.1.0.66.98-HushMessenger-v0.31.0-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-14T23:35:15Z"
+    "timestamp": "2026-11-26T06:08:43Z"
   },
   "Facebook": {
     "patches_source": "SysAdminDoc/Hushfacebook",
     "channel": "stable",
-    "patches_version": "v0.24.0",
+    "patches_version": "v0.25.0",
     "patches_hash": "",
     "apk_version": "588.0.0.42.55",
     "final_pkg_name": "com.facebook.katana",
     "brand": "HushFacebook",
     "arch": "arm64-v8a",
-    "stable_file": "Facebook-v588.0.0.42.55-HushFacebook-v0.24.0-arm64-v8a.apk",
+    "stable_file": "Facebook-v588.0.0.42.55-HushFacebook-v0.25.0-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-23T03:40:52Z"
+    "timestamp": "2026-11-26T06:11:39Z"
   },
   "TikTok": {
     "patches_source": "SysAdminDoc/hushfeed",
     "channel": "stable",
-    "patches_version": "v0.84.0",
+    "patches_version": "v0.85.0",
     "patches_hash": "",
     "apk_version": "47.9.3",
     "final_pkg_name": "com.zhiliaoapp.musically",
     "brand": "HushFeed",
     "arch": "arm64-v8a",
-    "stable_file": "TikTok-v47.9.3-HushFeed-v0.84.0-arm64-v8a.apk",
+    "stable_file": "TikTok-v47.9.3-HushFeed-v0.85.0-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-23T03:41:35Z"
+    "timestamp": "2026-11-26T06:12:35Z"
   },
   "YouTubeMusic-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.4.0-dev.9",
+    "patches_version": "v2.4.0-dev.14",
     "patches_hash": "",
     "apk_version": "9.30.53",
     "final_pkg_name": "app.morphe.android.apps.youtube.music",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.9-arm64-v8a.apk",
+    "stable_file": "YouTubeMusic-Morphe-v9.30.53-Morphe-v2.4.0-dev.14-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-23T13:55:18Z"
+    "timestamp": "2026-11-26T06:12:57Z"
   },
   "YouTubeMusic-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -106,15 +106,15 @@
   "YouTube-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.4.0-dev.9",
+    "patches_version": "v2.4.0-dev.14",
     "patches_hash": "",
     "apk_version": "21.30.216",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.4.0-dev.9-arm64-v8a.apk",
+    "stable_file": "YouTube-Morphe-v21.30.216-Morphe-v2.4.0-dev.14-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-23T13:56:49Z"
+    "timestamp": "2026-11-26T06:13:32Z"
   },
   "YouTube-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -132,15 +132,15 @@
   "YouTube-Tablet-Morphe": {
     "patches_source": "MorpheApp/morphe-patches",
     "channel": "dev",
-    "patches_version": "v2.4.0-dev.9",
+    "patches_version": "v2.4.0-dev.14",
     "patches_hash": "",
     "apk_version": "20.26.46",
     "final_pkg_name": "app.morphe.android.youtube",
     "brand": "Morphe",
     "arch": "arm64-v8a",
-    "stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.4.0-dev.9-arm64-v8a.apk",
+    "stable_file": "YouTube-Tablet-Morphe-v20.26.46-Morphe-v2.4.0-dev.14-arm64-v8a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-23T13:58:59Z"
+    "timestamp": "2026-11-26T06:14:00Z"
   },
   "YouTube-Tablet-anddea": {
     "patches_source": "anddea/revanced-patches",
@@ -314,14 +314,14 @@
   "Pluto-TV": {
     "patches_source": "semicoloncolonel/tv-morphe-patches",
     "channel": "dev",
-    "patches_version": "v1.2.0-dev.16",
-    "patches_hash": "7395046c55dae1379f7a69bd010e0e320c41b1d4604117fdd29c06adf53a6a11",
+    "patches_version": "v1.2.0-dev.19",
+    "patches_hash": "234f029c1647763eecac8a559eb3a7f5fa70aaebddd8f2e671d21ec7524b58f9",
     "apk_version": "17.4.0",
     "final_pkg_name": "tv.pluto.android",
     "brand": "semicoloncolonel",
     "arch": "armeabi-v7a",
-    "stable_file": "Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.16-arm64-v8a_armeabi-v7a.apk",
+    "stable_file": "Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.19-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-20T18:17:13Z"
+    "timestamp": "2026-11-26T06:15:04Z"
   }
 }
