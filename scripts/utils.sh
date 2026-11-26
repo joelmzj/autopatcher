@@ -445,11 +445,25 @@ get_apkmirror_resp() {
 }
 
 dl_apkmirror() {
-    local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-} fallback_arch=${8:-}
+    # 🔧 KISS: firma simplificada. `tv_version` es solo una pista:
+    #   - true  → intenta universal primero ("arm64-v8a + armeabi-v7a"), fallback a $arch
+    #   - false → busca $arch directamente (universal siempre matchea por _arch_pasa)
+    # `arch` es SIEMPRE la del config.toml y se usa para: nombre APK, strip_libs,
+    # module_builder, versions_log.json, y fallback de búsqueda.
+    local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-} tv_version=${8:-false}
 
     if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
     local clean_version="${version//[^0-9.]/}"
     local search_version="${version//./-}"
+
+    # 🔧 KISS: cadena "fake" para TV, solo como pista de búsqueda.
+    # Se pasa a apkmirror_search.py como arch primaria, que con "+" solo
+    # aceptará variantes "universal". El fallback es $arch (config).
+    local primary_search_arch="$arch"
+    if [ "$tv_version" = "true" ]; then
+        primary_search_arch="arm64-v8a + armeabi-v7a"
+        pr "  [TV] Buscando universal primero, fallback a $arch"
+    fi
 
     local search_py="${CWD}/scripts/apkmirror_search.py"
     local cf_py="${CWD}/scripts/cf_get.py"
@@ -562,15 +576,18 @@ dl_apkmirror() {
         return 1
     }
 
-    pr "Buscando variante (arch='$arch')..."
+    pr "Buscando variante (arch='$primary_search_arch', fallback='$arch')..."
     local variant_output
     local real_arch=""
     
+    # 🔧 KISS: pasa primary_search_arch como primaria (universal-only si TV)
+    # y $arch como fallback (config arch). apkmirror_search.py ya maneja bien
+    # el caso de "+" → solo universal, fallback → arch específica.
     if [ -n "$version_code" ]; then
         pr "  Con whitelist de versionCodes: $version_code"
-        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$arch" "$version_code" "$fallback_arch" 2>"$log_stderr")
+        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$primary_search_arch" "$version_code" "$arch" 2>"$log_stderr")
     else
-        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$arch" "" "$fallback_arch" 2>"$log_stderr")
+        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$primary_search_arch" "" "$arch" 2>"$log_stderr")
     fi
     
     if [ -s "$log_stderr" ]; then
@@ -582,7 +599,7 @@ dl_apkmirror() {
     real_arch=$(echo "$variant_output" | head -n 1 | cut -f 2)
 
     if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
-        epr "Paso 1 falló: no se encontró variante para arch='$arch'"
+        epr "Paso 1 falló: no se encontró variante para arch='$primary_search_arch'"
         return 1
     fi
     pr "Variante elegida: $variant_page_url"
@@ -637,21 +654,6 @@ dl_apkmirror() {
 
     # ------------------------------------------------------------------
     # 🔧 FIX C: Descarga final con 3 ciclos y refresh COMPLETO de key
-    # ------------------------------------------------------------------
-    # Problemas anteriores:
-    #   1. Solo 2 intentos totales (1 directo + 1 "refresh").
-    #   2. El "refresh" volvía a pedir $download_url (la URL con la key
-    #      VIEJA ya muerta). Resultado: nunca refrescaba nada. Por eso
-    #      el "Retry" fallaba en 7s (ver logs: "Refrescando key..."
-    #      seguido de "No se pudo descargar" 7s después).
-    #
-    # Ahora:
-    #   1. 3 ciclos con backoff exponencial 15s → 30s → 60s.
-    #   2. El refresh vuelve a $variant_page_url (que NO expira,
-    #      es la página del release). De ahí extrae un download_url
-    #      NUEVO con key fresca, y de ahí un final_url NUEVO.
-    #   3. Cada intento usa curl → cf_get.py (multi-impersonate
-    #      + solver con POST /cookies, ver FIX B en cf_get.py).
     # ------------------------------------------------------------------
     pr "Descargando APK final..."
     mkdir -p "$(dirname "$output")"
@@ -715,7 +717,6 @@ dl_apkmirror() {
         backoff=$((backoff * 2))
 
         # ── Refresh COMPLETO ──────────────────────────────────────
-        # 1. Volver a $variant_page_url (que NO expira) → HTML nuevo
         local fresh_variant_html fresh_download fresh_step2_html fresh_final
         fresh_variant_html=$(python3 "$cf_py" "$variant_page_url" 2>/dev/null) || true
 
@@ -725,7 +726,6 @@ dl_apkmirror() {
             continue
         fi
 
-        # 2. Extraer un download_url NUEVO (con key fresca)
         fresh_download=$(echo "$fresh_variant_html" | python3 "$search_py" download 2>/dev/null)
         if [ -z "$fresh_download" ] || [[ "$fresh_download" != http* ]]; then
             wpr "  No se pudo extraer un download_url fresco"
@@ -733,7 +733,6 @@ dl_apkmirror() {
             continue
         fi
 
-        # 3. Pedir el HTML intermedio → final_url NUEVO
         fresh_step2_html=$(python3 "$cf_py" "$fresh_download" 2>/dev/null) || true
         fresh_final=$(echo "$fresh_step2_html" | python3 "$search_py" final 2>/dev/null)
         if [ -z "$fresh_final" ] || [[ "$fresh_final" != http* ]]; then
