@@ -636,7 +636,22 @@ dl_apkmirror() {
     pr "Enlace final: $final_url"
 
     # ------------------------------------------------------------------
-    # Descarga final del archivo
+    # 🔧 FIX C: Descarga final con 3 ciclos y refresh COMPLETO de key
+    # ------------------------------------------------------------------
+    # Problemas anteriores:
+    #   1. Solo 2 intentos totales (1 directo + 1 "refresh").
+    #   2. El "refresh" volvía a pedir $download_url (la URL con la key
+    #      VIEJA ya muerta). Resultado: nunca refrescaba nada. Por eso
+    #      el "Retry" fallaba en 7s (ver logs: "Refrescando key..."
+    #      seguido de "No se pudo descargar" 7s después).
+    #
+    # Ahora:
+    #   1. 3 ciclos con backoff exponencial 15s → 30s → 60s.
+    #   2. El refresh vuelve a $variant_page_url (que NO expira,
+    #      es la página del release). De ahí extrae un download_url
+    #      NUEVO con key fresca, y de ahí un final_url NUEVO.
+    #   3. Cada intento usa curl → cf_get.py (multi-impersonate
+    #      + solver con POST /cookies, ver FIX B en cf_get.py).
     # ------------------------------------------------------------------
     pr "Descargando APK final..."
     mkdir -p "$(dirname "$output")"
@@ -647,7 +662,7 @@ dl_apkmirror() {
         local target_url="$1"
         local referer_url="$2"
 
-        # Intento 1: curl
+        # Intento 1: curl directo
         if curl -L -f -s -S --retry 3 --retry-delay 5 \
             --connect-timeout 30 --max-time 1800 \
             -A "$CURL_UA" \
@@ -668,8 +683,8 @@ dl_apkmirror() {
             fi
         fi
 
-        # Intento 2: cf_get.py (solver CF)
-        pr "Curl falló, reintentando con cf_get.py..."
+        # Intento 2: cf_get.py (multi-impersonate + solver, ver FIX B)
+        pr "Curl falló, reintentando con cf_get.py (multi-target + solver)..."
         if python3 "$cf_py" download "$target_url" "$output" "$referer_url" "$TEMP_DIR/cookie.txt"; then
             if [ -f "$output" ] && [ -s "$output" ]; then
                 return 0
@@ -678,31 +693,62 @@ dl_apkmirror() {
         return 1
     }
 
-    # Intento inicial con la URL que ya tenemos
-    if _try_download_apkmirror "$final_url" "$download_url"; then
-        pr "APK descargada y verificada: $output"
-        return 0
-    fi
+    # ── Bucle de 3 ciclos con refresh real de key ──────────────────
+    local max_cycles=3
+    local cycle=1
+    local backoff=15
 
-    # Si falla, refrescar la página intermedia para obtener una key fresca
-    pr "Descarga falló. Refrescando key de descarga y reintentando..."
-    sleep 3   # margen para que el rate-limit de APKMirror se relaje
+    while [ "$cycle" -le "$max_cycles" ]; do
+        pr "  [descarga] ciclo $cycle/$max_cycles"
 
-    local fresh_step2_html fresh_final
-    fresh_step2_html=$(python3 "$cf_py" "$download_url" 2>/dev/null) || true
-
-    if [ -n "$fresh_step2_html" ]; then
-        fresh_final=$(echo "$fresh_step2_html" | python3 "$search_py" final 2>/dev/null)
-        if [ -n "$fresh_final" ] && [[ "$fresh_final" == http* ]] && [ "$fresh_final" != "$final_url" ]; then
-            pr "Nuevo enlace final obtenido: $fresh_final"
-            if _try_download_apkmirror "$fresh_final" "$download_url"; then
-                pr "APK descargada (retry con key fresca): $output"
-                return 0
-            fi
+        if _try_download_apkmirror "$final_url" "$download_url"; then
+            pr "APK descargada y verificada: $output"
+            return 0
         fi
-    fi
 
-    epr "No se pudo descargar la APK tras varios intentos (CF/403)"
+        if [ "$cycle" -ge "$max_cycles" ]; then
+            break
+        fi
+
+        wpr "  Ciclo $cycle falló. Refresh COMPLETO de key en ${backoff}s..."
+        sleep "$backoff"
+        backoff=$((backoff * 2))
+
+        # ── Refresh COMPLETO ──────────────────────────────────────
+        # 1. Volver a $variant_page_url (que NO expira) → HTML nuevo
+        local fresh_variant_html fresh_download fresh_step2_html fresh_final
+        fresh_variant_html=$(python3 "$cf_py" "$variant_page_url" 2>/dev/null) || true
+
+        if [ -z "$fresh_variant_html" ]; then
+            wpr "  No se pudo refrescar la variante (HTML vacío)"
+            cycle=$((cycle + 1))
+            continue
+        fi
+
+        # 2. Extraer un download_url NUEVO (con key fresca)
+        fresh_download=$(echo "$fresh_variant_html" | python3 "$search_py" download 2>/dev/null)
+        if [ -z "$fresh_download" ] || [[ "$fresh_download" != http* ]]; then
+            wpr "  No se pudo extraer un download_url fresco"
+            cycle=$((cycle + 1))
+            continue
+        fi
+
+        # 3. Pedir el HTML intermedio → final_url NUEVO
+        fresh_step2_html=$(python3 "$cf_py" "$fresh_download" 2>/dev/null) || true
+        fresh_final=$(echo "$fresh_step2_html" | python3 "$search_py" final 2>/dev/null)
+        if [ -z "$fresh_final" ] || [[ "$fresh_final" != http* ]]; then
+            wpr "  No se pudo extraer un final_url fresco"
+            cycle=$((cycle + 1))
+            continue
+        fi
+
+        pr "  Nueva key obtenida: ${fresh_final:0:80}..."
+        download_url="$fresh_download"
+        final_url="$fresh_final"
+        cycle=$((cycle + 1))
+    done
+
+    epr "No se pudo descargar la APK tras $max_cycles ciclos (CF/403)"
     return 1
 }
 
