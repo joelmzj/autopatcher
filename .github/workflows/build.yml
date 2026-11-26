@@ -83,16 +83,11 @@ jobs:
     services:
       cf_solver:
         # 🔧 FIX A1: pin del digest (antes `:latest` → regresiones silenciosas)
-        # digest del último run que funcionó. Para actualizar manualmente,
-        # cámbialo por un digest verificado con el step "Verify solver" de abajo.
+        # NOTA: la imagen ya trae su propio healthcheck interno. No añadir
+        # uno personalizado con `curl` porque la imagen NO lo tiene instalado.
         image: ghcr.io/sarperavci/cloudflarebypassforscraping@sha256:9897d17b9fe5471f0f04c8d11c4ec4b147ff444cc0ee61e2b1788a743be9e718
         ports:
           - 8000:8000
-        options: >-
-          --health-cmd "curl -fsS http://localhost:8000/health || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
