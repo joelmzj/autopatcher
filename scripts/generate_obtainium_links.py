@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import os
 import sys
 from pathlib import Path
 from urllib.parse import quote
@@ -9,8 +10,12 @@ try:
 except ImportError:
     sys.exit("❌ Falta el módulo 'toml'. Instala con: pip install toml")
 
-REPO_URL = "https://github.com/joelmzj/autopatcher"
-AUTHOR = "joelmzj"
+# 🔧 FIX D2: leer el repo desde GITHUB_REPOSITORY (lo setea el workflow).
+# El fallback mantiene compatibilidad con ejecuciones locales sin env.
+_repo = os.environ.get("GITHUB_REPOSITORY", "joelmzj/autopatcher")
+REPO_URL = f"https://github.com/{_repo}"
+AUTHOR = _repo.split("/")[0] if "/" in _repo else "joelmzj"
+
 REDIRECT_BASE = "https://apps.obtainium.imranr.dev/redirect?r="
 
 COMMON_SETTINGS = {
@@ -50,7 +55,6 @@ def generate_markdown():
         except Exception as e:
             print(f"⚠️ Advertencia: No se pudo leer versions_log.json: {e}")
 
-    # 🆕 Instrucciones para Android TV (con bloques de código para el botón copiar)
     lines = [
         "## 📲 Instalar con Obtainium",
         "",

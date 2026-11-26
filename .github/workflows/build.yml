@@ -122,28 +122,26 @@ jobs:
         run: |
           bash scripts/install_keystore.sh
 
-      # 🔧 FIX A2: verificación real del solver contra download.php
-      # El healthcheck del contenedor solo confirma que el puerto responde,
-      # no que el bypass funcione. Este step diagnostica en qué endpoint falla.
+      # 🔧 FIX A2: verificación real del solver contra download.php.
+      # La API del solver (sarperavci) usa GET con query params, NO POST
+      # con JSON. Si usas POST, devuelve 400 (missing url).
       #   - 200/200 → solver OK, si falla la descarga es bug de cf_get.py/utils.sh
       #   - 403/403 → IP del runner bloqueada a nivel WAF (no hay fix software)
       #   - 200/404 → tu versión del solver usa GET (fix B1 lo cubre)
       - name: Verify solver against APKMirror download.php
         continue-on-error: true
         run: |
-          echo "Test 1: solver POST /html contra /uploads/"
+          echo "Test 1: solver GET /html contra /uploads/"
           c1=$(curl -sS -o /dev/null -w "%{http_code}" \
-            -X POST http://localhost:8000/html \
-            -H "Content-Type: application/json" \
-            -d '{"url":"https://www.apkmirror.com/uploads/?appcategory=youtube","method":"GET"}' \
+            -G "http://localhost:8000/html" \
+            --data-urlencode "url=https://www.apkmirror.com/uploads/?appcategory=youtube" \
             --max-time 120 || echo "000")
           echo "  /uploads/  → HTTP $c1"
 
-          echo "Test 2: solver POST /cookies contra download.php (id de prueba)"
+          echo "Test 2: solver GET /cookies contra download.php (id de prueba)"
           c2=$(curl -sS -o /dev/null -w "%{http_code}" \
-            -X POST http://localhost:8000/cookies \
-            -H "Content-Type: application/json" \
-            -d '{"url":"https://www.apkmirror.com/wp-content/themes/APKMirror/download.php?id=17427546&key=test"}' \
+            -G "http://localhost:8000/cookies" \
+            --data-urlencode "url=https://www.apkmirror.com/wp-content/themes/APKMirror/download.php?id=17427546&key=test" \
             --max-time 120 || echo "000")
           echo "  /cookies   → HTTP $c2"
 
@@ -151,7 +149,7 @@ jobs:
             echo "✅ Solver responde en ambos endpoints"
           elif [ "$c1" = "200" ] && [ "$c2" = "404" ]; then
             echo "::warning:: Solver funciona en /uploads/ pero /cookies da 404."
-            echo "::warning:: Tu versión del solver usa GET; el FIX B1 (POST) lo cubre."
+            echo "::warning:: Tu versión del solver usa GET; el FIX B1 lo cubre."
           else
             echo "::warning:: Solver NO responde (uploads=$c1, cookies=$c2)."
             echo "::warning:: Si ambos dan 403, la IP del runner está bloqueada."
@@ -205,18 +203,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # versions_log.json (fuente de verdad) + logs por app
-          # Incluye logs/*.log y logs/failed_apps.json
           git add versions_log.json 2>/dev/null || true
           git add logs/ 2>/dev/null || true
 
-          # Commit solo si hay cambios
           if ! git diff --staged --quiet; then
             git commit -m "chore: update versions_log.json + logs [skip ci]"
-            
-            # Limpiar cambios no rastreados (permisos, archivos temporales) antes del rebase
             git reset --hard HEAD
-            
             git pull --rebase origin main || true
             git push
             echo "[+] Estado y logs commiteados exitosamente"
@@ -230,23 +222,15 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # ==================================================================
-          # FIX: limpiar cambios locales (chmod +x, line-endings normalizados
-          # en scripts/*.sh por el paso anterior, etc.) antes de cambiar de
-          # rama. Sin esto, `git checkout` falla con:
-          #   "Your local changes would be overwritten by checkout"
-          # ==================================================================
           git reset --hard HEAD 2>/dev/null || true
           git clean -fd 2>/dev/null || true
 
-          # Leer el manifest de archivos generados en este run (build.sh lo dejó en temp/)
           MANIFEST="temp/uploaded_files.txt"
           if [ ! -f "$MANIFEST" ]; then
             echo "[i] No hay manifest ($MANIFEST). Omitiendo publicación de update.json."
             exit 0
           fi
 
-          # Filtrar solo los ZIPs generados en este run
           declare -a zips=()
           while IFS= read -r fname; do
             [ -z "$fname" ] && continue
@@ -265,11 +249,9 @@ jobs:
           echo "[i] ZIPs a publicar: ${#zips[@]}"
           for z in "${zips[@]}"; do echo "  - $z"; done
 
-          # Guardar branch original para volver al final
           ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           echo "[i] Branch original: $ORIGINAL_BRANCH"
 
-          # Checkout de la rama update (crear si no existe)
           if git ls-remote --exit-code --heads origin update >/dev/null 2>&1; then
             echo "[i] La rama 'update' ya existe. Haciendo checkout..."
             git fetch origin update
@@ -288,38 +270,31 @@ jobs:
             git commit -m "chore: initialize update branch [skip ci]"
           fi
 
-          # Preparar directorios en la raíz de la rama (sin la carpeta 'update/')
           mkdir -p stable dev changelogs
           vc=$(date -u +%Y%m%d%H)
           published=0
 
           for zip in "${zips[@]}"; do
-            # Leer el id del módulo desde module.prop dentro del ZIP
             module_id=$(unzip -p "$zip" module.prop 2>/dev/null | grep '^id=' | cut -d= -f2)
             [ -z "$module_id" ] && continue
 
-            # Detectar canal desde el id (formato: {app_slug}-{channel}-{arch})
             channel="stable"
             case "$module_id" in
               *-dev-*) channel="dev" ;;
               *-stable-*) channel="stable" ;;
             esac
 
-            # Quitar el sufijo -{channel}-{arch} para obtener {app_slug}-{arch}
-            # Ej: "youtubemusic-morphe-dev-arm64" -> "youtubemusic-morphe-arm64"
             arch_sfx="${module_id##*-}"
             no_arch="${module_id%-*}"
             app_slug="${no_arch%-*}"
             target_name="${app_slug}-${arch_sfx}"
 
-            # Guardar en la raíz de la rama, no dentro de update/
             if unzip -p "$zip" update.json > "${channel}/${target_name}.json" 2>/dev/null; then
               echo "[+] Publicado ${channel}/${target_name}.json"
               published=$((published + 1))
             fi
           done
 
-          # Changelog genérico
           {
             echo "# Build ${vc}"
             echo ""
@@ -329,42 +304,32 @@ jobs:
             echo "- Módulos publicados: ${published}"
           } > "changelogs/${vc}.md"
 
-          # Commit y push
           git add stable/ dev/ changelogs/ README.md 2>/dev/null || true
           
           if ! git diff --staged --quiet; then
             git commit -m "chore: publish module update.json [skip ci]"
-            
-            # Limpiar cambios no rastreados antes del rebase
             git reset --hard HEAD
-            
-            # Sincronizar con el remoto antes de subir
             git pull --rebase origin update || true
-            
             git push origin update
             echo "[+] Rama 'update' actualizada con ${published} módulos"
           else
             echo "[i] Sin cambios en la rama 'update'"
           fi
 
-          # Volver al branch original
           git checkout "$ORIGINAL_BRANCH"
           echo "[i] De vuelta en el branch: $ORIGINAL_BRANCH"
 
       # ==================================================================
-      # 🆕 Generar y subir los enlaces de Obtainium
+      # 🔧 FIX D1: propagar GITHUB_REPOSITORY para que el script de
+      # Obtainium no dependa de REPO_URL hardcodeado (ver FIX D2 en .py)
       # ==================================================================
       - name: Generate and Commit Obtainium Links
         if: always()
-        # 🔧 FIX D1: propagar GITHUB_REPOSITORY para que el script
-        # no dependa de REPO_URL hardcodeado (ver FIX D2 en el .py)
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          # 1. Generar los enlaces (esto lee versions_log.json que ya tiene el pkg final)
           python3 scripts/generate_obtainium_links.py
           
-          # 2. Actualizar el README.md entre los marcadores
           python3 - <<'PY'
           from pathlib import Path
           readme = Path("README.md")
@@ -383,17 +348,13 @@ jobs:
           readme.write_text(content, encoding="utf-8")
           PY
           
-          # 3. Hacer commit si hay cambios
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md OBTAINIUM_LINKS.md
           
           if ! git diff --staged --quiet; then
             git commit -m "docs: update Obtainium links [skip ci]"
-            
-            # Limpiar cambios no rastreados antes del rebase
             git reset --hard HEAD
-            
             git pull --rebase origin main || true
             git push
             echo "[+] Enlaces de Obtainium actualizados en README.md"
