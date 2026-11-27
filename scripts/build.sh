@@ -162,7 +162,8 @@ print_app_failure() {
 }
 
 if [ "${1-}" = "clean" ]; then
-	rm -r "$TEMP_DIR" "$BUILD_DIR" build.md
+	# 🔧 FIX H: `-f` para que no falle si algún path no existe.
+	rm -rf "$TEMP_DIR" "$BUILD_DIR" build.md
 	exit 0
 fi
 
@@ -312,7 +313,10 @@ for table_name in $(toml_get_table_names); do
 		
 		app_args[tv_version]=$(toml_get "$t" "tv-version") || app_args[tv_version]="false"
 
-		# Asignar arquitectura (con default especial para TV si no se define)
+		# 🔧 KISS: `arch` del config es la única fuente de verdad.
+		# Se usa para: nombre APK, strip_libs, module_builder, versions_log, y
+		# fallback de búsqueda en APKMirror. El flag `tv-version` solo se pasa a
+		# dl_apkmirror como pista para buscar universal primero.
 		if ! app_args[arch]=$(toml_get "$t" arch); then
 			if [ "${app_args[tv_version]}" = "true" ]; then
 				app_args[arch]="armeabi-v7a"
@@ -320,12 +324,9 @@ for table_name in $(toml_get_table_names); do
 				app_args[arch]="arm64-v8a"
 			fi
 		fi
-		
-		app_args[arch_original]="${app_args[arch]}"
 
 		if [ "${app_args[tv_version]}" = "true" ]; then
-			app_args[arch]="arm64-v8a + armeabi-v7a"
-			pr "TV version activada: buscando universal. Fallback (default o definido): ${app_args[arch_original]}"
+			pr "TV version activada: buscando universal primero, fallback a ${app_args[arch]}"
 		fi
 
 		app_args[brand]=$(toml_get "$t" brand) || app_args[brand]="Patched"
@@ -412,7 +413,7 @@ for table_name in $(toml_get_table_names); do
 
 			if [ "$latest_applied_tag" = "$cached_patch_ver" ] && \
 			   [ "${app_args[brand]}" = "$cached_brand" ] && \
-			   [ "${app_args[arch_original]}" = "$cached_arch" ]; then
+			   [ "${app_args[arch]}" = "$cached_arch" ]; then
 				pr "  Bundle single-app sin cambios (tag, brand y arch coinciden). Omitiendo sin generar JSON."
 				print_app_skipped "$table_name" "sin cambios (single-app)"
 				exit 0
@@ -494,7 +495,7 @@ for table_name in $(toml_get_table_names); do
 		elif [ "$was_failed_before" = "true" ]; then
 			pr "  Reintentando por fallo previo (ignorando comparación de versiones)"
 		elif ! should_build_app "$table_name" "$PATCHES_PATH" "${app_args[channel]}" \
-			"$target_apk_ver" "${app_args[brand]}" "${app_args[arch_original]}" \
+			"$target_apk_ver" "${app_args[brand]}" "${app_args[arch]}" \
 			"${app_args[pkg_name]}" "$new_patches_hash" \
 			"$is_single_app" "$PATCHES_HOST"; then
 			pr "Omitiendo app '$table_name' por falta de cambios."
@@ -521,6 +522,7 @@ for table_name in $(toml_get_table_names); do
 			echo "Channel: ${app_args[channel]}"
 			echo "Brand: ${app_args[brand]}"
 			echo "Arch: ${app_args[arch]}"
+			echo "TV version: ${app_args[tv_version]}"
 			echo "Build mode: ${app_args[build_mode]}"
 			echo "Force patch: ${app_args[force_patch]}"
 			echo "Inclusive patches: ${app_args[inclusive_patches]}"
@@ -611,7 +613,10 @@ for table_name in $(toml_get_table_names); do
 			elif [ -n "${app_args[apkmirror_dlurl]:-}" ]; then
 				pr "Descargando versión $target_apk_ver para $table_name desde APKMirror..."
 
-				if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist" "${app_args[arch_original]}"; then
+				# 🔧 KISS: pasar `tv_version` como pista. dl_apkmirror decide:
+				#   - tv_version=true  → busca universal primero, fallback a $arch
+				#   - tv_version=false → busca $arch directamente (universal siempre matchea)
+				if ! dl_apkmirror "${app_args[apkmirror_dlurl]}" "$target_apk_ver" "$raw_apk" "${app_args[arch]}" "" false "$version_codes_whitelist" "${app_args[tv_version]}"; then
 					if [ -n "${app_args[telegram_download_url]:-}" ]; then
 						wpr "Fallo en APKMirror. Usando fallback directo desde Telegram..."
 						if ! curl -L -f -s -S --retry 3 --retry-delay 5 -A "$TELEGRAM_UA" -o "$raw_apk" "${app_args[telegram_download_url]}"; then
@@ -626,10 +631,11 @@ for table_name in $(toml_get_table_names); do
 					fi
 				else
 					pr "APK descargada desde APKMirror: $raw_apk"
-					# Leer la arquitectura real usada (por si hubo fallback)
+					# 🔧 KISS: solo log informativo. La arch del config es la fuente de verdad
+					# y NO se sobreescribe con la arquitectura real descargada.
 					if [ -f "${raw_apk}.arch.txt" ]; then
-						app_args[arch]=$(cat "${raw_apk}.arch.txt")
-						pr "  Arquitectura real descargada: ${app_args[arch]}"
+						real_downloaded_arch=$(cat "${raw_apk}.arch.txt")
+						pr "  Arquitectura real descargada: $real_downloaded_arch (config: ${app_args[arch]})"
 					fi
 				fi
 			elif [ -n "${app_args[telegram_download_url]:-}" ]; then
@@ -783,8 +789,8 @@ for table_name in $(toml_get_table_names); do
 				echo ""
 			} >> "$app_log"
 
-			# El striplibs SIEMPRE se toma del config.toml original
-			declare -a strip_libs_flag=("--striplibs=${app_args[arch_original]}")
+			# 🔧 KISS: strip_libs siempre usa la arch del config
+			declare -a strip_libs_flag=("--striplibs=${app_args[arch]}")
 
 			pr "Aplicando parches con Morphe CLI..."
 			java -jar "$MORPHE_CLI_JAR" patch \
@@ -1002,7 +1008,7 @@ for table_name in $(toml_get_table_names); do
 					"${app_args[pkg_name]}" \
 					"$target_apk_ver" \
 					"$pkg_version_code" \
-					"${app_args[arch_original]}" \
+					"${app_args[arch]}" \
 					"$latest_applied_tag" \
 					"${RELEASE_TAG:-stable}"; then
 					pr "Módulo generado: $module_zip"
@@ -1042,7 +1048,7 @@ for table_name in $(toml_get_table_names); do
 		   --arg apk_ver "$target_apk_ver" \
 		   --arg final_pkg "$final_pkg_name" \
 		   --arg brand "${app_args[brand]}" \
-		   --arg arch "${app_args[arch_original]}" \
+		   --arg arch "${app_args[arch]}" \
 		   --arg stable_file "$final_stable_file" \
 		   --arg stable_zip "$final_stable_zip" \
 		   --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \

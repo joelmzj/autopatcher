@@ -113,7 +113,6 @@ def create_magisk_module(
     os.makedirs(stock_dir_dst, exist_ok=True)
     
     if os.path.isdir(stock_src):
-        # Es un directorio con splits (bundle extraído)
         split_count = 0
         for f in os.listdir(stock_src):
             if f.endswith(".apk"):
@@ -124,7 +123,6 @@ def create_magisk_module(
             _die(f"No se encontraron archivos .apk en el directorio de splits: {stock_src}")
         _log(f"Bundle detectado: {split_count} splits copiados a stock/")
     else:
-        # Es un APK monolítico
         stock_dst = os.path.join(stock_dir_dst, "base.apk")
         shutil.copy(stock_src, stock_dst)
         _log(f"APK stock monolítico copiado: {stock_dst}")
@@ -184,22 +182,22 @@ def create_magisk_module(
         f.write(f"name={module_name}\n")
         f.write(f"version={version_string}\n")
         f.write(f"versionCode={vc_int}\n")
-        f.write(f"author=joelmzj\n")  # Corregido
+        f.write(f"author=joelmzj\n")
         f.write(f"description={module_name} module\n")
         f.write(f"updateJson={update_json_url}\n")
     _log(f"module.prop generado: id={module_slug} version={version_string}")
 
     # ------------------------------------------------------------------
     # 7. Generar update.json (para Magisk/KernelSU)
+    # 🔧 FIX E: se omite el campo `changelog` porque apuntaba a una URL
+    # con timestamp calculado de forma independiente en build.yml, y
+    # ambas marcas no siempre coinciden → 404 silencioso. El campo es
+    # opcional en Magisk/KernelSU, así que simplemente se elimina.
     # ------------------------------------------------------------------
     zip_filename = os.path.basename(output_zip)
     zip_url = (
         f"https://github.com/{github_repo}"
         f"/releases/download/{channel}/{zip_filename}"
-    )
-    changelog_url = (
-        f"https://raw.githubusercontent.com/{github_repo}"
-        f"/update/changelogs/{pkg_version_code}.md"
     )
 
     update_json_path = os.path.join(temp_dir, "update.json")
@@ -208,7 +206,6 @@ def create_magisk_module(
             "version": version_string,
             "versionCode": vc_int,
             "zipUrl": zip_url,
-            "changelog": changelog_url,
         }, f, indent=2, ensure_ascii=False)
     _log(f"update.json generado: version={version_string} versionCode={vc_int}")
 
@@ -235,7 +232,6 @@ def create_magisk_module(
 
 
 def main():
-    # script + 12 args = 13
     if len(sys.argv) != 13:
         print(
             "Uso: module_builder.py <template_dir> <stock_src> <patched_apk> <output_zip> "

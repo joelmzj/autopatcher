@@ -445,11 +445,25 @@ get_apkmirror_resp() {
 }
 
 dl_apkmirror() {
-    local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-} fallback_arch=${8:-}
+    # 🔧 KISS: firma simplificada. `tv_version` es solo una pista:
+    #   - true  → intenta universal primero ("arm64-v8a + armeabi-v7a"), fallback a $arch
+    #   - false → busca $arch directamente (universal siempre matchea por _arch_pasa)
+    # `arch` es SIEMPRE la del config.toml y se usa para: nombre APK, strip_libs,
+    # module_builder, versions_log.json, y fallback de búsqueda.
+    local url=$1 version=${2// /-} output=$3 arch=$4 dpi=$5 is_bundle=false get_latest_ver=${6:-false} version_code=${7:-} tv_version=${8:-false}
 
     if [ "$arch" = "arm-v7a" ]; then arch="armeabi-v7a"; fi
     local clean_version="${version//[^0-9.]/}"
     local search_version="${version//./-}"
+
+    # 🔧 KISS: cadena "fake" para TV, solo como pista de búsqueda.
+    # Se pasa a apkmirror_search.py como arch primaria, que con "+" solo
+    # aceptará variantes "universal". El fallback es $arch (config).
+    local primary_search_arch="$arch"
+    if [ "$tv_version" = "true" ]; then
+        primary_search_arch="arm64-v8a + armeabi-v7a"
+        pr "  [TV] Buscando universal primero, fallback a $arch"
+    fi
 
     local search_py="${CWD}/scripts/apkmirror_search.py"
     local cf_py="${CWD}/scripts/cf_get.py"
@@ -562,15 +576,18 @@ dl_apkmirror() {
         return 1
     }
 
-    pr "Buscando variante (arch='$arch')..."
+    pr "Buscando variante (arch='$primary_search_arch', fallback='$arch')..."
     local variant_output
     local real_arch=""
     
+    # 🔧 KISS: pasa primary_search_arch como primaria (universal-only si TV)
+    # y $arch como fallback (config arch). apkmirror_search.py ya maneja bien
+    # el caso de "+" → solo universal, fallback → arch específica.
     if [ -n "$version_code" ]; then
         pr "  Con whitelist de versionCodes: $version_code"
-        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$arch" "$version_code" "$fallback_arch" 2>"$log_stderr")
+        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$primary_search_arch" "$version_code" "$arch" 2>"$log_stderr")
     else
-        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$arch" "" "$fallback_arch" 2>"$log_stderr")
+        variant_output=$(echo "$release_html" | python3 "$search_py" variant "$primary_search_arch" "" "$arch" 2>"$log_stderr")
     fi
     
     if [ -s "$log_stderr" ]; then
@@ -582,7 +599,7 @@ dl_apkmirror() {
     real_arch=$(echo "$variant_output" | head -n 1 | cut -f 2)
 
     if [ -z "$variant_page_url" ] || [[ "$variant_page_url" != http* ]]; then
-        epr "Paso 1 falló: no se encontró variante para arch='$arch'"
+        epr "Paso 1 falló: no se encontró variante para arch='$primary_search_arch'"
         return 1
     fi
     pr "Variante elegida: $variant_page_url"
@@ -636,7 +653,7 @@ dl_apkmirror() {
     pr "Enlace final: $final_url"
 
     # ------------------------------------------------------------------
-    # Descarga final del archivo
+    # 🔧 FIX C: Descarga final con 3 ciclos y refresh COMPLETO de key
     # ------------------------------------------------------------------
     pr "Descargando APK final..."
     mkdir -p "$(dirname "$output")"
@@ -647,7 +664,7 @@ dl_apkmirror() {
         local target_url="$1"
         local referer_url="$2"
 
-        # Intento 1: curl
+        # Intento 1: curl directo
         if curl -L -f -s -S --retry 3 --retry-delay 5 \
             --connect-timeout 30 --max-time 1800 \
             -A "$CURL_UA" \
@@ -668,8 +685,8 @@ dl_apkmirror() {
             fi
         fi
 
-        # Intento 2: cf_get.py (solver CF)
-        pr "Curl falló, reintentando con cf_get.py..."
+        # Intento 2: cf_get.py (multi-impersonate + solver, ver FIX B)
+        pr "Curl falló, reintentando con cf_get.py (multi-target + solver)..."
         if python3 "$cf_py" download "$target_url" "$output" "$referer_url" "$TEMP_DIR/cookie.txt"; then
             if [ -f "$output" ] && [ -s "$output" ]; then
                 return 0
@@ -678,31 +695,59 @@ dl_apkmirror() {
         return 1
     }
 
-    # Intento inicial con la URL que ya tenemos
-    if _try_download_apkmirror "$final_url" "$download_url"; then
-        pr "APK descargada y verificada: $output"
-        return 0
-    fi
+    # ── Bucle de 3 ciclos con refresh real de key ──────────────────
+    local max_cycles=3
+    local cycle=1
+    local backoff=15
 
-    # Si falla, refrescar la página intermedia para obtener una key fresca
-    pr "Descarga falló. Refrescando key de descarga y reintentando..."
-    sleep 3   # margen para que el rate-limit de APKMirror se relaje
+    while [ "$cycle" -le "$max_cycles" ]; do
+        pr "  [descarga] ciclo $cycle/$max_cycles"
 
-    local fresh_step2_html fresh_final
-    fresh_step2_html=$(python3 "$cf_py" "$download_url" 2>/dev/null) || true
-
-    if [ -n "$fresh_step2_html" ]; then
-        fresh_final=$(echo "$fresh_step2_html" | python3 "$search_py" final 2>/dev/null)
-        if [ -n "$fresh_final" ] && [[ "$fresh_final" == http* ]] && [ "$fresh_final" != "$final_url" ]; then
-            pr "Nuevo enlace final obtenido: $fresh_final"
-            if _try_download_apkmirror "$fresh_final" "$download_url"; then
-                pr "APK descargada (retry con key fresca): $output"
-                return 0
-            fi
+        if _try_download_apkmirror "$final_url" "$download_url"; then
+            pr "APK descargada y verificada: $output"
+            return 0
         fi
-    fi
 
-    epr "No se pudo descargar la APK tras varios intentos (CF/403)"
+        if [ "$cycle" -ge "$max_cycles" ]; then
+            break
+        fi
+
+        wpr "  Ciclo $cycle falló. Refresh COMPLETO de key en ${backoff}s..."
+        sleep "$backoff"
+        backoff=$((backoff * 2))
+
+        # ── Refresh COMPLETO ──────────────────────────────────────
+        local fresh_variant_html fresh_download fresh_step2_html fresh_final
+        fresh_variant_html=$(python3 "$cf_py" "$variant_page_url" 2>/dev/null) || true
+
+        if [ -z "$fresh_variant_html" ]; then
+            wpr "  No se pudo refrescar la variante (HTML vacío)"
+            cycle=$((cycle + 1))
+            continue
+        fi
+
+        fresh_download=$(echo "$fresh_variant_html" | python3 "$search_py" download 2>/dev/null)
+        if [ -z "$fresh_download" ] || [[ "$fresh_download" != http* ]]; then
+            wpr "  No se pudo extraer un download_url fresco"
+            cycle=$((cycle + 1))
+            continue
+        fi
+
+        fresh_step2_html=$(python3 "$cf_py" "$fresh_download" 2>/dev/null) || true
+        fresh_final=$(echo "$fresh_step2_html" | python3 "$search_py" final 2>/dev/null)
+        if [ -z "$fresh_final" ] || [[ "$fresh_final" != http* ]]; then
+            wpr "  No se pudo extraer un final_url fresco"
+            cycle=$((cycle + 1))
+            continue
+        fi
+
+        pr "  Nueva key obtenida: ${fresh_final:0:80}..."
+        download_url="$fresh_download"
+        final_url="$fresh_final"
+        cycle=$((cycle + 1))
+    done
+
+    epr "No se pudo descargar la APK tras $max_cycles ciclos (CF/403)"
     return 1
 }
 

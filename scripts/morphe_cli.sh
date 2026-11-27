@@ -46,7 +46,10 @@ get_morphe_desktop_cli() {
     fi
 
     pr "Descargando Morphe Desktop CLI ($tag_name) desde: $dl_url"
-    curl -L -s -S "$dl_url" -o "$cli_jar" || return 1
+    # 🔧 FIX F: retry con backoff para absorber fallos transitorios de red/GitHub.
+    # Un fallo de 2s en esta descarga tumbaba todo el build porque el JAR
+    # se descarga una vez al inicio y se propaga `return 1` hacia arriba.
+    curl -L -s -S --retry 3 --retry-delay 5 --retry-all-errors "$dl_url" -o "$cli_jar" || return 1
 
     echo "$cli_jar"
 }

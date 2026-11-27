@@ -183,12 +183,5 @@ https://github.com/joelmzj/autopatcher
 ^Pluto-TV-
 ```
 
-### Crunchyroll (`com.crunchyroll.crunchyroid`)
-- **Enlace directo (móvil):** [Añadir a Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.crunchyroll.crunchyroid%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fgithub.com%252Fjoelmzj%252Fautopatcher%2522%252C%2522author%2522%253A%2522joelmzj%2522%252C%2522name%2522%253A%2522Crunchyroll%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522useLatestAssetDateAsReleaseDate%255C%2522%253Atrue%252C%255C%2522releaseDateAsVersion%255C%2522%253Atrue%252C%255C%2522versionDetection%255C%2522%253Afalse%252C%255C%2522autoApkFilterByArch%255C%2522%253Atrue%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255ECrunchyroll-%255C%2522%257D%2522%257D)
-- **Cadena regex (manual):**
-```text
-^Crunchyroll-
-```
-
 ---
 > **Nota:** Solo se instalan los APKs (no los módulos).

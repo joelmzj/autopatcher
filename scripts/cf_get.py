@@ -139,38 +139,97 @@ def effective_url(resp, fallback: str) -> str:
     return u or fallback
 
 
+# ==============================================================================
+# 🔧 FIX B1: solve_challenge con POST /cookies primero (API real de sarperavci)
+# ------------------------------------------------------------------------------
+# Problema anterior: solo usaba GET contra /cookies. Si el solver expone
+# /cookies como POST (que es lo estándar), el GET devuelve 404 y la función
+# fallaba silenciosamente → el solve_challenge "no hacía nada" en el log.
+#
+# Cambios:
+#   1. POST /cookies primero, GET como fallback por compatibilidad
+#   2. Timeout 120s (antes 60s, corto para download.php)
+#   3. Acepta respuesta {cookies: {...}, user_agent: "..."} Y dict plano
+#   4. Log de cada intento (antes: silencio total)
+# ==============================================================================
 def solve_challenge(url: str, session) -> tuple[bool, str]:
-    solver_url = os.getenv(
-        "CF_SOLVER_URL", "http://localhost:8000").rstrip("/")
-    try:
-        import urllib.parse
-        resp = requests.get(f"{solver_url}/cookies",
-                            params={"url": url}, timeout=60)
-        if resp.status_code == 200:
-            data = resp.json()
-            cookies = data.get("cookies", {})
-            user_agent = data.get("user_agent", "")
+    import urllib.parse
+
+    solver_url = os.getenv("CF_SOLVER_URL", "http://localhost:8000").rstrip("/")
+
+    attempts = [
+        ("POST /cookies", lambda: requests.post(
+            f"{solver_url}/cookies",
+            json={"url": url},
+            timeout=120,
+        )),
+        ("GET /cookies", lambda: requests.get(
+            f"{solver_url}/cookies",
+            params={"url": url},
+            timeout=120,
+        )),
+    ]
+
+    for name, call in attempts:
+        try:
+            sys.stderr.write(f"[cf_get] solver intento: {name}\n")
+            resp = call()
+            if resp.status_code != 200:
+                sys.stderr.write(
+                    f"[cf_get] {name} → HTTP {resp.status_code}: "
+                    f"{(resp.text or '')[:120]}\n")
+                continue
+
+            data = {}
+            try:
+                data = resp.json()
+            except Exception:
+                pass
+
+            # Algunos solvers devuelven {cookies: {...}, user_agent: "..."}
+            # Otros devuelven directamente un dict plano de cookies
+            cookies = data.get("cookies") if isinstance(data, dict) else None
+            if cookies is None and isinstance(data, dict) and data:
+                cookies = data
+
+            user_agent = (
+                data.get("user_agent") if isinstance(data, dict) else ""
+            ) or ""
+
             parsed_host = urllib.parse.urlparse(url).hostname or ""
             parts = parsed_host.split(".")
-            default_domain = f".{'.'.join(parts[-2:])}" if len(
-                parts) >= 2 else parsed_host
-            if isinstance(cookies, dict):
+            default_domain = (
+                f".{'.'.join(parts[-2:])}" if len(parts) >= 2 else parsed_host)
+
+            if isinstance(cookies, dict) and cookies:
                 for k, v in cookies.items():
                     session.cookies.set(k, v, domain=default_domain)
-            elif isinstance(cookies, list):
+            elif isinstance(cookies, list) and cookies:
                 for c in cookies:
                     if isinstance(c, dict) and "name" in c and "value" in c:
-                        c_domain = c.get("domain") or default_domain
-                        c_path = c.get("path", "/")
                         session.cookies.set(
-                            c["name"], c["value"], domain=c_domain, path=c_path)
+                            c["name"], c["value"],
+                            domain=c.get("domain") or default_domain,
+                            path=c.get("path", "/"))
+            else:
+                sys.stderr.write(
+                    f"[cf_get] {name} → 200 pero sin cookies: "
+                    f"{str(data)[:120]}\n")
+                continue
 
             if user_agent:
                 session.headers["User-Agent"] = user_agent
+
+            sys.stderr.write(
+                f"[cf_get] {name} → OK ({len(session.cookies)} cookies)\n")
             return True, user_agent
-    except Exception as e:
-        sys.stderr.write(
-            f"[cf_get] Solver error connecting to {solver_url}: {e}\n")
+
+        except Exception as e:
+            sys.stderr.write(
+                f"[cf_get] {name} excepción: {type(e).__name__}: {e}\n")
+            continue
+
+    sys.stderr.write("[cf_get] solver: todos los intentos fallaron\n")
     return False, ""
 
 
@@ -185,77 +244,157 @@ def write_source_note(cookie_file: str, note: str):
         pass
 
 
+# ==============================================================================
+# 🔧 FIX B3 (bonus): fetch_from_solver_html con POST /html primero
+# ------------------------------------------------------------------------------
+# Mismo patrón que B1. El endpoint /html también soporta POST con body JSON
+# {url, method}. Si el solver usa POST-only, el GET anterior daba 404/405.
+# ==============================================================================
 def fetch_from_solver_html(url: str) -> tuple[str | None, str]:
-    solver_url = os.getenv(
-        "CF_SOLVER_URL", "http://localhost:8000").rstrip("/")
-    try:
-        resp = requests.get(f"{solver_url}/html",
-                            params={"url": url}, timeout=60)
-    except Exception as e:
-        sys.stderr.write(f"[cf_get] solver /html failed for {url}: {e}\n")
-        return None, ""
-    if resp.status_code == 200 and resp.text and not is_challenge(
-            resp.status_code, resp.text, getattr(resp, "headers", None)):
-        return resp.text, str(resp.headers.get("x-cf-bypasser-final-url") or url)
-    sys.stderr.write(
-        f"[cf_get] solver /html gave no usable page for {url} "
-        f"(status {resp.status_code}, {len(resp.text or '')} chars)\n")
+    solver_url = os.getenv("CF_SOLVER_URL", "http://localhost:8000").rstrip("/")
+
+    attempts = [
+        ("POST /html", lambda: requests.post(
+            f"{solver_url}/html",
+            json={"url": url, "method": "GET"},
+            timeout=120,
+        )),
+        ("GET /html", lambda: requests.get(
+            f"{solver_url}/html",
+            params={"url": url},
+            timeout=120,
+        )),
+    ]
+
+    for name, call in attempts:
+        try:
+            resp = call()
+        except Exception as e:
+            sys.stderr.write(f"[cf_get] solver {name} failed for {url}: {e}\n")
+            continue
+
+        if resp.status_code == 200 and resp.text and not is_challenge(
+                resp.status_code, resp.text, getattr(resp, "headers", None)):
+            return resp.text, str(resp.headers.get("x-cf-bypasser-final-url") or url)
+
+        sys.stderr.write(
+            f"[cf_get] solver {name} gave no usable page for {url} "
+            f"(status {resp.status_code}, {len(resp.text or '')} chars)\n")
+
     return None, ""
 
 
-def download_file(url: str, dest_path: str, referer: str = "", cookie_file: str = "") -> bool:
+# ==============================================================================
+# 🔧 FIX B2: download_file con multi-impersonate target
+# ------------------------------------------------------------------------------
+# Problema anterior: solo probaba "chrome". Si APKMirror bloquea Chrome
+# específicamente en download.php (mientras /uploads/ sí pasa), la descarga
+# fallaba siempre. El path HTML ya probaba 8 targets, pero la descarga no.
+#
+# Cambios:
+#   1. Itera get_impersonate_targets() (8 targets) en lugar de solo chrome
+#   2. Por cada target: directo → si 403, solver → si sigue 403, siguiente
+#   3. Valida que la descarga no sea HTML disfrazado (antes solo validaba 200)
+#   4. Limpia .part en cada fallo (antes podía quedar basura)
+#   5. Log de cada target (antes: solo un mensaje si todo fallaba)
+# ==============================================================================
+def download_file(url: str, dest_path: str, referer: str = "",
+                  cookie_file: str = "") -> bool:
     os.makedirs(os.path.dirname(os.path.abspath(dest_path)), exist_ok=True)
     temp_dest = f"{dest_path}.part"
 
-    s = requests.Session(impersonate="chrome")
-    load_cookies(s, cookie_file)
-    headers = {}
+    # Asegurar chrome primero (es el que funcionó históricamente)
+    targets = get_impersonate_targets()
+    if "chrome" in targets:
+        targets.remove("chrome")
+        targets.insert(0, "chrome")
+
+    headers_base = {}
     if referer:
-        headers["Referer"] = referer
+        headers_base["Referer"] = referer
 
-    try:
-        resp = s.get(url, headers=headers, timeout=(15, 600), stream=True, allow_redirects=True)
-        
-        # Si es un bloqueo de Cloudflare (403/503), intentar resolver el reto UNA sola vez
-        if resp.status_code in (403, 503):
-            sys.stderr.write(f"[cf_get] HTTP {resp.status_code} en descarga. Intentando solver...\n")
-            solved, ua = solve_challenge(url, s)
-            if solved:
-                save_cookies(s, cookie_file, ua)
-                resp = s.get(url, headers=headers, timeout=(15, 600), stream=True, allow_redirects=True)
+    for target in targets:
+        sys.stderr.write(f"[cf_get] download: probando impersonate={target}\n")
 
-        if resp.status_code == 200:
+        s = requests.Session(impersonate=target)
+        load_cookies(s, cookie_file)
+
+        try:
+            resp = s.get(url, headers=headers_base, timeout=(15, 600),
+                         stream=True, allow_redirects=True)
+
+            # Si 403/503, intentar solver
+            if resp.status_code in (403, 503):
+                sys.stderr.write(
+                    f"[cf_get] {target} → HTTP {resp.status_code}, "
+                    f"intentando solver\n")
+                solved, ua = solve_challenge(url, s)
+                if solved:
+                    save_cookies(s, cookie_file, ua)
+                    resp = s.get(url, headers=headers_base,
+                                 timeout=(15, 600), stream=True,
+                                 allow_redirects=True)
+                    sys.stderr.write(
+                        f"[cf_get] {target} post-solver → "
+                        f"HTTP {resp.status_code}\n")
+
+            if resp.status_code != 200:
+                sys.stderr.write(
+                    f"[cf_get] {target} → HTTP {resp.status_code}, "
+                    f"siguiente target\n")
+                if os.path.isfile(temp_dest):
+                    try:
+                        os.remove(temp_dest)
+                    except Exception:
+                        pass
+                continue
+
+            # Descargar a .part
             with open(temp_dest, "wb") as f:
                 for chunk in resp.iter_content(chunk_size=1048576):
                     if chunk:
                         f.write(chunk)
-            
-            # Validar tamaño y que el archivo no sea HTML (bloqueo disfrazado)
-            if os.path.getsize(temp_dest) > 1024 * 1024:
-                with open(temp_dest, "rb") as f:
-                    head = f.read(64).lstrip()
-                    if head[:1] == b"<":
-                        sys.stderr.write(f"[cf_get] Descarga fallida: el archivo es HTML (bloqueo).\n")
-                        os.remove(temp_dest)
-                        return False
-                
-                if os.path.isfile(dest_path):
-                    os.remove(dest_path)
-                os.rename(temp_dest, dest_path)
-                save_cookies(s, cookie_file)
-                return True
-            else:
-                sys.stderr.write(f"[cf_get] Descarga fallida: tamaño demasiado pequeño ({os.path.getsize(temp_dest)} bytes).\n")
+
+            # Validar tamaño mínimo (evita HTML de error pequeño)
+            size = os.path.getsize(temp_dest)
+            if size < 1024 * 1024:
+                sys.stderr.write(
+                    f"[cf_get] {target} → archivo muy pequeño "
+                    f"({size} bytes), descartado\n")
                 os.remove(temp_dest)
-        else:
-            sys.stderr.write(f"[cf_get] Descarga fallida: HTTP {resp.status_code}\n")
-            
-    except Exception as e:
-        sys.stderr.write(f"[cf_get] Error de descarga: {e}\n")
-    
-    if os.path.isfile(temp_dest):
-        try: os.remove(temp_dest)
-        except: pass
+                continue
+
+            # Validar que no sea HTML disfrazado
+            with open(temp_dest, "rb") as f:
+                head = f.read(64).lstrip()
+                if head[:1] == b"<":
+                    sys.stderr.write(
+                        f"[cf_get] {target} → el archivo es HTML "
+                        f"(bloqueo disfrazado), descartado\n")
+                    os.remove(temp_dest)
+                    continue
+
+            # Mover a destino final
+            if os.path.isfile(dest_path):
+                os.remove(dest_path)
+            os.rename(temp_dest, dest_path)
+            save_cookies(s, cookie_file)
+            sys.stderr.write(
+                f"[cf_get] {target} → descarga OK ({size} bytes)\n")
+            return True
+
+        except Exception as e:
+            sys.stderr.write(
+                f"[cf_get] {target} excepción: {type(e).__name__}: {e}\n")
+            if os.path.isfile(temp_dest):
+                try:
+                    os.remove(temp_dest)
+                except Exception:
+                    pass
+            continue
+
+    sys.stderr.write(
+        f"[cf_get] todos los targets fallaron ({len(targets)} intentos)\n")
     return False
 
 
