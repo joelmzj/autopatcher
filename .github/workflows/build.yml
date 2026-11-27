@@ -60,7 +60,10 @@ on:
           - "SendFilesToTV-TV"
           - "AnExplorer-TV"
           - "Tubi-TV"
+          - "Tubi-Phone"
           - "Pluto-TV"
+          - "Linkedin"
+          - "Deezer"
           # END: AUTO-GENERATED-APPS
       rebuild_custom:
         description: "Apps adicionales (coma-separadas). Se combina con el preset. '*' = todas."
