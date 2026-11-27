@@ -176,11 +176,32 @@ https://github.com/joelmzj/autopatcher
 ^Tubi-TV-
 ```
 
+### Tubi-Phone (`com.tubitv`)
+- **Enlace directo (móvil):** [Añadir a Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.tubitv%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fgithub.com%252Fjoelmzj%252Fautopatcher%2522%252C%2522author%2522%253A%2522joelmzj%2522%252C%2522name%2522%253A%2522Tubi-Phone%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522useLatestAssetDateAsReleaseDate%255C%2522%253Atrue%252C%255C%2522releaseDateAsVersion%255C%2522%253Atrue%252C%255C%2522versionDetection%255C%2522%253Afalse%252C%255C%2522autoApkFilterByArch%255C%2522%253Atrue%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255ETubi-Phone-%255C%2522%257D%2522%257D)
+- **Cadena regex (manual):**
+```text
+^Tubi-Phone-
+```
+
 ### Pluto-TV (`tv.pluto.android`)
 - **Enlace directo (móvil):** [Añadir a Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522tv.pluto.android%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fgithub.com%252Fjoelmzj%252Fautopatcher%2522%252C%2522author%2522%253A%2522joelmzj%2522%252C%2522name%2522%253A%2522Pluto-TV%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522useLatestAssetDateAsReleaseDate%255C%2522%253Atrue%252C%255C%2522releaseDateAsVersion%255C%2522%253Atrue%252C%255C%2522versionDetection%255C%2522%253Afalse%252C%255C%2522autoApkFilterByArch%255C%2522%253Atrue%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255EPluto-TV-%255C%2522%257D%2522%257D)
 - **Cadena regex (manual):**
 ```text
 ^Pluto-TV-
+```
+
+### Linkedin (`com.linkedin.android`)
+- **Enlace directo (móvil):** [Añadir a Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.linkedin.android%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fgithub.com%252Fjoelmzj%252Fautopatcher%2522%252C%2522author%2522%253A%2522joelmzj%2522%252C%2522name%2522%253A%2522Linkedin%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522useLatestAssetDateAsReleaseDate%255C%2522%253Atrue%252C%255C%2522releaseDateAsVersion%255C%2522%253Atrue%252C%255C%2522versionDetection%255C%2522%253Afalse%252C%255C%2522autoApkFilterByArch%255C%2522%253Atrue%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255ELinkedin-%255C%2522%257D%2522%257D)
+- **Cadena regex (manual):**
+```text
+^Linkedin-
+```
+
+### Deezer (`deezer.android.app`)
+- **Enlace directo (móvil):** [Añadir a Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522deezer.android.app%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fgithub.com%252Fjoelmzj%252Fautopatcher%2522%252C%2522author%2522%253A%2522joelmzj%2522%252C%2522name%2522%253A%2522Deezer%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522useLatestAssetDateAsReleaseDate%255C%2522%253Atrue%252C%255C%2522releaseDateAsVersion%255C%2522%253Atrue%252C%255C%2522versionDetection%255C%2522%253Afalse%252C%255C%2522autoApkFilterByArch%255C%2522%253Atrue%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255EDeezer-%255C%2522%257D%2522%257D)
+- **Cadena regex (manual):**
+```text
+^Deezer-
 ```
 
 ---
