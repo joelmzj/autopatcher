@@ -323,5 +323,18 @@
     "stable_file": "Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.19-arm64-v8a_armeabi-v7a.apk",
     "stable_zip": null,
     "timestamp": "2026-11-26T06:15:04Z"
+  },
+  "Tubi-Phone": {
+    "patches_source": "semicoloncolonel/mobile-morphe-patches",
+    "channel": "dev",
+    "patches_version": "v1.2.0-dev.46",
+    "patches_hash": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "apk_version": "10.46.1",
+    "final_pkg_name": "com.tubitv",
+    "brand": "semicoloncolonel",
+    "arch": "arm64-v8a",
+    "stable_file": "Tubi-Phone-v10.46.1-semicoloncolonel-v1.2.0-dev.46-arm64-v8a.apk",
+    "stable_zip": null,
+    "timestamp": "2026-11-27T21:59:33Z"
   }
 }

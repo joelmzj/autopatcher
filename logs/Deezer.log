@@ -1,0 +1,82 @@
+
+═══════════════════════════════════════════════════════════════
+  🚀 PROCESANDO: Deezer
+     Repo:    https://gitlab.com/johninnld/nl-morphe-patches
+     Pkg:     deezer.android.app
+     Canal:   stable  |  Brand: johninnld  |  Arch: arm64-v8a
+     Inicio:  2026-11-27T21:59:54Z
+═══════════════════════════════════════════════════════════════
+
+=== Parcheo: Deezer ===
+Fecha: 2026-11-27T21:59:56Z
+APK version: 9.0.27.3
+Patches version: v1.108.0
+Patches source: https://gitlab.com/johninnld/nl-morphe-patches
+Channel: stable
+Brand: johninnld
+Arch: arm64-v8a
+TV version: false
+Build mode: apk
+Force patch: true
+Inclusive patches: true
+Single-app bundle: false
+Patches hash: 6bc60d09795d99f6eaf5307cc10b1251cc52aa5f4203f132571fe0a82dbc209e
+DL URL: —
+
+
+--- Argumentos de parches (0) ---
+
+--- Salida de Morphe CLI (APK principal) ---
+
+INFO: Morphe data root: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data (JAR-adjacent)
+INFO: GitLab: fetching patches-bundle.json from https://gitlab.com/johninnld/nl-morphe-patches/-/raw/main/patches-bundle.json
+INFO: GitLab: bundle (main) → v1.108.0 @ https://gitlab.com/johninnld/nl-morphe-patches/-/releases/v1.108.0/downloads/patches-1.108.0.mpp
+INFO: Latest stable via patches-bundle.json: v1.108.0
+INFO: Using cached patches: /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/johninnld-nl-morphe-patches/v1.108.0__patches-1.108.0.mpp (52164474 bytes)
+INFO: Resolved patches (v1.108.0) at /home/runner/work/autopatcher/autopatcher/temp/morphe/morphe-data/patches/johninnld-nl-morphe-patches/v1.108.0__patches-1.108.0.mpp
+INFO: Initializing patcher...
+INFO: Loading patches from 1 bundle(s)...
+INFO: Filtering patches for deezer.android.app v9.0.27.3...
+INFO: Applying 13 patches...
+INFO: Deleting existing temporary files directory
+INFO: Decoding the manifest
+INFO: Decoding resources on request, 4762 files can be decoded
+INFO: Executing patches
+INFO: Building instruction indexes for 52547 classes...
+ERROR: Failed: Allow any Android Auto host
+ERROR: Failed: Android Auto API 9 media surface
+ERROR: Failed: Disable tracking
+ERROR: Failed: Enable full streaming
+ERROR: Failed: Enable lyrics
+ERROR: Failed: Enable offline downloads
+ERROR: Failed: Enable queue item selection
+ERROR: Failed: Google sign-in through microG-RE
+ERROR: Failed: Player queue shortcuts
+ERROR: Failed: Remove advertising
+ERROR: Failed: Remove premium upsell UI
+ERROR: Failed: Remove subscription paywalls
+ERROR: Failed: Search and sort playlists
+INFO: Rebuilding APK...
+INFO: Compiling patched dex files (mode: STRIP_FAST)
+INFO: Changed 0 of 52547 classes to mutable
+INFO: Stripped 0 modified classes from 0 original DEX files
+INFO: Carried the baseline profile over to 6 DEX files
+INFO: Compiling modified resources
+INFO: Stripping libs (keeping architectures arm64-v8a)
+INFO: Stripped 30 lib files
+INFO: Decoded 0 of 4762 files on request
+INFO: Unescaping strings
+INFO: Processing aapt macros
+INFO: Generating new resource IDs
+INFO: Writing resource APK
+INFO: Reusing 4643 unchanged archive entries, rebuilding 2 entries, dropping 30 entries, leaving out 2 replaced entries
+INFO: Resource APK scan: 100ms write: 600ms
+INFO: Signing APK
+INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Deezer-v9.0.27.3-johninnld-v1.108.0-arm64-v8a.apk
+INFO: Patching took 3.4 seconds
+
+═══════════════════════════════════════════════════════════════
+  ❌ FALLÓ: Deezer  (52s)
+     Revisa logs/Deezer.log para detalles
+═══════════════════════════════════════════════════════════════
+
