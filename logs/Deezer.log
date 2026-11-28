@@ -4,11 +4,11 @@
      Repo:    https://gitlab.com/johninnld/nl-morphe-patches
      Pkg:     deezer.android.app
      Canal:   stable  |  Brand: johninnld  |  Arch: arm64-v8a
-     Inicio:  2026-11-28T02:29:18Z
+     Inicio:  2026-11-28T11:15:19Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: Deezer ===
-Fecha: 2026-11-28T02:29:20Z
+Fecha: 2026-11-28T11:15:21Z
 APK version: 9.0.27.3
 Patches version: v1.108.1
 Patches source: https://gitlab.com/johninnld/nl-morphe-patches
@@ -73,10 +73,10 @@ INFO: Reusing 4643 unchanged archive entries, rebuilding 2 entries, dropping 30 
 INFO: Resource APK scan: 100ms write: 500ms
 INFO: Signing APK
 INFO: Saved to /home/runner/work/autopatcher/autopatcher/build/Deezer-v9.0.27.3-johninnld-v1.108.1-arm64-v8a.apk
-INFO: Patching took 3.7 seconds
+INFO: Patching took 4.3 seconds
 
 ═══════════════════════════════════════════════════════════════
-  ❌ FALLÓ: Deezer  (52s)
+  ❌ FALLÓ: Deezer  (55s)
      Revisa logs/Deezer.log para detalles
 ═══════════════════════════════════════════════════════════════
 

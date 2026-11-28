@@ -4,13 +4,13 @@
      Repo:    amfakh/fakh-patches
      Pkg:     com.linkedin.android
      Canal:   stable  |  Brand: amfakh  |  Arch: arm64-v8a
-     Inicio:  2026-11-28T02:29:03Z
+     Inicio:  2026-11-28T11:15:03Z
 ═══════════════════════════════════════════════════════════════
 
 === Parcheo: Linkedin ===
-Fecha: 2026-11-28T02:29:05Z
+Fecha: 2026-11-28T11:15:05Z
 APK version: 4.1.1278
-Patches version: v2.17.1
+Patches version: v2.18.2
 Patches source: amfakh/fakh-patches
 Channel: stable
 Brand: amfakh
@@ -20,7 +20,7 @@ Build mode: apk
 Force patch: true
 Inclusive patches: true
 Single-app bundle: false
-Patches hash: e3790a7a87e7dacedf22cb577aea3a6261054de898519a54cf751b8b9957ddc2
+Patches hash: fa019de974060bc76077248424514fa86430fa662fe94d845f67e7e1dc57c223
 DL URL: —
 
 
