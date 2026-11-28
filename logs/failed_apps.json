@@ -1,12 +1,12 @@
 {
   "Linkedin": {
     "first_failed_at": "2026-11-27T21:59:54Z",
-    "last_attempt_at": "2026-11-27T21:59:54Z",
-    "attempts": 1
+    "last_attempt_at": "2026-11-28T02:29:18Z",
+    "attempts": 2
   },
   "Deezer": {
     "first_failed_at": "2026-11-27T22:00:46Z",
-    "last_attempt_at": "2026-11-27T22:00:46Z",
-    "attempts": 1
+    "last_attempt_at": "2026-11-28T02:30:10Z",
+    "attempts": 2
   }
 }

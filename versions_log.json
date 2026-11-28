@@ -171,15 +171,15 @@
   "Waze": {
     "patches_source": "bearinmindcat/morphe-patches",
     "channel": "stable",
-    "patches_version": "v2.10.2",
-    "patches_hash": "952541eed45624c9a517ddac7edd1bdf1d31bad78e6536252dd9ef546ca6a077",
+    "patches_version": "v2.10.3",
+    "patches_hash": "a567c7a2a8e355518eb5cc7c069b8b41269c11c373bd93b2584efa67b6313573",
     "apk_version": "5.27.5.0",
     "final_pkg_name": "com.waze",
     "brand": "bearinmindcat",
     "arch": "arm64-v8a",
     "stable_file": null,
-    "stable_zip": "Waze-v5.27.5.0-bearinmindcat-v2.10.2-arm64-v8a.zip",
-    "timestamp": "2026-11-27T19:49:40Z"
+    "stable_zip": "Waze-v5.27.5.0-bearinmindcat-v2.10.3-arm64-v8a.zip",
+    "timestamp": "2026-11-28T02:28:01Z"
   },
   "X": {
     "patches_source": "crimera/piko-newx",
@@ -314,15 +314,15 @@
   "Pluto-TV": {
     "patches_source": "semicoloncolonel/tv-morphe-patches",
     "channel": "dev",
-    "patches_version": "v1.2.0-dev.19",
-    "patches_hash": "234f029c1647763eecac8a559eb3a7f5fa70aaebddd8f2e671d21ec7524b58f9",
+    "patches_version": "v1.3.0-dev.1",
+    "patches_hash": "8e15218abbb2bb115da56c51ad752a1e701ff9591f334185f077d74f3d52de68",
     "apk_version": "17.4.0",
     "final_pkg_name": "tv.pluto.android",
     "brand": "semicoloncolonel",
     "arch": "armeabi-v7a",
-    "stable_file": "Pluto-TV-v17.4.0-semicoloncolonel-v1.2.0-dev.19-arm64-v8a_armeabi-v7a.apk",
+    "stable_file": "Pluto-TV-v17.4.0-semicoloncolonel-v1.3.0-dev.1-armeabi-v7a.apk",
     "stable_zip": null,
-    "timestamp": "2026-11-26T06:15:04Z"
+    "timestamp": "2026-11-28T02:29:02Z"
   },
   "Tubi-Phone": {
     "patches_source": "semicoloncolonel/mobile-morphe-patches",
